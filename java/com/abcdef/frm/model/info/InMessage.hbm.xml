@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="com.abcdef.frm.model.info.InMessage" table="frm_in_message">
+		<id name="receiveId" type="java.lang.Long">
+			<generator class="native"></generator>
+		</id>
+		<property name="userId" not-null="true" />
+		<property name="userFullname" type="java.lang.String" length="40"/>
+		<property name="readFlag" type="java.lang.Short" not-null="true" />
+		<property name="delFlag" type="java.lang.Short" not-null="true" />
+		<many-to-one name="shortMessage" class="com.abcdef.frm.model.info.ShortMessage">
+			<column name="messageId" />
+		</many-to-one>
+	</class>
+</hibernate-mapping>

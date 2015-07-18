@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd  http://www.springframework.org/schema/context
+	http://www.springframework.org/schema/context/spring-context-2.5.xsd">
+	
+	<bean id="genericDao" abstract="true" class="com.abcdef.core.dao.impl.GenericDaoImpl">
+		<property name="jdbcTemplate" ref="jdbcTemplate"/>
+		<property name="sessionFactory" ref="sessionFactory"/>
+	</bean>
+	
+	
+	<bean id="baseDao" abstract="true" class="com.abcdef.core.dao.impl.BaseDaoImpl" parent="genericDao"/>
+   	
+	<bean id="sysConfigDao" class="com.abcdef.frm.dao.system.impl.SysConfigDaoImpl" parent="baseDao"/>
+	
+	<bean id="systemLogDao" class="com.abcdef.frm.dao.system.impl.SystemLogDaoImpl" parent="baseDao"/>
+	
+	<bean id="appUserDao" class="com.abcdef.frm.dao.system.impl.AppUserDaoImpl" parent="baseDao"/>
+	
+	<bean id="employeeDao" class="com.abcdef.frm.dao.system.impl.EmployeeDaoImpl" parent="baseDao"/>
+	
+	<bean id="departmentDao" class="com.abcdef.frm.dao.system.impl.DepartmentDaoImpl" parent="baseDao"/>
+	
+	<bean id="appRoleDao" class="com.abcdef.frm.dao.system.impl.AppRoleDaoImpl" parent="baseDao"/>
+	
+	<bean id="appFunctionDao" class="com.abcdef.frm.dao.system.impl.AppFunctionDaoImpl" parent="baseDao"/>
+	
+	<bean id="companyDao" class="com.abcdef.frm.dao.system.impl.CompanyDaoImpl" parent="baseDao"/>
+	
+	<bean id="userAgentDao" class="com.abcdef.frm.dao.system.impl.UserAgentDaoImpl" parent="baseDao"/>
+	
+	<bean id="indexDisplayDao" class="com.abcdef.frm.dao.system.impl.IndexDisplayDaoImpl" parent="baseDao"/>
+	
+	<bean id="regionDao" class="com.abcdef.frm.dao.system.impl.RegionDaoImpl" parent="baseDao"/>
+	
+	<bean id="dictionaryDao" class="com.abcdef.frm.dao.system.impl.DictionaryDaoImpl" parent="baseDao"/>
+	
+	<bean id="globalTypeDao" class="com.abcdef.frm.dao.system.impl.GlobalTypeDaoImpl" parent="baseDao"/>
+	
+	<bean id="shortMessageDao" class="com.abcdef.frm.dao.info.impl.ShortMessageDaoImpl" parent="baseDao"/>
+	
+	<bean id="inMessageDao" class="com.abcdef.frm.dao.info.impl.InMessageDaoImpl" parent="baseDao"/>
+	
+	<bean id="appTipsDao" class="com.abcdef.frm.dao.info.impl.AppTipsDaoImpl" parent="baseDao"/>
+	
+	<bean id="suggestBoxDao" class="com.abcdef.frm.dao.info.impl.SuggestBoxDaoImpl" parent="baseDao"/>
+	
+	<bean id="fileAttachDao" class="com.abcdef.frm.dao.system.impl.FileAttachDaoImpl" parent="baseDao"/>
+	
+	<bean id="accountingTitleDao" class="com.act.dao.impl.AccountingTitleDaoImpl" parent="baseDao"/>
+	
+	<bean id="journalHeadDao" class="com.act.dao.impl.JournalHeadDaoImpl" parent="baseDao"/>
+	
+	<bean id="journalDetailDao" class="com.act.dao.impl.JournalDetailDaoImpl" parent="baseDao"/>
+	
+	<bean id="systemConfigDao" class="com.act.dao.impl.SystemConfigDaoImpl" parent="baseDao"/>
+	
+	<bean id="accountingPeriodDao" class="com.act.dao.impl.AccountingPeriodDaoImpl" parent="baseDao"/>
+	
+</beans>

@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+	"http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<constant name="struts.action.extension" value="do" />
+	<constant name="struts.devMode" value="false" />
+	<constant name="struts.ui.theme" value="xhtml"/>
+	
+	<package name="/" extends="struts-default" namespace="/">
+		<action name="login" class="LoginAction" method="login">
+			<result>${successResultValue}</result>
+		</action>
+		<action name="modelsMenu" class="MenuAction" method="models">
+			<result>${successResultValue}</result>
+		</action>
+		<action name="itemsMenu" class="MenuAction" method="items">
+			<result>/jsonXml.jsp</result>
+		</action>
+		<action name="panelTreeMenu" class="MenuAction" method="panelTree">
+			<result>${successResultValue}</result>
+		</action>
+		
+		<action name="check" class="LoginAction" method="check">
+			<result>${successResultValue}</result>
+		</action>
+	</package>
+	
+	<package name="system" extends="struts-default" namespace="/system">
+		<action name="*AppUser" class="AppUserAction" method="{1}">
+			<result>${successResultValue}</result>
+		</action>
+		<action name="grantXmlAppRole" class="AppRoleAction" method="grantXml">
+			<result>/jsonXml.jsp</result>
+		</action>
+		<action name="*AppRole" class="AppRoleAction" method="{1}">
+			<result>${successResultValue}</result>
+		</action>
+		<action name="*Department" class="DepartmentAction" method="{1}">
+			<result>${successResultValue}</result>
+		</action>
+		<action name="*Company" class="CompanyAction" method="{1}">
+			<result>${successResultValue}</result>
+		</action>
+		<action name="*Region" class="RegionAction" method="{1}">
+			<result>${successResultValue}</result>
+		</action>
+		<action name="*SysConfig" class="SysConfigAction" method="{1}">
+			<result>${successResultValue}</result>
+		</action>
+		<action name="*Dictionary" class="DictionaryAction" method="{1}">
+			<result>${successResultValue}</result>
+		</action>
+		<action name="*IndexDisplay" class="IndexDisplayAction" method="{1}">
+			<result>${successResultValue}</result>
+		</action>
+		<action name="*SystemLog" class="SystemLogAction" method="{1}">
+			<result>${successResultValue}</result>
+		</action>
+		<action name="*GlobalType" class="GlobalTypeAction" method="{1}">
+			<result>${successResultValue}</result>
+		</action>
+		<action name="*Employee" class="EmployeeAction" method="{1}">
+			<result>${successResultValue}</result>
+		</action>
+		<action name="*FileAttach" class="FileAttachAction" method="{1}">
+			<result>${successResultValue}</result>
+		</action>
+	</package>
+	
+	<package name="info" extends="struts-default" namespace="/info">
+		<action name="*AppTips" class="AppTipsAction" method="{1}">
+			<result>${successResultValue}</result>
+		</action>
+		<action name="*SuggestBox" class="SuggestBoxAction" method="{1}">
+			<result>${successResultValue}</result>
+		</action>
+		<action name="*ShortMessage" class="ShortMessageAction" method="{1}">
+			<result>${successResultValue}</result>
+		</action>
+		<action name="*InMessage" class="InMessageAction" method="{1}">
+			<result>${successResultValue}</result>
+			<result name="display">/WEB-INF/pages/info/messageListPage.jsp</result>
+			<result name="detail">/WEB-INF/pages/info/messagedetail.jsp</result>
+		</action>
+	</package>
+	
+	
+	
+	<package name="act" extends="struts-default" namespace="/act">
+		<action name="*AccountingTitle" class="accountingTitleAction" method="{1}">
+			<result>${successResultValue}</result>
+		</action>
+		<action name="*Journal" class="journalHeadAction" method="{1}">
+			<result>${successResultValue}</result>
+		</action>
+		<action name="*Export" class="exportAction" method="{1}">
+			<result>${successResultValue}</result>
+		</action>
+		<action name="*JHandle" class="journalHandleAction" method="{1}">
+			<result>${successResultValue}</result>
+		</action>
+		
+	</package>
+</struts>
+
+		

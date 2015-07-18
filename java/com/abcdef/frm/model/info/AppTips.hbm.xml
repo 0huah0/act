@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="com.abcdef.frm.model.info.AppTips" table="FRM_APP_TIPS">
+		<id name="tipsId" column="tipsId" type="java.lang.Long">
+			<generator class="native" />
+		</id>
+		<property name="tipsName" type="java.lang.String" column="tipsName" length="128"/>
+		<property name="content" type="java.lang.String" column="text" length="1000" />
+		<property name="disheight" type="java.lang.Integer" column="disheight" />
+		<property name="diswidth" type="java.lang.Integer" column="diswidth" />
+		<property name="disleft" type="java.lang.Integer" column="disleft" />
+		<property name="distop" type="java.lang.Integer" column="distop" />
+		<property name="dislevel" type="java.lang.Integer" column="dislevel" />
+		<property name="createTime" type="java.util.Date" column="createTime" />
+		<many-to-one name="appUser" class="com.abcdef.frm.model.system.AppUser">
+			<column name="userId" />
+		</many-to-one>
+	</class>
+</hibernate-mapping>

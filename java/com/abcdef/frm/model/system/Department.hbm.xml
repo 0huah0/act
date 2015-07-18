@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping> 
+  <class name="com.abcdef.frm.model.system.Department" table="frm_department"> 
+    <id name="depId" type="java.lang.Long"> 
+      <generator class="native"></generator> 
+    </id>
+    <property name="parentId" not-null="true" type="java.lang.Long"/>
+    <property name="depLevel" not-null="true" type="java.lang.Integer"/>
+    <property name="depCode" type="java.lang.String" length="40"/>
+    <property name="depName" type="java.lang.String" length="40" not-null="true" />
+    <property name="depDesc" type="java.lang.String" length="200"/>
+    <property name="path" type="java.lang.String" length="240"/>
+	<property name="delFlag" not-null="true" type="java.lang.Short"/>
+	
+	<property name="createDate" type="java.util.Date" column="createDate"/>
+	<property name="createBy" type="java.lang.String" length="40"/>
+	<property name="updateDate" type="java.util.Date" column="updateDate"/>
+	<property name="updateBy" type="java.lang.String" length="40"/>
+  </class> 
+</hibernate-mapping>

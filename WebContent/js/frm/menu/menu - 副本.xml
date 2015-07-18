@@ -1,0 +1,111 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<Menus>
+	<Items id="PersonInfomation" text="個人資料管理" iconCls="menu-person" isPublic="false">
+		<Item id="ProfileForm" text="個人資料修改" iconCls="menu-customer"/>
+	</Items>
+	<Items id="SystemSetting" text="系統管理" iconCls="menu-manage" isPublic="false">
+		<Item id="AppUserView" text="帳號管理" iconCls="menu-appuser">
+			<Function id="_AppUserQuery" text="查看账号" iconCls="menu-list">
+				<url>/system/listAppUser.do</url>
+			</Function>
+			<Function id="_AppUserAdd" text="添加账号" iconCls="menu-add">
+				<url>/system/listAppUser.do</url>
+				<url>/system/saveAppUser.do</url>
+				<url>/system/chooseRolesAppUser.do</url>
+				<url>/system/selectedRolesAppUser.do</url>
+				<url>/system/listDepartment.do</url>
+			</Function>
+			<Function id="_AppUserEdit" text="编辑账号" iconCls="btn-edit">
+				<url>/system/listAppUser.do</url>
+				<url>/system/saveAppUser.do</url>
+				<url>/system/chooseRolesAppUser.do</url>
+				<url>/system/selectedRolesAppUser.do</url>
+				<url>/system/listDepartment.do</url>
+			</Function>
+			<Function id="_AppUserDel" text="删除账号" iconCls="menu-del">
+				<url>/system/listAppUser.do</url>
+				<url>/system/multiDelAppUser.do</url>
+			</Function>
+			<Function id="_AppUserReset" text="重置密码" iconCls="btn-password">
+				<url>/system/listAppUser.do</url> 
+				<url>/system/chooseRolesAppUser.do</url>
+				<url>/system/selectedRolesAppUser.do</url>
+				<url>/system/createPasswordAppUser.do</url>
+			</Function>
+		</Item>
+		<Item id="AppRoleView" text="角色權限管理" iconCls="menu-role">
+			<Function id="_AppRoleList" text="查看角色" iconCls="menu-list">
+				<url>/system/listAppRole.do</url>
+			</Function>
+			<Function id="_AppRoleAdd" text="添加角色" iconCls="menu-add">
+				<url>/system/listAppRole.do</url>
+				<url>/system/saveAppRole.do</url>
+			</Function>
+			<Function id="_AppRoleEdit" text="编辑角色" iconCls="btn-edit">
+				<url>/system/listAppRole.do</url>
+				<url>/system/saveAppRole.do</url>
+				<url>/system/getAppRole.do</url>
+			</Function>
+			<Function id="_AppRoleDel" text="删除角色" iconCls="menu-del">
+				<url>/system/listAppRole.do</url>
+				<url>/system/mulDelAppRole.do</url>
+			</Function>
+			<Function id="_AppRoleGrant" text="授权角色" iconCls="btn-grant">
+				<url>/system/listAppRole.do</url>
+				<url>/system/grantXmlAppRole.do</url>
+				<url>/system/getAppRole.do</url>
+				<url>/system/grantAppRole.do</url>
+			</Function>
+		</Item>
+		<Item id="DepartmentView" text="組織架構管理" iconCls="menu-department"></Item>
+	</Items>
+	<Items id="Accounting" text="基礎資料管理" iconCls="menu-workPlan" isPublic="false">
+		<Item id="AccountingTitleView" text="會計科目管理" iconCls="menu-planmanage">
+			<Function id="_AccountingTitleAdd" text="增加" iconCls="menu-add">
+				<url>/act/saveAccountingTitle.do</url>
+			</Function>
+			<Function id="_AccountingTitleDel" text="删除" iconCls="menu-del">
+				<url>/act/multiDelAccountingTitle.do</url>
+			</Function>
+			<Function id="_AccountingTitleEdit" text="修改" iconCls="btn-edit">
+				<url>/act/saveAccountingTitle.do</url>
+			</Function>
+		</Item>
+	</Items>
+	
+	<Items id="Journal" text="會計作業" iconCls="menu-plantype" isPublic="false">
+		<Item id="JournalView" text="日記帳管理" iconCls="menu-holidayRecord">
+			<Function id="_JournalAdd" text="增加" iconCls="menu-add">
+				<url>/act/saveJournal.do</url>
+			</Function>
+			<Function id="_JournalDel" text="删除" iconCls="menu-del">
+				<url>/act/multiDelJournal.do</url>
+			</Function>
+			<Function id="_JournalEdit" text="修改" iconCls="btn-edit">
+				<url>/act/saveJournal.do</url>
+			</Function>
+		</Item>
+		<Item id="JournalPostView" text="過帳處理" iconCls="menu-system"/>
+	</Items>
+	
+	<Items id="MemberManager" text="報表列印" iconCls="menu-report" isPublic="false">
+		<Item id="AccountingTitleExport" text="會計科目報表" iconCls="menu-arch-dispatch"/>
+		<Item id="ReportActTitleSum" text="試算表" iconCls="menu-dutySection"/>
+		<Item id="ReportJournal" text="日記帳報表" iconCls="menu-dutySetting"/>
+		<Item id="ReportActTitle" text="總分類帳報表" iconCls="menu-dutyRegister"/>
+		
+		<Item id="ReportIncome" text="損益表" iconCls="menu-dutyStats"/>
+		<Item id="MemberBlackView1" text="資產負債表" iconCls="menu-report"/>
+		<Item id="MemberBlackView2" text="現金流量表" iconCls="menu-planmanage"/>
+		<Item id="MemberBlackView3" text="業主權益變動表" iconCls="mod-report"/>
+	</Items>
+	
+	<Items id="Journal" text="系統資料處理" iconCls="menu-plantype" isPublic="false">
+		<Item id="JournalRestoreView" text="資料恢復" iconCls="menu-car_repair"/>
+		<Item id="JournalBackupView" text="資料備份" iconCls="menu-company"/>
+		<Item id="JournalClearView" text="資料清除" iconCls="menu-customer"/>
+	</Items>
+	
+	
+</Menus>
+

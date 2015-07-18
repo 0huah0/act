@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="com.abcdef.frm.model.system.GlobalType" table="frm_global_type">
+		<id name="proTypeId" column="proTypeId" type="java.lang.Long">
+			<generator class="native"></generator>
+		</id>
+		<property name="typeName" type="java.lang.String" column="typeName"
+			length="128" not-null="true" />
+		<property name="path" type="java.lang.String" column="path"
+			length="64" />
+		<property name="depth" type="java.lang.Integer" column="depth"
+			not-null="true" />
+		<property name="parentId" type="java.lang.Long" column="parentId" />
+		<property name="nodeKey" type="java.lang.String" column="nodeKey"
+			length="64" not-null="true" />
+		<property name="catKey" type="java.lang.String" column="catKey"
+			length="64" not-null="true" />
+		<property name="sn" type="java.lang.Integer" column="sn"
+			not-null="true" />
+	</class>
+</hibernate-mapping>

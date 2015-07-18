@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping> 
+  <class name="com.abcdef.frm.model.system.Dictionary" table="frm_dictionary"> 
+    <id name="dicId" column="dicId" type="java.lang.Long"> 
+      <generator class="native"></generator> 
+    </id>  
+    <property name="itemName" type="java.lang.String" column="itemName" length="64" not-null="true"/>  
+    <property name="itemValue" type="java.lang.String" column="itemValue" length="128" not-null="true"/>  
+    <property name="sn" type="java.lang.Short" column="sn" length="11" not-null="true"/>  
+    <property name="descp" type="java.lang.String" column="descp" length="256"/>  
+    <many-to-one name="globalType" class="com.abcdef.frm.model.system.GlobalType"> 
+      <column name="proTypeId"/> 
+    </many-to-one> 
+  </class> 
+</hibernate-mapping>

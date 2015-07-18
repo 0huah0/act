@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="com.abcdef.frm.model.system.AppFunction" table="FRM_APP_FUNCTION">
+		<id name="functionId" column="functionId" type="java.lang.Long">
+			<generator class="native"></generator>
+		</id>
+		<property name="funKey" type="java.lang.String" column="funKey"
+			length="64" not-null="true" />
+		<property name="funName" type="java.lang.String" column="funName"
+			length="128" not-null="true" />
+		<set name="funUrls" table="frm_fun_url" lazy="true" inverse="true"
+			cascade="save-update">
+			<key>
+				<column name="functionId" />
+			</key>
+			<one-to-many class="com.abcdef.frm.model.system.FunUrl" />
+		</set>
+	</class>
+</hibernate-mapping>

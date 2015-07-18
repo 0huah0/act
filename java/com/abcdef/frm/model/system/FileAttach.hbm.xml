@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN" 
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="com.abcdef.frm.model.system.FileAttach" table="frm_file_attach">
+		<id name="fileId" column="fileId" type="java.lang.Long">
+			<generator class="native"></generator>
+		</id>
+
+		<property name="fileName" type="java.lang.String" column="fileName"
+			length="128" not-null="true" />
+
+		<property name="filePath" type="java.lang.String" column="filePath"
+			length="128" not-null="true" />
+
+		<property name="ext" type="java.lang.String" column="ext"
+			length="32" />
+
+		<property name="fileType" type="java.lang.String" column="fileType"
+			length="32" />
+
+		<property name="note" type="java.lang.String" column="note"
+			length="1024" />
+
+		<property name="totalBytes" type="java.lang.Double" column="totalBytes"
+			not-null="true" />
+
+		<property name="creator" type="java.lang.String" column="creator"
+			length="32" not-null="true" />
+
+		<property name="createtime" type="java.util.Date" column="createtime"
+			not-null="true" />
+	</class>
+</hibernate-mapping>

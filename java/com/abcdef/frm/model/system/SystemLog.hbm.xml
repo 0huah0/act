@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="com.abcdef.frm.model.system.SystemLog" table="frm_system_log">
+		<id name="logId" column="logId" type="java.lang.Long">
+			<generator class="native"></generator>
+		</id>
+		<property name="username" type="java.lang.String" column="username"
+			length="128" not-null="true" />
+		<property name="userId" type="java.lang.Long" column="userId"
+			not-null="true" />
+		<property name="createtime" type="java.util.Date" column="createtime"
+			not-null="true" />
+		<property name="exeOperation" type="java.lang.String" column="exeOperation"
+			length="512" not-null="true" />
+	</class>
+</hibernate-mapping>

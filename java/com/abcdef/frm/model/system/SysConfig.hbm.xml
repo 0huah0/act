@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="com.abcdef.frm.model.system.SysConfig" table="FRM_SYS_CONFIG">
+		<id name="configId" column="configid" type="java.lang.Long">
+			<generator class="native"/>
+		</id>
+		<property name="configKey" type="java.lang.String" column="configkey"
+			length="64" not-null="true" />
+		<property name="configName" type="java.lang.String" column="configname"
+			length="64" not-null="true" />
+		<property name="configDesc" type="java.lang.String" column="configdesc"
+			length="256" />
+		<property name="typeName" type="java.lang.String" column="typename"
+			length="32" not-null="true" />
+		<property name="dataType" type="java.lang.Short" column="datatype"
+			not-null="true" />
+		<property name="dataValue" type="java.lang.String" column="datavalue"
+			length="64" />
+		<property name="typeKey" type="java.lang.String" column="typekey"
+			length="64" />
+	</class>
+</hibernate-mapping>

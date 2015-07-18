@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="com.act.model.JournalDetail" table="act_journal_detail">
+		<id name="id" type="java.lang.Long" column="journal_detail_id">
+			<generator class="native"/>
+		</id>
+		<property name="code" not-null="true" type="java.lang.String" length="100" />
+		<property name="name" not-null="true" type="java.lang.String" length="200" />
+		<property name="itemNo" column="item_no" type="java.lang.Integer"/>
+		<property name="debitAmount"  column="debit_amount"  type="java.lang.Double"/>
+		<property name="creditAmount" column="credit_amount"  type="java.lang.Double"/>
+		<property name="brief" column="brief" type="java.lang.String" length="500" />
+
+		<many-to-one name="journalHead" column="ref_no" property-ref="refNo" not-null="true" class="com.act.model.JournalHead" />
+
+		<property name="createDate" type="java.util.Date" column="create_date" />
+		<property name="createBy" type="java.lang.String" column="create_by" length="50" />
+		<property name="updateDate" type="java.util.Date" column="update_date" />
+		<property name="updateBy" type="java.lang.String" column="update_by" length="50" />
+	</class>
+</hibernate-mapping>

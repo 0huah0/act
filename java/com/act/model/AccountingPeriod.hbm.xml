@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="com.act.model.AccountingPeriod" table="act_accounting_period">
+		<id name="id" type="java.lang.Long" column="period_id">
+			<generator class="native"/>
+		</id>
+		
+		<property name="type" column="period_type" type="java.lang.String" length="10" not-null="true"/>
+		
+		<property name="year" column="period_y" type="java.lang.Integer" not-null="true"/>
+		<property name="halfYear" column="period_hy" type="java.lang.Integer"/>
+		<property name="season" column="period_s" type="java.lang.Integer"/>
+		<property name="month" column="period_m" type="java.lang.Integer"/>
+		
+		<property name="startDate" column="period_date_s" type="java.util.Date"/>
+		<property name="endDate" column="period_date_e" type="java.util.Date"/>
+
+		<property name="createDate" column="create_date" type="java.util.Date"/>
+		<property name="createBy" column="create_by" type="java.lang.String" length="50"/>
+		<property name="updateDate" column="update_date" type="java.util.Date"/>
+		<property name="updateBy" column="update_by" type="java.lang.String" length="50"/>
+		
+	</class>
+</hibernate-mapping>

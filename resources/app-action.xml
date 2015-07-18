@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd  http://www.springframework.org/schema/context
+	http://www.springframework.org/schema/context/spring-context-2.5.xsd">
+	<!-- 为缺省的Action处理 -->
+	<bean id="BaseAction" class="com.abcdef.core.web.action.BaseAction" />
+
+	<bean id="LoginAction" class="com.abcdef.frm.action.system.LoginAction"
+		scope="prototype" />
+	<bean id="MenuAction" class="com.abcdef.frm.action.system.MenuAction"
+		scope="prototype" />
+
+	<bean id="AppUserAction" class="com.abcdef.frm.action.system.AppUserAction"
+		scope="prototype" />
+
+	<bean id="AppRoleAction" class="com.abcdef.frm.action.system.AppRoleAction"
+		scope="prototype" />
+
+	<bean id="DepartmentAction" class="com.abcdef.frm.action.system.DepartmentAction"
+		scope="prototype" />
+
+	<bean id="CompanyAction" class="com.abcdef.frm.action.system.CompanyAction"
+		scope="prototype" />
+
+	<bean id="RegionAction" class="com.abcdef.frm.action.system.RegionAction"
+		scope="prototype" />
+
+	<bean id="SysConfigAction" class="com.abcdef.frm.action.system.SysConfigAction"
+		scope="prototype" />
+
+	<bean id="DictionaryAction" class="com.abcdef.frm.action.system.DictionaryAction"
+		scope="prototype" />
+
+	<bean id="IndexDisplayAction" class="com.abcdef.frm.action.system.IndexDisplayAction"
+		scope="prototype" />
+
+	<bean id="SystemLogAction" class="com.abcdef.frm.action.system.SystemLogAction"
+		scope="prototype" />
+
+	<bean id="GlobalTypeAction" class="com.abcdef.frm.action.system.GlobalTypeAction"
+		scope="prototype" />
+
+	<bean id="ShortMessageAction" class="com.abcdef.frm.action.info.ShortMessageAction"
+		scope="prototype" />
+
+	<bean id="InMessageAction" class="com.abcdef.frm.action.info.InMessageAction"
+		scope="prototype" />
+
+	<bean id="AppTipsAction" class="com.abcdef.frm.action.info.AppTipsAction"
+		scope="prototype" />
+
+	<bean id="SuggestBoxAction" class="com.abcdef.frm.action.info.SuggestBoxAction"
+		scope="prototype" />
+
+	<bean id="EmployeeAction" class="com.abcdef.frm.action.system.EmployeeAction"
+		scope="prototype" />
+		
+	<bean id="FileAttachAction" class="com.abcdef.frm.action.system.FileAttachAction"
+		scope="prototype" />
+		
+	<bean id="FileDetailAction" class="com.abcdef.frm.action.system.FileAttachDetailAction"
+		scope="prototype" />
+		
+		
+
+	<bean id="accountingTitleAction" class="com.act.action.AccountingTitleAction"
+		scope="prototype" />
+		
+	<bean id="journalHeadAction" class="com.act.action.JournalHeadAction"
+		scope="prototype" />
+		
+	<bean id="exportAction" class="com.act.action.ExportAction"
+		scope="prototype" />
+
+	<bean id="journalHandleAction" class="com.act.action.JournalHandleAction"
+		scope="prototype" />
+
+</beans>

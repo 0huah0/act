@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="com.abcdef.frm.model.system.AppUser" table="FRM_APP_USER">
+		<id name="userId" column="userId" type="java.lang.Long">
+			<generator class="native"></generator>
+		</id>
+
+		<property name="username" type="java.lang.String" update="true"
+			column="username" length="128" not-null="true" />
+
+		<property name="password" type="java.lang.String" update="true"
+			column="password" length="128" not-null="true" />
+
+		<many-to-one name="employee" class="com.abcdef.frm.model.system.Employee">
+			<column name="employeeId" />
+		</many-to-one>
+
+		<property name="status" type="java.lang.Short" update="true"
+			column="status" length="5" not-null="true" />
+
+		<property name="delFlag" type="java.lang.Short" update="true"
+			column="delFlag" length="5" not-null="true" />
+
+		<set name="roles" table="FRM_USER_ROLE" cascade="save-update"
+			inverse="false" lazy="true">
+			<key column="userId" />
+			<many-to-many fetch="join"
+				class="com.abcdef.frm.model.system.AppRole" column="roleId" />
+		</set>
+
+		<property name="createDate" type="java.util.Date" update="true"
+			column="createDate" length="23" />
+
+		<property name="createBy" type="java.lang.String" />
+
+		<property name="updateDate" type="java.util.Date" column="updateDate"
+			length="23" />
+
+		<property name="updateBy" type="java.lang.String" />
+
+	</class>
+</hibernate-mapping>

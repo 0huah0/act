@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="com.abcdef.frm.model.system.IndexDisplay" table="frm_index_display">
+		<id name="indexId" column="indexId" type="java.lang.Long">
+			<generator class="native"></generator>
+		</id>
+		<property name="portalId" type="java.lang.String" column="portalId"
+			length="64" not-null="true" />
+		<property name="colNum" type="java.lang.Integer" column="colNum"
+			not-null="true" />
+		<property name="rowNum" type="java.lang.Integer" column="rowsNum"
+			not-null="true" />
+		<many-to-one name="appUser" class="com.abcdef.frm.model.system.AppUser">
+			<column name="userId" />
+		</many-to-one>
+	</class>
+</hibernate-mapping>

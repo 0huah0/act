@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="com.act.model.JournalHead" table="act_journal_head">
+		<id name="id" type="java.lang.Long" column="journal_head_id">
+			<generator class="native"/>
+		</id>
+		
+		<property name="refNo" column="ref_no" type="java.lang.String" length="100" not-null="true" unique="true"/>
+		<property name="refDate" column="ref_date" type="java.util.Date" not-null="true"/>
+		<property name="brief" column="brief" type="java.lang.String" length="500" />
+		<property name="type" column="journal_type" type="java.lang.Integer"/>
+		<property name="dataFrom" column="data_from"  type="java.lang.String"/>
+		
+		<property name="isBackup" not-null="true" column="is_backup"  type="java.lang.Integer"/>
+		<property name="isPost" not-null="true" column="is_post"  type="java.lang.Integer"/>
+		<property name="isDelete" not-null="true" column="is_delete"  type="java.lang.Integer"/>
+
+		<set name="details" cascade="all" inverse="true" order-by="code asc">
+			<key column="ref_no" property-ref="refNo" unique="true" on-delete="cascade"/>
+			<one-to-many class="com.act.model.JournalDetail"/>
+		</set>
+
+		<property name="createDate" type="java.util.Date" column="create_date" />
+		<property name="createBy" type="java.lang.String" column="create_by" length="50" />
+		<property name="updateDate" type="java.util.Date" column="update_date" />
+		<property name="updateBy" type="java.lang.String" column="update_by" length="50" />
+		
+	</class>
+</hibernate-mapping>

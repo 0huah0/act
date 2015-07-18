@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN" 
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="com.abcdef.frm.model.system.Employee" table="frm_employee">
+		<id name="id" column="ID" type="java.lang.Long" length="19">
+			<generator class="native" />
+		</id>
+		<property name="empCode" type="java.lang.String" column="empCode"
+			length="30" not-null="true" />
+		<many-to-one name="department" class="com.abcdef.frm.model.system.Department">
+			<column name="depId" />
+		</many-to-one>
+
+		<property name="position" type="java.lang.String" column="position"
+			length="32" />
+
+		<property name="imagePath" type="java.lang.String" column="imagePath"
+			length="150" />
+
+		<property name="officePhone" type="java.lang.String" column="officePhone"
+			length="30" />
+
+		<property name="mobilePhone" type="java.lang.String" column="mobilePhone"
+			length="30" />
+
+		<property name="email" type="java.lang.String" column="email"
+			length="128" />
+
+		<property name="fax" type="java.lang.String" column="fax"
+			length="32" />
+
+		<property name="address" type="java.lang.String" column="address"
+			length="64" />
+
+		<property name="zip" type="java.lang.String" column="zip"
+			length="32" />
+
+		<property name="birthday" type="java.util.Date" column="birthday"
+			not-null="true" />
+
+		<property name="sex" type="java.lang.Short" column="sex"
+			not-null="true" />
+
+		<property name="fullname" type="java.lang.String" column="fullname"
+			length="128" not-null="true" />
+
+		<property name="accessionDate" type="java.util.Date" column="accessionDate"
+			not-null="true" />
+
+		<property name="beforeSeniority" type="java.lang.String"
+			column="beforeSeniority" precision="3" scale="1" />
+
+		<property name="isLeaving" type="java.lang.Short" column="isLeaving" />
+
+		<property name="leaveDate" type="java.util.Date" column="leaveDate" />
+
+		<property name="remark" type="java.lang.String" column="remark"
+			length="400" />
+
+		<property name="delflag" type="java.lang.Short" column="delflag"
+			not-null="true" />
+
+		<property name="createDate" type="java.util.Date" column="createDate" />
+
+		<property name="createBy" type="java.lang.String" length="40" />
+
+		<property name="updateDate" type="java.util.Date" column="updateDate" />
+
+		<property name="updateBy" type="java.lang.String" length="40" />
+
+		<set name="appUsers" table="frm_app_user" cascade="save-update"
+			inverse="true">
+			<key column="employeeId" />
+			<one-to-many class="com.abcdef.frm.model.system.AppUser" />
+		</set>
+
+	</class>
+</hibernate-mapping>

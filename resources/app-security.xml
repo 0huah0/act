@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+    xmlns:beans="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans 
+         http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+         http://www.springframework.org/schema/security 
+         http://www.springframework.org/schema/security/spring-security-3.1.xsd">
+    
+    <http pattern="/images/**" security="none"/>
+    <http pattern="/css/**" security="none"/>
+    <http pattern="/ext3/**" security="none"/>
+    
+    <http auto-config="true" access-denied-page="/403.jsp" 
+    	access-decision-manager-ref="accessDecisionManager">
+        <form-login default-target-url="/index.jsp" login-page="/login.jsp" authentication-failure-url="/login.jsp?error=true" login-processing-url="/j_security_check" />
+        <logout logout-url="/j_logout.do" logout-success-url="/login.jsp"/>
+   		<remember-me key="RememberAppUser"/>
+   		<custom-filter after="FILTER_SECURITY_INTERCEPTOR" ref="securityInterceptorFilter" />
+    </http>
+    
+    <beans:bean id="accessDecisionManager" class="org.springframework.security.access.vote.AffirmativeBased">
+	 	<beans:property name="allowIfAllAbstainDecisions" value="false"/>
+        <beans:property name="decisionVoters">
+            <beans:list>
+                <beans:bean class="org.springframework.security.access.vote.RoleVoter">
+                    <beans:property name="rolePrefix" value="" />
+                </beans:bean>
+                <beans:bean class="org.springframework.security.access.vote.AuthenticatedVoter" />
+            </beans:list>
+        </beans:property>
+    </beans:bean>
+    
+	<authentication-manager alias="authenticationManager">
+        <authentication-provider user-service-ref="appUserDao">
+           <password-encoder hash="sha-256" base64="true"/>
+        </authentication-provider>
+    </authentication-manager>
+	
+	<beans:bean id="securityInterceptorFilter" class="com.abcdef.core.web.filter.SecurityInterceptorFilter">
+        <beans:property name="securityDataSource" ref="securityDataSource"/>
+    </beans:bean> 
+    
+    <beans:bean id="securityDataSource" class="com.abcdef.core.security.SecurityDataSource">
+		<beans:property name="appRoleService" ref="appRoleService"/>
+		<beans:property name="anonymousUrls">
+			<beans:set>
+				<beans:value>/login.do</beans:value>
+				<beans:value>/check.do</beans:value>
+			</beans:set>
+		</beans:property>
+		<beans:property name="publicUrls">
+			<beans:set>
+				<beans:value>/panelTreeMenu.do</beans:value>
+				<beans:value>/index.jsp</beans:value>
+				
+				<beans:value>/act/atExport.do</beans:value>
+				<beans:value>/act/listAccountingTitle.do</beans:value>
+				<beans:value>/act/treeAccountingTitle.do</beans:value>
+				<beans:value>/act/saveAccountingTitle.do</beans:value>
+				<beans:value>/act/getAccountingTitle.do</beans:value>
+				<beans:value>/act/multiDelAccountingTitle.do</beans:value>
+				<beans:value>/act/backupJHandle.do</beans:value>
+				<beans:value>/act/clearJHandle.do</beans:value>
+				<beans:value>/act/saveJournal.do</beans:value>
+				<beans:value>/act/getJournal.do</beans:value>
+				<beans:value>/act/postJournal.do</beans:value>
+				<beans:value>/act/restoreJHandle.do</beans:value>
+				<beans:value>/act/listJournal.do</beans:value>
+				<beans:value>/act/softDelJournal.do</beans:value>
+				<beans:value>/act/reportJournal.do</beans:value>
+				<beans:value>/act/ajExport.do</beans:value>
+				<beans:value>/act/reportJournal.do</beans:value>
+				<beans:value>/act/atSumExport.do</beans:value>
+				<beans:value>/act/jhExport.do</beans:value>
+
+				<beans:value>/info/detailInMessage.do</beans:value>
+				<beans:value>/info/sendShortMessage.do</beans:value>
+				<beans:value>/info/listShortMessage.do</beans:value>
+				<beans:value>/info/listInMessage.do</beans:value>
+				<beans:value>/info/replyInMessage.do</beans:value>
+				<beans:value>/info/knowInMessage.do</beans:value>
+				<beans:value>/info/multiRemoveInMessage.do</beans:value>
+				<beans:value>/info/readInMessage.do</beans:value>
+				<beans:value>/info/countInMessage.do</beans:value>
+				<beans:value>/info/showShortMessage.do</beans:value>
+				<beans:value>/info/listAppTips.do</beans:value>
+				<beans:value>/info/saveAppTips.do</beans:value>
+				<beans:value>/info/multiDelAppTips.do</beans:value>
+				<beans:value>/info/displayInMessage.do</beans:value>
+				
+				
+				<beans:value>/system/treeAppRole.do</beans:value>
+				<beans:value>/system/saveAppRole.do</beans:value>
+				<beans:value>/system/grantAppRole.do</beans:value>
+				<beans:value>/system/treeAppRole.do</beans:value>
+				<beans:value>/system/getAppRole.do</beans:value>
+				<beans:value>/system/grantXmlAppRole.do</beans:value>
+				<beans:value>/system/multiDelAppRole.do</beans:value>
+				
+				<beans:value>/system/getCurrentAppUser.do</beans:value>
+				<beans:value>/system/onlineAppUser.do</beans:value>
+				<beans:value>/system/subAdepartmentAppUser.do</beans:value>
+				<beans:value>/system/subAroleAppUser.do</beans:value>
+				<beans:value>/system/onlineAsubAppUser.do</beans:value>
+			    <beans:value>/system/getAppUser.do</beans:value>
+				<beans:value>/system/selectAppUser.do</beans:value>
+				<beans:value>/system/upUserAppUser.do</beans:value>
+				<beans:value>/system/resetPasswordAppUser.do</beans:value>
+				<beans:value>/system/saveAppUser.do</beans:value>
+				<beans:value>/system/listAppRole.do</beans:value>
+				<beans:value>/system/listAppUser.do</beans:value>
+				<beans:value>/system/agentAppUser.do</beans:value>
+				<beans:value>/system/unAgentAppUser.do</beans:value>
+				<beans:value>/system/saveAgentAppUser.do</beans:value>
+				<beans:value>/system/profileAppUser.do</beans:value>
+				<beans:value>/system/getMyAppUser.do</beans:value>
+				<beans:value>/system/multiDelAppUser.do</beans:value>
+				<beans:value>/system/createPasswordAppUser.do</beans:value>
+				<beans:value>/system/validateAppUser.do</beans:value>
+				<beans:value>/system/isExitAppUser.do</beans:value>
+				<beans:value>/system/chooseRolesAppUser.do</beans:value>
+				<beans:value>/system/selectedRolesAppUser.do</beans:value>
+				<beans:value>/system/treeAllByLevelDepartment.do</beans:value>
+				<beans:value>/system/listDepartment.do</beans:value>
+				<beans:value>/system/selectDepartment.do</beans:value>
+				<beans:value>/system/loadDictionary.do</beans:value>
+				<beans:value>/system/displayDiary.do</beans:value>
+				<beans:value>/system/loadSysConfig.do</beans:value>
+				<beans:value>/system/saveIndexDisplay.do</beans:value>
+				<beans:value>/system/treeRegion.do</beans:value>
+				<beans:value>/system/detailDepartment.do</beans:value>
+				
+			</beans:set>
+		</beans:property>
+	</beans:bean>
+</beans:beans>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="com.act.model.AccountingTitle" table="act_accounting_title">
+		<id name="id" type="java.lang.Long" column="act_title_id">
+			<generator class="native"></generator>
+		</id>
+		<!-- <property name="parentId" column="parent_id" type="java.lang.Long"/> -->
+		
+		<property name="code" not-null="true" type="java.lang.String" length="100" />
+		<property name="name" not-null="true" type="java.lang.String" length="200" />
+		<property name="nameEn" column="name_en" type="java.lang.String" length="200" />
+		<property name="remark" column="remark" type="java.lang.String" length="500" />
+		<property name="level" type="java.lang.Integer"/>
+		<property name="lr" column="left_or_right" type="java.lang.String"/>
+		<property name="isBasic" not-null="true" column="is_basic"  type="java.lang.Integer"/>
+		<property name="isDelete" not-null="true" column="is_delete"  type="java.lang.Integer"/>
+
+		<many-to-one name="parent" class="com.act.model.AccountingTitle" column="parent_id"/>
+
+		<property name="createDate" type="java.util.Date" column="create_date" />
+		<property name="createBy" type="java.lang.String" column="create_by"
+			length="50" />
+		<property name="updateDate" type="java.util.Date" column="update_date" />
+		<property name="updateBy" type="java.lang.String" column="update_by"
+			length="50" />
+		
+	</class>
+</hibernate-mapping>

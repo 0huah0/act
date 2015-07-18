@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd  http://www.springframework.org/schema/context
+	http://www.springframework.org/schema/context/spring-context-2.5.xsd 
+	http://www.springframework.org/schema/tx
+	http://www.springframework.org/schema/tx/spring-tx-2.5.xsd
+	http://www.springframework.org/schema/aop
+	http://www.springframework.org/schema/aop/spring-aop-2.5.xsd">
+   	
+	<aop:aspectj-autoproxy/> 
+	<context:annotation-config/>
+   	
+	<context:component-scan base-package="com.abcdef.frm.service"/>
+
+	<tx:annotation-driven transaction-manager="txManager"/>
+    
+	<bean id="txManager" class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+    
+	<bean id="logAspect" class="com.abcdef.core.log.LogAspect"/>
+	
+	<tx:advice id="txAdvice" transaction-manager="txManager">
+		<tx:attributes>
+			<tx:method name="get*" read-only="true"/>
+			<tx:method name="is*" read-only="true"/>
+			<tx:method name="find*" read-only="true"/>
+			<tx:method name="list*" read-only="true"/>
+			<tx:method name="*"/>
+		</tx:attributes>
+	</tx:advice>
+	
+	<aop:config>
+		<aop:pointcut id="servicePointCutCore" expression="execution(* com.abcdef.core.service..*(..))"/>
+		<aop:pointcut id="servicePointCutFramework" expression="execution(* com.abcdef.frm.service..*(..))"/>
+		<aop:pointcut id="servicePointCutAct" expression="execution(* com.act.service..*(..))"/> 
+		<aop:advisor advice-ref="txAdvice" pointcut-ref="servicePointCutFramework"/>
+		<aop:advisor advice-ref="txAdvice" pointcut-ref="servicePointCutCore"/>
+		<aop:advisor advice-ref="txAdvice" pointcut-ref="servicePointCutAct"/>
+	</aop:config>
+	
+	<!-- add the bean you define here -->
+	<bean id="sysConfigService" class="com.abcdef.frm.service.system.impl.SysConfigServiceImpl">
+		<constructor-arg index="0" ref="sysConfigDao"/>
+	</bean>
+	
+	<bean id="systemLogService" class="com.abcdef.frm.service.system.impl.SystemLogServiceImpl">
+		<constructor-arg index="0" ref="systemLogDao"/>
+	</bean>
+
+	<bean id="appUserService" class="com.abcdef.frm.service.system.impl.AppUserServiceImpl">
+		<constructor-arg index="0" ref="appUserDao"/>
+	</bean>
+
+	<bean id="employeeService" class="com.abcdef.frm.service.system.impl.EmployeeServiceImpl">
+		<constructor-arg index="0" ref="employeeDao"/>
+	</bean>
+	
+	<bean id="appRoleService" class="com.abcdef.frm.service.system.impl.AppRoleServiceImpl">
+		<constructor-arg index="0" ref="appRoleDao"/>
+	</bean>	
+	
+	<bean id="appFunctionService" class="com.abcdef.frm.service.system.impl.AppFunctionServiceImpl">
+		<constructor-arg index="0" ref="appFunctionDao"/>
+	</bean>
+   	 
+	<bean id="departmentService" class="com.abcdef.frm.service.system.impl.DepartmentServiceImpl">
+		<constructor-arg index="0" ref="departmentDao"/>  
+	</bean>
+   	 
+	<bean id="companyService" class="com.abcdef.frm.service.system.impl.CompanyServiceImpl">
+		<constructor-arg index="0" ref="companyDao"/>   	 	
+	</bean>
+	
+	<bean id="userAgentService" class="com.abcdef.frm.service.system.impl.UserAgentServiceImpl">
+		<constructor-arg index="0" ref="userAgentDao"/>
+	</bean>
+	
+	<bean id="indexDisplayService" class="com.abcdef.frm.service.system.impl.IndexDisplayServiceImpl">
+		<constructor-arg index="0" ref="indexDisplayDao"/>
+	</bean>
+	
+	<bean id="regionService" class="com.abcdef.frm.service.system.impl.RegionServiceImpl">
+		<constructor-arg index="0" ref="regionDao"/>
+	</bean>
+	
+	<bean id="dictionaryService" class="com.abcdef.frm.service.system.impl.DictionaryServiceImpl">
+		<constructor-arg index="0" ref="dictionaryDao"/>
+	</bean>
+	
+	<bean id="globalTypeService" class="com.abcdef.frm.service.system.impl.GlobalTypeServiceImpl">
+		<constructor-arg index="0" ref="globalTypeDao"/>
+	</bean>
+	
+	<bean id="shortMessageService" class="com.abcdef.frm.service.info.impl.ShortMessageServiceImpl">
+		<constructor-arg index="0" ref="shortMessageDao"/>   	 	
+	</bean>
+	
+	<bean id="inMessageService" class="com.abcdef.frm.service.info.impl.InMessageServiceImpl">
+		<constructor-arg index="0" ref="inMessageDao"/>
+	</bean>
+	
+	<bean id="suggestBoxService" class="com.abcdef.frm.service.info.impl.SuggestBoxServiceImpl">
+		<constructor-arg index="0" ref="suggestBoxDao"/>
+	</bean>
+	
+	<bean id="appTipsService" class="com.abcdef.frm.service.info.impl.AppTipsServiceImpl">
+		<constructor-arg index="0" ref="appTipsDao"/>
+	</bean>
+	
+	<bean id="fileAttachService" class="com.abcdef.frm.service.system.impl.FileAttachServiceImpl">
+		<constructor-arg index="0" ref="fileAttachDao"/>
+	</bean>
+	
+	
+	<bean id="accountingTitleService" class="com.act.service.impl.AccountingTitleServiceImpl">
+		<constructor-arg index="0" ref="accountingTitleDao"/>
+	</bean>
+	<bean id="journalHeadService" class="com.act.service.impl.JournalHeadServiceImpl">
+		<constructor-arg index="0" ref="journalHeadDao"/>
+	</bean>
+	<bean id="journalService" class="com.act.service.impl.JournalServiceImpl">
+		<constructor-arg index="0" ref="journalHeadDao"/>
+	</bean>
+	<bean id="accountingPeriodService" class="com.act.service.impl.AccountingPeriodServiceImpl">
+		<constructor-arg index="0" ref="accountingPeriodDao"/>
+	</bean>
+	
+</beans>

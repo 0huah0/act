@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="com.abcdef.frm.model.system.UserAgent" table="frm_user_agent">
+		<id name="grantId" column="grantId" type="java.lang.Long">
+			<generator class="native" />
+		</id>
+		<property name="userId" type="java.lang.Long" column="userId"
+			not-null="true" />
+		<property name="fullname" type="java.lang.String" column="fullname"
+			length="64" />
+		<property name="grantUId" type="java.lang.Long" column="grantUId"
+			not-null="true" />
+		<property name="grantFullname" type="java.lang.String"
+			column="grantFullname" length="64" />
+		<property name="grantSex" type="java.lang.Short" column="grantSex" />
+	</class>
+</hibernate-mapping>
