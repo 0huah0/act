@@ -45,7 +45,7 @@ public class ShortMessageServiceImpl extends BaseServiceImpl<ShortMessage> imple
 	}
 
 	@Override
-	public List searchShortMessage(Long userId,
+	public List<?> searchShortMessage(Long userId,
 			ShortMessage shortMessage, Date from, Date to, PagingBean pb) {
 		return messageDao.searchShortMessage(userId, shortMessage, from, to, pb);
 	}

@@ -7,6 +7,7 @@ import com.abcdef.core.dao.impl.BaseDaoImpl;
 import com.abcdef.frm.dao.system.AppFunctionDao;
 import com.abcdef.frm.model.system.AppFunction;
 
+@SuppressWarnings("unchecked")
 public class AppFunctionDaoImpl extends BaseDaoImpl<AppFunction> implements AppFunctionDao{
 
 	public AppFunctionDaoImpl() {

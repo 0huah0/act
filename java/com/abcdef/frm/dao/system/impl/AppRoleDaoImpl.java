@@ -15,14 +15,13 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.springframework.orm.hibernate3.HibernateCallback;
 
-import com.abcdef.core.Constants;
 import com.abcdef.core.dao.impl.BaseDaoImpl;
 import com.abcdef.frm.dao.system.AppRoleDao;
 import com.abcdef.frm.model.system.AppFunction;
 import com.abcdef.frm.model.system.AppRole;
-import com.abcdef.frm.model.system.AppUser;
 import com.abcdef.frm.model.system.FunUrl;
 
+@SuppressWarnings("unchecked")
 public class AppRoleDaoImpl extends BaseDaoImpl<AppRole> implements AppRoleDao{
 
 	public AppRoleDaoImpl() {
@@ -48,7 +47,7 @@ public class AppRoleDaoImpl extends BaseDaoImpl<AppRole> implements AppRoleDao{
 	public HashMap<String,Set<String>> getSecurityDataSource() {
 		final HashMap<String,Set<String>> source=new HashMap<String, Set<String>>();
 		
-		getHibernateTemplate().execute(new HibernateCallback() {
+		getHibernateTemplate().execute(new HibernateCallback<Object>() {
 			@Override
 			public Object doInHibernate(Session session) throws HibernateException,
 					SQLException {

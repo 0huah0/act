@@ -70,16 +70,13 @@ public class InMessageAction extends BaseAction {
 	/**
 	 * 收信息列表
 	 */
+	@SuppressWarnings("unchecked")
 	public String list() {
 		List<Object[]> list;
 		PagingBean pb = getInitPagingBean();
 		AppUser appUser = ContextUtil.getCurrentUser();
-		// if(inMessage!=null){
-		list = inMessageService.searchInMessage(appUser.getUserId(), inMessage,
-				shortMessage, from, to, pb);
-		// }else{
-		// list=inMessageService.findByUser(appUser.getUserId(),pb);
-		// }
+		list = (List<Object[]>) inMessageService.searchInMessage(
+				appUser.getUserId(), inMessage, shortMessage, from, to, pb);
 		List<InMessage> inList = new ArrayList<InMessage>();
 		StringBuffer buff = new StringBuffer("{success:true,'totalCounts':"
 				+ pb.getTotalItems() + ",result:");
@@ -111,11 +108,9 @@ public class InMessageAction extends BaseAction {
 		InMessage in = inMessageService.get(receiveId);
 		in.setReadFlag((short) 1); // 1标志为读
 		try {
-			// TODO 保存和移除
 			inMessageService.save(in);
 			setJsonString("{success:true}");
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			setJsonString("{success:false}");
 			e.printStackTrace();
 		}
@@ -134,10 +129,8 @@ public class InMessageAction extends BaseAction {
 				inMessage = inMessageService.get(Long.parseLong(id));
 				inMessage.setDelFlag(HAVE_DELETE);
 				try {
-					// TODO 保存和移除
 					inMessageService.save(inMessage);
 				} catch (Exception e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			}
@@ -189,10 +182,8 @@ public class InMessageAction extends BaseAction {
 			if (inMessage != null) {
 				inMessage.setReadFlag(InMessage.FLAG_READ);
 				try {
-					// TODO 保存和移除
 					inMessageService.save(inMessage);
 				} catch (Exception e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 				shortMessage = inMessage.getShortMessage();
@@ -248,10 +239,8 @@ public class InMessageAction extends BaseAction {
 			inMessage = inMessageService.get(receiveId);
 			inMessage.setReadFlag((short) 1); // 标识为已读
 			try {
-				// TODO 保存和移除
 				inMessageService.save(inMessage);
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
@@ -261,15 +250,14 @@ public class InMessageAction extends BaseAction {
 	/**
 	 * 首页显示信息列表
 	 */
+	@SuppressWarnings("unchecked")
 	public String display() {
 		List<Object[]> list;
 		PagingBean pb = new PagingBean(0, 8);
 		AppUser appUser = ContextUtil.getCurrentUser();
-		list = shortMessageService.searchShortMessage(appUser.getUserId(),
-				null, null, null, pb);
+		list = (List<Object[]>) shortMessageService.searchShortMessage(
+				appUser.getUserId(), null, null, null, pb);
 		List<InMessage> inList = new ArrayList<InMessage>();
-		StringBuffer buff = new StringBuffer("{success:true,'totalCounts':"
-				+ pb.getTotalItems() + ",result:");
 		for (int i = 0; i < list.size(); i++) {
 			InMessage inMessage = (InMessage) list.get(i)[0];
 			inList.add(inMessage);
@@ -289,7 +277,6 @@ public class InMessageAction extends BaseAction {
 					// TODO 保存和移除
 					inMessageService.save(inMessage);
 				} catch (Exception e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			}

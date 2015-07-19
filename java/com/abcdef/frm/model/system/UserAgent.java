@@ -3,9 +3,8 @@ package com.abcdef.frm.model.system;
  *    
  *   
 */
-import org.apache.commons.lang.builder.HashCodeBuilder;
-import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.EqualsBuilder;
+import org.apache.commons.lang.builder.HashCodeBuilder;
 
 import com.abcdef.core.model.BaseModel;
 import com.abcdef.core.model.CheckCompleteResult;
@@ -16,11 +15,14 @@ import com.abcdef.core.model.GenericModel;
  * 
  * Avoid changing this file if not necessary, will be overwritten. 
  *
- * ������������������������������������������������������������
  */
 public class UserAgent extends BaseModel implements GenericModel {
 
-    protected Long grantId;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	protected Long grantId;
 	protected Long userId;
 	protected String fullname;
 	protected Long grantUId;

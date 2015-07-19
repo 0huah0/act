@@ -9,6 +9,7 @@ import com.abcdef.core.dao.impl.BaseDaoImpl;
 import com.abcdef.frm.dao.system.RegionDao;
 import com.abcdef.frm.model.system.Region;
 
+@SuppressWarnings("unchecked")
 public class RegionDaoImpl extends BaseDaoImpl<Region> implements RegionDao{
 
 	public RegionDaoImpl() {

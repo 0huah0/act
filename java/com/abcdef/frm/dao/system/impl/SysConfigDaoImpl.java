@@ -9,6 +9,7 @@ import com.abcdef.core.dao.impl.BaseDaoImpl;
 import com.abcdef.frm.dao.system.SysConfigDao;
 import com.abcdef.frm.model.system.SysConfig;
 
+@SuppressWarnings("unchecked")
 public class SysConfigDaoImpl extends BaseDaoImpl<SysConfig> implements SysConfigDao{
 
 	public SysConfigDaoImpl() {

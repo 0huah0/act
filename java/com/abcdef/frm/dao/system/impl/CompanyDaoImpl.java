@@ -9,6 +9,7 @@ import com.abcdef.core.dao.impl.BaseDaoImpl;
 import com.abcdef.frm.dao.system.CompanyDao;
 import com.abcdef.frm.model.system.Company;
 
+@SuppressWarnings("unchecked")
 public class CompanyDaoImpl extends BaseDaoImpl<Company> implements CompanyDao{
 
 	public CompanyDaoImpl() {
@@ -20,8 +21,5 @@ public class CompanyDaoImpl extends BaseDaoImpl<Company> implements CompanyDao{
 		return findByHql(hql);
 		
 	}
-	
-
-
 	
 }

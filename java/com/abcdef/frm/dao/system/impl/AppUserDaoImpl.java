@@ -32,6 +32,7 @@ import com.abcdef.frm.model.system.AppRole;
 import com.abcdef.frm.model.system.AppUser;
 import com.abcdef.frm.model.system.UserAgent;
 
+@SuppressWarnings("unchecked")
 public class AppUserDaoImpl extends BaseDaoImpl<AppUser> implements AppUserDao,
 		UserDetailsService {
 	//private Log log = LogFactory.getLog(AppUserDaoImpl.class);
@@ -56,12 +57,11 @@ public class AppUserDaoImpl extends BaseDaoImpl<AppUser> implements AppUserDao,
 		return user;
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
 	public UserDetails loadUserByUsername(final String username)
 			throws UsernameNotFoundException, DataAccessException {
 		AppUser user = (AppUser) getHibernateTemplate().execute(
-				new HibernateCallback() {
+				new HibernateCallback<Object>() {
 					public Object doInHibernate(Session session)
 							throws HibernateException, SQLException {
 
@@ -126,15 +126,15 @@ public class AppUserDaoImpl extends BaseDaoImpl<AppUser> implements AppUserDao,
 	 */
 	@Override
 	public List<AppUser> findByDepartment(String path, PagingBean pb) {
-		List list = new ArrayList();
+		List<String> list = new ArrayList<String>();
 		String hql = new String();
 		if ("0.".equals(path)) {
 			hql = "from AppUser vo2 where vo2.delFlag = ? order by vo2.fullname";
-			list.add(Constants.FLAG_UNDELETED);
+			list.add(Constants.FLAG_UNDELETED.toString());
 		} else {
 			hql = "select vo2 from Department vo1,AppUser vo2 where vo1=vo2.department and vo1.path like ? and vo2.delFlag = ? order by vo2.fullname";
 			list.add(path + "%");
-			list.add(Constants.FLAG_UNDELETED);
+			list.add(Constants.FLAG_UNDELETED.toString());
 		}
 		if (pb != null)
 			return findByHql(hql, list.toArray(), pb);
@@ -178,9 +178,9 @@ public class AppUserDaoImpl extends BaseDaoImpl<AppUser> implements AppUserDao,
 		List<UserAgent> userAgents = userAgentDao.getByUserId(userId);
 		
 		String hql = "from AppUser au, Employee ep where ep=au.employee and au.status=? and au.delFlag=? ";
-		ArrayList params = new ArrayList();
-		params.add(Constants.ENABLED);			//状态有效
-		params.add(Constants.FLAG_UNDELETED);	//未被删除
+		List<String> params = new ArrayList<String>();
+		params.add(Constants.ENABLED.toString());			//状态有效
+		params.add(Constants.FLAG_UNDELETED.toString());	//未被删除
 
 		//根据用户名称过滤
 		if (StringUtils.isNotEmpty(fullname)) {

@@ -9,11 +9,8 @@ import com.abcdef.frm.model.system.SystemLog;
 import com.abcdef.frm.service.system.SystemLogService;
 
 public class SystemLogServiceImpl extends BaseServiceImpl<SystemLog> implements SystemLogService{
-	private SystemLogDao dao;
-	
 	public SystemLogServiceImpl(SystemLogDao dao) {
 		super(dao);
-		this.dao=dao;
 	}
 
 }

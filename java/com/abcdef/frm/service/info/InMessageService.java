@@ -19,8 +19,8 @@ public interface InMessageService extends BaseService<InMessage> {
 	public InMessage findByRead(Long userId);
 	public Integer findByReadFlag(Long userId);
 	public List<InMessage> findAll(Long userId,PagingBean pb);
-	public List findByUser(Long userId,PagingBean pb);
-	public List searchInMessage(Long userId,InMessage inMessage,ShortMessage shortMessage,Date from,Date to,PagingBean pb);
+	public List<?> findByUser(Long userId,PagingBean pb);
+	public List<?> searchInMessage(Long userId,InMessage inMessage,ShortMessage shortMessage,Date from,Date to,PagingBean pb);
 	/**
 	 * 查找最新的一条信息
 	 * @param userId

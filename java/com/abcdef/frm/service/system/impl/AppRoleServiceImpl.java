@@ -5,16 +5,13 @@ package com.abcdef.frm.service.system.impl;
 */
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
-import java.util.HashMap;
 
 import com.abcdef.core.exception.ExistException;
-import com.abcdef.core.exception.NotCompleteException;
 import com.abcdef.core.exception.NotExistException;
-import com.abcdef.core.model.CheckCompleteResult;
 import com.abcdef.core.service.impl.BaseServiceImpl;
-import com.abcdef.core.util.BeanUtil;
 import com.abcdef.core.util.ContextUtil;
 import com.abcdef.frm.dao.system.AppRoleDao;
 import com.abcdef.frm.model.system.AppFunction;
@@ -29,12 +26,7 @@ public class AppRoleServiceImpl extends BaseServiceImpl<AppRole> implements AppR
 		super(dao);
 		this.dao=dao;
 	}
-	/*
-	@Override
-	public AppRole getByRoleName(String roleName){
-		return dao.getByRoleName(roleName);
-	}
-	*/
+	
 	@Override
 	public AppRole getByRoleCode(String roleCode) {
 		return dao.getByRoleCode(roleCode);
@@ -86,6 +78,7 @@ public class AppRoleServiceImpl extends BaseServiceImpl<AppRole> implements AppR
 	 * @return
 	 * @throws ExistException 对象已存在
 	 */
+	@SuppressWarnings("unused")
 	private AppRole doInsert(AppRole entity) throws ExistException {
 		if (null == dao.getByRoleCode(entity.getRoleCode())) {
 			AppUser currUser = ContextUtil.getCurrentUser();
@@ -108,6 +101,7 @@ public class AppRoleServiceImpl extends BaseServiceImpl<AppRole> implements AppR
 	 * @return
 	 * @throws NotExistException 对象不存在
 	 */
+	@SuppressWarnings("unused")
 	private AppRole doUpdate(AppRole entity) throws NotExistException {
 		AppUser currUser = ContextUtil.getCurrentUser();
 		//如果实体中有Id则更新

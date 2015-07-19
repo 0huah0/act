@@ -3,9 +3,8 @@ package com.abcdef.frm.model.system;
  *   
  *   
 */
-import org.apache.commons.lang.builder.HashCodeBuilder;
-import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.EqualsBuilder;
+import org.apache.commons.lang.builder.HashCodeBuilder;
 
 import com.abcdef.core.model.BaseModel;
 import com.abcdef.core.model.CheckCompleteResult;
@@ -19,7 +18,11 @@ import com.abcdef.core.model.GenericModel;
  */
 public class SystemLog extends BaseModel implements GenericModel {
 
-    protected Long logId;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	protected Long logId;
 	protected String username;
 	protected Long userId;
 	protected java.util.Date createtime;

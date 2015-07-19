@@ -1,6 +1,5 @@
 package com.abcdef.frm.action.system;
 
-import java.lang.reflect.Type;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -16,7 +15,7 @@ import com.abcdef.frm.service.system.DictionaryService;
 import com.abcdef.frm.service.system.GlobalTypeService;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.reflect.TypeToken;
+
 import flexjson.JSONSerializer;
 
 public class DictionaryAction extends BaseAction {
@@ -71,7 +70,6 @@ public class DictionaryAction extends BaseAction {
 				} catch (Exception ex) {
 					logger.error(ex.getMessage());
 				}
-				;
 			}
 		}
 

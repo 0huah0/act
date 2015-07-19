@@ -4,7 +4,6 @@ package com.abcdef.frm.dao.system;
  *  
 */
 import java.util.HashMap;
-import java.util.List;
 import java.util.Set;
 
 import com.abcdef.core.dao.BaseDao;

@@ -5,9 +5,9 @@ import java.util.List;
 import com.abcdef.core.Constants;
 import com.abcdef.core.dao.impl.BaseDaoImpl;
 import com.abcdef.frm.dao.system.EmployeeDao;
-import com.abcdef.frm.model.system.AppUser;
 import com.abcdef.frm.model.system.Employee;
 
+@SuppressWarnings("unchecked")
 public class EmployeeDaoImpl extends BaseDaoImpl<Employee> implements EmployeeDao{
 
 	public EmployeeDaoImpl() {
@@ -28,7 +28,6 @@ public class EmployeeDaoImpl extends BaseDaoImpl<Employee> implements EmployeeDa
 
 	@Override
 	public List<Employee> getByDepId(Long depId) {
-		// TODO Auto-generated method stub
 		final String hql = " from Employee e where e.department.depId=?";
 		Object[] params = {depId};
 		return findByHql(hql, params);

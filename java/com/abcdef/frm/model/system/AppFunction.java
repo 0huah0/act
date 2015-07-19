@@ -4,9 +4,10 @@ package com.abcdef.frm.model.system;
  *  
 */
 
-import org.apache.commons.lang.builder.HashCodeBuilder;
-import org.apache.commons.lang.builder.ToStringBuilder;
+import java.util.Set;
+
 import org.apache.commons.lang.builder.EqualsBuilder;
+import org.apache.commons.lang.builder.HashCodeBuilder;
 
 import com.abcdef.core.model.BaseModel;
 import com.abcdef.core.model.CheckCompleteResult;
@@ -57,8 +58,7 @@ public class AppFunction extends BaseModel implements GenericModel {
 		return funUrls;
 	}	
 	
-	@SuppressWarnings("unchecked")
-	public void setFunUrls (java.util.Set in_funUrls) {
+	public void setFunUrls (Set<FunUrl> in_funUrls) {
 		this.funUrls = in_funUrls;
 	}
     

@@ -2,7 +2,7 @@
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 
 <hibernate-mapping>
-	<class name="com.act.model.SystemConfig" table="system_config">
+	<class name="com.act.model.SystemConfig" table="act_system_config">
 		<id name="id" type="java.lang.Long" column="config_id">
 			<generator class="native"/>
 		</id>

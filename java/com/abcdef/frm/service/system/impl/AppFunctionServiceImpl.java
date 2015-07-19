@@ -3,7 +3,6 @@ package com.abcdef.frm.service.system.impl;
  *  
  *  
 */
-import com.abcdef.core.exception.ExistException;
 import com.abcdef.core.exception.NotCompleteException;
 import com.abcdef.core.exception.NotExistException;
 import com.abcdef.core.service.impl.BaseServiceImpl;

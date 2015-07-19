@@ -19,7 +19,7 @@ public interface SysConfigDao extends BaseDao<SysConfig>{
 	
 	public List<SysConfig> findConfigByTypeKey(String typeKey);
 	
-	public List findTypeKeys();
+	public List<?> findTypeKeys();
 	
 	/**
 	 * lxw add

@@ -162,29 +162,22 @@ public class SuggestBoxAction extends BaseAction {
 
 	/**
 	 * 批量删除
-	 * 
 	 * @return
 	 */
 	public String multiDel() {
-
 		String[] ids = getRequest().getParameterValues("ids");
 		if (ids != null) {
 			for (String id : ids) {
 				try {
-					// TODO 保存和移除
 					suggestBoxService.remove(new Long(id));
 				} catch (NumberFormatException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				} catch (Exception e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			}
 		}
-
 		jsonString = "{success:true}";
-
 		return SUCCESS;
 	}
 
@@ -194,16 +187,13 @@ public class SuggestBoxAction extends BaseAction {
 	 * @return
 	 */
 	public String get() {
-		AppUser user = ContextUtil.getCurrentUser();
 		SuggestBox suggestBox = suggestBoxService.get(boxId);
-
 		Gson gson = new Gson();
 		// 将数据转成JSON格式
 		StringBuffer sb = new StringBuffer("{success:true,data:");
 		sb.append(gson.toJson(suggestBox));
 		sb.append("}");
 		setJsonString(sb.toString());
-
 		return SUCCESS;
 	}
 
@@ -228,10 +218,8 @@ public class SuggestBoxAction extends BaseAction {
 		}
 
 		try {
-			// TODO 保存和移除
 			suggestBoxService.save(suggestBox);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		setJsonString("{success:true}");
@@ -253,10 +241,8 @@ public class SuggestBoxAction extends BaseAction {
 		orgSuggest.setStatus(SuggestBox.STATUS_AUDIT);
 		orgSuggest.setReplyContent(suggestBox.getReplyContent());
 		try {
-			// TODO 保存和移除
 			suggestBoxService.save(orgSuggest);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		setJsonString("{success:true}");

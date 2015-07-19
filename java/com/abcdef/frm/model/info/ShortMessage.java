@@ -12,6 +12,10 @@ import com.abcdef.core.model.BaseModel;
 
 public class ShortMessage extends BaseModel {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private Long messageId;
 	private String content;
 	private Long senderId;

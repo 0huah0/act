@@ -62,14 +62,14 @@ public class InMessageDaoImpl extends BaseDaoImpl<InMessage> implements InMessag
 	}
 
 	@Override
-	public List findByUser(Long userId,PagingBean pb) {
+	public List<?> findByUser(Long userId,PagingBean pb) {
 		String hql="select vo1,vo2 from InMessage vo1,ShortMessage vo2 where vo1.shortMessage=vo2 and vo2.msgType=1 and vo2.senderId=? order by vo2.sendTime desc";
 		Object[] objs={userId};
 		return findByHql(hql,objs,pb);
 	}
 
 	@Override
-	public List findByUser(Long userId) {
+	public List<?> findByUser(Long userId) {
 		String hql="select vo1,vo2 from InMessage vo1,ShortMessage vo2 where vo1.shortMessage=vo2 and vo2.senderId=?";
 		Object[] objs={userId};
 		return findByHql(hql,objs);
@@ -81,10 +81,10 @@ public class InMessageDaoImpl extends BaseDaoImpl<InMessage> implements InMessag
 	
 	
 	@Override
-	public List searchInMessage(Long userId, InMessage inMessage,
+	public List<?> searchInMessage(Long userId, InMessage inMessage,
 			ShortMessage shortMessage, Date from, Date to, PagingBean pb) {
 		StringBuffer hql=new StringBuffer("select vo1 ,vo2 from InMessage vo1,ShortMessage vo2 where vo1.shortMessage=vo2 and vo2.msgType=1 and vo2.senderId=?");
-		ArrayList paramList=new ArrayList();
+		List<Object> paramList = new ArrayList<Object>();
 		paramList.add(userId);	
 		if(to!=null){
 			hql.append("and vo2.sendTime <= ?");

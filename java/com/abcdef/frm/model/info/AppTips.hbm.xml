@@ -2,7 +2,7 @@
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 
 <hibernate-mapping>
-	<class name="com.abcdef.frm.model.info.AppTips" table="FRM_APP_TIPS">
+	<class name="com.abcdef.frm.model.info.AppTips" table="frm_app_tips">
 		<id name="tipsId" column="tipsId" type="java.lang.Long">
 			<generator class="native" />
 		</id>

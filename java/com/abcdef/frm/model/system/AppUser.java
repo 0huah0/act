@@ -13,7 +13,10 @@ import com.abcdef.core.model.CheckCompleteResult;
 import com.abcdef.core.model.GenericModel;
 
 public class AppUser extends com.abcdef.core.model.BaseModel implements GenericModel, UserDetails{
-
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	/**
 	 * 系统用户ID，由初始化数据加入
 	 */

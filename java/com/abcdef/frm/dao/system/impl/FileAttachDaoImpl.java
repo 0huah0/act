@@ -29,7 +29,7 @@ public class FileAttachDaoImpl extends BaseDaoImpl<FileAttach> implements
 	@Override
 	public void removeByPath(final String filePath) {
 		final String hql = "delete from FileAttach fa where fa.filePath = ?";
-		getHibernateTemplate().execute(new HibernateCallback() {
+		getHibernateTemplate().execute(new HibernateCallback<Object>() {
 			@Override
 			public Object doInHibernate(Session session)
 					throws HibernateException, SQLException {

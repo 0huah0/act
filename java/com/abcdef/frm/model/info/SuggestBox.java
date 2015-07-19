@@ -16,6 +16,11 @@ import org.apache.commons.lang.builder.EqualsBuilder;
 public class SuggestBox extends com.abcdef.core.model.BaseModel {
 
 	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	/**
 	 * 状态:草稿
 	 */
 	public static final Short STATUS_DRAFT = 0;

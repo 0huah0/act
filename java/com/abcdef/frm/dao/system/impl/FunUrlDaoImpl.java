@@ -7,6 +7,7 @@ import com.abcdef.core.dao.impl.BaseDaoImpl;
 import com.abcdef.frm.dao.system.FunUrlDao;
 import com.abcdef.frm.model.system.FunUrl;
 
+@SuppressWarnings("unchecked")
 public class FunUrlDaoImpl extends BaseDaoImpl<FunUrl> implements FunUrlDao{
 
 	public FunUrlDaoImpl() {

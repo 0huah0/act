@@ -21,7 +21,7 @@ public interface SysConfigService extends BaseService<SysConfig>{
 	 * 按类查找配置列表
 	 * @return
 	 */
-	public Map findByType();
+	public Map<?, ?> findByType();
 	/**
 	 * 根据typeKey和 configKey获得 配置值
 	 * @param typeKey

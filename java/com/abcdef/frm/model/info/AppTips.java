@@ -9,7 +9,12 @@ import com.abcdef.frm.model.system.AppUser;
 
 public class AppTips extends com.abcdef.core.model.BaseModel {
 
-    private Long tipsId;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	private Long tipsId;
 	
 	private String tipsName;
 	

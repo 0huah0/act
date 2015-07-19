@@ -12,6 +12,7 @@ import com.abcdef.core.dao.impl.BaseDaoImpl;
 import com.abcdef.frm.dao.system.DictionaryDao;
 import com.abcdef.frm.model.system.Dictionary;
 
+@SuppressWarnings("unchecked")
 public class DictionaryDaoImpl extends BaseDaoImpl<Dictionary> implements DictionaryDao{
 
 	public DictionaryDaoImpl() {
@@ -21,7 +22,7 @@ public class DictionaryDaoImpl extends BaseDaoImpl<Dictionary> implements Dictio
 	@Override
 	public List<String> getAllItems() {
 		final String hql = "select itemName from Dictionary group by itemName";
-		return (List<String>)getHibernateTemplate().execute(new HibernateCallback() {
+		return (List<String>)getHibernateTemplate().execute(new HibernateCallback<Object>() {
 			@Override
 			public Object doInHibernate(Session session) throws HibernateException,
 					SQLException {
@@ -34,7 +35,7 @@ public class DictionaryDaoImpl extends BaseDaoImpl<Dictionary> implements Dictio
 	@Override
 	public List<String> getAllByItemName(final String itemName) {
 		final String hql = "select itemValue from Dictionary where itemName=?";
-		return (List<String>)getHibernateTemplate().execute(new HibernateCallback() {
+		return (List<String>)getHibernateTemplate().execute(new HibernateCallback<Object>() {
 			@Override
 			public Object doInHibernate(Session session) throws HibernateException,
 					SQLException {
@@ -47,7 +48,7 @@ public class DictionaryDaoImpl extends BaseDaoImpl<Dictionary> implements Dictio
 	
 	public List<Dictionary> getByItemName(final String itemName){
 		final String hql = " from Dictionary where itemName=?";
-		return (List<Dictionary>)getHibernateTemplate().execute(new HibernateCallback() {
+		return (List<Dictionary>)getHibernateTemplate().execute(new HibernateCallback<Object>() {
 			@Override
 			public Object doInHibernate(Session session) throws HibernateException,
 					SQLException {

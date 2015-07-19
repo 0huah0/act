@@ -12,6 +12,10 @@ import com.abcdef.core.model.GenericModel;
 
 public class Company extends BaseModel implements GenericModel {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private  Long companyId;           
 	private  String companyNo;           
 	private  String companyName;         

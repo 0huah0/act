@@ -5,11 +5,9 @@ var AppUserForm = function(_title, _userId) {
 AppUserForm.prototype.setup = function(_title, userId) {
 	//var _url = __ctxPath + '/system/list1Department.do';
 	var _url = __ctxPath + '/system/treeAllByLevelDepartment.do';
-	var depSelector = new TreeSelector('depTreeSelector', _url, '所屬部門',
-			'appUser.depId', true);
+	var depSelector = new TreeSelector('depTreeSelector', _url, '所屬部門','appUser.depId', true);
 	
-	var userform = new Ext.form.FormPanel(
-			{
+	var userform = new Ext.form.FormPanel({
 				id : 'AppUserForm',
 				//title : _title,
 				closable : true,			

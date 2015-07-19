@@ -23,15 +23,14 @@ AppUserView=Ext.extend(Ext.Panel,{
 		this.items=[this.searchPanel,this.gridPanel, addUser];
 	},
 	onSearch:function(obj){
-							var searchPanel = Ext.getCmp('AppUserSearchForm');
-		
-							var gridPanel = Ext.getCmp('AppUserGrid');
-							if (searchPanel.getForm().isValid()) {
-								$search({
-									searchPanel :searchPanel,
-									gridPanel : gridPanel
-								});
-							}
+		var searchPanel = Ext.getCmp('AppUserSearchForm');
+		var gridPanel = Ext.getCmp('AppUserGrid');
+		if (searchPanel.getForm().isValid()) {
+			$search({
+				searchPanel :searchPanel,
+				gridPanel : gridPanel
+			});
+		}
 	}
 });
 
@@ -54,7 +53,6 @@ AppUserView.prototype.initSearchPanel=function(){
 				border:false,
 				margins:{top:0, right:4, bottom:4, left:4}
 			},
-			
 			items : [ {
 						text : '用戶帳號：',
 						style:'margin-left:10px',
@@ -78,8 +76,7 @@ AppUserView.prototype.initSearchPanel=function(){
 						style:'margin-left:30px',
 						scope:this,
 						handler : this.onSearch.createCallback(this)
-					}
-					]
+					} ]
 		});//end of search panel
 };
 
@@ -250,17 +247,22 @@ AppUserView.prototype.initGridPanel=function(){
 							})
 				});
 		// 为Grid增加双击事件,双击行可编辑
-		this.gridPanel.addListener('rowclick', rowclickFn);
-		var gridPanel=this.gridPanel;
-		function rowclickFn(gridPanel, rowindex, e) {
+		this.gridPanel.addListener('rowclick', function(gridPanel, rowindex, e) {
 			gridPanel.getSelectionModel().each(function(rec) {
 				var userId=rec.data.userId;
-		        if(isGranted('_AppUserEdit')&&userId!=1){
-					AppUserView.edit(userId, rec.data.username);
-//		        	AppUserView.edit(userId);
-		        }
+		        if(isGranted('_AppUserEdit')){
+		        	if(userId!=1){
+		        		AppUserView.edit(userId, rec.data.username);
+		        	}else{
+		        		Ext.ux.Toast.msg("操作信息", "系統用戶");
+		        	}
+		        }else{
+	        		Ext.ux.Toast.msg("操作信息", "當前用戶無此操作權限");
+	        	}
 			});
-		}
+		});
+		var gridPanel=this.gridPanel;
+		
 };//end of the init GridPanel
 
 

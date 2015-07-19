@@ -9,17 +9,19 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
-import org.apache.commons.lang.builder.ToStringBuilder;
 import org.springframework.security.core.GrantedAuthority;
 
 import com.abcdef.core.model.BaseModel;
 import com.abcdef.core.model.CheckCompleteResult;
 import com.abcdef.core.model.GenericModel;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.google.gson.annotations.Expose;
 
 public class AppRole extends BaseModel implements GenericModel,GrantedAuthority {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	public static String ROLE_PUBLIC = "ROLE_PUBLIC";
 

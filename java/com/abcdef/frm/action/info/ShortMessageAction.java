@@ -4,8 +4,11 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
 import javax.annotation.Resource;
+
 import org.apache.commons.lang.StringUtils;
+
 import com.abcdef.core.util.ContextUtil;
 import com.abcdef.core.util.StringUtil;
 import com.abcdef.core.web.action.BaseAction;
@@ -75,7 +78,7 @@ public class ShortMessageAction extends BaseAction {
 		List<Object[]> list;
 		PagingBean pb = getInitPagingBean();
 		AppUser appUser = ContextUtil.getCurrentUser();
-		list = shortMessageService.searchShortMessage(appUser.getUserId(),
+		list = (List<Object[]>) shortMessageService.searchShortMessage(appUser.getUserId(),
 				shortMessage, from, to, pb);
 		StringBuffer buff = new StringBuffer("{success:true,'totalCounts':"
 				+ pb.getTotalItems() + ",result:");
@@ -120,10 +123,8 @@ public class ShortMessageAction extends BaseAction {
 			}
 			message.setSendTime(new Date());
 			try {
-				// TODO 保存和移除
 				shortMessageService.save(message);
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			for (int i = 0; i < st.length; i++) {
@@ -135,10 +136,8 @@ public class ShortMessageAction extends BaseAction {
 				in.setReadFlag((short) 0);
 				in.setShortMessage(message);
 				try {
-					// TODO 保存和移除
 					inMessageService.save(in);
 				} catch (Exception e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			}

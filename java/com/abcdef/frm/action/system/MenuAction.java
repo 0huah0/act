@@ -71,6 +71,7 @@ public class MenuAction extends BaseAction {
 
 	}
 
+	@SuppressWarnings("unused")
 	private Document getModuleDocument() {
 		String topMenuId = getRequest().getParameter("topMenuId");
 		if (StringUtils.isEmpty(topMenuId)) {
@@ -88,7 +89,7 @@ public class MenuAction extends BaseAction {
 
 	private void createSubMenus(Set<String> rights, Element curNodes,
 			Element newCurNodes) {
-		List els = curNodes.elements();
+		List<?> els = curNodes.elements();
 		if (els.size() == 0)
 			return;
 
@@ -99,6 +100,7 @@ public class MenuAction extends BaseAction {
 				String idVal = id.getValue();
 				if (rights.contains(idVal) || idVal == null) {
 					Element newNodes = newCurNodes.addElement(el.getName());
+					@SuppressWarnings("unchecked")
 					Iterator<Attribute> it = el.attributeIterator();
 
 					while (it.hasNext()) {
@@ -128,7 +130,7 @@ public class MenuAction extends BaseAction {
 
 			Element el = doc.getRootElement();
 
-			List nodes = el.selectNodes("/Menus/Items[@id='" + id + "']/*");
+			List<?> nodes = el.selectNodes("/Menus/Items[@id='" + id + "']/*");
 
 			sb.append("<Menus>\r");
 			for (int i = 0; i < nodes.size(); i++) {
@@ -156,7 +158,7 @@ public class MenuAction extends BaseAction {
 
 		if (doc != null) {
 			Element root = doc.getRootElement();
-			List els = root.elements();
+			List<?> els = root.elements();
 
 			for (int i = 0; i < els.size(); i++) {
 				Element el = (Element) els.get(i);
@@ -194,13 +196,11 @@ public class MenuAction extends BaseAction {
 		Gson gson = new Gson();
 		Document doc = getCurDocument();
 
-		// Document doc=getModuleDocument();
-
 		StringBuffer sb = new StringBuffer("[");
 
 		if (doc != null) {
 			Element root = doc.getRootElement();
-			List els = root.elements();
+			List<?> els = root.elements();
 
 			for (int i = 0; i < els.size(); i++) {
 				Element el = (Element) els.get(i);
@@ -238,7 +238,7 @@ public class MenuAction extends BaseAction {
 
 		Element el = doc.getRootElement();
 
-		List nodes = el.selectNodes("/Menus/Items[@id='" + modelId + "']/*");
+		List<?> nodes = el.selectNodes("/Menus/Items[@id='" + modelId + "']/*");
 
 		sb.append("<Menus>\r");
 		for (int i = 0; i < nodes.size(); i++) {

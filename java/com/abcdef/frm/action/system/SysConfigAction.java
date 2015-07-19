@@ -4,7 +4,9 @@ import java.lang.reflect.Type;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+
 import javax.annotation.Resource;
+
 import com.abcdef.core.command.QueryFilter;
 import com.abcdef.core.util.AppUtil;
 import com.abcdef.core.util.JsonUtil;
@@ -19,6 +21,7 @@ import flexjson.JSONSerializer;
 public class SysConfigAction extends BaseAction {
 	@Resource
 	private SysConfigService sysConfigService;
+
 	private SysConfig sysConfig;
 
 	private Long configId;
@@ -72,13 +75,10 @@ public class SysConfigAction extends BaseAction {
 		if (ids != null) {
 			for (String id : ids) {
 				try {
-					// TODO 保存和移除
 					sysConfigService.remove(new Long(id));
 				} catch (NumberFormatException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				} catch (Exception e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			}
@@ -110,6 +110,7 @@ public class SysConfigAction extends BaseAction {
 	/**
 	 * 添加及保存操作
 	 */
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public String save() {
 		Map con = AppUtil.getSysConfig();
 		Map map = getRequest().getParameterMap();
@@ -121,10 +122,8 @@ public class SysConfigAction extends BaseAction {
 			String[] value = (String[]) entry.getValue();
 			conf.setDataValue(value[0]);
 			try {
-				// TODO 保存和移除
 				sysConfigService.save(conf);
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			con.remove(key);
@@ -139,7 +138,7 @@ public class SysConfigAction extends BaseAction {
 	}
 
 	public String load() {
-		Map conf = sysConfigService.findByType();
+		Map<?, ?> conf = sysConfigService.findByType();
 		JSONSerializer json = JsonUtil.getJSONSerializer("");
 		setJsonString("{success:true,data:" + json.serialize(conf) + "}");
 		return SUCCESS;

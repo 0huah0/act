@@ -9,6 +9,7 @@ import com.abcdef.core.dao.impl.BaseDaoImpl;
 import com.abcdef.frm.dao.system.IndexDisplayDao;
 import com.abcdef.frm.model.system.IndexDisplay;
 
+@SuppressWarnings("unchecked")
 public class IndexDisplayDaoImpl extends BaseDaoImpl<IndexDisplay> implements IndexDisplayDao{
 
 	public IndexDisplayDaoImpl() {

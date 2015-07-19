@@ -2,7 +2,7 @@
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 
 <hibernate-mapping>
-	<class name="com.abcdef.frm.model.system.AppRole" table="FRM_APP_ROLE">
+	<class name="com.abcdef.frm.model.system.AppRole" table="frm_app_role">
 		<id name="roleId" type="java.lang.Long">
 			<generator class="native"></generator>
 		</id>

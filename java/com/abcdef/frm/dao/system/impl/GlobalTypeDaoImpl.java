@@ -10,6 +10,7 @@ import com.abcdef.core.dao.impl.BaseDaoImpl;
 import com.abcdef.frm.dao.system.GlobalTypeDao;
 import com.abcdef.frm.model.system.GlobalType;
 
+@SuppressWarnings("unchecked")
 public class GlobalTypeDaoImpl extends BaseDaoImpl<GlobalType> implements GlobalTypeDao{
 
 	public GlobalTypeDaoImpl() {
@@ -25,7 +26,7 @@ public class GlobalTypeDaoImpl extends BaseDaoImpl<GlobalType> implements Global
 	}
 	
 	public Integer getCountsByParentId(Long parentId){
-		ArrayList param=new ArrayList();
+		ArrayList<Long> param=new ArrayList<Long>();
 		String hql= " select count(proTypeId) from GlobalType gt ";
 		if(parentId!=null && parentId!=0){
 			hql+=" where gt.parentId=?";
@@ -40,7 +41,7 @@ public class GlobalTypeDaoImpl extends BaseDaoImpl<GlobalType> implements Global
 	}
 	
 	public List<GlobalType> getByParentId(Long parentId){
-		ArrayList param=new ArrayList();
+		ArrayList<Long> param=new ArrayList<Long>();
 		String hql= " from GlobalType gt ";
 		if(parentId!=null && parentId!=0){
 			hql+=" where gt.parentId=?";

@@ -8,11 +8,14 @@ import com.abcdef.core.model.BaseModel;
 
 public class InMessage extends BaseModel {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	public final static Short FLAG_READ=1;
 	public final static Short FLAG_UNREAD=0;
 	
 	private Long receiveId;
-//	private Long messageId;
 	private ShortMessage shortMessage;
 	private Long userId;
 	private String userFullname;
@@ -27,16 +30,6 @@ public class InMessage extends BaseModel {
 		return receiveId;
 	}
 	
-	
-//	public Long getMessageId() {
-//		return messageId;
-//	}
-//
-//	public void setMessageId(Long messageId) {
-//		this.messageId = messageId;
-//	}
-
-
 	public ShortMessage getShortMessage() {
 		return shortMessage;
 	}

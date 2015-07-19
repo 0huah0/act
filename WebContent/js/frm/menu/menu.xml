@@ -112,6 +112,14 @@
 		<Item id="JournalClearView" text="資料清除" iconCls="menu-customer"/>
 	</Items>
 	
-	
+	<Items id="Sales" text="銷售" iconCls="menu-plantype" isPublic="false">
+		<Item id="SalesOrderMgmt" text="銷貨單管理" iconCls="menu-holidayRecord"/>
+	</Items>
+	<Items id="Order" text="訂單" iconCls="menu-plantype" isPublic="false">
+		<Item id="OrderMgmt" text="訂單管理" iconCls="menu-holidayRecord"/>
+	</Items>
+	<Items id="Product" text="產品" iconCls="menu-plantype" isPublic="false">
+		<Item id="ProductMgmt" text="產品管理" iconCls="menu-holidayRecord"/>
+	</Items>
 </Menus>
 

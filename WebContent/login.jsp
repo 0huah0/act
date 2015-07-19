@@ -83,8 +83,8 @@
 	</head>
 	<body>
 		<ul class="login" style="">
-	    	<li><span class="describe">帳號:</span><input class="login_input" id="ext-comp-1002" name="username" type="text" value="" /></li>
-	        <li><span class="describe">密碼:</span><input class="login_input" id="ext-comp-1003" onkeyDown="if(event.keyCode==13){Javascript:submitYouFrom()}" name="password" d type="password" value="" /></li>
+	    	<li><span class="describe">帳號:</span><input class="login_input" id="ext-comp-1002" name="username" type="text" value="admin" /></li>
+	        <li><span class="describe">密碼:</span><input class="login_input" id="ext-comp-1003" onkeyDown="if(event.keyCode==13){Javascript:submitYouFrom()}" name="password" d type="password" value="password" /></li>
 	      <li class="buttonArea"><span class="describe"></span><input class="loginNow" name="" onclick="submitYouFrom()" type="button"/><input class="reset" name="" onclick="reset()" type="button"/></li>
 	    </ul>	
 	   <!--  <p class="center">ABCDEF</p> -->

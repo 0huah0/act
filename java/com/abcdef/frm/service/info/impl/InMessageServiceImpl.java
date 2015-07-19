@@ -35,11 +35,11 @@ public class InMessageServiceImpl extends BaseServiceImpl<InMessage> implements
 		return dao.findAll(userId, pb);
 	}
 	@Override
-	public List findByUser(Long userId, PagingBean pb) {
+	public List<?> findByUser(Long userId, PagingBean pb) {
 		return dao.findByUser(userId, pb);
 	}
 	@Override
-	public List searchInMessage(Long userId, InMessage inMessage,
+	public List<?> searchInMessage(Long userId, InMessage inMessage,
 			ShortMessage shortMessage, Date from, Date to, PagingBean pb) {
 		return dao.searchInMessage(userId, inMessage, shortMessage, from, to, pb);
 	}
