@@ -50,39 +50,51 @@ PssProductMaterialRelForm = Ext.extend(Ext.Window, {
 									xtype : 'hidden',
 									value : recId||''
 								},{
+									fieldLabel : '產品編號',
+									maxLength:18,
+									allowBlank : false,
+									name : 'pssProductMaterialRel.pdtId',
+									id : 'pdtId'
+								},{
 									fieldLabel : '原料類型，1：原物料、2：半成品、3：成品。一個產品只會對應一個成品原料。',
 									maxLength:18,
 									allowBlank : false,
-									name : 'pssProductMaterialRel.TypeEnum',
-									id : 'TypeEnum'
+									name : 'pssProductMaterialRel.type',
+									id : 'type'
 								},{
 									fieldLabel : '創建人員',
 									maxLength:18,
 									allowBlank : false,
-									name : 'pssProductMaterialRel.CreateByEnum',
-									id : 'CreateByEnum'
+									name : 'pssProductMaterialRel.createBy',
+									id : 'createBy'
 								},{
 									fieldLabel : '修改人員',
 									maxLength:18,
 									allowBlank : false,
-									name : 'pssProductMaterialRel.UpdateByEnum',
-									id : 'UpdateByEnum'
+									name : 'pssProductMaterialRel.updateBy',
+									id : 'updateBy'
 					     }]
 					},{
 						items : [{
 									xtype : 'hidden'
 								},{
+									fieldLabel : '原料編號/原料代號',
+									maxLength:18,
+									allowBlank : false,
+									name : 'pssProductMaterialRel.materialId',
+									id : 'materialId'
+								},{
 									fieldLabel : '創建日期',
 									maxLength:18,
 									allowBlank : false,
-									name : 'pssProductMaterialRel.CreateDateEnum',
-									id : 'CreateDateEnum'
+									name : 'pssProductMaterialRel.createDate',
+									id : 'createDate'
 								},{
 									fieldLabel : '修改日期',
 									maxLength:18,
 									allowBlank : false,
-									name : 'pssProductMaterialRel.UpdateDateEnum',
-									id : 'UpdateDateEnum'
+									name : 'pssProductMaterialRel.updateDate',
+									id : 'updateDate'
 				         }]
 					}]
 				}]

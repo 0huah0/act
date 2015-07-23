@@ -78,66 +78,72 @@ PssPurchaseOrderDetailView = Ext.extend(Ext.Panel, {
 										fieldLabel : '採購單編號',
 										maxLength:18,
 										allowBlank : false,
-										name : 'pssPurchaseOrderDetail.PoHeadIdEnum',
-										id : 'PoHeadIdEnum'
+										name : 'pssPurchaseOrderDetail.poHeadId',
+										id : 'poHeadId'
 									},{
-										fieldLabel : '原料數量',
+										fieldLabel : '原料編號',
 										maxLength:18,
 										allowBlank : false,
-										name : 'pssPurchaseOrderDetail.MaterialNumEnum',
-										id : 'MaterialNumEnum'
+										name : 'pssPurchaseOrderDetail.materialId',
+										id : 'materialId'
 									},{
-										fieldLabel : '原料建議售價(單價)',
+										fieldLabel : '原料定價(單價)',
 										maxLength:18,
 										allowBlank : false,
-										name : 'pssPurchaseOrderDetail.MaterialSalePriceEnum',
-										id : 'MaterialSalePriceEnum'
+										name : 'pssPurchaseOrderDetail.materialPrice',
+										id : 'materialPrice'
 									},{
-										fieldLabel : '創建日期',
+										fieldLabel : '小計',
 										maxLength:18,
 										allowBlank : false,
-										name : 'pssPurchaseOrderDetail.CreateDateEnum',
-										id : 'CreateDateEnum'
+										name : 'pssPurchaseOrderDetail.amount',
+										id : 'amount'
 									},{
-										fieldLabel : '修改日期',
+										fieldLabel : '創建人員',
 										maxLength:18,
 										allowBlank : false,
-										name : 'pssPurchaseOrderDetail.UpdateDateEnum',
-										id : 'UpdateDateEnum'
+										name : 'pssPurchaseOrderDetail.createBy',
+										id : 'createBy'
+									},{
+										fieldLabel : '修改人員',
+										maxLength:18,
+										allowBlank : false,
+										name : 'pssPurchaseOrderDetail.updateBy',
+										id : 'updateBy'
 						     }]
 						},{
 							items : [{
 										xtype : 'hidden'
 									},{
-										fieldLabel : '原料編號',
+										fieldLabel : '採購單明細編號',
 										maxLength:18,
 										allowBlank : false,
-										name : 'pssPurchaseOrderDetail.MaterialIdEnum',
-										id : 'MaterialIdEnum'
+										name : 'pssPurchaseOrderDetail.poDetailId',
+										id : 'poDetailId'
 									},{
-										fieldLabel : '原料定價(單價)',
+										fieldLabel : '原料數量',
 										maxLength:18,
 										allowBlank : false,
-										name : 'pssPurchaseOrderDetail.MaterialPriceEnum',
-										id : 'MaterialPriceEnum'
+										name : 'pssPurchaseOrderDetail.materialNum',
+										id : 'materialNum'
 									},{
-										fieldLabel : '小計',
+										fieldLabel : '原料建議售價(單價)',
 										maxLength:18,
 										allowBlank : false,
-										name : 'pssPurchaseOrderDetail.AmountEnum',
-										id : 'AmountEnum'
+										name : 'pssPurchaseOrderDetail.materialSalePrice',
+										id : 'materialSalePrice'
 									},{
-										fieldLabel : '創建人員',
+										fieldLabel : '創建日期',
 										maxLength:18,
 										allowBlank : false,
-										name : 'pssPurchaseOrderDetail.CreateByEnum',
-										id : 'CreateByEnum'
+										name : 'pssPurchaseOrderDetail.createDate',
+										id : 'createDate'
 									},{
-										fieldLabel : '修改人員',
+										fieldLabel : '修改日期',
 										maxLength:18,
 										allowBlank : false,
-										name : 'pssPurchaseOrderDetail.UpdateByEnum',
-										id : 'UpdateByEnum'
+										name : 'pssPurchaseOrderDetail.updateDate',
+										id : 'updateDate'
 					         }]
 						}]
 					}]
@@ -149,16 +155,17 @@ PssPurchaseOrderDetailView = Ext.extend(Ext.Panel, {
 					root : 'result',
 					totalProperty : 'totalCounts',
 					fields : ['id'
-								,PoHeadIdEnum
-								,MaterialIdEnum
-								,MaterialNumEnum
-								,MaterialPriceEnum
-								,MaterialSalePriceEnum
-								,AmountEnum
-								,CreateDateEnum
-								,CreateByEnum
-								,UpdateDateEnum
-								,UpdateByEnum
+								,'poHeadId'
+								,'poDetailId'
+								,'materialId'
+								,'materialNum'
+								,'materialPrice'
+								,'materialSalePrice'
+								,'amount'
+								,'createDate'
+								,'createBy'
+								,'updateDate'
+								,'updateBy'
 							]
 				});
 		this.store.setDefaultSort('id', 'asc');
@@ -172,43 +179,47 @@ PssPurchaseOrderDetailView = Ext.extend(Ext.Panel, {
 			columns : [new Ext.grid.RowNumberer(),{
 							header : '採購單編號',
 							width : 120,
-							dataIndex : 'PoHeadIdEnum'
+							dataIndex : 'poHeadId'
+						},{
+							header : '採購單明細編號',
+							width : 120,
+							dataIndex : 'poDetailId'
 						},{
 							header : '原料編號',
 							width : 120,
-							dataIndex : 'MaterialIdEnum'
+							dataIndex : 'materialId'
 						},{
 							header : '原料數量',
 							width : 120,
-							dataIndex : 'MaterialNumEnum'
+							dataIndex : 'materialNum'
 						},{
 							header : '原料定價(單價)',
 							width : 120,
-							dataIndex : 'MaterialPriceEnum'
+							dataIndex : 'materialPrice'
 						},{
 							header : '原料建議售價(單價)',
 							width : 120,
-							dataIndex : 'MaterialSalePriceEnum'
+							dataIndex : 'materialSalePrice'
 						},{
 							header : '小計',
 							width : 120,
-							dataIndex : 'AmountEnum'
+							dataIndex : 'amount'
 						},{
 							header : '創建日期',
 							width : 120,
-							dataIndex : 'CreateDateEnum'
+							dataIndex : 'createDate'
 						},{
 							header : '創建人員',
 							width : 120,
-							dataIndex : 'CreateByEnum'
+							dataIndex : 'createBy'
 						},{
 							header : '修改日期',
 							width : 120,
-							dataIndex : 'UpdateDateEnum'
+							dataIndex : 'updateDate'
 						},{
 							header : '修改人員',
 							width : 120,
-							dataIndex : 'UpdateByEnum'
+							dataIndex : 'updateBy'
 						},{
 						header : '管理',
 						dataIndex : 'id',

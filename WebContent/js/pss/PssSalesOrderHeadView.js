@@ -75,75 +75,81 @@ PssSalesOrderHeadView = Ext.extend(Ext.Panel, {
 										xtype : 'hidden',
 										value : recId||''
 									},{
-										fieldLabel : '客戶編號',
+										fieldLabel : '銷貨單編號，銷貨單代碼2位(SO)+當前日期8位(yyyyMMdd)+流水號6位。',
 										maxLength:18,
 										allowBlank : false,
-										name : 'pssSalesOrderHead.CustomerIdEnum',
-										id : 'CustomerIdEnum'
+										name : 'pssSalesOrderHead.soHeadId',
+										id : 'soHeadId'
 									},{
-										fieldLabel : '定價總金額',
+										fieldLabel : '客戶採購單編號',
 										maxLength:18,
 										allowBlank : false,
-										name : 'pssSalesOrderHead.PriceAmountEnum',
-										id : 'PriceAmountEnum'
+										name : 'pssSalesOrderHead.custPoNo',
+										id : 'custPoNo'
 									},{
-										fieldLabel : '實際售價總金額',
+										fieldLabel : '建議售價總金額',
 										maxLength:18,
 										allowBlank : false,
-										name : 'pssSalesOrderHead.PayAmountEnum',
-										id : 'PayAmountEnum'
+										name : 'pssSalesOrderHead.salePriceAmount',
+										id : 'salePriceAmount'
 									},{
-										fieldLabel : '備註',
+										fieldLabel : '優惠金額',
 										maxLength:18,
 										allowBlank : false,
-										name : 'pssSalesOrderHead.RemarkEnum',
-										id : 'RemarkEnum'
+										name : 'pssSalesOrderHead.discountAmount',
+										id : 'discountAmount'
 									},{
-										fieldLabel : '創建人員',
+										fieldLabel : '創建日期',
 										maxLength:18,
 										allowBlank : false,
-										name : 'pssSalesOrderHead.CreateByEnum',
-										id : 'CreateByEnum'
+										name : 'pssSalesOrderHead.createDate',
+										id : 'createDate'
 									},{
-										fieldLabel : '修改人員',
+										fieldLabel : '修改日期',
 										maxLength:18,
 										allowBlank : false,
-										name : 'pssSalesOrderHead.UpdateByEnum',
-										id : 'UpdateByEnum'
+										name : 'pssSalesOrderHead.updateDate',
+										id : 'updateDate'
 						     }]
 						},{
 							items : [{
 										xtype : 'hidden'
 									},{
-										fieldLabel : '客戶採購單編號',
+										fieldLabel : '客戶編號',
 										maxLength:18,
 										allowBlank : false,
-										name : 'pssSalesOrderHead.CustPoNoEnum',
-										id : 'CustPoNoEnum'
+										name : 'pssSalesOrderHead.customerId',
+										id : 'customerId'
 									},{
-										fieldLabel : '建議售價總金額',
+										fieldLabel : '定價總金額',
 										maxLength:18,
 										allowBlank : false,
-										name : 'pssSalesOrderHead.SalePriceAmountEnum',
-										id : 'SalePriceAmountEnum'
+										name : 'pssSalesOrderHead.priceAmount',
+										id : 'priceAmount'
 									},{
-										fieldLabel : '優惠金額',
+										fieldLabel : '實際售價總金額',
 										maxLength:18,
 										allowBlank : false,
-										name : 'pssSalesOrderHead.DiscountAmountEnum',
-										id : 'DiscountAmountEnum'
+										name : 'pssSalesOrderHead.payAmount',
+										id : 'payAmount'
 									},{
-										fieldLabel : '創建日期',
+										fieldLabel : '備註',
 										maxLength:18,
 										allowBlank : false,
-										name : 'pssSalesOrderHead.CreateDateEnum',
-										id : 'CreateDateEnum'
+										name : 'pssSalesOrderHead.remark',
+										id : 'remark'
 									},{
-										fieldLabel : '修改日期',
+										fieldLabel : '創建人員',
 										maxLength:18,
 										allowBlank : false,
-										name : 'pssSalesOrderHead.UpdateDateEnum',
-										id : 'UpdateDateEnum'
+										name : 'pssSalesOrderHead.createBy',
+										id : 'createBy'
+									},{
+										fieldLabel : '修改人員',
+										maxLength:18,
+										allowBlank : false,
+										name : 'pssSalesOrderHead.updateBy',
+										id : 'updateBy'
 					         }]
 						}]
 					}]
@@ -155,17 +161,18 @@ PssSalesOrderHeadView = Ext.extend(Ext.Panel, {
 					root : 'result',
 					totalProperty : 'totalCounts',
 					fields : ['id'
-								,CustomerIdEnum
-								,CustPoNoEnum
-								,PriceAmountEnum
-								,SalePriceAmountEnum
-								,PayAmountEnum
-								,DiscountAmountEnum
-								,RemarkEnum
-								,CreateDateEnum
-								,CreateByEnum
-								,UpdateDateEnum
-								,UpdateByEnum
+								,'soHeadId'
+								,'customerId'
+								,'custPoNo'
+								,'priceAmount'
+								,'salePriceAmount'
+								,'payAmount'
+								,'discountAmount'
+								,'remark'
+								,'createDate'
+								,'createBy'
+								,'updateDate'
+								,'updateBy'
 							]
 				});
 		this.store.setDefaultSort('id', 'asc');
@@ -177,49 +184,53 @@ PssSalesOrderHeadView = Ext.extend(Ext.Panel, {
 				});
 		var cm = new Ext.grid.ColumnModel({
 			columns : [new Ext.grid.RowNumberer(),{
+							header : '銷貨單編號，銷貨單代碼2位(SO)+當前日期8位(yyyyMMdd)+流水號6位。',
+							width : 120,
+							dataIndex : 'soHeadId'
+						},{
 							header : '客戶編號',
 							width : 120,
-							dataIndex : 'CustomerIdEnum'
+							dataIndex : 'customerId'
 						},{
 							header : '客戶採購單編號',
 							width : 120,
-							dataIndex : 'CustPoNoEnum'
+							dataIndex : 'custPoNo'
 						},{
 							header : '定價總金額',
 							width : 120,
-							dataIndex : 'PriceAmountEnum'
+							dataIndex : 'priceAmount'
 						},{
 							header : '建議售價總金額',
 							width : 120,
-							dataIndex : 'SalePriceAmountEnum'
+							dataIndex : 'salePriceAmount'
 						},{
 							header : '實際售價總金額',
 							width : 120,
-							dataIndex : 'PayAmountEnum'
+							dataIndex : 'payAmount'
 						},{
 							header : '優惠金額',
 							width : 120,
-							dataIndex : 'DiscountAmountEnum'
+							dataIndex : 'discountAmount'
 						},{
 							header : '備註',
 							width : 120,
-							dataIndex : 'RemarkEnum'
+							dataIndex : 'remark'
 						},{
 							header : '創建日期',
 							width : 120,
-							dataIndex : 'CreateDateEnum'
+							dataIndex : 'createDate'
 						},{
 							header : '創建人員',
 							width : 120,
-							dataIndex : 'CreateByEnum'
+							dataIndex : 'createBy'
 						},{
 							header : '修改日期',
 							width : 120,
-							dataIndex : 'UpdateDateEnum'
+							dataIndex : 'updateDate'
 						},{
 							header : '修改人員',
 							width : 120,
-							dataIndex : 'UpdateByEnum'
+							dataIndex : 'updateBy'
 						},{
 						header : '管理',
 						dataIndex : 'id',

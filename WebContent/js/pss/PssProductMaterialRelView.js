@@ -75,39 +75,51 @@ PssProductMaterialRelView = Ext.extend(Ext.Panel, {
 										xtype : 'hidden',
 										value : recId||''
 									},{
+										fieldLabel : '產品編號',
+										maxLength:18,
+										allowBlank : false,
+										name : 'pssProductMaterialRel.pdtId',
+										id : 'pdtId'
+									},{
 										fieldLabel : '原料類型，1：原物料、2：半成品、3：成品。一個產品只會對應一個成品原料。',
 										maxLength:18,
 										allowBlank : false,
-										name : 'pssProductMaterialRel.TypeEnum',
-										id : 'TypeEnum'
+										name : 'pssProductMaterialRel.type',
+										id : 'type'
 									},{
 										fieldLabel : '創建人員',
 										maxLength:18,
 										allowBlank : false,
-										name : 'pssProductMaterialRel.CreateByEnum',
-										id : 'CreateByEnum'
+										name : 'pssProductMaterialRel.createBy',
+										id : 'createBy'
 									},{
 										fieldLabel : '修改人員',
 										maxLength:18,
 										allowBlank : false,
-										name : 'pssProductMaterialRel.UpdateByEnum',
-										id : 'UpdateByEnum'
+										name : 'pssProductMaterialRel.updateBy',
+										id : 'updateBy'
 						     }]
 						},{
 							items : [{
 										xtype : 'hidden'
 									},{
+										fieldLabel : '原料編號/原料代號',
+										maxLength:18,
+										allowBlank : false,
+										name : 'pssProductMaterialRel.materialId',
+										id : 'materialId'
+									},{
 										fieldLabel : '創建日期',
 										maxLength:18,
 										allowBlank : false,
-										name : 'pssProductMaterialRel.CreateDateEnum',
-										id : 'CreateDateEnum'
+										name : 'pssProductMaterialRel.createDate',
+										id : 'createDate'
 									},{
 										fieldLabel : '修改日期',
 										maxLength:18,
 										allowBlank : false,
-										name : 'pssProductMaterialRel.UpdateDateEnum',
-										id : 'UpdateDateEnum'
+										name : 'pssProductMaterialRel.updateDate',
+										id : 'updateDate'
 					         }]
 						}]
 					}]
@@ -119,11 +131,13 @@ PssProductMaterialRelView = Ext.extend(Ext.Panel, {
 					root : 'result',
 					totalProperty : 'totalCounts',
 					fields : ['id'
-								,TypeEnum
-								,CreateDateEnum
-								,CreateByEnum
-								,UpdateDateEnum
-								,UpdateByEnum
+								,'pdtId'
+								,'materialId'
+								,'type'
+								,'createDate'
+								,'createBy'
+								,'updateDate'
+								,'updateBy'
 							]
 				});
 		this.store.setDefaultSort('id', 'asc');
@@ -135,25 +149,33 @@ PssProductMaterialRelView = Ext.extend(Ext.Panel, {
 				});
 		var cm = new Ext.grid.ColumnModel({
 			columns : [new Ext.grid.RowNumberer(),{
+							header : '產品編號',
+							width : 120,
+							dataIndex : 'pdtId'
+						},{
+							header : '原料編號/原料代號',
+							width : 120,
+							dataIndex : 'materialId'
+						},{
 							header : '原料類型，1：原物料、2：半成品、3：成品。一個產品只會對應一個成品原料。',
 							width : 120,
-							dataIndex : 'TypeEnum'
+							dataIndex : 'type'
 						},{
 							header : '創建日期',
 							width : 120,
-							dataIndex : 'CreateDateEnum'
+							dataIndex : 'createDate'
 						},{
 							header : '創建人員',
 							width : 120,
-							dataIndex : 'CreateByEnum'
+							dataIndex : 'createBy'
 						},{
 							header : '修改日期',
 							width : 120,
-							dataIndex : 'UpdateDateEnum'
+							dataIndex : 'updateDate'
 						},{
 							header : '修改人員',
 							width : 120,
-							dataIndex : 'UpdateByEnum'
+							dataIndex : 'updateBy'
 						},{
 						header : '管理',
 						dataIndex : 'id',

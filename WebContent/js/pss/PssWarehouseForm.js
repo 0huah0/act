@@ -50,45 +50,51 @@ PssWarehouseForm = Ext.extend(Ext.Window, {
 									xtype : 'hidden',
 									value : recId||''
 								},{
-									fieldLabel : '名稱',
+									fieldLabel : '倉庫編號/倉庫代號',
 									maxLength:18,
 									allowBlank : false,
-									name : 'pssWarehouse.NameEnum',
-									id : 'NameEnum'
+									name : 'pssWarehouse.warehouseId',
+									id : 'warehouseId'
 								},{
-									fieldLabel : '創建日期',
+									fieldLabel : '描述',
 									maxLength:18,
 									allowBlank : false,
-									name : 'pssWarehouse.CreateDateEnum',
-									id : 'CreateDateEnum'
+									name : 'pssWarehouse.desc',
+									id : 'desc'
 								},{
-									fieldLabel : '修改日期',
+									fieldLabel : '創建人員',
 									maxLength:18,
 									allowBlank : false,
-									name : 'pssWarehouse.UpdateDateEnum',
-									id : 'UpdateDateEnum'
+									name : 'pssWarehouse.createBy',
+									id : 'createBy'
+								},{
+									fieldLabel : '修改人員',
+									maxLength:18,
+									allowBlank : false,
+									name : 'pssWarehouse.updateBy',
+									id : 'updateBy'
 					     }]
 					},{
 						items : [{
 									xtype : 'hidden'
 								},{
-									fieldLabel : '描述',
+									fieldLabel : '名稱',
 									maxLength:18,
 									allowBlank : false,
-									name : 'pssWarehouse.DescEnum',
-									id : 'DescEnum'
+									name : 'pssWarehouse.name',
+									id : 'name'
 								},{
-									fieldLabel : '創建人員',
+									fieldLabel : '創建日期',
 									maxLength:18,
 									allowBlank : false,
-									name : 'pssWarehouse.CreateByEnum',
-									id : 'CreateByEnum'
+									name : 'pssWarehouse.createDate',
+									id : 'createDate'
 								},{
-									fieldLabel : '修改人員',
+									fieldLabel : '修改日期',
 									maxLength:18,
 									allowBlank : false,
-									name : 'pssWarehouse.UpdateByEnum',
-									id : 'UpdateByEnum'
+									name : 'pssWarehouse.updateDate',
+									id : 'updateDate'
 				         }]
 					}]
 				}]

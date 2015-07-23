@@ -75,81 +75,87 @@ PssDeliveryOrderHeadView = Ext.extend(Ext.Panel, {
 										xtype : 'hidden',
 										value : recId||''
 									},{
-										fieldLabel : '銷貨單編號',
+										fieldLabel : '出貨單編號，出貨單代碼2位(DO)+當前日期8位(yyyyMMdd)+流水號6位。',
 										maxLength:18,
 										allowBlank : false,
-										name : 'pssDeliveryOrderHead.SoHeadIdEnum',
-										id : 'SoHeadIdEnum'
+										name : 'pssDeliveryOrderHead.doHeadId',
+										id : 'doHeadId'
 									},{
-										fieldLabel : '送貨人電話',
+										fieldLabel : '出貨倉庫編號/倉庫代號',
 										maxLength:18,
 										allowBlank : false,
-										name : 'pssDeliveryOrderHead.DiliverTelEnum',
-										id : 'DiliverTelEnum'
+										name : 'pssDeliveryOrderHead.warehouseId',
+										id : 'warehouseId'
 									},{
-										fieldLabel : '收貨人名稱',
+										fieldLabel : '送貨人名稱',
 										maxLength:18,
 										allowBlank : false,
-										name : 'pssDeliveryOrderHead.ReceiverNameEnum',
-										id : 'ReceiverNameEnum'
+										name : 'pssDeliveryOrderHead.diliverName',
+										id : 'diliverName'
 									},{
-										fieldLabel : '出貨發票號碼 (應收帳款)',
+										fieldLabel : '收貨人電話',
 										maxLength:18,
 										allowBlank : false,
-										name : 'pssDeliveryOrderHead.DoInvoiceEnum',
-										id : 'DoInvoiceEnum'
+										name : 'pssDeliveryOrderHead.receiverTel',
+										id : 'receiverTel'
 									},{
-										fieldLabel : '創建日期',
+										fieldLabel : '備註',
 										maxLength:18,
 										allowBlank : false,
-										name : 'pssDeliveryOrderHead.CreateDateEnum',
-										id : 'CreateDateEnum'
+										name : 'pssDeliveryOrderHead.remark',
+										id : 'remark'
 									},{
-										fieldLabel : '修改日期',
+										fieldLabel : '創建人員',
 										maxLength:18,
 										allowBlank : false,
-										name : 'pssDeliveryOrderHead.UpdateDateEnum',
-										id : 'UpdateDateEnum'
+										name : 'pssDeliveryOrderHead.createBy',
+										id : 'createBy'
+									},{
+										fieldLabel : '修改人員',
+										maxLength:18,
+										allowBlank : false,
+										name : 'pssDeliveryOrderHead.updateBy',
+										id : 'updateBy'
 						     }]
 						},{
 							items : [{
 										xtype : 'hidden'
 									},{
-										fieldLabel : '出貨倉庫編號/倉庫代號',
+										fieldLabel : '銷貨單編號',
 										maxLength:18,
 										allowBlank : false,
-										name : 'pssDeliveryOrderHead.WarehouseIdEnum',
-										id : 'WarehouseIdEnum'
+										name : 'pssDeliveryOrderHead.soHeadId',
+										id : 'soHeadId'
 									},{
-										fieldLabel : '送貨人名稱',
+										fieldLabel : '送貨人電話',
 										maxLength:18,
 										allowBlank : false,
-										name : 'pssDeliveryOrderHead.DiliverNameEnum',
-										id : 'DiliverNameEnum'
+										name : 'pssDeliveryOrderHead.diliverTel',
+										id : 'diliverTel'
 									},{
-										fieldLabel : '收貨人電話',
+										fieldLabel : '收貨人名稱',
 										maxLength:18,
 										allowBlank : false,
-										name : 'pssDeliveryOrderHead.ReceiverTelEnum',
-										id : 'ReceiverTelEnum'
+										name : 'pssDeliveryOrderHead.receiverName',
+										id : 'receiverName'
 									},{
-										fieldLabel : '備註',
+										fieldLabel : '出貨發票號碼 (應收帳款)',
 										maxLength:18,
 										allowBlank : false,
-										name : 'pssDeliveryOrderHead.RemarkEnum',
-										id : 'RemarkEnum'
+										name : 'pssDeliveryOrderHead.doInvoice',
+										id : 'doInvoice'
 									},{
-										fieldLabel : '創建人員',
+										fieldLabel : '創建日期',
 										maxLength:18,
 										allowBlank : false,
-										name : 'pssDeliveryOrderHead.CreateByEnum',
-										id : 'CreateByEnum'
+										name : 'pssDeliveryOrderHead.createDate',
+										id : 'createDate'
 									},{
-										fieldLabel : '修改人員',
+										fieldLabel : '修改日期',
 										maxLength:18,
 										allowBlank : false,
-										name : 'pssDeliveryOrderHead.UpdateByEnum',
-										id : 'UpdateByEnum'
+										name : 'pssDeliveryOrderHead.updateDate',
+										id : 'updateDate'
 					         }]
 						}]
 					}]
@@ -161,18 +167,19 @@ PssDeliveryOrderHeadView = Ext.extend(Ext.Panel, {
 					root : 'result',
 					totalProperty : 'totalCounts',
 					fields : ['id'
-								,SoHeadIdEnum
-								,WarehouseIdEnum
-								,DiliverTelEnum
-								,DiliverNameEnum
-								,ReceiverNameEnum
-								,ReceiverTelEnum
-								,DoInvoiceEnum
-								,RemarkEnum
-								,CreateDateEnum
-								,CreateByEnum
-								,UpdateDateEnum
-								,UpdateByEnum
+								,'doHeadId'
+								,'soHeadId'
+								,'warehouseId'
+								,'diliverTel'
+								,'diliverName'
+								,'receiverName'
+								,'receiverTel'
+								,'doInvoice'
+								,'remark'
+								,'createDate'
+								,'createBy'
+								,'updateDate'
+								,'updateBy'
 							]
 				});
 		this.store.setDefaultSort('id', 'asc');
@@ -184,53 +191,57 @@ PssDeliveryOrderHeadView = Ext.extend(Ext.Panel, {
 				});
 		var cm = new Ext.grid.ColumnModel({
 			columns : [new Ext.grid.RowNumberer(),{
+							header : '出貨單編號，出貨單代碼2位(DO)+當前日期8位(yyyyMMdd)+流水號6位。',
+							width : 120,
+							dataIndex : 'doHeadId'
+						},{
 							header : '銷貨單編號',
 							width : 120,
-							dataIndex : 'SoHeadIdEnum'
+							dataIndex : 'soHeadId'
 						},{
 							header : '出貨倉庫編號/倉庫代號',
 							width : 120,
-							dataIndex : 'WarehouseIdEnum'
+							dataIndex : 'warehouseId'
 						},{
 							header : '送貨人電話',
 							width : 120,
-							dataIndex : 'DiliverTelEnum'
+							dataIndex : 'diliverTel'
 						},{
 							header : '送貨人名稱',
 							width : 120,
-							dataIndex : 'DiliverNameEnum'
+							dataIndex : 'diliverName'
 						},{
 							header : '收貨人名稱',
 							width : 120,
-							dataIndex : 'ReceiverNameEnum'
+							dataIndex : 'receiverName'
 						},{
 							header : '收貨人電話',
 							width : 120,
-							dataIndex : 'ReceiverTelEnum'
+							dataIndex : 'receiverTel'
 						},{
 							header : '出貨發票號碼 (應收帳款)',
 							width : 120,
-							dataIndex : 'DoInvoiceEnum'
+							dataIndex : 'doInvoice'
 						},{
 							header : '備註',
 							width : 120,
-							dataIndex : 'RemarkEnum'
+							dataIndex : 'remark'
 						},{
 							header : '創建日期',
 							width : 120,
-							dataIndex : 'CreateDateEnum'
+							dataIndex : 'createDate'
 						},{
 							header : '創建人員',
 							width : 120,
-							dataIndex : 'CreateByEnum'
+							dataIndex : 'createBy'
 						},{
 							header : '修改日期',
 							width : 120,
-							dataIndex : 'UpdateDateEnum'
+							dataIndex : 'updateDate'
 						},{
 							header : '修改人員',
 							width : 120,
-							dataIndex : 'UpdateByEnum'
+							dataIndex : 'updateBy'
 						},{
 						header : '管理',
 						dataIndex : 'id',

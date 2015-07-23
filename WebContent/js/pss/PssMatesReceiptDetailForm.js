@@ -53,60 +53,66 @@ PssMatesReceiptDetailForm = Ext.extend(Ext.Window, {
 									fieldLabel : '收貨單編號',
 									maxLength:18,
 									allowBlank : false,
-									name : 'pssMatesReceiptDetail.MrHeadIdEnum',
-									id : 'MrHeadIdEnum'
+									name : 'pssMatesReceiptDetail.mrHeadId',
+									id : 'mrHeadId'
 								},{
-									fieldLabel : '來貨數量',
+									fieldLabel : '原料編號',
 									maxLength:18,
 									allowBlank : false,
-									name : 'pssMatesReceiptDetail.AllNumEnum',
-									id : 'AllNumEnum'
+									name : 'pssMatesReceiptDetail.materialId',
+									id : 'materialId'
 								},{
-									fieldLabel : '退回數量',
+									fieldLabel : '接收數量',
 									maxLength:18,
 									allowBlank : false,
-									name : 'pssMatesReceiptDetail.RejectNumEnum',
-									id : 'RejectNumEnum'
+									name : 'pssMatesReceiptDetail.receiptNum',
+									id : 'receiptNum'
 								},{
-									fieldLabel : '創建人員',
+									fieldLabel : '創建日期',
 									maxLength:18,
 									allowBlank : false,
-									name : 'pssMatesReceiptDetail.CreateByEnum',
-									id : 'CreateByEnum'
+									name : 'pssMatesReceiptDetail.createDate',
+									id : 'createDate'
 								},{
-									fieldLabel : '修改人員',
+									fieldLabel : '修改日期',
 									maxLength:18,
 									allowBlank : false,
-									name : 'pssMatesReceiptDetail.UpdateByEnum',
-									id : 'UpdateByEnum'
+									name : 'pssMatesReceiptDetail.updateDate',
+									id : 'updateDate'
 					     }]
 					},{
 						items : [{
 									xtype : 'hidden'
 								},{
-									fieldLabel : '原料編號',
+									fieldLabel : '收貨單明細編號',
 									maxLength:18,
 									allowBlank : false,
-									name : 'pssMatesReceiptDetail.MaterialIdEnum',
-									id : 'MaterialIdEnum'
+									name : 'pssMatesReceiptDetail.mrDetailId',
+									id : 'mrDetailId'
 								},{
-									fieldLabel : '接收數量',
+									fieldLabel : '來貨數量',
 									maxLength:18,
 									allowBlank : false,
-									name : 'pssMatesReceiptDetail.ReceiptNumEnum',
-									id : 'ReceiptNumEnum'
+									name : 'pssMatesReceiptDetail.allNum',
+									id : 'allNum'
 								},{
-									fieldLabel : '創建日期',
+									fieldLabel : '退回數量',
 									maxLength:18,
 									allowBlank : false,
-									name : 'pssMatesReceiptDetail.CreateDateEnum',
-									id : 'CreateDateEnum'
+									name : 'pssMatesReceiptDetail.rejectNum',
+									id : 'rejectNum'
 								},{
-									fieldLabel : '修改日期',
+									fieldLabel : '創建人員',
 									maxLength:18,
 									allowBlank : false,
-									name : 'pssMatesReceiptDetail.UpdateDateEnum',
-									id : 'UpdateDateEnum'
+									name : 'pssMatesReceiptDetail.createBy',
+									id : 'createBy'
+								},{
+									fieldLabel : '修改人員',
+									maxLength:18,
+									allowBlank : false,
+									name : 'pssMatesReceiptDetail.updateBy',
+									id : 'updateBy'
 				         }]
 					}]
 				}]

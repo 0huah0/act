@@ -1,203 +1,202 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns:context="http://www.springframework.org/schema/context"
-	xmlns:aop="http://www.springframework.org/schema/aop"
-	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd  http://www.springframework.org/schema/context
 	http://www.springframework.org/schema/context/spring-context-2.5.xsd 
 	http://www.springframework.org/schema/tx
 	http://www.springframework.org/schema/tx/spring-tx-2.5.xsd
 	http://www.springframework.org/schema/aop
 	http://www.springframework.org/schema/aop/spring-aop-2.5.xsd">
-   	
-	<aop:aspectj-autoproxy/> 
-	<context:annotation-config/>
-   	
-	<context:component-scan base-package="com.abcdef.frm.service"/>
 
-	<tx:annotation-driven transaction-manager="txManager"/>
-    
-	<bean id="txManager" class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+	<aop:aspectj-autoproxy />
+	<context:annotation-config />
+
+	<context:component-scan base-package="com.abcdef.frm.service" />
+
+	<tx:annotation-driven transaction-manager="txManager" />
+
+	<bean id="txManager"
+		class="org.springframework.orm.hibernate3.HibernateTransactionManager">
 		<property name="sessionFactory" ref="sessionFactory" />
 	</bean>
-    
-	<bean id="logAspect" class="com.abcdef.core.log.LogAspect"/>
-	
+
+	<bean id="logAspect" class="com.abcdef.core.log.LogAspect" />
+
 	<tx:advice id="txAdvice" transaction-manager="txManager">
 		<tx:attributes>
-			<tx:method name="get*" read-only="true"/>
-			<tx:method name="is*" read-only="true"/>
-			<tx:method name="find*" read-only="true"/>
-			<tx:method name="list*" read-only="true"/>
-			<tx:method name="*"/>
+			<tx:method name="get*" read-only="true" />
+			<tx:method name="is*" read-only="true" />
+			<tx:method name="find*" read-only="true" />
+			<tx:method name="list*" read-only="true" />
+			<tx:method name="*" />
 		</tx:attributes>
 	</tx:advice>
-	
+
 	<aop:config>
-		<aop:pointcut id="servicePointCutCore" expression="execution(* com.abcdef.core.service..*(..))"/>
-		<aop:pointcut id="servicePointCutFramework" expression="execution(* com.abcdef.frm.service..*(..))"/>
-		<aop:pointcut id="servicePointCutAct" expression="execution(* com.act.service..*(..))"/> 
-		<aop:advisor advice-ref="txAdvice" pointcut-ref="servicePointCutFramework"/>
-		<aop:advisor advice-ref="txAdvice" pointcut-ref="servicePointCutCore"/>
-		<aop:advisor advice-ref="txAdvice" pointcut-ref="servicePointCutAct"/>
+		<aop:pointcut id="servicePointCutCore"
+			expression="execution(* com.abcdef.core.service..*(..))" />
+		<aop:pointcut id="servicePointCutFramework"
+			expression="execution(* com.abcdef.frm.service..*(..))" />
+		<aop:pointcut id="servicePointCutAct" expression="execution(* com.act.service..*(..))" />
+		<aop:advisor advice-ref="txAdvice" pointcut-ref="servicePointCutFramework" />
+		<aop:advisor advice-ref="txAdvice" pointcut-ref="servicePointCutCore" />
+		<aop:advisor advice-ref="txAdvice" pointcut-ref="servicePointCutAct" />
 	</aop:config>
-	
+
 	<!-- add the bean you define here -->
 	<bean id="sysConfigService" class="com.abcdef.frm.service.system.impl.SysConfigServiceImpl">
-		<constructor-arg index="0" ref="sysConfigDao"/>
+		<constructor-arg index="0" ref="sysConfigDao" />
 	</bean>
-	
+
 	<bean id="systemLogService" class="com.abcdef.frm.service.system.impl.SystemLogServiceImpl">
-		<constructor-arg index="0" ref="systemLogDao"/>
+		<constructor-arg index="0" ref="systemLogDao" />
 	</bean>
 
 	<bean id="appUserService" class="com.abcdef.frm.service.system.impl.AppUserServiceImpl">
-		<constructor-arg index="0" ref="appUserDao"/>
+		<constructor-arg index="0" ref="appUserDao" />
 	</bean>
 
 	<bean id="employeeService" class="com.abcdef.frm.service.system.impl.EmployeeServiceImpl">
-		<constructor-arg index="0" ref="employeeDao"/>
+		<constructor-arg index="0" ref="employeeDao" />
 	</bean>
-	
+
 	<bean id="appRoleService" class="com.abcdef.frm.service.system.impl.AppRoleServiceImpl">
-		<constructor-arg index="0" ref="appRoleDao"/>
-	</bean>	
-	
-	<bean id="appFunctionService" class="com.abcdef.frm.service.system.impl.AppFunctionServiceImpl">
-		<constructor-arg index="0" ref="appFunctionDao"/>
+		<constructor-arg index="0" ref="appRoleDao" />
 	</bean>
-   	 
-	<bean id="departmentService" class="com.abcdef.frm.service.system.impl.DepartmentServiceImpl">
-		<constructor-arg index="0" ref="departmentDao"/>  
+
+	<bean id="appFunctionService"
+		class="com.abcdef.frm.service.system.impl.AppFunctionServiceImpl">
+		<constructor-arg index="0" ref="appFunctionDao" />
 	</bean>
-   	 
+
+	<bean id="departmentService"
+		class="com.abcdef.frm.service.system.impl.DepartmentServiceImpl">
+		<constructor-arg index="0" ref="departmentDao" />
+	</bean>
+
 	<bean id="companyService" class="com.abcdef.frm.service.system.impl.CompanyServiceImpl">
-		<constructor-arg index="0" ref="companyDao"/>   	 	
+		<constructor-arg index="0" ref="companyDao" />
 	</bean>
-	
+
 	<bean id="userAgentService" class="com.abcdef.frm.service.system.impl.UserAgentServiceImpl">
-		<constructor-arg index="0" ref="userAgentDao"/>
+		<constructor-arg index="0" ref="userAgentDao" />
 	</bean>
-	
-	<bean id="indexDisplayService" class="com.abcdef.frm.service.system.impl.IndexDisplayServiceImpl">
-		<constructor-arg index="0" ref="indexDisplayDao"/>
+
+	<bean id="indexDisplayService"
+		class="com.abcdef.frm.service.system.impl.IndexDisplayServiceImpl">
+		<constructor-arg index="0" ref="indexDisplayDao" />
 	</bean>
-	
+
 	<bean id="regionService" class="com.abcdef.frm.service.system.impl.RegionServiceImpl">
-		<constructor-arg index="0" ref="regionDao"/>
+		<constructor-arg index="0" ref="regionDao" />
 	</bean>
-	
-	<bean id="dictionaryService" class="com.abcdef.frm.service.system.impl.DictionaryServiceImpl">
-		<constructor-arg index="0" ref="dictionaryDao"/>
+
+	<bean id="dictionaryService"
+		class="com.abcdef.frm.service.system.impl.DictionaryServiceImpl">
+		<constructor-arg index="0" ref="dictionaryDao" />
 	</bean>
-	
-	<bean id="globalTypeService" class="com.abcdef.frm.service.system.impl.GlobalTypeServiceImpl">
-		<constructor-arg index="0" ref="globalTypeDao"/>
+
+	<bean id="globalTypeService"
+		class="com.abcdef.frm.service.system.impl.GlobalTypeServiceImpl">
+		<constructor-arg index="0" ref="globalTypeDao" />
 	</bean>
-	
-	<bean id="shortMessageService" class="com.abcdef.frm.service.info.impl.ShortMessageServiceImpl">
-		<constructor-arg index="0" ref="shortMessageDao"/>   	 	
+
+	<bean id="shortMessageService"
+		class="com.abcdef.frm.service.info.impl.ShortMessageServiceImpl">
+		<constructor-arg index="0" ref="shortMessageDao" />
 	</bean>
-	
+
 	<bean id="inMessageService" class="com.abcdef.frm.service.info.impl.InMessageServiceImpl">
-		<constructor-arg index="0" ref="inMessageDao"/>
+		<constructor-arg index="0" ref="inMessageDao" />
 	</bean>
-	
+
 	<bean id="suggestBoxService" class="com.abcdef.frm.service.info.impl.SuggestBoxServiceImpl">
-		<constructor-arg index="0" ref="suggestBoxDao"/>
+		<constructor-arg index="0" ref="suggestBoxDao" />
 	</bean>
-	
+
 	<bean id="appTipsService" class="com.abcdef.frm.service.info.impl.AppTipsServiceImpl">
-		<constructor-arg index="0" ref="appTipsDao"/>
+		<constructor-arg index="0" ref="appTipsDao" />
 	</bean>
-	
-	<bean id="fileAttachService" class="com.abcdef.frm.service.system.impl.FileAttachServiceImpl">
-		<constructor-arg index="0" ref="fileAttachDao"/>
+
+	<bean id="fileAttachService"
+		class="com.abcdef.frm.service.system.impl.FileAttachServiceImpl">
+		<constructor-arg index="0" ref="fileAttachDao" />
 	</bean>
-	
-	
+
+
 	<bean id="accountingTitleService" class="com.act.service.impl.AccountingTitleServiceImpl">
-		<constructor-arg index="0" ref="accountingTitleDao"/>
+		<constructor-arg index="0" ref="accountingTitleDao" />
 	</bean>
 	<bean id="journalHeadService" class="com.act.service.impl.JournalHeadServiceImpl">
-		<constructor-arg index="0" ref="journalHeadDao"/>
+		<constructor-arg index="0" ref="journalHeadDao" />
 	</bean>
 	<bean id="journalService" class="com.act.service.impl.JournalServiceImpl">
-		<constructor-arg index="0" ref="journalHeadDao"/>
+		<constructor-arg index="0" ref="journalHeadDao" />
 	</bean>
 	<bean id="accountingPeriodService" class="com.act.service.impl.AccountingPeriodServiceImpl">
-		<constructor-arg index="0" ref="accountingPeriodDao"/>
+		<constructor-arg index="0" ref="accountingPeriodDao" />
 	</bean>
-	
-	
-	
-	
+
+
+
+
 	<!-- PSS -->
 	<bean id="pssCustomerService" class="com.pss.service.impl.PssCustomerServiceImpl">
-		<constructor-arg index="0" ref="pssCustomerDao"/>
+		<constructor-arg index="0" ref="pssCustomerDao" />
 	</bean>
-	 	<bean id="pssWarehouseService" class="com.pss.service.impl.PssWarehouseServiceImpl">
-		<constructor-arg index="0" ref="pssWarehouseDao"/>
+	<bean id="pssWarehouseService" class="com.pss.service.impl.PssWarehouseServiceImpl">
+		<constructor-arg index="0" ref="pssWarehouseDao" />
 	</bean>
-	 	<bean id="pssSupplierMaterialRelService" class="com.pss.service.impl.PssSupplierMaterialRelServiceImpl">
-		<constructor-arg index="0" ref="pssSupplierMaterialRelDao"/>
+	<bean id="pssSupplierMaterialRelService" class="com.pss.service.impl.PssSupplierMaterialRelServiceImpl">
+		<constructor-arg index="0" ref="pssSupplierMaterialRelDao" />
 	</bean>
-	 	<bean id="pssSupplierService" class="com.pss.service.impl.PssSupplierServiceImpl">
-		<constructor-arg index="0" ref="pssSupplierDao"/>
+	<bean id="pssSupplierService" class="com.pss.service.impl.PssSupplierServiceImpl">
+		<constructor-arg index="0" ref="pssSupplierDao" />
 	</bean>
-	 	<bean id="pssSoAttachmentService" class="com.pss.service.impl.PssSoAttachmentServiceImpl">
-		<constructor-arg index="0" ref="pssSoAttachmentDao"/>
+	<bean id="pssSalesOrderHeadService" class="com.pss.service.impl.PssSalesOrderHeadServiceImpl">
+		<constructor-arg index="0" ref="pssSalesOrderHeadDao" />
 	</bean>
-	 	<bean id="pssSalesOrderHeadService" class="com.pss.service.impl.PssSalesOrderHeadServiceImpl">
-		<constructor-arg index="0" ref="pssSalesOrderHeadDao"/>
+	<bean id="pssSalesOrderDetailService" class="com.pss.service.impl.PssSalesOrderDetailServiceImpl">
+		<constructor-arg index="0" ref="pssSalesOrderDetailDao" />
 	</bean>
-	 	<bean id="pssSalesOrderDetailService" class="com.pss.service.impl.PssSalesOrderDetailServiceImpl">
-		<constructor-arg index="0" ref="pssSalesOrderDetailDao"/>
+	<bean id="pssPurchaseOrderHeadService" class="com.pss.service.impl.PssPurchaseOrderHeadServiceImpl">
+		<constructor-arg index="0" ref="pssPurchaseOrderHeadDao" />
 	</bean>
-	 	<bean id="pssPurchaseOrderHeadService" class="com.pss.service.impl.PssPurchaseOrderHeadServiceImpl">
-		<constructor-arg index="0" ref="pssPurchaseOrderHeadDao"/>
+	<bean id="pssPurchaseOrderDetailService" class="com.pss.service.impl.PssPurchaseOrderDetailServiceImpl">
+		<constructor-arg index="0" ref="pssPurchaseOrderDetailDao" />
 	</bean>
-	 	<bean id="pssPurchaseOrderDetailService" class="com.pss.service.impl.PssPurchaseOrderDetailServiceImpl">
-		<constructor-arg index="0" ref="pssPurchaseOrderDetailDao"/>
+	<bean id="pssProductMaterialRelService" class="com.pss.service.impl.PssProductMaterialRelServiceImpl">
+		<constructor-arg index="0" ref="pssProductMaterialRelDao" />
 	</bean>
-	 	<bean id="pssProductMaterialRelService" class="com.pss.service.impl.PssProductMaterialRelServiceImpl">
-		<constructor-arg index="0" ref="pssProductMaterialRelDao"/>
+	<bean id="pssProductService" class="com.pss.service.impl.PssProductServiceImpl">
+		<constructor-arg index="0" ref="pssProductDao" />
 	</bean>
-	 	<bean id="pssProductImageService" class="com.pss.service.impl.PssProductImageServiceImpl">
-		<constructor-arg index="0" ref="pssProductImageDao"/>
+	<bean id="pssMatesReceiptHeadService" class="com.pss.service.impl.PssMatesReceiptHeadServiceImpl">
+		<constructor-arg index="0" ref="pssMatesReceiptHeadDao" />
 	</bean>
-	 	<bean id="pssProductService" class="com.pss.service.impl.PssProductServiceImpl">
-		<constructor-arg index="0" ref="pssProductDao"/>
+	<bean id="pssMatesReceiptDetailService" class="com.pss.service.impl.PssMatesReceiptDetailServiceImpl">
+		<constructor-arg index="0" ref="pssMatesReceiptDetailDao" />
 	</bean>
-	 	<bean id="pssPoAttachmentService" class="com.pss.service.impl.PssPoAttachmentServiceImpl">
-		<constructor-arg index="0" ref="pssPoAttachmentDao"/>
+	<bean id="pssMaterialService" class="com.pss.service.impl.PssMaterialServiceImpl">
+		<constructor-arg index="0" ref="pssMaterialDao" />
 	</bean>
-	 	<bean id="pssMatesReceiptHeadService" class="com.pss.service.impl.PssMatesReceiptHeadServiceImpl">
-		<constructor-arg index="0" ref="pssMatesReceiptHeadDao"/>
+	<bean id="pssInvoiceHeadService" class="com.pss.service.impl.PssInvoiceHeadServiceImpl">
+		<constructor-arg index="0" ref="pssInvoiceHeadDao" />
 	</bean>
-	 	<bean id="pssMatesReceiptDetailService" class="com.pss.service.impl.PssMatesReceiptDetailServiceImpl">
-		<constructor-arg index="0" ref="pssMatesReceiptDetailDao"/>
+	<bean id="pssInventoryChangeService" class="com.pss.service.impl.PssInventoryChangeServiceImpl">
+		<constructor-arg index="0" ref="pssInventoryChangeDao" />
 	</bean>
-	 	<bean id="pssMaterialService" class="com.pss.service.impl.PssMaterialServiceImpl">
-		<constructor-arg index="0" ref="pssMaterialDao"/>
+	<bean id="pssInventoryService" class="com.pss.service.impl.PssInventoryServiceImpl">
+		<constructor-arg index="0" ref="pssInventoryDao" />
 	</bean>
-	 	<bean id="pssInvoiceHeadService" class="com.pss.service.impl.PssInvoiceHeadServiceImpl">
-		<constructor-arg index="0" ref="pssInvoiceHeadDao"/>
+	<bean id="pssDeliveryOrderHeadService" class="com.pss.service.impl.PssDeliveryOrderHeadServiceImpl">
+		<constructor-arg index="0" ref="pssDeliveryOrderHeadDao" />
 	</bean>
-	 	<bean id="pssInventoryChangeService" class="com.pss.service.impl.PssInventoryChangeServiceImpl">
-		<constructor-arg index="0" ref="pssInventoryChangeDao"/>
+	<bean id="pssDeliveryOrderDetailService" class="com.pss.service.impl.PssDeliveryOrderDetailServiceImpl">
+		<constructor-arg index="0" ref="pssDeliveryOrderDetailDao" />
 	</bean>
-	 	<bean id="pssInventoryService" class="com.pss.service.impl.PssInventoryServiceImpl">
-		<constructor-arg index="0" ref="pssInventoryDao"/>
-	</bean>
-	 	<bean id="pssDeliveryOrderHeadService" class="com.pss.service.impl.PssDeliveryOrderHeadServiceImpl">
-		<constructor-arg index="0" ref="pssDeliveryOrderHeadDao"/>
-	</bean>
-	 	<bean id="pssDeliveryOrderDetailService" class="com.pss.service.impl.PssDeliveryOrderDetailServiceImpl">
-		<constructor-arg index="0" ref="pssDeliveryOrderDetailDao"/>
-	</bean>
-	
-	
-	
+
+
+
 </beans>

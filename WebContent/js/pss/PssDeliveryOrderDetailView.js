@@ -78,60 +78,66 @@ PssDeliveryOrderDetailView = Ext.extend(Ext.Panel, {
 										fieldLabel : '出貨單編號',
 										maxLength:18,
 										allowBlank : false,
-										name : 'pssDeliveryOrderDetail.DoHeadIdEnum',
-										id : 'DoHeadIdEnum'
+										name : 'pssDeliveryOrderDetail.doHeadId',
+										id : 'doHeadId'
 									},{
-										fieldLabel : '出貨數量',
+										fieldLabel : '產品編號',
 										maxLength:18,
 										allowBlank : false,
-										name : 'pssDeliveryOrderDetail.AllNumEnum',
-										id : 'AllNumEnum'
+										name : 'pssDeliveryOrderDetail.pdtId',
+										id : 'pdtId'
 									},{
-										fieldLabel : '退回數量',
+										fieldLabel : '接收數量',
 										maxLength:18,
 										allowBlank : false,
-										name : 'pssDeliveryOrderDetail.RejectNumEnum',
-										id : 'RejectNumEnum'
+										name : 'pssDeliveryOrderDetail.receiptNum',
+										id : 'receiptNum'
 									},{
-										fieldLabel : '創建人員',
+										fieldLabel : '創建日期',
 										maxLength:18,
 										allowBlank : false,
-										name : 'pssDeliveryOrderDetail.CreateByEnum',
-										id : 'CreateByEnum'
+										name : 'pssDeliveryOrderDetail.createDate',
+										id : 'createDate'
 									},{
-										fieldLabel : '修改人員',
+										fieldLabel : '修改日期',
 										maxLength:18,
 										allowBlank : false,
-										name : 'pssDeliveryOrderDetail.UpdateByEnum',
-										id : 'UpdateByEnum'
+										name : 'pssDeliveryOrderDetail.updateDate',
+										id : 'updateDate'
 						     }]
 						},{
 							items : [{
 										xtype : 'hidden'
 									},{
-										fieldLabel : '產品編號',
+										fieldLabel : '出貨單明細編號',
 										maxLength:18,
 										allowBlank : false,
-										name : 'pssDeliveryOrderDetail.PdtIdEnum',
-										id : 'PdtIdEnum'
+										name : 'pssDeliveryOrderDetail.doDetailId',
+										id : 'doDetailId'
 									},{
-										fieldLabel : '接收數量',
+										fieldLabel : '出貨數量',
 										maxLength:18,
 										allowBlank : false,
-										name : 'pssDeliveryOrderDetail.ReceiptNumEnum',
-										id : 'ReceiptNumEnum'
+										name : 'pssDeliveryOrderDetail.allNum',
+										id : 'allNum'
 									},{
-										fieldLabel : '創建日期',
+										fieldLabel : '退回數量',
 										maxLength:18,
 										allowBlank : false,
-										name : 'pssDeliveryOrderDetail.CreateDateEnum',
-										id : 'CreateDateEnum'
+										name : 'pssDeliveryOrderDetail.rejectNum',
+										id : 'rejectNum'
 									},{
-										fieldLabel : '修改日期',
+										fieldLabel : '創建人員',
 										maxLength:18,
 										allowBlank : false,
-										name : 'pssDeliveryOrderDetail.UpdateDateEnum',
-										id : 'UpdateDateEnum'
+										name : 'pssDeliveryOrderDetail.createBy',
+										id : 'createBy'
+									},{
+										fieldLabel : '修改人員',
+										maxLength:18,
+										allowBlank : false,
+										name : 'pssDeliveryOrderDetail.updateBy',
+										id : 'updateBy'
 					         }]
 						}]
 					}]
@@ -143,15 +149,16 @@ PssDeliveryOrderDetailView = Ext.extend(Ext.Panel, {
 					root : 'result',
 					totalProperty : 'totalCounts',
 					fields : ['id'
-								,DoHeadIdEnum
-								,PdtIdEnum
-								,AllNumEnum
-								,ReceiptNumEnum
-								,RejectNumEnum
-								,CreateDateEnum
-								,CreateByEnum
-								,UpdateDateEnum
-								,UpdateByEnum
+								,'doHeadId'
+								,'doDetailId'
+								,'pdtId'
+								,'allNum'
+								,'receiptNum'
+								,'rejectNum'
+								,'createDate'
+								,'createBy'
+								,'updateDate'
+								,'updateBy'
 							]
 				});
 		this.store.setDefaultSort('id', 'asc');
@@ -165,39 +172,43 @@ PssDeliveryOrderDetailView = Ext.extend(Ext.Panel, {
 			columns : [new Ext.grid.RowNumberer(),{
 							header : '出貨單編號',
 							width : 120,
-							dataIndex : 'DoHeadIdEnum'
+							dataIndex : 'doHeadId'
+						},{
+							header : '出貨單明細編號',
+							width : 120,
+							dataIndex : 'doDetailId'
 						},{
 							header : '產品編號',
 							width : 120,
-							dataIndex : 'PdtIdEnum'
+							dataIndex : 'pdtId'
 						},{
 							header : '出貨數量',
 							width : 120,
-							dataIndex : 'AllNumEnum'
+							dataIndex : 'allNum'
 						},{
 							header : '接收數量',
 							width : 120,
-							dataIndex : 'ReceiptNumEnum'
+							dataIndex : 'receiptNum'
 						},{
 							header : '退回數量',
 							width : 120,
-							dataIndex : 'RejectNumEnum'
+							dataIndex : 'rejectNum'
 						},{
 							header : '創建日期',
 							width : 120,
-							dataIndex : 'CreateDateEnum'
+							dataIndex : 'createDate'
 						},{
 							header : '創建人員',
 							width : 120,
-							dataIndex : 'CreateByEnum'
+							dataIndex : 'createBy'
 						},{
 							header : '修改日期',
 							width : 120,
-							dataIndex : 'UpdateDateEnum'
+							dataIndex : 'updateDate'
 						},{
 							header : '修改人員',
 							width : 120,
-							dataIndex : 'UpdateByEnum'
+							dataIndex : 'updateBy'
 						},{
 						header : '管理',
 						dataIndex : 'id',

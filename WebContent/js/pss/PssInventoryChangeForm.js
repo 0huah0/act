@@ -50,75 +50,81 @@ PssInventoryChangeForm = Ext.extend(Ext.Window, {
 									xtype : 'hidden',
 									value : recId||''
 								},{
-									fieldLabel : '倉庫編號/倉庫代號',
+									fieldLabel : '記錄編號',
 									maxLength:18,
 									allowBlank : false,
-									name : 'pssInventoryChange.WarehouseIdEnum',
-									id : 'WarehouseIdEnum'
+									name : 'pssInventoryChange.changeId',
+									id : 'changeId'
 								},{
-									fieldLabel : '變更類型，1：增加、2：減少。',
+									fieldLabel : '原料編號/原料代號',
 									maxLength:18,
 									allowBlank : false,
-									name : 'pssInventoryChange.TypeEnum',
-									id : 'TypeEnum'
+									name : 'pssInventoryChange.materialId',
+									id : 'materialId'
 								},{
-									fieldLabel : '變更原因，1：出貨、2：收貨、3：生產取出、4：生產存入、5：...。',
+									fieldLabel : '變更數量',
 									maxLength:18,
 									allowBlank : false,
-									name : 'pssInventoryChange.ReasonEnum',
-									id : 'ReasonEnum'
+									name : 'pssInventoryChange.num',
+									id : 'num'
 								},{
-									fieldLabel : '備註',
+									fieldLabel : '原因記錄編號，當REASON為1、2時，分別保存出貨單編號、收貨單編號；為4、5時不保存。',
 									maxLength:18,
 									allowBlank : false,
-									name : 'pssInventoryChange.RemarkEnum',
-									id : 'RemarkEnum'
+									name : 'pssInventoryChange.recordId',
+									id : 'recordId'
 								},{
-									fieldLabel : '創建人員',
+									fieldLabel : '創建日期',
 									maxLength:18,
 									allowBlank : false,
-									name : 'pssInventoryChange.CreateByEnum',
-									id : 'CreateByEnum'
+									name : 'pssInventoryChange.createDate',
+									id : 'createDate'
 								},{
-									fieldLabel : '修改人員',
+									fieldLabel : '修改日期',
 									maxLength:18,
 									allowBlank : false,
-									name : 'pssInventoryChange.UpdateByEnum',
-									id : 'UpdateByEnum'
+									name : 'pssInventoryChange.updateDate',
+									id : 'updateDate'
 					     }]
 					},{
 						items : [{
 									xtype : 'hidden'
 								},{
-									fieldLabel : '原料編號/原料代號',
+									fieldLabel : '倉庫編號/倉庫代號',
 									maxLength:18,
 									allowBlank : false,
-									name : 'pssInventoryChange.MaterialIdEnum',
-									id : 'MaterialIdEnum'
+									name : 'pssInventoryChange.warehouseId',
+									id : 'warehouseId'
 								},{
-									fieldLabel : '變更數量',
+									fieldLabel : '變更類型，1：增加、2：減少。',
 									maxLength:18,
 									allowBlank : false,
-									name : 'pssInventoryChange.NumEnum',
-									id : 'NumEnum'
+									name : 'pssInventoryChange.type',
+									id : 'type'
 								},{
-									fieldLabel : '原因記錄編號，當REASON為1、2時，分別保存出貨單編號、收貨單編號；為4、5時不保存。',
+									fieldLabel : '變更原因，1：出貨、2：收貨、3：生產取出、4：生產存入、5：...。',
 									maxLength:18,
 									allowBlank : false,
-									name : 'pssInventoryChange.RecordIdEnum',
-									id : 'RecordIdEnum'
+									name : 'pssInventoryChange.reason',
+									id : 'reason'
 								},{
-									fieldLabel : '創建日期',
+									fieldLabel : '備註',
 									maxLength:18,
 									allowBlank : false,
-									name : 'pssInventoryChange.CreateDateEnum',
-									id : 'CreateDateEnum'
+									name : 'pssInventoryChange.remark',
+									id : 'remark'
 								},{
-									fieldLabel : '修改日期',
+									fieldLabel : '創建人員',
 									maxLength:18,
 									allowBlank : false,
-									name : 'pssInventoryChange.UpdateDateEnum',
-									id : 'UpdateDateEnum'
+									name : 'pssInventoryChange.createBy',
+									id : 'createBy'
+								},{
+									fieldLabel : '修改人員',
+									maxLength:18,
+									allowBlank : false,
+									name : 'pssInventoryChange.updateBy',
+									id : 'updateBy'
 				         }]
 					}]
 				}]

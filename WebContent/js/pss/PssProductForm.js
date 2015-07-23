@@ -50,69 +50,75 @@ PssProductForm = Ext.extend(Ext.Window, {
 									xtype : 'hidden',
 									value : recId||''
 								},{
-									fieldLabel : '產品名稱',
+									fieldLabel : '產品編號/產品代號',
 									maxLength:18,
 									allowBlank : false,
-									name : 'pssProduct.NameEnum',
-									id : 'NameEnum'
+									name : 'pssProduct.productId',
+									id : 'productId'
 								},{
-									fieldLabel : '單位，1：個、2：塊、3：條、4：片、5：公斤、6：公噸、7：...。',
+									fieldLabel : '描述',
 									maxLength:18,
 									allowBlank : false,
-									name : 'pssProduct.UnitEnum',
-									id : 'UnitEnum'
+									name : 'pssProduct.desc',
+									id : 'desc'
 								},{
-									fieldLabel : '產品建議售價(單價)',
+									fieldLabel : '產品定價(單價)',
 									maxLength:18,
 									allowBlank : false,
-									name : 'pssProduct.SalePriceEnum',
-									id : 'SalePriceEnum'
+									name : 'pssProduct.price',
+									id : 'price'
 								},{
-									fieldLabel : '創建日期',
+									fieldLabel : '有效否，0：無效、1：有效。',
 									maxLength:18,
 									allowBlank : false,
-									name : 'pssProduct.CreateDateEnum',
-									id : 'CreateDateEnum'
+									name : 'pssProduct.active',
+									id : 'active'
 								},{
-									fieldLabel : '修改日期',
+									fieldLabel : '創建人員',
 									maxLength:18,
 									allowBlank : false,
-									name : 'pssProduct.UpdateDateEnum',
-									id : 'UpdateDateEnum'
+									name : 'pssProduct.createBy',
+									id : 'createBy'
+								},{
+									fieldLabel : '修改人員',
+									maxLength:18,
+									allowBlank : false,
+									name : 'pssProduct.updateBy',
+									id : 'updateBy'
 					     }]
 					},{
 						items : [{
 									xtype : 'hidden'
 								},{
-									fieldLabel : '描述',
+									fieldLabel : '產品名稱',
 									maxLength:18,
 									allowBlank : false,
-									name : 'pssProduct.DescEnum',
-									id : 'DescEnum'
+									name : 'pssProduct.name',
+									id : 'name'
 								},{
-									fieldLabel : '產品定價(單價)',
+									fieldLabel : '單位，1：個、2：塊、3：條、4：片、5：公斤、6：公噸、7：...。',
 									maxLength:18,
 									allowBlank : false,
-									name : 'pssProduct.PriceEnum',
-									id : 'PriceEnum'
+									name : 'pssProduct.unit',
+									id : 'unit'
 								},{
-									fieldLabel : '有效否，0：無效、1：有效。',
+									fieldLabel : '產品建議售價(單價)',
 									maxLength:18,
 									allowBlank : false,
-									name : 'pssProduct.ActiveEnum',
-									id : 'ActiveEnum'
+									name : 'pssProduct.salePrice',
+									id : 'salePrice'
 								},{
-									fieldLabel : '創建人員',
+									fieldLabel : '創建日期',
 									maxLength:18,
 									allowBlank : false,
-									name : 'pssProduct.CreateByEnum',
-									id : 'CreateByEnum'
+									name : 'pssProduct.createDate',
+									id : 'createDate'
 								},{
-									fieldLabel : '修改人員',
+									fieldLabel : '修改日期',
 									maxLength:18,
 									allowBlank : false,
-									name : 'pssProduct.UpdateByEnum',
-									id : 'UpdateByEnum'
+									name : 'pssProduct.updateDate',
+									id : 'updateDate'
 				         }]
 					}]
 				}]

@@ -78,60 +78,66 @@ PssMatesReceiptDetailView = Ext.extend(Ext.Panel, {
 										fieldLabel : '收貨單編號',
 										maxLength:18,
 										allowBlank : false,
-										name : 'pssMatesReceiptDetail.MrHeadIdEnum',
-										id : 'MrHeadIdEnum'
+										name : 'pssMatesReceiptDetail.mrHeadId',
+										id : 'mrHeadId'
 									},{
-										fieldLabel : '來貨數量',
+										fieldLabel : '原料編號',
 										maxLength:18,
 										allowBlank : false,
-										name : 'pssMatesReceiptDetail.AllNumEnum',
-										id : 'AllNumEnum'
+										name : 'pssMatesReceiptDetail.materialId',
+										id : 'materialId'
 									},{
-										fieldLabel : '退回數量',
+										fieldLabel : '接收數量',
 										maxLength:18,
 										allowBlank : false,
-										name : 'pssMatesReceiptDetail.RejectNumEnum',
-										id : 'RejectNumEnum'
+										name : 'pssMatesReceiptDetail.receiptNum',
+										id : 'receiptNum'
 									},{
-										fieldLabel : '創建人員',
+										fieldLabel : '創建日期',
 										maxLength:18,
 										allowBlank : false,
-										name : 'pssMatesReceiptDetail.CreateByEnum',
-										id : 'CreateByEnum'
+										name : 'pssMatesReceiptDetail.createDate',
+										id : 'createDate'
 									},{
-										fieldLabel : '修改人員',
+										fieldLabel : '修改日期',
 										maxLength:18,
 										allowBlank : false,
-										name : 'pssMatesReceiptDetail.UpdateByEnum',
-										id : 'UpdateByEnum'
+										name : 'pssMatesReceiptDetail.updateDate',
+										id : 'updateDate'
 						     }]
 						},{
 							items : [{
 										xtype : 'hidden'
 									},{
-										fieldLabel : '原料編號',
+										fieldLabel : '收貨單明細編號',
 										maxLength:18,
 										allowBlank : false,
-										name : 'pssMatesReceiptDetail.MaterialIdEnum',
-										id : 'MaterialIdEnum'
+										name : 'pssMatesReceiptDetail.mrDetailId',
+										id : 'mrDetailId'
 									},{
-										fieldLabel : '接收數量',
+										fieldLabel : '來貨數量',
 										maxLength:18,
 										allowBlank : false,
-										name : 'pssMatesReceiptDetail.ReceiptNumEnum',
-										id : 'ReceiptNumEnum'
+										name : 'pssMatesReceiptDetail.allNum',
+										id : 'allNum'
 									},{
-										fieldLabel : '創建日期',
+										fieldLabel : '退回數量',
 										maxLength:18,
 										allowBlank : false,
-										name : 'pssMatesReceiptDetail.CreateDateEnum',
-										id : 'CreateDateEnum'
+										name : 'pssMatesReceiptDetail.rejectNum',
+										id : 'rejectNum'
 									},{
-										fieldLabel : '修改日期',
+										fieldLabel : '創建人員',
 										maxLength:18,
 										allowBlank : false,
-										name : 'pssMatesReceiptDetail.UpdateDateEnum',
-										id : 'UpdateDateEnum'
+										name : 'pssMatesReceiptDetail.createBy',
+										id : 'createBy'
+									},{
+										fieldLabel : '修改人員',
+										maxLength:18,
+										allowBlank : false,
+										name : 'pssMatesReceiptDetail.updateBy',
+										id : 'updateBy'
 					         }]
 						}]
 					}]
@@ -143,15 +149,16 @@ PssMatesReceiptDetailView = Ext.extend(Ext.Panel, {
 					root : 'result',
 					totalProperty : 'totalCounts',
 					fields : ['id'
-								,MrHeadIdEnum
-								,MaterialIdEnum
-								,AllNumEnum
-								,ReceiptNumEnum
-								,RejectNumEnum
-								,CreateDateEnum
-								,CreateByEnum
-								,UpdateDateEnum
-								,UpdateByEnum
+								,'mrHeadId'
+								,'mrDetailId'
+								,'materialId'
+								,'allNum'
+								,'receiptNum'
+								,'rejectNum'
+								,'createDate'
+								,'createBy'
+								,'updateDate'
+								,'updateBy'
 							]
 				});
 		this.store.setDefaultSort('id', 'asc');
@@ -165,39 +172,43 @@ PssMatesReceiptDetailView = Ext.extend(Ext.Panel, {
 			columns : [new Ext.grid.RowNumberer(),{
 							header : '收貨單編號',
 							width : 120,
-							dataIndex : 'MrHeadIdEnum'
+							dataIndex : 'mrHeadId'
+						},{
+							header : '收貨單明細編號',
+							width : 120,
+							dataIndex : 'mrDetailId'
 						},{
 							header : '原料編號',
 							width : 120,
-							dataIndex : 'MaterialIdEnum'
+							dataIndex : 'materialId'
 						},{
 							header : '來貨數量',
 							width : 120,
-							dataIndex : 'AllNumEnum'
+							dataIndex : 'allNum'
 						},{
 							header : '接收數量',
 							width : 120,
-							dataIndex : 'ReceiptNumEnum'
+							dataIndex : 'receiptNum'
 						},{
 							header : '退回數量',
 							width : 120,
-							dataIndex : 'RejectNumEnum'
+							dataIndex : 'rejectNum'
 						},{
 							header : '創建日期',
 							width : 120,
-							dataIndex : 'CreateDateEnum'
+							dataIndex : 'createDate'
 						},{
 							header : '創建人員',
 							width : 120,
-							dataIndex : 'CreateByEnum'
+							dataIndex : 'createBy'
 						},{
 							header : '修改日期',
 							width : 120,
-							dataIndex : 'UpdateDateEnum'
+							dataIndex : 'updateDate'
 						},{
 							header : '修改人員',
 							width : 120,
-							dataIndex : 'UpdateByEnum'
+							dataIndex : 'updateBy'
 						},{
 						header : '管理',
 						dataIndex : 'id',

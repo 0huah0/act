@@ -75,45 +75,51 @@ PssWarehouseView = Ext.extend(Ext.Panel, {
 										xtype : 'hidden',
 										value : recId||''
 									},{
-										fieldLabel : '名稱',
+										fieldLabel : '倉庫編號/倉庫代號',
 										maxLength:18,
 										allowBlank : false,
-										name : 'pssWarehouse.NameEnum',
-										id : 'NameEnum'
+										name : 'pssWarehouse.warehouseId',
+										id : 'warehouseId'
 									},{
-										fieldLabel : '創建日期',
+										fieldLabel : '描述',
 										maxLength:18,
 										allowBlank : false,
-										name : 'pssWarehouse.CreateDateEnum',
-										id : 'CreateDateEnum'
+										name : 'pssWarehouse.desc',
+										id : 'desc'
 									},{
-										fieldLabel : '修改日期',
+										fieldLabel : '創建人員',
 										maxLength:18,
 										allowBlank : false,
-										name : 'pssWarehouse.UpdateDateEnum',
-										id : 'UpdateDateEnum'
+										name : 'pssWarehouse.createBy',
+										id : 'createBy'
+									},{
+										fieldLabel : '修改人員',
+										maxLength:18,
+										allowBlank : false,
+										name : 'pssWarehouse.updateBy',
+										id : 'updateBy'
 						     }]
 						},{
 							items : [{
 										xtype : 'hidden'
 									},{
-										fieldLabel : '描述',
+										fieldLabel : '名稱',
 										maxLength:18,
 										allowBlank : false,
-										name : 'pssWarehouse.DescEnum',
-										id : 'DescEnum'
+										name : 'pssWarehouse.name',
+										id : 'name'
 									},{
-										fieldLabel : '創建人員',
+										fieldLabel : '創建日期',
 										maxLength:18,
 										allowBlank : false,
-										name : 'pssWarehouse.CreateByEnum',
-										id : 'CreateByEnum'
+										name : 'pssWarehouse.createDate',
+										id : 'createDate'
 									},{
-										fieldLabel : '修改人員',
+										fieldLabel : '修改日期',
 										maxLength:18,
 										allowBlank : false,
-										name : 'pssWarehouse.UpdateByEnum',
-										id : 'UpdateByEnum'
+										name : 'pssWarehouse.updateDate',
+										id : 'updateDate'
 					         }]
 						}]
 					}]
@@ -125,12 +131,13 @@ PssWarehouseView = Ext.extend(Ext.Panel, {
 					root : 'result',
 					totalProperty : 'totalCounts',
 					fields : ['id'
-								,NameEnum
-								,DescEnum
-								,CreateDateEnum
-								,CreateByEnum
-								,UpdateDateEnum
-								,UpdateByEnum
+								,'warehouseId'
+								,'name'
+								,'desc'
+								,'createDate'
+								,'createBy'
+								,'updateDate'
+								,'updateBy'
 							]
 				});
 		this.store.setDefaultSort('id', 'asc');
@@ -142,29 +149,33 @@ PssWarehouseView = Ext.extend(Ext.Panel, {
 				});
 		var cm = new Ext.grid.ColumnModel({
 			columns : [new Ext.grid.RowNumberer(),{
+							header : '倉庫編號/倉庫代號',
+							width : 120,
+							dataIndex : 'warehouseId'
+						},{
 							header : '名稱',
 							width : 120,
-							dataIndex : 'NameEnum'
+							dataIndex : 'name'
 						},{
 							header : '描述',
 							width : 120,
-							dataIndex : 'DescEnum'
+							dataIndex : 'desc'
 						},{
 							header : '創建日期',
 							width : 120,
-							dataIndex : 'CreateDateEnum'
+							dataIndex : 'createDate'
 						},{
 							header : '創建人員',
 							width : 120,
-							dataIndex : 'CreateByEnum'
+							dataIndex : 'createBy'
 						},{
 							header : '修改日期',
 							width : 120,
-							dataIndex : 'UpdateDateEnum'
+							dataIndex : 'updateDate'
 						},{
 							header : '修改人員',
 							width : 120,
-							dataIndex : 'UpdateByEnum'
+							dataIndex : 'updateBy'
 						},{
 						header : '管理',
 						dataIndex : 'id',

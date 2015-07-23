@@ -75,69 +75,75 @@ PssProductView = Ext.extend(Ext.Panel, {
 										xtype : 'hidden',
 										value : recId||''
 									},{
-										fieldLabel : '產品名稱',
+										fieldLabel : '產品編號/產品代號',
 										maxLength:18,
 										allowBlank : false,
-										name : 'pssProduct.NameEnum',
-										id : 'NameEnum'
+										name : 'pssProduct.productId',
+										id : 'productId'
 									},{
-										fieldLabel : '單位，1：個、2：塊、3：條、4：片、5：公斤、6：公噸、7：...。',
+										fieldLabel : '描述',
 										maxLength:18,
 										allowBlank : false,
-										name : 'pssProduct.UnitEnum',
-										id : 'UnitEnum'
+										name : 'pssProduct.desc',
+										id : 'desc'
 									},{
-										fieldLabel : '產品建議售價(單價)',
+										fieldLabel : '產品定價(單價)',
 										maxLength:18,
 										allowBlank : false,
-										name : 'pssProduct.SalePriceEnum',
-										id : 'SalePriceEnum'
+										name : 'pssProduct.price',
+										id : 'price'
 									},{
-										fieldLabel : '創建日期',
+										fieldLabel : '有效否，0：無效、1：有效。',
 										maxLength:18,
 										allowBlank : false,
-										name : 'pssProduct.CreateDateEnum',
-										id : 'CreateDateEnum'
+										name : 'pssProduct.active',
+										id : 'active'
 									},{
-										fieldLabel : '修改日期',
+										fieldLabel : '創建人員',
 										maxLength:18,
 										allowBlank : false,
-										name : 'pssProduct.UpdateDateEnum',
-										id : 'UpdateDateEnum'
+										name : 'pssProduct.createBy',
+										id : 'createBy'
+									},{
+										fieldLabel : '修改人員',
+										maxLength:18,
+										allowBlank : false,
+										name : 'pssProduct.updateBy',
+										id : 'updateBy'
 						     }]
 						},{
 							items : [{
 										xtype : 'hidden'
 									},{
-										fieldLabel : '描述',
+										fieldLabel : '產品名稱',
 										maxLength:18,
 										allowBlank : false,
-										name : 'pssProduct.DescEnum',
-										id : 'DescEnum'
+										name : 'pssProduct.name',
+										id : 'name'
 									},{
-										fieldLabel : '產品定價(單價)',
+										fieldLabel : '單位，1：個、2：塊、3：條、4：片、5：公斤、6：公噸、7：...。',
 										maxLength:18,
 										allowBlank : false,
-										name : 'pssProduct.PriceEnum',
-										id : 'PriceEnum'
+										name : 'pssProduct.unit',
+										id : 'unit'
 									},{
-										fieldLabel : '有效否，0：無效、1：有效。',
+										fieldLabel : '產品建議售價(單價)',
 										maxLength:18,
 										allowBlank : false,
-										name : 'pssProduct.ActiveEnum',
-										id : 'ActiveEnum'
+										name : 'pssProduct.salePrice',
+										id : 'salePrice'
 									},{
-										fieldLabel : '創建人員',
+										fieldLabel : '創建日期',
 										maxLength:18,
 										allowBlank : false,
-										name : 'pssProduct.CreateByEnum',
-										id : 'CreateByEnum'
+										name : 'pssProduct.createDate',
+										id : 'createDate'
 									},{
-										fieldLabel : '修改人員',
+										fieldLabel : '修改日期',
 										maxLength:18,
 										allowBlank : false,
-										name : 'pssProduct.UpdateByEnum',
-										id : 'UpdateByEnum'
+										name : 'pssProduct.updateDate',
+										id : 'updateDate'
 					         }]
 						}]
 					}]
@@ -149,16 +155,17 @@ PssProductView = Ext.extend(Ext.Panel, {
 					root : 'result',
 					totalProperty : 'totalCounts',
 					fields : ['id'
-								,NameEnum
-								,DescEnum
-								,UnitEnum
-								,PriceEnum
-								,SalePriceEnum
-								,ActiveEnum
-								,CreateDateEnum
-								,CreateByEnum
-								,UpdateDateEnum
-								,UpdateByEnum
+								,'productId'
+								,'name'
+								,'desc'
+								,'unit'
+								,'price'
+								,'salePrice'
+								,'active'
+								,'createDate'
+								,'createBy'
+								,'updateDate'
+								,'updateBy'
 							]
 				});
 		this.store.setDefaultSort('id', 'asc');
@@ -170,45 +177,49 @@ PssProductView = Ext.extend(Ext.Panel, {
 				});
 		var cm = new Ext.grid.ColumnModel({
 			columns : [new Ext.grid.RowNumberer(),{
+							header : '產品編號/產品代號',
+							width : 120,
+							dataIndex : 'productId'
+						},{
 							header : '產品名稱',
 							width : 120,
-							dataIndex : 'NameEnum'
+							dataIndex : 'name'
 						},{
 							header : '描述',
 							width : 120,
-							dataIndex : 'DescEnum'
+							dataIndex : 'desc'
 						},{
 							header : '單位，1：個、2：塊、3：條、4：片、5：公斤、6：公噸、7：...。',
 							width : 120,
-							dataIndex : 'UnitEnum'
+							dataIndex : 'unit'
 						},{
 							header : '產品定價(單價)',
 							width : 120,
-							dataIndex : 'PriceEnum'
+							dataIndex : 'price'
 						},{
 							header : '產品建議售價(單價)',
 							width : 120,
-							dataIndex : 'SalePriceEnum'
+							dataIndex : 'salePrice'
 						},{
 							header : '有效否，0：無效、1：有效。',
 							width : 120,
-							dataIndex : 'ActiveEnum'
+							dataIndex : 'active'
 						},{
 							header : '創建日期',
 							width : 120,
-							dataIndex : 'CreateDateEnum'
+							dataIndex : 'createDate'
 						},{
 							header : '創建人員',
 							width : 120,
-							dataIndex : 'CreateByEnum'
+							dataIndex : 'createBy'
 						},{
 							header : '修改日期',
 							width : 120,
-							dataIndex : 'UpdateDateEnum'
+							dataIndex : 'updateDate'
 						},{
 							header : '修改人員',
 							width : 120,
-							dataIndex : 'UpdateByEnum'
+							dataIndex : 'updateBy'
 						},{
 						header : '管理',
 						dataIndex : 'id',

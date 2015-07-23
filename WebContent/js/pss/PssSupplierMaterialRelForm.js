@@ -50,45 +50,57 @@ PssSupplierMaterialRelForm = Ext.extend(Ext.Window, {
 									xtype : 'hidden',
 									value : recId||''
 								},{
+									fieldLabel : '供應商編號/供應商代號',
+									maxLength:18,
+									allowBlank : false,
+									name : 'pssSupplierMaterialRel.supplierId',
+									id : 'supplierId'
+								},{
 									fieldLabel : '產品定價(單價)',
 									maxLength:18,
 									allowBlank : false,
-									name : 'pssSupplierMaterialRel.PriceEnum',
-									id : 'PriceEnum'
+									name : 'pssSupplierMaterialRel.price',
+									id : 'price'
 								},{
 									fieldLabel : '創建日期',
 									maxLength:18,
 									allowBlank : false,
-									name : 'pssSupplierMaterialRel.CreateDateEnum',
-									id : 'CreateDateEnum'
+									name : 'pssSupplierMaterialRel.createDate',
+									id : 'createDate'
 								},{
 									fieldLabel : '修改日期',
 									maxLength:18,
 									allowBlank : false,
-									name : 'pssSupplierMaterialRel.UpdateDateEnum',
-									id : 'UpdateDateEnum'
+									name : 'pssSupplierMaterialRel.updateDate',
+									id : 'updateDate'
 					     }]
 					},{
 						items : [{
 									xtype : 'hidden'
 								},{
+									fieldLabel : '原料編號/原料代號',
+									maxLength:18,
+									allowBlank : false,
+									name : 'pssSupplierMaterialRel.materialId',
+									id : 'materialId'
+								},{
 									fieldLabel : '產品建議售價(單價)',
 									maxLength:18,
 									allowBlank : false,
-									name : 'pssSupplierMaterialRel.SalePriceEnum',
-									id : 'SalePriceEnum'
+									name : 'pssSupplierMaterialRel.salePrice',
+									id : 'salePrice'
 								},{
 									fieldLabel : '創建人員',
 									maxLength:18,
 									allowBlank : false,
-									name : 'pssSupplierMaterialRel.CreateByEnum',
-									id : 'CreateByEnum'
+									name : 'pssSupplierMaterialRel.createBy',
+									id : 'createBy'
 								},{
 									fieldLabel : '修改人員',
 									maxLength:18,
 									allowBlank : false,
-									name : 'pssSupplierMaterialRel.UpdateByEnum',
-									id : 'UpdateByEnum'
+									name : 'pssSupplierMaterialRel.updateBy',
+									id : 'updateBy'
 				         }]
 					}]
 				}]

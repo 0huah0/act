@@ -50,81 +50,87 @@ PssMatesReceiptHeadForm = Ext.extend(Ext.Window, {
 									xtype : 'hidden',
 									value : recId||''
 								},{
-									fieldLabel : '採購單編號',
+									fieldLabel : '收貨單編號，收貨單代碼2位(MR)+當前日期8位(yyyyMMdd)+流水號6位。',
 									maxLength:18,
 									allowBlank : false,
-									name : 'pssMatesReceiptHead.PoHeadIdEnum',
-									id : 'PoHeadIdEnum'
+									name : 'pssMatesReceiptHead.mrHeadId',
+									id : 'mrHeadId'
 								},{
-									fieldLabel : '收貨人名稱/倉管人員名稱',
+									fieldLabel : '收貨倉庫編號/倉庫代號',
 									maxLength:18,
 									allowBlank : false,
-									name : 'pssMatesReceiptHead.ReceiverNameEnum',
-									id : 'ReceiverNameEnum'
+									name : 'pssMatesReceiptHead.warehouseId',
+									id : 'warehouseId'
 								},{
-									fieldLabel : '收貨發票號碼(應付帳款)',
+									fieldLabel : '收貨人電話',
 									maxLength:18,
 									allowBlank : false,
-									name : 'pssMatesReceiptHead.MrInvoiceEnum',
-									id : 'MrInvoiceEnum'
+									name : 'pssMatesReceiptHead.receiverTel',
+									id : 'receiverTel'
 								},{
-									fieldLabel : '送貨人電話',
+									fieldLabel : '送貨人名稱',
 									maxLength:18,
 									allowBlank : false,
-									name : 'pssMatesReceiptHead.DiliverTelEnum',
-									id : 'DiliverTelEnum'
+									name : 'pssMatesReceiptHead.diliverName',
+									id : 'diliverName'
 								},{
-									fieldLabel : '創建日期',
+									fieldLabel : '備註',
 									maxLength:18,
 									allowBlank : false,
-									name : 'pssMatesReceiptHead.CreateDateEnum',
-									id : 'CreateDateEnum'
+									name : 'pssMatesReceiptHead.remark',
+									id : 'remark'
 								},{
-									fieldLabel : '修改日期',
+									fieldLabel : '創建人員',
 									maxLength:18,
 									allowBlank : false,
-									name : 'pssMatesReceiptHead.UpdateDateEnum',
-									id : 'UpdateDateEnum'
+									name : 'pssMatesReceiptHead.createBy',
+									id : 'createBy'
+								},{
+									fieldLabel : '修改人員',
+									maxLength:18,
+									allowBlank : false,
+									name : 'pssMatesReceiptHead.updateBy',
+									id : 'updateBy'
 					     }]
 					},{
 						items : [{
 									xtype : 'hidden'
 								},{
-									fieldLabel : '收貨倉庫編號/倉庫代號',
+									fieldLabel : '採購單編號',
 									maxLength:18,
 									allowBlank : false,
-									name : 'pssMatesReceiptHead.WarehouseIdEnum',
-									id : 'WarehouseIdEnum'
+									name : 'pssMatesReceiptHead.poHeadId',
+									id : 'poHeadId'
 								},{
-									fieldLabel : '收貨人電話',
+									fieldLabel : '收貨人名稱/倉管人員名稱',
 									maxLength:18,
 									allowBlank : false,
-									name : 'pssMatesReceiptHead.ReceiverTelEnum',
-									id : 'ReceiverTelEnum'
+									name : 'pssMatesReceiptHead.receiverName',
+									id : 'receiverName'
 								},{
-									fieldLabel : '送貨人名稱',
+									fieldLabel : '收貨發票號碼(應付帳款)',
 									maxLength:18,
 									allowBlank : false,
-									name : 'pssMatesReceiptHead.DiliverNameEnum',
-									id : 'DiliverNameEnum'
+									name : 'pssMatesReceiptHead.mrInvoice',
+									id : 'mrInvoice'
 								},{
-									fieldLabel : '備註',
+									fieldLabel : '送貨人電話',
 									maxLength:18,
 									allowBlank : false,
-									name : 'pssMatesReceiptHead.RemarkEnum',
-									id : 'RemarkEnum'
+									name : 'pssMatesReceiptHead.diliverTel',
+									id : 'diliverTel'
 								},{
-									fieldLabel : '創建人員',
+									fieldLabel : '創建日期',
 									maxLength:18,
 									allowBlank : false,
-									name : 'pssMatesReceiptHead.CreateByEnum',
-									id : 'CreateByEnum'
+									name : 'pssMatesReceiptHead.createDate',
+									id : 'createDate'
 								},{
-									fieldLabel : '修改人員',
+									fieldLabel : '修改日期',
 									maxLength:18,
 									allowBlank : false,
-									name : 'pssMatesReceiptHead.UpdateByEnum',
-									id : 'UpdateByEnum'
+									name : 'pssMatesReceiptHead.updateDate',
+									id : 'updateDate'
 				         }]
 					}]
 				}]

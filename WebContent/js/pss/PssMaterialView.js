@@ -75,57 +75,63 @@ PssMaterialView = Ext.extend(Ext.Panel, {
 										xtype : 'hidden',
 										value : recId||''
 									},{
-										fieldLabel : '原料名稱',
+										fieldLabel : '原料編號/原料代號',
 										maxLength:18,
 										allowBlank : false,
-										name : 'pssMaterial.NameEnum',
-										id : 'NameEnum'
+										name : 'pssMaterial.materialId',
+										id : 'materialId'
 									},{
-										fieldLabel : '描述',
+										fieldLabel : '單位，1：個、2：塊、3：條、4：片、5：公斤、6：公噸、7：...。',
 										maxLength:18,
 										allowBlank : false,
-										name : 'pssMaterial.DescEnum',
-										id : 'DescEnum'
+										name : 'pssMaterial.unit',
+										id : 'unit'
 									},{
-										fieldLabel : '創建日期',
+										fieldLabel : '有效否，0：無效、1：有效。',
 										maxLength:18,
 										allowBlank : false,
-										name : 'pssMaterial.CreateDateEnum',
-										id : 'CreateDateEnum'
+										name : 'pssMaterial.active',
+										id : 'active'
 									},{
-										fieldLabel : '修改日期',
+										fieldLabel : '創建人員',
 										maxLength:18,
 										allowBlank : false,
-										name : 'pssMaterial.UpdateDateEnum',
-										id : 'UpdateDateEnum'
+										name : 'pssMaterial.createBy',
+										id : 'createBy'
+									},{
+										fieldLabel : '修改人員',
+										maxLength:18,
+										allowBlank : false,
+										name : 'pssMaterial.updateBy',
+										id : 'updateBy'
 						     }]
 						},{
 							items : [{
 										xtype : 'hidden'
 									},{
-										fieldLabel : '單位，1：個、2：塊、3：條、4：片、5：公斤、6：公噸、7：...。',
+										fieldLabel : '原料名稱',
 										maxLength:18,
 										allowBlank : false,
-										name : 'pssMaterial.UnitEnum',
-										id : 'UnitEnum'
+										name : 'pssMaterial.name',
+										id : 'name'
 									},{
-										fieldLabel : '有效否，0：無效、1：有效。',
+										fieldLabel : '描述',
 										maxLength:18,
 										allowBlank : false,
-										name : 'pssMaterial.ActiveEnum',
-										id : 'ActiveEnum'
+										name : 'pssMaterial.desc',
+										id : 'desc'
 									},{
-										fieldLabel : '創建人員',
+										fieldLabel : '創建日期',
 										maxLength:18,
 										allowBlank : false,
-										name : 'pssMaterial.CreateByEnum',
-										id : 'CreateByEnum'
+										name : 'pssMaterial.createDate',
+										id : 'createDate'
 									},{
-										fieldLabel : '修改人員',
+										fieldLabel : '修改日期',
 										maxLength:18,
 										allowBlank : false,
-										name : 'pssMaterial.UpdateByEnum',
-										id : 'UpdateByEnum'
+										name : 'pssMaterial.updateDate',
+										id : 'updateDate'
 					         }]
 						}]
 					}]
@@ -136,18 +142,18 @@ PssMaterialView = Ext.extend(Ext.Panel, {
 					url : __ctxPath + '/act/listPssMaterial.do',
 					root : 'result',
 					totalProperty : 'totalCounts',
-					fields : ['id'
-								,NameEnum
-								,UnitEnum
-								,DescEnum
-								,ActiveEnum
-								,CreateDateEnum
-								,CreateByEnum
-								,UpdateDateEnum
-								,UpdateByEnum
+					fields : ['materialId'
+								,'name'
+								,'unit'
+								,'desc'
+								,'active'
+								,'createDate'
+								,'createBy'
+								,'updateDate'
+								,'updateBy'
 							]
 				});
-		this.store.setDefaultSort('id', 'asc');
+		this.store.setDefaultSort('materialId', 'asc');
 		this.store.load({
 					params : {
 						start : 0,
@@ -156,37 +162,41 @@ PssMaterialView = Ext.extend(Ext.Panel, {
 				});
 		var cm = new Ext.grid.ColumnModel({
 			columns : [new Ext.grid.RowNumberer(),{
+							header : '原料編號/原料代號',
+							width : 120,
+							dataIndex : 'materialId'
+						},{
 							header : '原料名稱',
 							width : 120,
-							dataIndex : 'NameEnum'
+							dataIndex : 'name'
 						},{
 							header : '單位，1：個、2：塊、3：條、4：片、5：公斤、6：公噸、7：...。',
 							width : 120,
-							dataIndex : 'UnitEnum'
+							dataIndex : 'unit'
 						},{
 							header : '描述',
 							width : 120,
-							dataIndex : 'DescEnum'
+							dataIndex : 'desc'
 						},{
 							header : '有效否，0：無效、1：有效。',
 							width : 120,
-							dataIndex : 'ActiveEnum'
+							dataIndex : 'active'
 						},{
 							header : '創建日期',
 							width : 120,
-							dataIndex : 'CreateDateEnum'
+							dataIndex : 'createDate'
 						},{
 							header : '創建人員',
 							width : 120,
-							dataIndex : 'CreateByEnum'
+							dataIndex : 'createBy'
 						},{
 							header : '修改日期',
 							width : 120,
-							dataIndex : 'UpdateDateEnum'
+							dataIndex : 'updateDate'
 						},{
 							header : '修改人員',
 							width : 120,
-							dataIndex : 'UpdateByEnum'
+							dataIndex : 'updateBy'
 						},{
 						header : '管理',
 						dataIndex : 'id',

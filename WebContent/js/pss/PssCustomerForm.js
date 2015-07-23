@@ -50,105 +50,111 @@ PssCustomerForm = Ext.extend(Ext.Window, {
 									xtype : 'hidden',
 									value : recId||''
 								},{
-									fieldLabel : '公司名稱(中文)',
+									fieldLabel : '客戶編號/客戶代號',
 									maxLength:18,
 									allowBlank : false,
-									name : 'pssCustomer.CompanyNameCnEnum',
-									id : 'CompanyNameCnEnum'
+									name : 'pssCustomer.customerId',
+									id : 'customerId'
 								},{
-									fieldLabel : '法人代號',
+									fieldLabel : '公司名稱(英文)',
 									maxLength:18,
 									allowBlank : false,
-									name : 'pssCustomer.LegalPersonCodeEnum',
-									id : 'LegalPersonCodeEnum'
+									name : 'pssCustomer.companyNameEn',
+									id : 'companyNameEn'
 								},{
-									fieldLabel : '地址',
+									fieldLabel : '負責人名稱',
 									maxLength:18,
 									allowBlank : false,
-									name : 'pssCustomer.AddrEnum',
-									id : 'AddrEnum'
+									name : 'pssCustomer.personInCharge',
+									id : 'personInCharge'
 								},{
-									fieldLabel : '傳真',
+									fieldLabel : '電話',
 									maxLength:18,
 									allowBlank : false,
-									name : 'pssCustomer.FaxEnum',
-									id : 'FaxEnum'
+									name : 'pssCustomer.tel',
+									id : 'tel'
 								},{
-									fieldLabel : '資質證明圖片/營業執照影本，保存系統框架中檔案上傳的記錄編號。',
+									fieldLabel : '電子郵箱',
 									maxLength:18,
 									allowBlank : false,
-									name : 'pssCustomer.LicenseImgIdEnum',
-									id : 'LicenseImgIdEnum'
+									name : 'pssCustomer.email',
+									id : 'email'
 								},{
-									fieldLabel : '員工數，1：小於10、2：11~50、3：51~100、4：101~500、5：501~1000、6：大於1000（單位：人）。',
+									fieldLabel : '資本額，1：小於100萬、2：100萬~1000萬、3：1000萬~5000萬、4：大於5000萬（單位：TWD）。',
 									maxLength:18,
 									allowBlank : false,
-									name : 'pssCustomer.EmpAmountEnum',
-									id : 'EmpAmountEnum'
+									name : 'pssCustomer.capital',
+									id : 'capital'
 								},{
-									fieldLabel : '創建日期',
+									fieldLabel : '有效否，0：無效、1：有效。',
 									maxLength:18,
 									allowBlank : false,
-									name : 'pssCustomer.CreateDateEnum',
-									id : 'CreateDateEnum'
+									name : 'pssCustomer.active',
+									id : 'active'
 								},{
-									fieldLabel : '修改日期',
+									fieldLabel : '創建人員',
 									maxLength:18,
 									allowBlank : false,
-									name : 'pssCustomer.UpdateDateEnum',
-									id : 'UpdateDateEnum'
+									name : 'pssCustomer.createBy',
+									id : 'createBy'
+								},{
+									fieldLabel : '修改人員',
+									maxLength:18,
+									allowBlank : false,
+									name : 'pssCustomer.updateBy',
+									id : 'updateBy'
 					     }]
 					},{
 						items : [{
 									xtype : 'hidden'
 								},{
-									fieldLabel : '公司名稱(英文)',
+									fieldLabel : '公司名稱(中文)',
 									maxLength:18,
 									allowBlank : false,
-									name : 'pssCustomer.CompanyNameEnEnum',
-									id : 'CompanyNameEnEnum'
+									name : 'pssCustomer.companyNameCn',
+									id : 'companyNameCn'
 								},{
-									fieldLabel : '負責人名稱',
+									fieldLabel : '法人代號',
 									maxLength:18,
 									allowBlank : false,
-									name : 'pssCustomer.PersonInChargeEnum',
-									id : 'PersonInChargeEnum'
+									name : 'pssCustomer.legalPersonCode',
+									id : 'legalPersonCode'
 								},{
-									fieldLabel : '電話',
+									fieldLabel : '地址',
 									maxLength:18,
 									allowBlank : false,
-									name : 'pssCustomer.TelEnum',
-									id : 'TelEnum'
+									name : 'pssCustomer.addr',
+									id : 'addr'
 								},{
-									fieldLabel : '電子郵箱',
+									fieldLabel : '傳真',
 									maxLength:18,
 									allowBlank : false,
-									name : 'pssCustomer.EmailEnum',
-									id : 'EmailEnum'
+									name : 'pssCustomer.fax',
+									id : 'fax'
 								},{
-									fieldLabel : '資本額，1：小於100萬、2：100萬~1000萬、3：1000萬~5000萬、4：大於5000萬（單位：TWD）。',
+									fieldLabel : '資質證明圖片/營業執照影本，保存系統框架中檔案上傳的記錄編號。',
 									maxLength:18,
 									allowBlank : false,
-									name : 'pssCustomer.CapitalEnum',
-									id : 'CapitalEnum'
+									name : 'pssCustomer.licenseImgId',
+									id : 'licenseImgId'
 								},{
-									fieldLabel : '有效否，0：無效、1：有效。',
+									fieldLabel : '員工數，1：小於10、2：11~50、3：51~100、4：101~500、5：501~1000、6：大於1000（單位：人）。',
 									maxLength:18,
 									allowBlank : false,
-									name : 'pssCustomer.ActiveEnum',
-									id : 'ActiveEnum'
+									name : 'pssCustomer.empAmount',
+									id : 'empAmount'
 								},{
-									fieldLabel : '創建人員',
+									fieldLabel : '創建日期',
 									maxLength:18,
 									allowBlank : false,
-									name : 'pssCustomer.CreateByEnum',
-									id : 'CreateByEnum'
+									name : 'pssCustomer.createDate',
+									id : 'createDate'
 								},{
-									fieldLabel : '修改人員',
+									fieldLabel : '修改日期',
 									maxLength:18,
 									allowBlank : false,
-									name : 'pssCustomer.UpdateByEnum',
-									id : 'UpdateByEnum'
+									name : 'pssCustomer.updateDate',
+									id : 'updateDate'
 				         }]
 					}]
 				}]

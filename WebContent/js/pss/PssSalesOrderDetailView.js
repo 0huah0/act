@@ -78,72 +78,78 @@ PssSalesOrderDetailView = Ext.extend(Ext.Panel, {
 										fieldLabel : '銷貨單編號',
 										maxLength:18,
 										allowBlank : false,
-										name : 'pssSalesOrderDetail.SoHeadIdEnum',
-										id : 'SoHeadIdEnum'
+										name : 'pssSalesOrderDetail.soHeadId',
+										id : 'soHeadId'
 									},{
-										fieldLabel : '產品數量',
+										fieldLabel : '產品編號',
 										maxLength:18,
 										allowBlank : false,
-										name : 'pssSalesOrderDetail.PdtNumEnum',
-										id : 'PdtNumEnum'
+										name : 'pssSalesOrderDetail.pdtId',
+										id : 'pdtId'
 									},{
-										fieldLabel : '產品建議售價',
+										fieldLabel : '產品定價',
 										maxLength:18,
 										allowBlank : false,
-										name : 'pssSalesOrderDetail.PdtSalePriceEnum',
-										id : 'PdtSalePriceEnum'
+										name : 'pssSalesOrderDetail.pdtPrice',
+										id : 'pdtPrice'
 									},{
-										fieldLabel : '小計',
+										fieldLabel : '產品實際售價',
 										maxLength:18,
 										allowBlank : false,
-										name : 'pssSalesOrderDetail.AmountEnum',
-										id : 'AmountEnum'
+										name : 'pssSalesOrderDetail.pdtRealPrice',
+										id : 'pdtRealPrice'
 									},{
-										fieldLabel : '創建人員',
+										fieldLabel : '創建日期',
 										maxLength:18,
 										allowBlank : false,
-										name : 'pssSalesOrderDetail.CreateByEnum',
-										id : 'CreateByEnum'
+										name : 'pssSalesOrderDetail.createDate',
+										id : 'createDate'
 									},{
-										fieldLabel : '修改人員',
+										fieldLabel : '修改日期',
 										maxLength:18,
 										allowBlank : false,
-										name : 'pssSalesOrderDetail.UpdateByEnum',
-										id : 'UpdateByEnum'
+										name : 'pssSalesOrderDetail.updateDate',
+										id : 'updateDate'
 						     }]
 						},{
 							items : [{
 										xtype : 'hidden'
 									},{
-										fieldLabel : '產品編號',
+										fieldLabel : '銷貨單明細編號',
 										maxLength:18,
 										allowBlank : false,
-										name : 'pssSalesOrderDetail.PdtIdEnum',
-										id : 'PdtIdEnum'
+										name : 'pssSalesOrderDetail.soDetailId',
+										id : 'soDetailId'
 									},{
-										fieldLabel : '產品定價',
+										fieldLabel : '產品數量',
 										maxLength:18,
 										allowBlank : false,
-										name : 'pssSalesOrderDetail.PdtPriceEnum',
-										id : 'PdtPriceEnum'
+										name : 'pssSalesOrderDetail.pdtNum',
+										id : 'pdtNum'
 									},{
-										fieldLabel : '產品實際售價',
+										fieldLabel : '產品建議售價',
 										maxLength:18,
 										allowBlank : false,
-										name : 'pssSalesOrderDetail.PdtRealPriceEnum',
-										id : 'PdtRealPriceEnum'
+										name : 'pssSalesOrderDetail.pdtSalePrice',
+										id : 'pdtSalePrice'
 									},{
-										fieldLabel : '創建日期',
+										fieldLabel : '小計',
 										maxLength:18,
 										allowBlank : false,
-										name : 'pssSalesOrderDetail.CreateDateEnum',
-										id : 'CreateDateEnum'
+										name : 'pssSalesOrderDetail.amount',
+										id : 'amount'
 									},{
-										fieldLabel : '修改日期',
+										fieldLabel : '創建人員',
 										maxLength:18,
 										allowBlank : false,
-										name : 'pssSalesOrderDetail.UpdateDateEnum',
-										id : 'UpdateDateEnum'
+										name : 'pssSalesOrderDetail.createBy',
+										id : 'createBy'
+									},{
+										fieldLabel : '修改人員',
+										maxLength:18,
+										allowBlank : false,
+										name : 'pssSalesOrderDetail.updateBy',
+										id : 'updateBy'
 					         }]
 						}]
 					}]
@@ -155,17 +161,18 @@ PssSalesOrderDetailView = Ext.extend(Ext.Panel, {
 					root : 'result',
 					totalProperty : 'totalCounts',
 					fields : ['id'
-								,SoHeadIdEnum
-								,PdtIdEnum
-								,PdtNumEnum
-								,PdtPriceEnum
-								,PdtSalePriceEnum
-								,PdtRealPriceEnum
-								,AmountEnum
-								,CreateDateEnum
-								,CreateByEnum
-								,UpdateDateEnum
-								,UpdateByEnum
+								,'soHeadId'
+								,'soDetailId'
+								,'pdtId'
+								,'pdtNum'
+								,'pdtPrice'
+								,'pdtSalePrice'
+								,'pdtRealPrice'
+								,'amount'
+								,'createDate'
+								,'createBy'
+								,'updateDate'
+								,'updateBy'
 							]
 				});
 		this.store.setDefaultSort('id', 'asc');
@@ -179,47 +186,51 @@ PssSalesOrderDetailView = Ext.extend(Ext.Panel, {
 			columns : [new Ext.grid.RowNumberer(),{
 							header : '銷貨單編號',
 							width : 120,
-							dataIndex : 'SoHeadIdEnum'
+							dataIndex : 'soHeadId'
+						},{
+							header : '銷貨單明細編號',
+							width : 120,
+							dataIndex : 'soDetailId'
 						},{
 							header : '產品編號',
 							width : 120,
-							dataIndex : 'PdtIdEnum'
+							dataIndex : 'pdtId'
 						},{
 							header : '產品數量',
 							width : 120,
-							dataIndex : 'PdtNumEnum'
+							dataIndex : 'pdtNum'
 						},{
 							header : '產品定價',
 							width : 120,
-							dataIndex : 'PdtPriceEnum'
+							dataIndex : 'pdtPrice'
 						},{
 							header : '產品建議售價',
 							width : 120,
-							dataIndex : 'PdtSalePriceEnum'
+							dataIndex : 'pdtSalePrice'
 						},{
 							header : '產品實際售價',
 							width : 120,
-							dataIndex : 'PdtRealPriceEnum'
+							dataIndex : 'pdtRealPrice'
 						},{
 							header : '小計',
 							width : 120,
-							dataIndex : 'AmountEnum'
+							dataIndex : 'amount'
 						},{
 							header : '創建日期',
 							width : 120,
-							dataIndex : 'CreateDateEnum'
+							dataIndex : 'createDate'
 						},{
 							header : '創建人員',
 							width : 120,
-							dataIndex : 'CreateByEnum'
+							dataIndex : 'createBy'
 						},{
 							header : '修改日期',
 							width : 120,
-							dataIndex : 'UpdateDateEnum'
+							dataIndex : 'updateDate'
 						},{
 							header : '修改人員',
 							width : 120,
-							dataIndex : 'UpdateByEnum'
+							dataIndex : 'updateBy'
 						},{
 						header : '管理',
 						dataIndex : 'id',

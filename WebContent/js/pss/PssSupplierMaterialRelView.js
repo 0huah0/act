@@ -75,45 +75,57 @@ PssSupplierMaterialRelView = Ext.extend(Ext.Panel, {
 										xtype : 'hidden',
 										value : recId||''
 									},{
+										fieldLabel : '供應商編號/供應商代號',
+										maxLength:18,
+										allowBlank : false,
+										name : 'pssSupplierMaterialRel.supplierId',
+										id : 'supplierId'
+									},{
 										fieldLabel : '產品定價(單價)',
 										maxLength:18,
 										allowBlank : false,
-										name : 'pssSupplierMaterialRel.PriceEnum',
-										id : 'PriceEnum'
+										name : 'pssSupplierMaterialRel.price',
+										id : 'price'
 									},{
 										fieldLabel : '創建日期',
 										maxLength:18,
 										allowBlank : false,
-										name : 'pssSupplierMaterialRel.CreateDateEnum',
-										id : 'CreateDateEnum'
+										name : 'pssSupplierMaterialRel.createDate',
+										id : 'createDate'
 									},{
 										fieldLabel : '修改日期',
 										maxLength:18,
 										allowBlank : false,
-										name : 'pssSupplierMaterialRel.UpdateDateEnum',
-										id : 'UpdateDateEnum'
+										name : 'pssSupplierMaterialRel.updateDate',
+										id : 'updateDate'
 						     }]
 						},{
 							items : [{
 										xtype : 'hidden'
 									},{
+										fieldLabel : '原料編號/原料代號',
+										maxLength:18,
+										allowBlank : false,
+										name : 'pssSupplierMaterialRel.materialId',
+										id : 'materialId'
+									},{
 										fieldLabel : '產品建議售價(單價)',
 										maxLength:18,
 										allowBlank : false,
-										name : 'pssSupplierMaterialRel.SalePriceEnum',
-										id : 'SalePriceEnum'
+										name : 'pssSupplierMaterialRel.salePrice',
+										id : 'salePrice'
 									},{
 										fieldLabel : '創建人員',
 										maxLength:18,
 										allowBlank : false,
-										name : 'pssSupplierMaterialRel.CreateByEnum',
-										id : 'CreateByEnum'
+										name : 'pssSupplierMaterialRel.createBy',
+										id : 'createBy'
 									},{
 										fieldLabel : '修改人員',
 										maxLength:18,
 										allowBlank : false,
-										name : 'pssSupplierMaterialRel.UpdateByEnum',
-										id : 'UpdateByEnum'
+										name : 'pssSupplierMaterialRel.updateBy',
+										id : 'updateBy'
 					         }]
 						}]
 					}]
@@ -125,12 +137,14 @@ PssSupplierMaterialRelView = Ext.extend(Ext.Panel, {
 					root : 'result',
 					totalProperty : 'totalCounts',
 					fields : ['id'
-								,PriceEnum
-								,SalePriceEnum
-								,CreateDateEnum
-								,CreateByEnum
-								,UpdateDateEnum
-								,UpdateByEnum
+								,'supplierId'
+								,'materialId'
+								,'price'
+								,'salePrice'
+								,'createDate'
+								,'createBy'
+								,'updateDate'
+								,'updateBy'
 							]
 				});
 		this.store.setDefaultSort('id', 'asc');
@@ -142,29 +156,37 @@ PssSupplierMaterialRelView = Ext.extend(Ext.Panel, {
 				});
 		var cm = new Ext.grid.ColumnModel({
 			columns : [new Ext.grid.RowNumberer(),{
+							header : '供應商編號/供應商代號',
+							width : 120,
+							dataIndex : 'supplierId'
+						},{
+							header : '原料編號/原料代號',
+							width : 120,
+							dataIndex : 'materialId'
+						},{
 							header : '產品定價(單價)',
 							width : 120,
-							dataIndex : 'PriceEnum'
+							dataIndex : 'price'
 						},{
 							header : '產品建議售價(單價)',
 							width : 120,
-							dataIndex : 'SalePriceEnum'
+							dataIndex : 'salePrice'
 						},{
 							header : '創建日期',
 							width : 120,
-							dataIndex : 'CreateDateEnum'
+							dataIndex : 'createDate'
 						},{
 							header : '創建人員',
 							width : 120,
-							dataIndex : 'CreateByEnum'
+							dataIndex : 'createBy'
 						},{
 							header : '修改日期',
 							width : 120,
-							dataIndex : 'UpdateDateEnum'
+							dataIndex : 'updateDate'
 						},{
 							header : '修改人員',
 							width : 120,
-							dataIndex : 'UpdateByEnum'
+							dataIndex : 'updateBy'
 						},{
 						header : '管理',
 						dataIndex : 'id',

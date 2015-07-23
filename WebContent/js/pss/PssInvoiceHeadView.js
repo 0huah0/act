@@ -75,51 +75,57 @@ PssInvoiceHeadView = Ext.extend(Ext.Panel, {
 										xtype : 'hidden',
 										value : recId||''
 									},{
-										fieldLabel : '客戶編號/供應商編號，TYPE=1時，該欄位存客戶編號，TYPE=2時，該欄位存供應商編號。',
+										fieldLabel : '發票編號',
 										maxLength:18,
 										allowBlank : false,
-										name : 'pssInvoiceHead.CusOrSupIdEnum',
-										id : 'CusOrSupIdEnum'
+										name : 'pssInvoiceHead.invoiceHeadId',
+										id : 'invoiceHeadId'
 									},{
-										fieldLabel : '類型，1：出貨發票、2：收貨發票。',
+										fieldLabel : '發票金額',
 										maxLength:18,
 										allowBlank : false,
-										name : 'pssInvoiceHead.TypeEnum',
-										id : 'TypeEnum'
+										name : 'pssInvoiceHead.invAmount',
+										id : 'invAmount'
 									},{
-										fieldLabel : '創建人員',
+										fieldLabel : '創建日期',
 										maxLength:18,
 										allowBlank : false,
-										name : 'pssInvoiceHead.CreateByEnum',
-										id : 'CreateByEnum'
+										name : 'pssInvoiceHead.createDate',
+										id : 'createDate'
 									},{
-										fieldLabel : '修改人員',
+										fieldLabel : '修改日期',
 										maxLength:18,
 										allowBlank : false,
-										name : 'pssInvoiceHead.UpdateByEnum',
-										id : 'UpdateByEnum'
+										name : 'pssInvoiceHead.updateDate',
+										id : 'updateDate'
 						     }]
 						},{
 							items : [{
 										xtype : 'hidden'
 									},{
-										fieldLabel : '發票金額',
+										fieldLabel : '客戶編號/供應商編號，TYPE=1時，該欄位存客戶編號，TYPE=2時，該欄位存供應商編號。',
 										maxLength:18,
 										allowBlank : false,
-										name : 'pssInvoiceHead.InvAmountEnum',
-										id : 'InvAmountEnum'
+										name : 'pssInvoiceHead.cusOrSupId',
+										id : 'cusOrSupId'
 									},{
-										fieldLabel : '創建日期',
+										fieldLabel : '類型，1：出貨發票、2：收貨發票。',
 										maxLength:18,
 										allowBlank : false,
-										name : 'pssInvoiceHead.CreateDateEnum',
-										id : 'CreateDateEnum'
+										name : 'pssInvoiceHead.type',
+										id : 'type'
 									},{
-										fieldLabel : '修改日期',
+										fieldLabel : '創建人員',
 										maxLength:18,
 										allowBlank : false,
-										name : 'pssInvoiceHead.UpdateDateEnum',
-										id : 'UpdateDateEnum'
+										name : 'pssInvoiceHead.createBy',
+										id : 'createBy'
+									},{
+										fieldLabel : '修改人員',
+										maxLength:18,
+										allowBlank : false,
+										name : 'pssInvoiceHead.updateBy',
+										id : 'updateBy'
 					         }]
 						}]
 					}]
@@ -131,13 +137,14 @@ PssInvoiceHeadView = Ext.extend(Ext.Panel, {
 					root : 'result',
 					totalProperty : 'totalCounts',
 					fields : ['id'
-								,CusOrSupIdEnum
-								,InvAmountEnum
-								,TypeEnum
-								,CreateDateEnum
-								,CreateByEnum
-								,UpdateDateEnum
-								,UpdateByEnum
+								,'invoiceHeadId'
+								,'cusOrSupId'
+								,'invAmount'
+								,'type'
+								,'createDate'
+								,'createBy'
+								,'updateDate'
+								,'updateBy'
 							]
 				});
 		this.store.setDefaultSort('id', 'asc');
@@ -149,33 +156,37 @@ PssInvoiceHeadView = Ext.extend(Ext.Panel, {
 				});
 		var cm = new Ext.grid.ColumnModel({
 			columns : [new Ext.grid.RowNumberer(),{
+							header : '發票編號',
+							width : 120,
+							dataIndex : 'invoiceHeadId'
+						},{
 							header : '客戶編號/供應商編號，TYPE=1時，該欄位存客戶編號，TYPE=2時，該欄位存供應商編號。',
 							width : 120,
-							dataIndex : 'CusOrSupIdEnum'
+							dataIndex : 'cusOrSupId'
 						},{
 							header : '發票金額',
 							width : 120,
-							dataIndex : 'InvAmountEnum'
+							dataIndex : 'invAmount'
 						},{
 							header : '類型，1：出貨發票、2：收貨發票。',
 							width : 120,
-							dataIndex : 'TypeEnum'
+							dataIndex : 'type'
 						},{
 							header : '創建日期',
 							width : 120,
-							dataIndex : 'CreateDateEnum'
+							dataIndex : 'createDate'
 						},{
 							header : '創建人員',
 							width : 120,
-							dataIndex : 'CreateByEnum'
+							dataIndex : 'createBy'
 						},{
 							header : '修改日期',
 							width : 120,
-							dataIndex : 'UpdateDateEnum'
+							dataIndex : 'updateDate'
 						},{
 							header : '修改人員',
 							width : 120,
-							dataIndex : 'UpdateByEnum'
+							dataIndex : 'updateBy'
 						},{
 						header : '管理',
 						dataIndex : 'id',

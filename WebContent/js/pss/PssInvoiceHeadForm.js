@@ -50,51 +50,57 @@ PssInvoiceHeadForm = Ext.extend(Ext.Window, {
 									xtype : 'hidden',
 									value : recId||''
 								},{
-									fieldLabel : '客戶編號/供應商編號，TYPE=1時，該欄位存客戶編號，TYPE=2時，該欄位存供應商編號。',
+									fieldLabel : '發票編號',
 									maxLength:18,
 									allowBlank : false,
-									name : 'pssInvoiceHead.CusOrSupIdEnum',
-									id : 'CusOrSupIdEnum'
+									name : 'pssInvoiceHead.invoiceHeadId',
+									id : 'invoiceHeadId'
 								},{
-									fieldLabel : '類型，1：出貨發票、2：收貨發票。',
+									fieldLabel : '發票金額',
 									maxLength:18,
 									allowBlank : false,
-									name : 'pssInvoiceHead.TypeEnum',
-									id : 'TypeEnum'
+									name : 'pssInvoiceHead.invAmount',
+									id : 'invAmount'
 								},{
-									fieldLabel : '創建人員',
+									fieldLabel : '創建日期',
 									maxLength:18,
 									allowBlank : false,
-									name : 'pssInvoiceHead.CreateByEnum',
-									id : 'CreateByEnum'
+									name : 'pssInvoiceHead.createDate',
+									id : 'createDate'
 								},{
-									fieldLabel : '修改人員',
+									fieldLabel : '修改日期',
 									maxLength:18,
 									allowBlank : false,
-									name : 'pssInvoiceHead.UpdateByEnum',
-									id : 'UpdateByEnum'
+									name : 'pssInvoiceHead.updateDate',
+									id : 'updateDate'
 					     }]
 					},{
 						items : [{
 									xtype : 'hidden'
 								},{
-									fieldLabel : '發票金額',
+									fieldLabel : '客戶編號/供應商編號，TYPE=1時，該欄位存客戶編號，TYPE=2時，該欄位存供應商編號。',
 									maxLength:18,
 									allowBlank : false,
-									name : 'pssInvoiceHead.InvAmountEnum',
-									id : 'InvAmountEnum'
+									name : 'pssInvoiceHead.cusOrSupId',
+									id : 'cusOrSupId'
 								},{
-									fieldLabel : '創建日期',
+									fieldLabel : '類型，1：出貨發票、2：收貨發票。',
 									maxLength:18,
 									allowBlank : false,
-									name : 'pssInvoiceHead.CreateDateEnum',
-									id : 'CreateDateEnum'
+									name : 'pssInvoiceHead.type',
+									id : 'type'
 								},{
-									fieldLabel : '修改日期',
+									fieldLabel : '創建人員',
 									maxLength:18,
 									allowBlank : false,
-									name : 'pssInvoiceHead.UpdateDateEnum',
-									id : 'UpdateDateEnum'
+									name : 'pssInvoiceHead.createBy',
+									id : 'createBy'
+								},{
+									fieldLabel : '修改人員',
+									maxLength:18,
+									allowBlank : false,
+									name : 'pssInvoiceHead.updateBy',
+									id : 'updateBy'
 				         }]
 					}]
 				}]

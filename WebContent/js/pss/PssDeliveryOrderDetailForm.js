@@ -53,60 +53,66 @@ PssDeliveryOrderDetailForm = Ext.extend(Ext.Window, {
 									fieldLabel : '出貨單編號',
 									maxLength:18,
 									allowBlank : false,
-									name : 'pssDeliveryOrderDetail.DoHeadIdEnum',
-									id : 'DoHeadIdEnum'
+									name : 'pssDeliveryOrderDetail.doHeadId',
+									id : 'doHeadId'
 								},{
-									fieldLabel : '出貨數量',
+									fieldLabel : '產品編號',
 									maxLength:18,
 									allowBlank : false,
-									name : 'pssDeliveryOrderDetail.AllNumEnum',
-									id : 'AllNumEnum'
+									name : 'pssDeliveryOrderDetail.pdtId',
+									id : 'pdtId'
 								},{
-									fieldLabel : '退回數量',
+									fieldLabel : '接收數量',
 									maxLength:18,
 									allowBlank : false,
-									name : 'pssDeliveryOrderDetail.RejectNumEnum',
-									id : 'RejectNumEnum'
+									name : 'pssDeliveryOrderDetail.receiptNum',
+									id : 'receiptNum'
 								},{
-									fieldLabel : '創建人員',
+									fieldLabel : '創建日期',
 									maxLength:18,
 									allowBlank : false,
-									name : 'pssDeliveryOrderDetail.CreateByEnum',
-									id : 'CreateByEnum'
+									name : 'pssDeliveryOrderDetail.createDate',
+									id : 'createDate'
 								},{
-									fieldLabel : '修改人員',
+									fieldLabel : '修改日期',
 									maxLength:18,
 									allowBlank : false,
-									name : 'pssDeliveryOrderDetail.UpdateByEnum',
-									id : 'UpdateByEnum'
+									name : 'pssDeliveryOrderDetail.updateDate',
+									id : 'updateDate'
 					     }]
 					},{
 						items : [{
 									xtype : 'hidden'
 								},{
-									fieldLabel : '產品編號',
+									fieldLabel : '出貨單明細編號',
 									maxLength:18,
 									allowBlank : false,
-									name : 'pssDeliveryOrderDetail.PdtIdEnum',
-									id : 'PdtIdEnum'
+									name : 'pssDeliveryOrderDetail.doDetailId',
+									id : 'doDetailId'
 								},{
-									fieldLabel : '接收數量',
+									fieldLabel : '出貨數量',
 									maxLength:18,
 									allowBlank : false,
-									name : 'pssDeliveryOrderDetail.ReceiptNumEnum',
-									id : 'ReceiptNumEnum'
+									name : 'pssDeliveryOrderDetail.allNum',
+									id : 'allNum'
 								},{
-									fieldLabel : '創建日期',
+									fieldLabel : '退回數量',
 									maxLength:18,
 									allowBlank : false,
-									name : 'pssDeliveryOrderDetail.CreateDateEnum',
-									id : 'CreateDateEnum'
+									name : 'pssDeliveryOrderDetail.rejectNum',
+									id : 'rejectNum'
 								},{
-									fieldLabel : '修改日期',
+									fieldLabel : '創建人員',
 									maxLength:18,
 									allowBlank : false,
-									name : 'pssDeliveryOrderDetail.UpdateDateEnum',
-									id : 'UpdateDateEnum'
+									name : 'pssDeliveryOrderDetail.createBy',
+									id : 'createBy'
+								},{
+									fieldLabel : '修改人員',
+									maxLength:18,
+									allowBlank : false,
+									name : 'pssDeliveryOrderDetail.updateBy',
+									id : 'updateBy'
 				         }]
 					}]
 				}]

@@ -75,105 +75,111 @@ PssSupplierView = Ext.extend(Ext.Panel, {
 										xtype : 'hidden',
 										value : recId||''
 									},{
-										fieldLabel : '公司名稱(中文)',
+										fieldLabel : '供應商編號/供應商代號',
 										maxLength:18,
 										allowBlank : false,
-										name : 'pssSupplier.CompanyNameCnEnum',
-										id : 'CompanyNameCnEnum'
+										name : 'pssSupplier.supplierId',
+										id : 'supplierId'
 									},{
-										fieldLabel : '法人代號',
+										fieldLabel : '公司名稱(英文)',
 										maxLength:18,
 										allowBlank : false,
-										name : 'pssSupplier.LegalPersonCodeEnum',
-										id : 'LegalPersonCodeEnum'
+										name : 'pssSupplier.companyNameEn',
+										id : 'companyNameEn'
 									},{
-										fieldLabel : '地址',
+										fieldLabel : '負責人名稱',
 										maxLength:18,
 										allowBlank : false,
-										name : 'pssSupplier.AddrEnum',
-										id : 'AddrEnum'
+										name : 'pssSupplier.personInCharge',
+										id : 'personInCharge'
 									},{
-										fieldLabel : '傳真',
+										fieldLabel : '電話',
 										maxLength:18,
 										allowBlank : false,
-										name : 'pssSupplier.FaxEnum',
-										id : 'FaxEnum'
+										name : 'pssSupplier.tel',
+										id : 'tel'
 									},{
-										fieldLabel : '資質證明圖片/營業執照影本，保存系統框架中檔案上傳的記錄編號。',
+										fieldLabel : '電子郵箱',
 										maxLength:18,
 										allowBlank : false,
-										name : 'pssSupplier.LicenseImgIdEnum',
-										id : 'LicenseImgIdEnum'
+										name : 'pssSupplier.email',
+										id : 'email'
 									},{
-										fieldLabel : '員工數，1：小於10、2：11~50、3：51~100、4：101~500、5：501~1000、6：大於1000（單位：人）。',
+										fieldLabel : '資本額，1：小於100萬、2：100萬~1000萬、3：1000萬~5000萬、4：大於5000萬（單位：TWD）。',
 										maxLength:18,
 										allowBlank : false,
-										name : 'pssSupplier.EmpAmountEnum',
-										id : 'EmpAmountEnum'
+										name : 'pssSupplier.capital',
+										id : 'capital'
 									},{
-										fieldLabel : '創建日期',
+										fieldLabel : '有效否，0：無效、1：有效。',
 										maxLength:18,
 										allowBlank : false,
-										name : 'pssSupplier.CreateDateEnum',
-										id : 'CreateDateEnum'
+										name : 'pssSupplier.active',
+										id : 'active'
 									},{
-										fieldLabel : '修改日期',
+										fieldLabel : '創建人員',
 										maxLength:18,
 										allowBlank : false,
-										name : 'pssSupplier.UpdateDateEnum',
-										id : 'UpdateDateEnum'
+										name : 'pssSupplier.createBy',
+										id : 'createBy'
+									},{
+										fieldLabel : '修改人員',
+										maxLength:18,
+										allowBlank : false,
+										name : 'pssSupplier.updateBy',
+										id : 'updateBy'
 						     }]
 						},{
 							items : [{
 										xtype : 'hidden'
 									},{
-										fieldLabel : '公司名稱(英文)',
+										fieldLabel : '公司名稱(中文)',
 										maxLength:18,
 										allowBlank : false,
-										name : 'pssSupplier.CompanyNameEnEnum',
-										id : 'CompanyNameEnEnum'
+										name : 'pssSupplier.companyNameCn',
+										id : 'companyNameCn'
 									},{
-										fieldLabel : '負責人名稱',
+										fieldLabel : '法人代號',
 										maxLength:18,
 										allowBlank : false,
-										name : 'pssSupplier.PersonInChargeEnum',
-										id : 'PersonInChargeEnum'
+										name : 'pssSupplier.legalPersonCode',
+										id : 'legalPersonCode'
 									},{
-										fieldLabel : '電話',
+										fieldLabel : '地址',
 										maxLength:18,
 										allowBlank : false,
-										name : 'pssSupplier.TelEnum',
-										id : 'TelEnum'
+										name : 'pssSupplier.addr',
+										id : 'addr'
 									},{
-										fieldLabel : '電子郵箱',
+										fieldLabel : '傳真',
 										maxLength:18,
 										allowBlank : false,
-										name : 'pssSupplier.EmailEnum',
-										id : 'EmailEnum'
+										name : 'pssSupplier.fax',
+										id : 'fax'
 									},{
-										fieldLabel : '資本額，1：小於100萬、2：100萬~1000萬、3：1000萬~5000萬、4：大於5000萬（單位：TWD）。',
+										fieldLabel : '資質證明圖片/營業執照影本，保存系統框架中檔案上傳的記錄編號。',
 										maxLength:18,
 										allowBlank : false,
-										name : 'pssSupplier.CapitalEnum',
-										id : 'CapitalEnum'
+										name : 'pssSupplier.licenseImgId',
+										id : 'licenseImgId'
 									},{
-										fieldLabel : '有效否，0：無效、1：有效。',
+										fieldLabel : '員工數，1：小於10、2：11~50、3：51~100、4：101~500、5：501~1000、6：大於1000（單位：人）。',
 										maxLength:18,
 										allowBlank : false,
-										name : 'pssSupplier.ActiveEnum',
-										id : 'ActiveEnum'
+										name : 'pssSupplier.empAmount',
+										id : 'empAmount'
 									},{
-										fieldLabel : '創建人員',
+										fieldLabel : '創建日期',
 										maxLength:18,
 										allowBlank : false,
-										name : 'pssSupplier.CreateByEnum',
-										id : 'CreateByEnum'
+										name : 'pssSupplier.createDate',
+										id : 'createDate'
 									},{
-										fieldLabel : '修改人員',
+										fieldLabel : '修改日期',
 										maxLength:18,
 										allowBlank : false,
-										name : 'pssSupplier.UpdateByEnum',
-										id : 'UpdateByEnum'
+										name : 'pssSupplier.updateDate',
+										id : 'updateDate'
 					         }]
 						}]
 					}]
@@ -185,22 +191,23 @@ PssSupplierView = Ext.extend(Ext.Panel, {
 					root : 'result',
 					totalProperty : 'totalCounts',
 					fields : ['id'
-								,CompanyNameCnEnum
-								,CompanyNameEnEnum
-								,LegalPersonCodeEnum
-								,PersonInChargeEnum
-								,AddrEnum
-								,TelEnum
-								,FaxEnum
-								,EmailEnum
-								,LicenseImgIdEnum
-								,CapitalEnum
-								,EmpAmountEnum
-								,ActiveEnum
-								,CreateDateEnum
-								,CreateByEnum
-								,UpdateDateEnum
-								,UpdateByEnum
+								,'supplierId'
+								,'companyNameCn'
+								,'companyNameEn'
+								,'legalPersonCode'
+								,'personInCharge'
+								,'addr'
+								,'tel'
+								,'fax'
+								,'email'
+								,'licenseImgId'
+								,'capital'
+								,'empAmount'
+								,'active'
+								,'createDate'
+								,'createBy'
+								,'updateDate'
+								,'updateBy'
 							]
 				});
 		this.store.setDefaultSort('id', 'asc');
@@ -212,69 +219,73 @@ PssSupplierView = Ext.extend(Ext.Panel, {
 				});
 		var cm = new Ext.grid.ColumnModel({
 			columns : [new Ext.grid.RowNumberer(),{
+							header : '供應商編號/供應商代號',
+							width : 120,
+							dataIndex : 'supplierId'
+						},{
 							header : '公司名稱(中文)',
 							width : 120,
-							dataIndex : 'CompanyNameCnEnum'
+							dataIndex : 'companyNameCn'
 						},{
 							header : '公司名稱(英文)',
 							width : 120,
-							dataIndex : 'CompanyNameEnEnum'
+							dataIndex : 'companyNameEn'
 						},{
 							header : '法人代號',
 							width : 120,
-							dataIndex : 'LegalPersonCodeEnum'
+							dataIndex : 'legalPersonCode'
 						},{
 							header : '負責人名稱',
 							width : 120,
-							dataIndex : 'PersonInChargeEnum'
+							dataIndex : 'personInCharge'
 						},{
 							header : '地址',
 							width : 120,
-							dataIndex : 'AddrEnum'
+							dataIndex : 'addr'
 						},{
 							header : '電話',
 							width : 120,
-							dataIndex : 'TelEnum'
+							dataIndex : 'tel'
 						},{
 							header : '傳真',
 							width : 120,
-							dataIndex : 'FaxEnum'
+							dataIndex : 'fax'
 						},{
 							header : '電子郵箱',
 							width : 120,
-							dataIndex : 'EmailEnum'
+							dataIndex : 'email'
 						},{
 							header : '資質證明圖片/營業執照影本，保存系統框架中檔案上傳的記錄編號。',
 							width : 120,
-							dataIndex : 'LicenseImgIdEnum'
+							dataIndex : 'licenseImgId'
 						},{
 							header : '資本額，1：小於100萬、2：100萬~1000萬、3：1000萬~5000萬、4：大於5000萬（單位：TWD）。',
 							width : 120,
-							dataIndex : 'CapitalEnum'
+							dataIndex : 'capital'
 						},{
 							header : '員工數，1：小於10、2：11~50、3：51~100、4：101~500、5：501~1000、6：大於1000（單位：人）。',
 							width : 120,
-							dataIndex : 'EmpAmountEnum'
+							dataIndex : 'empAmount'
 						},{
 							header : '有效否，0：無效、1：有效。',
 							width : 120,
-							dataIndex : 'ActiveEnum'
+							dataIndex : 'active'
 						},{
 							header : '創建日期',
 							width : 120,
-							dataIndex : 'CreateDateEnum'
+							dataIndex : 'createDate'
 						},{
 							header : '創建人員',
 							width : 120,
-							dataIndex : 'CreateByEnum'
+							dataIndex : 'createBy'
 						},{
 							header : '修改日期',
 							width : 120,
-							dataIndex : 'UpdateDateEnum'
+							dataIndex : 'updateDate'
 						},{
 							header : '修改人員',
 							width : 120,
-							dataIndex : 'UpdateByEnum'
+							dataIndex : 'updateBy'
 						},{
 						header : '管理',
 						dataIndex : 'id',

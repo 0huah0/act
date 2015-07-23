@@ -75,57 +75,69 @@ PssInventoryView = Ext.extend(Ext.Panel, {
 										xtype : 'hidden',
 										value : recId||''
 									},{
+										fieldLabel : '倉庫編號/倉庫代號',
+										maxLength:18,
+										allowBlank : false,
+										name : 'pssInventory.warehouseId',
+										id : 'warehouseId'
+									},{
 										fieldLabel : '報警水位數量 (According to 良品)',
 										maxLength:18,
 										allowBlank : false,
-										name : 'pssInventory.AlertNumEnum',
-										id : 'AlertNumEnum'
+										name : 'pssInventory.alertNum',
+										id : 'alertNum'
 									},{
 										fieldLabel : '庫存良品數量',
 										maxLength:18,
 										allowBlank : false,
-										name : 'pssInventory.GoodPdtNumEnum',
-										id : 'GoodPdtNumEnum'
+										name : 'pssInventory.goodPdtNum',
+										id : 'goodPdtNum'
 									},{
 										fieldLabel : '創建日期',
 										maxLength:18,
 										allowBlank : false,
-										name : 'pssInventory.CreateDateEnum',
-										id : 'CreateDateEnum'
+										name : 'pssInventory.createDate',
+										id : 'createDate'
 									},{
 										fieldLabel : '修改日期',
 										maxLength:18,
 										allowBlank : false,
-										name : 'pssInventory.UpdateDateEnum',
-										id : 'UpdateDateEnum'
+										name : 'pssInventory.updateDate',
+										id : 'updateDate'
 						     }]
 						},{
 							items : [{
 										xtype : 'hidden'
 									},{
+										fieldLabel : '原料編號/原料代號',
+										maxLength:18,
+										allowBlank : false,
+										name : 'pssInventory.materialId',
+										id : 'materialId'
+									},{
 										fieldLabel : '庫存總數量',
 										maxLength:18,
 										allowBlank : false,
-										name : 'pssInventory.AllNumEnum',
-										id : 'AllNumEnum'
+										name : 'pssInventory.allNum',
+										id : 'allNum'
 									},{
 										fieldLabel : '庫存不良品數量',
 										maxLength:18,
 										allowBlank : false,
-										name : 'pssInventory.RejectsNumEnum',
-										id : 'RejectsNumEnum'
+										name : 'pssInventory.rejectsNum',
+										id : 'rejectsNum'
 									},{
 										fieldLabel : '創建人員',
 										maxLength:18,
 										allowBlank : false,
-										name : 'pssInventory.CreateByEnum',
-										id : 'CreateByEnum'
+										name : 'pssInventory.createBy',
+										id : 'createBy'
 									},{
 										fieldLabel : '修改人員',
 										maxLength:18,
 										allowBlank : false,
-										name : 'pssInventory.UpdateByEnum',
-										id : 'UpdateByEnum'
+										name : 'pssInventory.updateBy',
+										id : 'updateBy'
 					         }]
 						}]
 					}]
@@ -137,14 +149,16 @@ PssInventoryView = Ext.extend(Ext.Panel, {
 					root : 'result',
 					totalProperty : 'totalCounts',
 					fields : ['id'
-								,AlertNumEnum
-								,AllNumEnum
-								,GoodPdtNumEnum
-								,RejectsNumEnum
-								,CreateDateEnum
-								,CreateByEnum
-								,UpdateDateEnum
-								,UpdateByEnum
+								,'warehouseId'
+								,'materialId'
+								,'alertNum'
+								,'allNum'
+								,'goodPdtNum'
+								,'rejectsNum'
+								,'createDate'
+								,'createBy'
+								,'updateDate'
+								,'updateBy'
 							]
 				});
 		this.store.setDefaultSort('id', 'asc');
@@ -156,37 +170,45 @@ PssInventoryView = Ext.extend(Ext.Panel, {
 				});
 		var cm = new Ext.grid.ColumnModel({
 			columns : [new Ext.grid.RowNumberer(),{
+							header : '倉庫編號/倉庫代號',
+							width : 120,
+							dataIndex : 'warehouseId'
+						},{
+							header : '原料編號/原料代號',
+							width : 120,
+							dataIndex : 'materialId'
+						},{
 							header : '報警水位數量 (According to 良品)',
 							width : 120,
-							dataIndex : 'AlertNumEnum'
+							dataIndex : 'alertNum'
 						},{
 							header : '庫存總數量',
 							width : 120,
-							dataIndex : 'AllNumEnum'
+							dataIndex : 'allNum'
 						},{
 							header : '庫存良品數量',
 							width : 120,
-							dataIndex : 'GoodPdtNumEnum'
+							dataIndex : 'goodPdtNum'
 						},{
 							header : '庫存不良品數量',
 							width : 120,
-							dataIndex : 'RejectsNumEnum'
+							dataIndex : 'rejectsNum'
 						},{
 							header : '創建日期',
 							width : 120,
-							dataIndex : 'CreateDateEnum'
+							dataIndex : 'createDate'
 						},{
 							header : '創建人員',
 							width : 120,
-							dataIndex : 'CreateByEnum'
+							dataIndex : 'createBy'
 						},{
 							header : '修改日期',
 							width : 120,
-							dataIndex : 'UpdateDateEnum'
+							dataIndex : 'updateDate'
 						},{
 							header : '修改人員',
 							width : 120,
-							dataIndex : 'UpdateByEnum'
+							dataIndex : 'updateBy'
 						},{
 						header : '管理',
 						dataIndex : 'id',

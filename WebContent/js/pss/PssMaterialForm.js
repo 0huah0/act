@@ -50,57 +50,63 @@ PssMaterialForm = Ext.extend(Ext.Window, {
 									xtype : 'hidden',
 									value : recId||''
 								},{
-									fieldLabel : '原料名稱',
+									fieldLabel : '原料編號/原料代號',
 									maxLength:18,
 									allowBlank : false,
-									name : 'pssMaterial.NameEnum',
-									id : 'NameEnum'
+									name : 'pssMaterial.materialId',
+									id : 'materialId'
 								},{
-									fieldLabel : '描述',
+									fieldLabel : '單位，1：個、2：塊、3：條、4：片、5：公斤、6：公噸、7：...。',
 									maxLength:18,
 									allowBlank : false,
-									name : 'pssMaterial.DescEnum',
-									id : 'DescEnum'
+									name : 'pssMaterial.unit',
+									id : 'unit'
 								},{
-									fieldLabel : '創建日期',
+									fieldLabel : '有效否，0：無效、1：有效。',
 									maxLength:18,
 									allowBlank : false,
-									name : 'pssMaterial.CreateDateEnum',
-									id : 'CreateDateEnum'
+									name : 'pssMaterial.active',
+									id : 'active'
 								},{
-									fieldLabel : '修改日期',
+									fieldLabel : '創建人員',
 									maxLength:18,
 									allowBlank : false,
-									name : 'pssMaterial.UpdateDateEnum',
-									id : 'UpdateDateEnum'
+									name : 'pssMaterial.createBy',
+									id : 'createBy'
+								},{
+									fieldLabel : '修改人員',
+									maxLength:18,
+									allowBlank : false,
+									name : 'pssMaterial.updateBy',
+									id : 'updateBy'
 					     }]
 					},{
 						items : [{
 									xtype : 'hidden'
 								},{
-									fieldLabel : '單位，1：個、2：塊、3：條、4：片、5：公斤、6：公噸、7：...。',
+									fieldLabel : '原料名稱',
 									maxLength:18,
 									allowBlank : false,
-									name : 'pssMaterial.UnitEnum',
-									id : 'UnitEnum'
+									name : 'pssMaterial.name',
+									id : 'name'
 								},{
-									fieldLabel : '有效否，0：無效、1：有效。',
+									fieldLabel : '描述',
 									maxLength:18,
 									allowBlank : false,
-									name : 'pssMaterial.ActiveEnum',
-									id : 'ActiveEnum'
+									name : 'pssMaterial.desc',
+									id : 'desc'
 								},{
-									fieldLabel : '創建人員',
+									fieldLabel : '創建日期',
 									maxLength:18,
 									allowBlank : false,
-									name : 'pssMaterial.CreateByEnum',
-									id : 'CreateByEnum'
+									name : 'pssMaterial.createDate',
+									id : 'createDate'
 								},{
-									fieldLabel : '修改人員',
+									fieldLabel : '修改日期',
 									maxLength:18,
 									allowBlank : false,
-									name : 'pssMaterial.UpdateByEnum',
-									id : 'UpdateByEnum'
+									name : 'pssMaterial.updateDate',
+									id : 'updateDate'
 				         }]
 					}]
 				}]

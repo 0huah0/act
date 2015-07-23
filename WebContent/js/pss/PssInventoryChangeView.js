@@ -75,75 +75,81 @@ PssInventoryChangeView = Ext.extend(Ext.Panel, {
 										xtype : 'hidden',
 										value : recId||''
 									},{
-										fieldLabel : '倉庫編號/倉庫代號',
+										fieldLabel : '記錄編號',
 										maxLength:18,
 										allowBlank : false,
-										name : 'pssInventoryChange.WarehouseIdEnum',
-										id : 'WarehouseIdEnum'
+										name : 'pssInventoryChange.changeId',
+										id : 'changeId'
 									},{
-										fieldLabel : '變更類型，1：增加、2：減少。',
+										fieldLabel : '原料編號/原料代號',
 										maxLength:18,
 										allowBlank : false,
-										name : 'pssInventoryChange.TypeEnum',
-										id : 'TypeEnum'
+										name : 'pssInventoryChange.materialId',
+										id : 'materialId'
 									},{
-										fieldLabel : '變更原因，1：出貨、2：收貨、3：生產取出、4：生產存入、5：...。',
+										fieldLabel : '變更數量',
 										maxLength:18,
 										allowBlank : false,
-										name : 'pssInventoryChange.ReasonEnum',
-										id : 'ReasonEnum'
+										name : 'pssInventoryChange.num',
+										id : 'num'
 									},{
-										fieldLabel : '備註',
+										fieldLabel : '原因記錄編號，當REASON為1、2時，分別保存出貨單編號、收貨單編號；為4、5時不保存。',
 										maxLength:18,
 										allowBlank : false,
-										name : 'pssInventoryChange.RemarkEnum',
-										id : 'RemarkEnum'
+										name : 'pssInventoryChange.recordId',
+										id : 'recordId'
 									},{
-										fieldLabel : '創建人員',
+										fieldLabel : '創建日期',
 										maxLength:18,
 										allowBlank : false,
-										name : 'pssInventoryChange.CreateByEnum',
-										id : 'CreateByEnum'
+										name : 'pssInventoryChange.createDate',
+										id : 'createDate'
 									},{
-										fieldLabel : '修改人員',
+										fieldLabel : '修改日期',
 										maxLength:18,
 										allowBlank : false,
-										name : 'pssInventoryChange.UpdateByEnum',
-										id : 'UpdateByEnum'
+										name : 'pssInventoryChange.updateDate',
+										id : 'updateDate'
 						     }]
 						},{
 							items : [{
 										xtype : 'hidden'
 									},{
-										fieldLabel : '原料編號/原料代號',
+										fieldLabel : '倉庫編號/倉庫代號',
 										maxLength:18,
 										allowBlank : false,
-										name : 'pssInventoryChange.MaterialIdEnum',
-										id : 'MaterialIdEnum'
+										name : 'pssInventoryChange.warehouseId',
+										id : 'warehouseId'
 									},{
-										fieldLabel : '變更數量',
+										fieldLabel : '變更類型，1：增加、2：減少。',
 										maxLength:18,
 										allowBlank : false,
-										name : 'pssInventoryChange.NumEnum',
-										id : 'NumEnum'
+										name : 'pssInventoryChange.type',
+										id : 'type'
 									},{
-										fieldLabel : '原因記錄編號，當REASON為1、2時，分別保存出貨單編號、收貨單編號；為4、5時不保存。',
+										fieldLabel : '變更原因，1：出貨、2：收貨、3：生產取出、4：生產存入、5：...。',
 										maxLength:18,
 										allowBlank : false,
-										name : 'pssInventoryChange.RecordIdEnum',
-										id : 'RecordIdEnum'
+										name : 'pssInventoryChange.reason',
+										id : 'reason'
 									},{
-										fieldLabel : '創建日期',
+										fieldLabel : '備註',
 										maxLength:18,
 										allowBlank : false,
-										name : 'pssInventoryChange.CreateDateEnum',
-										id : 'CreateDateEnum'
+										name : 'pssInventoryChange.remark',
+										id : 'remark'
 									},{
-										fieldLabel : '修改日期',
+										fieldLabel : '創建人員',
 										maxLength:18,
 										allowBlank : false,
-										name : 'pssInventoryChange.UpdateDateEnum',
-										id : 'UpdateDateEnum'
+										name : 'pssInventoryChange.createBy',
+										id : 'createBy'
+									},{
+										fieldLabel : '修改人員',
+										maxLength:18,
+										allowBlank : false,
+										name : 'pssInventoryChange.updateBy',
+										id : 'updateBy'
 					         }]
 						}]
 					}]
@@ -155,17 +161,18 @@ PssInventoryChangeView = Ext.extend(Ext.Panel, {
 					root : 'result',
 					totalProperty : 'totalCounts',
 					fields : ['id'
-								,WarehouseIdEnum
-								,MaterialIdEnum
-								,TypeEnum
-								,NumEnum
-								,ReasonEnum
-								,RecordIdEnum
-								,RemarkEnum
-								,CreateDateEnum
-								,CreateByEnum
-								,UpdateDateEnum
-								,UpdateByEnum
+								,'changeId'
+								,'warehouseId'
+								,'materialId'
+								,'type'
+								,'num'
+								,'reason'
+								,'recordId'
+								,'remark'
+								,'createDate'
+								,'createBy'
+								,'updateDate'
+								,'updateBy'
 							]
 				});
 		this.store.setDefaultSort('id', 'asc');
@@ -177,49 +184,53 @@ PssInventoryChangeView = Ext.extend(Ext.Panel, {
 				});
 		var cm = new Ext.grid.ColumnModel({
 			columns : [new Ext.grid.RowNumberer(),{
+							header : '記錄編號',
+							width : 120,
+							dataIndex : 'changeId'
+						},{
 							header : '倉庫編號/倉庫代號',
 							width : 120,
-							dataIndex : 'WarehouseIdEnum'
+							dataIndex : 'warehouseId'
 						},{
 							header : '原料編號/原料代號',
 							width : 120,
-							dataIndex : 'MaterialIdEnum'
+							dataIndex : 'materialId'
 						},{
 							header : '變更類型，1：增加、2：減少。',
 							width : 120,
-							dataIndex : 'TypeEnum'
+							dataIndex : 'type'
 						},{
 							header : '變更數量',
 							width : 120,
-							dataIndex : 'NumEnum'
+							dataIndex : 'num'
 						},{
 							header : '變更原因，1：出貨、2：收貨、3：生產取出、4：生產存入、5：...。',
 							width : 120,
-							dataIndex : 'ReasonEnum'
+							dataIndex : 'reason'
 						},{
 							header : '原因記錄編號，當REASON為1、2時，分別保存出貨單編號、收貨單編號；為4、5時不保存。',
 							width : 120,
-							dataIndex : 'RecordIdEnum'
+							dataIndex : 'recordId'
 						},{
 							header : '備註',
 							width : 120,
-							dataIndex : 'RemarkEnum'
+							dataIndex : 'remark'
 						},{
 							header : '創建日期',
 							width : 120,
-							dataIndex : 'CreateDateEnum'
+							dataIndex : 'createDate'
 						},{
 							header : '創建人員',
 							width : 120,
-							dataIndex : 'CreateByEnum'
+							dataIndex : 'createBy'
 						},{
 							header : '修改日期',
 							width : 120,
-							dataIndex : 'UpdateDateEnum'
+							dataIndex : 'updateDate'
 						},{
 							header : '修改人員',
 							width : 120,
-							dataIndex : 'UpdateByEnum'
+							dataIndex : 'updateBy'
 						},{
 						header : '管理',
 						dataIndex : 'id',

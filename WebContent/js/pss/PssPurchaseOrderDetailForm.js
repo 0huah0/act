@@ -53,66 +53,72 @@ PssPurchaseOrderDetailForm = Ext.extend(Ext.Window, {
 									fieldLabel : '採購單編號',
 									maxLength:18,
 									allowBlank : false,
-									name : 'pssPurchaseOrderDetail.PoHeadIdEnum',
-									id : 'PoHeadIdEnum'
+									name : 'pssPurchaseOrderDetail.poHeadId',
+									id : 'poHeadId'
 								},{
-									fieldLabel : '原料數量',
+									fieldLabel : '原料編號',
 									maxLength:18,
 									allowBlank : false,
-									name : 'pssPurchaseOrderDetail.MaterialNumEnum',
-									id : 'MaterialNumEnum'
+									name : 'pssPurchaseOrderDetail.materialId',
+									id : 'materialId'
 								},{
-									fieldLabel : '原料建議售價(單價)',
+									fieldLabel : '原料定價(單價)',
 									maxLength:18,
 									allowBlank : false,
-									name : 'pssPurchaseOrderDetail.MaterialSalePriceEnum',
-									id : 'MaterialSalePriceEnum'
+									name : 'pssPurchaseOrderDetail.materialPrice',
+									id : 'materialPrice'
 								},{
-									fieldLabel : '創建日期',
+									fieldLabel : '小計',
 									maxLength:18,
 									allowBlank : false,
-									name : 'pssPurchaseOrderDetail.CreateDateEnum',
-									id : 'CreateDateEnum'
+									name : 'pssPurchaseOrderDetail.amount',
+									id : 'amount'
 								},{
-									fieldLabel : '修改日期',
+									fieldLabel : '創建人員',
 									maxLength:18,
 									allowBlank : false,
-									name : 'pssPurchaseOrderDetail.UpdateDateEnum',
-									id : 'UpdateDateEnum'
+									name : 'pssPurchaseOrderDetail.createBy',
+									id : 'createBy'
+								},{
+									fieldLabel : '修改人員',
+									maxLength:18,
+									allowBlank : false,
+									name : 'pssPurchaseOrderDetail.updateBy',
+									id : 'updateBy'
 					     }]
 					},{
 						items : [{
 									xtype : 'hidden'
 								},{
-									fieldLabel : '原料編號',
+									fieldLabel : '採購單明細編號',
 									maxLength:18,
 									allowBlank : false,
-									name : 'pssPurchaseOrderDetail.MaterialIdEnum',
-									id : 'MaterialIdEnum'
+									name : 'pssPurchaseOrderDetail.poDetailId',
+									id : 'poDetailId'
 								},{
-									fieldLabel : '原料定價(單價)',
+									fieldLabel : '原料數量',
 									maxLength:18,
 									allowBlank : false,
-									name : 'pssPurchaseOrderDetail.MaterialPriceEnum',
-									id : 'MaterialPriceEnum'
+									name : 'pssPurchaseOrderDetail.materialNum',
+									id : 'materialNum'
 								},{
-									fieldLabel : '小計',
+									fieldLabel : '原料建議售價(單價)',
 									maxLength:18,
 									allowBlank : false,
-									name : 'pssPurchaseOrderDetail.AmountEnum',
-									id : 'AmountEnum'
+									name : 'pssPurchaseOrderDetail.materialSalePrice',
+									id : 'materialSalePrice'
 								},{
-									fieldLabel : '創建人員',
+									fieldLabel : '創建日期',
 									maxLength:18,
 									allowBlank : false,
-									name : 'pssPurchaseOrderDetail.CreateByEnum',
-									id : 'CreateByEnum'
+									name : 'pssPurchaseOrderDetail.createDate',
+									id : 'createDate'
 								},{
-									fieldLabel : '修改人員',
+									fieldLabel : '修改日期',
 									maxLength:18,
 									allowBlank : false,
-									name : 'pssPurchaseOrderDetail.UpdateByEnum',
-									id : 'UpdateByEnum'
+									name : 'pssPurchaseOrderDetail.updateDate',
+									id : 'updateDate'
 				         }]
 					}]
 				}]

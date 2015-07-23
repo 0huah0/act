@@ -50,75 +50,81 @@ PssSalesOrderHeadForm = Ext.extend(Ext.Window, {
 									xtype : 'hidden',
 									value : recId||''
 								},{
-									fieldLabel : '客戶編號',
+									fieldLabel : '銷貨單編號，銷貨單代碼2位(SO)+當前日期8位(yyyyMMdd)+流水號6位。',
 									maxLength:18,
 									allowBlank : false,
-									name : 'pssSalesOrderHead.CustomerIdEnum',
-									id : 'CustomerIdEnum'
+									name : 'pssSalesOrderHead.soHeadId',
+									id : 'soHeadId'
 								},{
-									fieldLabel : '定價總金額',
+									fieldLabel : '客戶採購單編號',
 									maxLength:18,
 									allowBlank : false,
-									name : 'pssSalesOrderHead.PriceAmountEnum',
-									id : 'PriceAmountEnum'
+									name : 'pssSalesOrderHead.custPoNo',
+									id : 'custPoNo'
 								},{
-									fieldLabel : '實際售價總金額',
+									fieldLabel : '建議售價總金額',
 									maxLength:18,
 									allowBlank : false,
-									name : 'pssSalesOrderHead.PayAmountEnum',
-									id : 'PayAmountEnum'
+									name : 'pssSalesOrderHead.salePriceAmount',
+									id : 'salePriceAmount'
 								},{
-									fieldLabel : '備註',
+									fieldLabel : '優惠金額',
 									maxLength:18,
 									allowBlank : false,
-									name : 'pssSalesOrderHead.RemarkEnum',
-									id : 'RemarkEnum'
+									name : 'pssSalesOrderHead.discountAmount',
+									id : 'discountAmount'
 								},{
-									fieldLabel : '創建人員',
+									fieldLabel : '創建日期',
 									maxLength:18,
 									allowBlank : false,
-									name : 'pssSalesOrderHead.CreateByEnum',
-									id : 'CreateByEnum'
+									name : 'pssSalesOrderHead.createDate',
+									id : 'createDate'
 								},{
-									fieldLabel : '修改人員',
+									fieldLabel : '修改日期',
 									maxLength:18,
 									allowBlank : false,
-									name : 'pssSalesOrderHead.UpdateByEnum',
-									id : 'UpdateByEnum'
+									name : 'pssSalesOrderHead.updateDate',
+									id : 'updateDate'
 					     }]
 					},{
 						items : [{
 									xtype : 'hidden'
 								},{
-									fieldLabel : '客戶採購單編號',
+									fieldLabel : '客戶編號',
 									maxLength:18,
 									allowBlank : false,
-									name : 'pssSalesOrderHead.CustPoNoEnum',
-									id : 'CustPoNoEnum'
+									name : 'pssSalesOrderHead.customerId',
+									id : 'customerId'
 								},{
-									fieldLabel : '建議售價總金額',
+									fieldLabel : '定價總金額',
 									maxLength:18,
 									allowBlank : false,
-									name : 'pssSalesOrderHead.SalePriceAmountEnum',
-									id : 'SalePriceAmountEnum'
+									name : 'pssSalesOrderHead.priceAmount',
+									id : 'priceAmount'
 								},{
-									fieldLabel : '優惠金額',
+									fieldLabel : '實際售價總金額',
 									maxLength:18,
 									allowBlank : false,
-									name : 'pssSalesOrderHead.DiscountAmountEnum',
-									id : 'DiscountAmountEnum'
+									name : 'pssSalesOrderHead.payAmount',
+									id : 'payAmount'
 								},{
-									fieldLabel : '創建日期',
+									fieldLabel : '備註',
 									maxLength:18,
 									allowBlank : false,
-									name : 'pssSalesOrderHead.CreateDateEnum',
-									id : 'CreateDateEnum'
+									name : 'pssSalesOrderHead.remark',
+									id : 'remark'
 								},{
-									fieldLabel : '修改日期',
+									fieldLabel : '創建人員',
 									maxLength:18,
 									allowBlank : false,
-									name : 'pssSalesOrderHead.UpdateDateEnum',
-									id : 'UpdateDateEnum'
+									name : 'pssSalesOrderHead.createBy',
+									id : 'createBy'
+								},{
+									fieldLabel : '修改人員',
+									maxLength:18,
+									allowBlank : false,
+									name : 'pssSalesOrderHead.updateBy',
+									id : 'updateBy'
 				         }]
 					}]
 				}]
