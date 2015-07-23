@@ -57,12 +57,12 @@ PssMatesReceiptHeadView = Ext.extend(Ext.Panel, {
 					title : '收貨單',
 					items : [{
 						layout : 'column',
-						columnWidth : 0.5,
+						columnWidth : 0.33,
 						defaults : {
 							layout : 'form',
 							padding : '0 0 0 20px',
 							labelAlign : 'right',
-							labelWidth : 80,
+							labelWidth : 100,
 							defaults : {
 								xtype : 'textfield',
 								width : 140
@@ -70,22 +70,11 @@ PssMatesReceiptHeadView = Ext.extend(Ext.Panel, {
 						},
 						items : [{
 							items : [{
-										name : 'pssMatesReceiptHead.id',
-										id : 'id',
-										xtype : 'hidden',
-										value : recId||''
-									},{
-										fieldLabel : '收貨單編號，收貨單代碼2位(MR)+當前日期8位(yyyyMMdd)+流水號6位。',
+										fieldLabel : '採購單編號',
 										maxLength:18,
 										allowBlank : false,
-										name : 'pssMatesReceiptHead.mrHeadId',
-										id : 'mrHeadId'
-									},{
-										fieldLabel : '收貨倉庫編號/倉庫代號',
-										maxLength:18,
-										allowBlank : false,
-										name : 'pssMatesReceiptHead.warehouseId',
-										id : 'warehouseId'
+										name : 'pssMatesReceiptHead.poHeadId',
+										id : 'poHeadId'
 									},{
 										fieldLabel : '收貨人電話',
 										maxLength:18,
@@ -93,17 +82,11 @@ PssMatesReceiptHeadView = Ext.extend(Ext.Panel, {
 										name : 'pssMatesReceiptHead.receiverTel',
 										id : 'receiverTel'
 									},{
-										fieldLabel : '送貨人名稱',
+										fieldLabel : '送貨人電話',
 										maxLength:18,
 										allowBlank : false,
-										name : 'pssMatesReceiptHead.diliverName',
-										id : 'diliverName'
-									},{
-										fieldLabel : '備註',
-										maxLength:18,
-										allowBlank : false,
-										name : 'pssMatesReceiptHead.remark',
-										id : 'remark'
+										name : 'pssMatesReceiptHead.diliverTel',
+										id : 'diliverTel'
 									},{
 										fieldLabel : '創建人員',
 										maxLength:18,
@@ -111,27 +94,14 @@ PssMatesReceiptHeadView = Ext.extend(Ext.Panel, {
 										name : 'pssMatesReceiptHead.createBy',
 										id : 'createBy'
 									},{
-										fieldLabel : '修改人員',
-										maxLength:18,
-										allowBlank : false,
-										name : 'pssMatesReceiptHead.updateBy',
-										id : 'updateBy'
-						     }]
+									}]
 						},{
 							items : [{
-										xtype : 'hidden'
-									},{
-										fieldLabel : '採購單編號',
+										fieldLabel : '收貨倉庫編號/倉庫代號',
 										maxLength:18,
 										allowBlank : false,
-										name : 'pssMatesReceiptHead.poHeadId',
-										id : 'poHeadId'
-									},{
-										fieldLabel : '收貨人名稱/倉管人員名稱',
-										maxLength:18,
-										allowBlank : false,
-										name : 'pssMatesReceiptHead.receiverName',
-										id : 'receiverName'
+										name : 'pssMatesReceiptHead.warehouseId',
+										id : 'warehouseId'
 									},{
 										fieldLabel : '收貨發票號碼(應付帳款)',
 										maxLength:18,
@@ -139,11 +109,38 @@ PssMatesReceiptHeadView = Ext.extend(Ext.Panel, {
 										name : 'pssMatesReceiptHead.mrInvoice',
 										id : 'mrInvoice'
 									},{
-										fieldLabel : '送貨人電話',
+										fieldLabel : '備註',
 										maxLength:18,
 										allowBlank : false,
-										name : 'pssMatesReceiptHead.diliverTel',
-										id : 'diliverTel'
+										name : 'pssMatesReceiptHead.remark',
+										id : 'remark'
+									},{
+										fieldLabel : '修改日期',
+										maxLength:18,
+										allowBlank : false,
+										name : 'pssMatesReceiptHead.updateDate',
+										id : 'updateDate'
+									},{
+									}]
+						},{
+							items : [{
+										fieldLabel : '收貨單編號，收貨單代碼2位(MR)+當前日期8位(yyyyMMdd)+流水號6位。',
+										maxLength:18,
+										allowBlank : false,
+										name : 'pssMatesReceiptHead.mrHeadId',
+										id : 'mrHeadId'
+									},{
+										fieldLabel : '收貨人名稱/倉管人員名稱',
+										maxLength:18,
+										allowBlank : false,
+										name : 'pssMatesReceiptHead.receiverName',
+										id : 'receiverName'
+									},{
+										fieldLabel : '送貨人名稱',
+										maxLength:18,
+										allowBlank : false,
+										name : 'pssMatesReceiptHead.diliverName',
+										id : 'diliverName'
 									},{
 										fieldLabel : '創建日期',
 										maxLength:18,
@@ -151,19 +148,20 @@ PssMatesReceiptHeadView = Ext.extend(Ext.Panel, {
 										name : 'pssMatesReceiptHead.createDate',
 										id : 'createDate'
 									},{
-										fieldLabel : '修改日期',
+										fieldLabel : '修改人員',
 										maxLength:18,
 										allowBlank : false,
-										name : 'pssMatesReceiptHead.updateDate',
-										id : 'updateDate'
-					         }]
+										name : 'pssMatesReceiptHead.updateBy',
+										id : 'updateBy'
+									},{
+									}]
 						}]
 					}]
 				}]
 			}]
 		});
 		this.store = new Ext.data.JsonStore({
-					url : __ctxPath + '/act/listPssMatesReceiptHead.do',
+					url : __ctxPath + '/pss/listPssMatesReceiptHead.do',
 					root : 'result',
 					totalProperty : 'totalCounts',
 					fields : ['id'
@@ -182,7 +180,7 @@ PssMatesReceiptHeadView = Ext.extend(Ext.Panel, {
 								,'updateBy'
 							]
 				});
-		this.store.setDefaultSort('id', 'asc');
+		//this.store.setDefaultSort('id', 'asc');
 		this.store.load({
 					params : {
 						start : 0,
@@ -294,7 +292,7 @@ PssMatesReceiptHeadView.remove = function(id) {
 		if (btn == 'yes') {
 			Ext.Ajax.request({
 				url : __ctxPath
-						+ '/act/multiDelPssMatesReceiptHead.do',
+						+ '/pss/multiDelPssMatesReceiptHead.do',
 				params : {
 					ids : id
 				},

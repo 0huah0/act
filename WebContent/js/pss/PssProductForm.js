@@ -24,7 +24,7 @@ PssProductForm = Ext.extend(Ext.Window, {
 	},
 	initUIComponents : function() {
 		this.formPanel = new Ext.FormPanel({
-			url : __ctxPath + '/act/savePssProduct.do',
+			url : __ctxPath + '/pss/savePssProduct.do',
 			id : 'PssProductForm',
 			frame : true,
 			items : [{
@@ -128,7 +128,7 @@ PssProductForm = Ext.extend(Ext.Window, {
 		if (this.recId) {
 			this.formPanel.getForm().load({
 				deferredRender : false,
-				url : __ctxPath + '/act/getPssProduct.do?recId='+ this.recId,
+				url : __ctxPath + '/pss/getPssProduct.do?recId='+ this.recId,
 				waitMsg : '正在載入數據...',
 				success : function(form, action) {
 

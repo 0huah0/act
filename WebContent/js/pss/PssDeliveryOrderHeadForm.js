@@ -24,7 +24,7 @@ PssDeliveryOrderHeadForm = Ext.extend(Ext.Window, {
 	},
 	initUIComponents : function() {
 		this.formPanel = new Ext.FormPanel({
-			url : __ctxPath + '/act/savePssDeliveryOrderHead.do',
+			url : __ctxPath + '/pss/savePssDeliveryOrderHead.do',
 			id : 'PssDeliveryOrderHeadForm',
 			frame : true,
 			items : [{
@@ -140,7 +140,7 @@ PssDeliveryOrderHeadForm = Ext.extend(Ext.Window, {
 		if (this.recId) {
 			this.formPanel.getForm().load({
 				deferredRender : false,
-				url : __ctxPath + '/act/getPssDeliveryOrderHead.do?recId='+ this.recId,
+				url : __ctxPath + '/pss/getPssDeliveryOrderHead.do?recId='+ this.recId,
 				waitMsg : '正在載入數據...',
 				success : function(form, action) {
 

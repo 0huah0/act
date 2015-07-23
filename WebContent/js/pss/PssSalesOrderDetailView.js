@@ -57,12 +57,12 @@ PssSalesOrderDetailView = Ext.extend(Ext.Panel, {
 					title : '銷貨單子項',
 					items : [{
 						layout : 'column',
-						columnWidth : 0.5,
+						columnWidth : 0.33,
 						defaults : {
 							layout : 'form',
 							padding : '0 0 0 20px',
 							labelAlign : 'right',
-							labelWidth : 80,
+							labelWidth : 100,
 							defaults : {
 								xtype : 'textfield',
 								width : 140
@@ -70,22 +70,11 @@ PssSalesOrderDetailView = Ext.extend(Ext.Panel, {
 						},
 						items : [{
 							items : [{
-										name : 'pssSalesOrderDetail.id',
-										id : 'id',
-										xtype : 'hidden',
-										value : recId||''
-									},{
-										fieldLabel : '銷貨單編號',
+										fieldLabel : '銷貨單明細編號',
 										maxLength:18,
 										allowBlank : false,
-										name : 'pssSalesOrderDetail.soHeadId',
-										id : 'soHeadId'
-									},{
-										fieldLabel : '產品編號',
-										maxLength:18,
-										allowBlank : false,
-										name : 'pssSalesOrderDetail.pdtId',
-										id : 'pdtId'
+										name : 'pssSalesOrderDetail.soDetailId',
+										id : 'soDetailId'
 									},{
 										fieldLabel : '產品定價',
 										maxLength:18,
@@ -93,39 +82,26 @@ PssSalesOrderDetailView = Ext.extend(Ext.Panel, {
 										name : 'pssSalesOrderDetail.pdtPrice',
 										id : 'pdtPrice'
 									},{
-										fieldLabel : '產品實際售價',
+										fieldLabel : '小計',
 										maxLength:18,
 										allowBlank : false,
-										name : 'pssSalesOrderDetail.pdtRealPrice',
-										id : 'pdtRealPrice'
-									},{
-										fieldLabel : '創建日期',
-										maxLength:18,
-										allowBlank : false,
-										name : 'pssSalesOrderDetail.createDate',
-										id : 'createDate'
+										name : 'pssSalesOrderDetail.amount',
+										id : 'amount'
 									},{
 										fieldLabel : '修改日期',
 										maxLength:18,
 										allowBlank : false,
 										name : 'pssSalesOrderDetail.updateDate',
 										id : 'updateDate'
-						     }]
+									},{
+									}]
 						},{
 							items : [{
-										xtype : 'hidden'
-									},{
-										fieldLabel : '銷貨單明細編號',
+										fieldLabel : '產品編號',
 										maxLength:18,
 										allowBlank : false,
-										name : 'pssSalesOrderDetail.soDetailId',
-										id : 'soDetailId'
-									},{
-										fieldLabel : '產品數量',
-										maxLength:18,
-										allowBlank : false,
-										name : 'pssSalesOrderDetail.pdtNum',
-										id : 'pdtNum'
+										name : 'pssSalesOrderDetail.pdtId',
+										id : 'pdtId'
 									},{
 										fieldLabel : '產品建議售價',
 										maxLength:18,
@@ -133,11 +109,38 @@ PssSalesOrderDetailView = Ext.extend(Ext.Panel, {
 										name : 'pssSalesOrderDetail.pdtSalePrice',
 										id : 'pdtSalePrice'
 									},{
-										fieldLabel : '小計',
+										fieldLabel : '創建日期',
 										maxLength:18,
 										allowBlank : false,
-										name : 'pssSalesOrderDetail.amount',
-										id : 'amount'
+										name : 'pssSalesOrderDetail.createDate',
+										id : 'createDate'
+									},{
+										fieldLabel : '修改人員',
+										maxLength:18,
+										allowBlank : false,
+										name : 'pssSalesOrderDetail.updateBy',
+										id : 'updateBy'
+									},{
+									}]
+						},{
+							items : [{
+										fieldLabel : '銷貨單編號',
+										maxLength:18,
+										allowBlank : false,
+										name : 'pssSalesOrderDetail.soHeadId',
+										id : 'soHeadId'
+									},{
+										fieldLabel : '產品數量',
+										maxLength:18,
+										allowBlank : false,
+										name : 'pssSalesOrderDetail.pdtNum',
+										id : 'pdtNum'
+									},{
+										fieldLabel : '產品實際售價',
+										maxLength:18,
+										allowBlank : false,
+										name : 'pssSalesOrderDetail.pdtRealPrice',
+										id : 'pdtRealPrice'
 									},{
 										fieldLabel : '創建人員',
 										maxLength:18,
@@ -145,19 +148,14 @@ PssSalesOrderDetailView = Ext.extend(Ext.Panel, {
 										name : 'pssSalesOrderDetail.createBy',
 										id : 'createBy'
 									},{
-										fieldLabel : '修改人員',
-										maxLength:18,
-										allowBlank : false,
-										name : 'pssSalesOrderDetail.updateBy',
-										id : 'updateBy'
-					         }]
+									}]
 						}]
 					}]
 				}]
 			}]
 		});
 		this.store = new Ext.data.JsonStore({
-					url : __ctxPath + '/act/listPssSalesOrderDetail.do',
+					url : __ctxPath + '/pss/listPssSalesOrderDetail.do',
 					root : 'result',
 					totalProperty : 'totalCounts',
 					fields : ['id'
@@ -175,7 +173,7 @@ PssSalesOrderDetailView = Ext.extend(Ext.Panel, {
 								,'updateBy'
 							]
 				});
-		this.store.setDefaultSort('id', 'asc');
+		//this.store.setDefaultSort('id', 'asc');
 		this.store.load({
 					params : {
 						start : 0,
@@ -283,7 +281,7 @@ PssSalesOrderDetailView.remove = function(id) {
 		if (btn == 'yes') {
 			Ext.Ajax.request({
 				url : __ctxPath
-						+ '/act/multiDelPssSalesOrderDetail.do',
+						+ '/pss/multiDelPssSalesOrderDetail.do',
 				params : {
 					ids : id
 				},

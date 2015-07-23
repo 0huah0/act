@@ -57,12 +57,12 @@ PssProductMaterialRelView = Ext.extend(Ext.Panel, {
 					title : '產品原料關係表',
 					items : [{
 						layout : 'column',
-						columnWidth : 0.5,
+						columnWidth : 0.33,
 						defaults : {
 							layout : 'form',
 							padding : '0 0 0 20px',
 							labelAlign : 'right',
-							labelWidth : 80,
+							labelWidth : 100,
 							defaults : {
 								xtype : 'textfield',
 								width : 140
@@ -70,22 +70,11 @@ PssProductMaterialRelView = Ext.extend(Ext.Panel, {
 						},
 						items : [{
 							items : [{
-										name : 'pssProductMaterialRel.id',
-										id : 'id',
-										xtype : 'hidden',
-										value : recId||''
-									},{
-										fieldLabel : '產品編號',
+										fieldLabel : '原料編號/原料代號',
 										maxLength:18,
 										allowBlank : false,
-										name : 'pssProductMaterialRel.pdtId',
-										id : 'pdtId'
-									},{
-										fieldLabel : '原料類型，1：原物料、2：半成品、3：成品。一個產品只會對應一個成品原料。',
-										maxLength:18,
-										allowBlank : false,
-										name : 'pssProductMaterialRel.type',
-										id : 'type'
+										name : 'pssProductMaterialRel.materialId',
+										id : 'materialId'
 									},{
 										fieldLabel : '創建人員',
 										maxLength:18,
@@ -93,21 +82,29 @@ PssProductMaterialRelView = Ext.extend(Ext.Panel, {
 										name : 'pssProductMaterialRel.createBy',
 										id : 'createBy'
 									},{
-										fieldLabel : '修改人員',
-										maxLength:18,
-										allowBlank : false,
-										name : 'pssProductMaterialRel.updateBy',
-										id : 'updateBy'
-						     }]
+									}]
 						},{
 							items : [{
-										xtype : 'hidden'
-									},{
-										fieldLabel : '原料編號/原料代號',
+										fieldLabel : '原料類型，1：原物料、2：半成品、3：成品。一個產品只會對應一個成品原料。',
 										maxLength:18,
 										allowBlank : false,
-										name : 'pssProductMaterialRel.materialId',
-										id : 'materialId'
+										name : 'pssProductMaterialRel.type',
+										id : 'type'
+									},{
+										fieldLabel : '修改日期',
+										maxLength:18,
+										allowBlank : false,
+										name : 'pssProductMaterialRel.updateDate',
+										id : 'updateDate'
+									},{
+									}]
+						},{
+							items : [{
+										fieldLabel : '產品編號',
+										maxLength:18,
+										allowBlank : false,
+										name : 'pssProductMaterialRel.pdtId',
+										id : 'pdtId'
 									},{
 										fieldLabel : '創建日期',
 										maxLength:18,
@@ -115,19 +112,20 @@ PssProductMaterialRelView = Ext.extend(Ext.Panel, {
 										name : 'pssProductMaterialRel.createDate',
 										id : 'createDate'
 									},{
-										fieldLabel : '修改日期',
+										fieldLabel : '修改人員',
 										maxLength:18,
 										allowBlank : false,
-										name : 'pssProductMaterialRel.updateDate',
-										id : 'updateDate'
-					         }]
+										name : 'pssProductMaterialRel.updateBy',
+										id : 'updateBy'
+									},{
+									}]
 						}]
 					}]
 				}]
 			}]
 		});
 		this.store = new Ext.data.JsonStore({
-					url : __ctxPath + '/act/listPssProductMaterialRel.do',
+					url : __ctxPath + '/pss/listPssProductMaterialRel.do',
 					root : 'result',
 					totalProperty : 'totalCounts',
 					fields : ['id'
@@ -140,7 +138,7 @@ PssProductMaterialRelView = Ext.extend(Ext.Panel, {
 								,'updateBy'
 							]
 				});
-		this.store.setDefaultSort('id', 'asc');
+		//this.store.setDefaultSort('id', 'asc');
 		this.store.load({
 					params : {
 						start : 0,
@@ -228,7 +226,7 @@ PssProductMaterialRelView.remove = function(id) {
 		if (btn == 'yes') {
 			Ext.Ajax.request({
 				url : __ctxPath
-						+ '/act/multiDelPssProductMaterialRel.do',
+						+ '/pss/multiDelPssProductMaterialRel.do',
 				params : {
 					ids : id
 				},

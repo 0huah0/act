@@ -57,12 +57,12 @@ PssInventoryView = Ext.extend(Ext.Panel, {
 					title : '庫存',
 					items : [{
 						layout : 'column',
-						columnWidth : 0.5,
+						columnWidth : 0.33,
 						defaults : {
 							layout : 'form',
 							padding : '0 0 0 20px',
 							labelAlign : 'right',
-							labelWidth : 80,
+							labelWidth : 100,
 							defaults : {
 								xtype : 'textfield',
 								width : 140
@@ -70,22 +70,11 @@ PssInventoryView = Ext.extend(Ext.Panel, {
 						},
 						items : [{
 							items : [{
-										name : 'pssInventory.id',
-										id : 'id',
-										xtype : 'hidden',
-										value : recId||''
-									},{
-										fieldLabel : '倉庫編號/倉庫代號',
+										fieldLabel : '原料編號/原料代號',
 										maxLength:18,
 										allowBlank : false,
-										name : 'pssInventory.warehouseId',
-										id : 'warehouseId'
-									},{
-										fieldLabel : '報警水位數量 (According to 良品)',
-										maxLength:18,
-										allowBlank : false,
-										name : 'pssInventory.alertNum',
-										id : 'alertNum'
+										name : 'pssInventory.materialId',
+										id : 'materialId'
 									},{
 										fieldLabel : '庫存良品數量',
 										maxLength:18,
@@ -93,33 +82,20 @@ PssInventoryView = Ext.extend(Ext.Panel, {
 										name : 'pssInventory.goodPdtNum',
 										id : 'goodPdtNum'
 									},{
-										fieldLabel : '創建日期',
+										fieldLabel : '創建人員',
 										maxLength:18,
 										allowBlank : false,
-										name : 'pssInventory.createDate',
-										id : 'createDate'
+										name : 'pssInventory.createBy',
+										id : 'createBy'
 									},{
-										fieldLabel : '修改日期',
-										maxLength:18,
-										allowBlank : false,
-										name : 'pssInventory.updateDate',
-										id : 'updateDate'
-						     }]
+									}]
 						},{
 							items : [{
-										xtype : 'hidden'
-									},{
-										fieldLabel : '原料編號/原料代號',
+										fieldLabel : '報警水位數量 (According to 良品)',
 										maxLength:18,
 										allowBlank : false,
-										name : 'pssInventory.materialId',
-										id : 'materialId'
-									},{
-										fieldLabel : '庫存總數量',
-										maxLength:18,
-										allowBlank : false,
-										name : 'pssInventory.allNum',
-										id : 'allNum'
+										name : 'pssInventory.alertNum',
+										id : 'alertNum'
 									},{
 										fieldLabel : '庫存不良品數量',
 										maxLength:18,
@@ -127,25 +103,47 @@ PssInventoryView = Ext.extend(Ext.Panel, {
 										name : 'pssInventory.rejectsNum',
 										id : 'rejectsNum'
 									},{
-										fieldLabel : '創建人員',
+										fieldLabel : '修改日期',
 										maxLength:18,
 										allowBlank : false,
-										name : 'pssInventory.createBy',
-										id : 'createBy'
+										name : 'pssInventory.updateDate',
+										id : 'updateDate'
+									},{
+									}]
+						},{
+							items : [{
+										fieldLabel : '倉庫編號/倉庫代號',
+										maxLength:18,
+										allowBlank : false,
+										name : 'pssInventory.warehouseId',
+										id : 'warehouseId'
+									},{
+										fieldLabel : '庫存總數量',
+										maxLength:18,
+										allowBlank : false,
+										name : 'pssInventory.allNum',
+										id : 'allNum'
+									},{
+										fieldLabel : '創建日期',
+										maxLength:18,
+										allowBlank : false,
+										name : 'pssInventory.createDate',
+										id : 'createDate'
 									},{
 										fieldLabel : '修改人員',
 										maxLength:18,
 										allowBlank : false,
 										name : 'pssInventory.updateBy',
 										id : 'updateBy'
-					         }]
+									},{
+									}]
 						}]
 					}]
 				}]
 			}]
 		});
 		this.store = new Ext.data.JsonStore({
-					url : __ctxPath + '/act/listPssInventory.do',
+					url : __ctxPath + '/pss/listPssInventory.do',
 					root : 'result',
 					totalProperty : 'totalCounts',
 					fields : ['id'
@@ -161,7 +159,7 @@ PssInventoryView = Ext.extend(Ext.Panel, {
 								,'updateBy'
 							]
 				});
-		this.store.setDefaultSort('id', 'asc');
+		//this.store.setDefaultSort('id', 'asc');
 		this.store.load({
 					params : {
 						start : 0,
@@ -261,7 +259,7 @@ PssInventoryView.remove = function(id) {
 		if (btn == 'yes') {
 			Ext.Ajax.request({
 				url : __ctxPath
-						+ '/act/multiDelPssInventory.do',
+						+ '/pss/multiDelPssInventory.do',
 				params : {
 					ids : id
 				},

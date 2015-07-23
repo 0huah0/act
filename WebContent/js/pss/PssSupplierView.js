@@ -57,12 +57,12 @@ PssSupplierView = Ext.extend(Ext.Panel, {
 					title : '供應商',
 					items : [{
 						layout : 'column',
-						columnWidth : 0.5,
+						columnWidth : 0.33,
 						defaults : {
 							layout : 'form',
 							padding : '0 0 0 20px',
 							labelAlign : 'right',
-							labelWidth : 80,
+							labelWidth : 100,
 							defaults : {
 								xtype : 'textfield',
 								width : 140
@@ -70,22 +70,11 @@ PssSupplierView = Ext.extend(Ext.Panel, {
 						},
 						items : [{
 							items : [{
-										name : 'pssSupplier.id',
-										id : 'id',
-										xtype : 'hidden',
-										value : recId||''
-									},{
-										fieldLabel : '供應商編號/供應商代號',
+										fieldLabel : '公司名稱(中文)',
 										maxLength:18,
 										allowBlank : false,
-										name : 'pssSupplier.supplierId',
-										id : 'supplierId'
-									},{
-										fieldLabel : '公司名稱(英文)',
-										maxLength:18,
-										allowBlank : false,
-										name : 'pssSupplier.companyNameEn',
-										id : 'companyNameEn'
+										name : 'pssSupplier.companyNameCn',
+										id : 'companyNameCn'
 									},{
 										fieldLabel : '負責人名稱',
 										maxLength:18,
@@ -93,17 +82,11 @@ PssSupplierView = Ext.extend(Ext.Panel, {
 										name : 'pssSupplier.personInCharge',
 										id : 'personInCharge'
 									},{
-										fieldLabel : '電話',
+										fieldLabel : '傳真',
 										maxLength:18,
 										allowBlank : false,
-										name : 'pssSupplier.tel',
-										id : 'tel'
-									},{
-										fieldLabel : '電子郵箱',
-										maxLength:18,
-										allowBlank : false,
-										name : 'pssSupplier.email',
-										id : 'email'
+										name : 'pssSupplier.fax',
+										id : 'fax'
 									},{
 										fieldLabel : '資本額，1：小於100萬、2：100萬~1000萬、3：1000萬~5000萬、4：大於5000萬（單位：TWD）。',
 										maxLength:18,
@@ -111,39 +94,26 @@ PssSupplierView = Ext.extend(Ext.Panel, {
 										name : 'pssSupplier.capital',
 										id : 'capital'
 									},{
-										fieldLabel : '有效否，0：無效、1：有效。',
+										fieldLabel : '創建日期',
 										maxLength:18,
 										allowBlank : false,
-										name : 'pssSupplier.active',
-										id : 'active'
-									},{
-										fieldLabel : '創建人員',
-										maxLength:18,
-										allowBlank : false,
-										name : 'pssSupplier.createBy',
-										id : 'createBy'
+										name : 'pssSupplier.createDate',
+										id : 'createDate'
 									},{
 										fieldLabel : '修改人員',
 										maxLength:18,
 										allowBlank : false,
 										name : 'pssSupplier.updateBy',
 										id : 'updateBy'
-						     }]
+									},{
+									}]
 						},{
 							items : [{
-										xtype : 'hidden'
-									},{
-										fieldLabel : '公司名稱(中文)',
+										fieldLabel : '公司名稱(英文)',
 										maxLength:18,
 										allowBlank : false,
-										name : 'pssSupplier.companyNameCn',
-										id : 'companyNameCn'
-									},{
-										fieldLabel : '法人代號',
-										maxLength:18,
-										allowBlank : false,
-										name : 'pssSupplier.legalPersonCode',
-										id : 'legalPersonCode'
+										name : 'pssSupplier.companyNameEn',
+										id : 'companyNameEn'
 									},{
 										fieldLabel : '地址',
 										maxLength:18,
@@ -151,17 +121,11 @@ PssSupplierView = Ext.extend(Ext.Panel, {
 										name : 'pssSupplier.addr',
 										id : 'addr'
 									},{
-										fieldLabel : '傳真',
+										fieldLabel : '電子郵箱',
 										maxLength:18,
 										allowBlank : false,
-										name : 'pssSupplier.fax',
-										id : 'fax'
-									},{
-										fieldLabel : '資質證明圖片/營業執照影本，保存系統框架中檔案上傳的記錄編號。',
-										maxLength:18,
-										allowBlank : false,
-										name : 'pssSupplier.licenseImgId',
-										id : 'licenseImgId'
+										name : 'pssSupplier.email',
+										id : 'email'
 									},{
 										fieldLabel : '員工數，1：小於10、2：11~50、3：51~100、4：101~500、5：501~1000、6：大於1000（單位：人）。',
 										maxLength:18,
@@ -169,25 +133,59 @@ PssSupplierView = Ext.extend(Ext.Panel, {
 										name : 'pssSupplier.empAmount',
 										id : 'empAmount'
 									},{
-										fieldLabel : '創建日期',
+										fieldLabel : '創建人員',
 										maxLength:18,
 										allowBlank : false,
-										name : 'pssSupplier.createDate',
-										id : 'createDate'
+										name : 'pssSupplier.createBy',
+										id : 'createBy'
+									},{
+									}]
+						},{
+							items : [{
+										fieldLabel : '供應商編號/供應商代號',
+										maxLength:18,
+										allowBlank : false,
+										name : 'pssSupplier.supplierId',
+										id : 'supplierId'
+									},{
+										fieldLabel : '法人代號',
+										maxLength:18,
+										allowBlank : false,
+										name : 'pssSupplier.legalPersonCode',
+										id : 'legalPersonCode'
+									},{
+										fieldLabel : '電話',
+										maxLength:18,
+										allowBlank : false,
+										name : 'pssSupplier.tel',
+										id : 'tel'
+									},{
+										fieldLabel : '資質證明圖片/營業執照影本，保存系統框架中檔案上傳的記錄編號。',
+										maxLength:18,
+										allowBlank : false,
+										name : 'pssSupplier.licenseImgId',
+										id : 'licenseImgId'
+									},{
+										fieldLabel : '有效否，0：無效、1：有效。',
+										maxLength:18,
+										allowBlank : false,
+										name : 'pssSupplier.active',
+										id : 'active'
 									},{
 										fieldLabel : '修改日期',
 										maxLength:18,
 										allowBlank : false,
 										name : 'pssSupplier.updateDate',
 										id : 'updateDate'
-					         }]
+									},{
+									}]
 						}]
 					}]
 				}]
 			}]
 		});
 		this.store = new Ext.data.JsonStore({
-					url : __ctxPath + '/act/listPssSupplier.do',
+					url : __ctxPath + '/pss/listPssSupplier.do',
 					root : 'result',
 					totalProperty : 'totalCounts',
 					fields : ['id'
@@ -210,7 +208,7 @@ PssSupplierView = Ext.extend(Ext.Panel, {
 								,'updateBy'
 							]
 				});
-		this.store.setDefaultSort('id', 'asc');
+		//this.store.setDefaultSort('id', 'asc');
 		this.store.load({
 					params : {
 						start : 0,
@@ -338,7 +336,7 @@ PssSupplierView.remove = function(id) {
 		if (btn == 'yes') {
 			Ext.Ajax.request({
 				url : __ctxPath
-						+ '/act/multiDelPssSupplier.do',
+						+ '/pss/multiDelPssSupplier.do',
 				params : {
 					ids : id
 				},

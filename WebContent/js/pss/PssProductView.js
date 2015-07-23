@@ -57,12 +57,12 @@ PssProductView = Ext.extend(Ext.Panel, {
 					title : '產品',
 					items : [{
 						layout : 'column',
-						columnWidth : 0.5,
+						columnWidth : 0.33,
 						defaults : {
 							layout : 'form',
 							padding : '0 0 0 20px',
 							labelAlign : 'right',
-							labelWidth : 80,
+							labelWidth : 100,
 							defaults : {
 								xtype : 'textfield',
 								width : 140
@@ -70,22 +70,11 @@ PssProductView = Ext.extend(Ext.Panel, {
 						},
 						items : [{
 							items : [{
-										name : 'pssProduct.id',
-										id : 'id',
-										xtype : 'hidden',
-										value : recId||''
-									},{
-										fieldLabel : '產品編號/產品代號',
+										fieldLabel : '產品名稱',
 										maxLength:18,
 										allowBlank : false,
-										name : 'pssProduct.productId',
-										id : 'productId'
-									},{
-										fieldLabel : '描述',
-										maxLength:18,
-										allowBlank : false,
-										name : 'pssProduct.desc',
-										id : 'desc'
+										name : 'pssProduct.name',
+										id : 'name'
 									},{
 										fieldLabel : '產品定價(單價)',
 										maxLength:18,
@@ -93,39 +82,26 @@ PssProductView = Ext.extend(Ext.Panel, {
 										name : 'pssProduct.price',
 										id : 'price'
 									},{
-										fieldLabel : '有效否，0：無效、1：有效。',
+										fieldLabel : '創建日期',
 										maxLength:18,
 										allowBlank : false,
-										name : 'pssProduct.active',
-										id : 'active'
-									},{
-										fieldLabel : '創建人員',
-										maxLength:18,
-										allowBlank : false,
-										name : 'pssProduct.createBy',
-										id : 'createBy'
+										name : 'pssProduct.createDate',
+										id : 'createDate'
 									},{
 										fieldLabel : '修改人員',
 										maxLength:18,
 										allowBlank : false,
 										name : 'pssProduct.updateBy',
 										id : 'updateBy'
-						     }]
+									},{
+									}]
 						},{
 							items : [{
-										xtype : 'hidden'
-									},{
-										fieldLabel : '產品名稱',
+										fieldLabel : '描述',
 										maxLength:18,
 										allowBlank : false,
-										name : 'pssProduct.name',
-										id : 'name'
-									},{
-										fieldLabel : '單位，1：個、2：塊、3：條、4：片、5：公斤、6：公噸、7：...。',
-										maxLength:18,
-										allowBlank : false,
-										name : 'pssProduct.unit',
-										id : 'unit'
+										name : 'pssProduct.desc',
+										id : 'desc'
 									},{
 										fieldLabel : '產品建議售價(單價)',
 										maxLength:18,
@@ -133,25 +109,47 @@ PssProductView = Ext.extend(Ext.Panel, {
 										name : 'pssProduct.salePrice',
 										id : 'salePrice'
 									},{
-										fieldLabel : '創建日期',
+										fieldLabel : '創建人員',
 										maxLength:18,
 										allowBlank : false,
-										name : 'pssProduct.createDate',
-										id : 'createDate'
+										name : 'pssProduct.createBy',
+										id : 'createBy'
+									},{
+									}]
+						},{
+							items : [{
+										fieldLabel : '產品編號/產品代號',
+										maxLength:18,
+										allowBlank : false,
+										name : 'pssProduct.productId',
+										id : 'productId'
+									},{
+										fieldLabel : '單位，1：個、2：塊、3：條、4：片、5：公斤、6：公噸、7：...。',
+										maxLength:18,
+										allowBlank : false,
+										name : 'pssProduct.unit',
+										id : 'unit'
+									},{
+										fieldLabel : '有效否，0：無效、1：有效。',
+										maxLength:18,
+										allowBlank : false,
+										name : 'pssProduct.active',
+										id : 'active'
 									},{
 										fieldLabel : '修改日期',
 										maxLength:18,
 										allowBlank : false,
 										name : 'pssProduct.updateDate',
 										id : 'updateDate'
-					         }]
+									},{
+									}]
 						}]
 					}]
 				}]
 			}]
 		});
 		this.store = new Ext.data.JsonStore({
-					url : __ctxPath + '/act/listPssProduct.do',
+					url : __ctxPath + '/pss/listPssProduct.do',
 					root : 'result',
 					totalProperty : 'totalCounts',
 					fields : ['id'
@@ -168,7 +166,7 @@ PssProductView = Ext.extend(Ext.Panel, {
 								,'updateBy'
 							]
 				});
-		this.store.setDefaultSort('id', 'asc');
+		//this.store.setDefaultSort('id', 'asc');
 		this.store.load({
 					params : {
 						start : 0,
@@ -272,7 +270,7 @@ PssProductView.remove = function(id) {
 		if (btn == 'yes') {
 			Ext.Ajax.request({
 				url : __ctxPath
-						+ '/act/multiDelPssProduct.do',
+						+ '/pss/multiDelPssProduct.do',
 				params : {
 					ids : id
 				},

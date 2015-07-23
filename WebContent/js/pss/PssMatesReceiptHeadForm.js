@@ -24,7 +24,7 @@ PssMatesReceiptHeadForm = Ext.extend(Ext.Window, {
 	},
 	initUIComponents : function() {
 		this.formPanel = new Ext.FormPanel({
-			url : __ctxPath + '/act/savePssMatesReceiptHead.do',
+			url : __ctxPath + '/pss/savePssMatesReceiptHead.do',
 			id : 'PssMatesReceiptHeadForm',
 			frame : true,
 			items : [{
@@ -140,7 +140,7 @@ PssMatesReceiptHeadForm = Ext.extend(Ext.Window, {
 		if (this.recId) {
 			this.formPanel.getForm().load({
 				deferredRender : false,
-				url : __ctxPath + '/act/getPssMatesReceiptHead.do?recId='+ this.recId,
+				url : __ctxPath + '/pss/getPssMatesReceiptHead.do?recId='+ this.recId,
 				waitMsg : '正在載入數據...',
 				success : function(form, action) {
 

@@ -24,7 +24,7 @@ PssInventoryChangeForm = Ext.extend(Ext.Window, {
 	},
 	initUIComponents : function() {
 		this.formPanel = new Ext.FormPanel({
-			url : __ctxPath + '/act/savePssInventoryChange.do',
+			url : __ctxPath + '/pss/savePssInventoryChange.do',
 			id : 'PssInventoryChangeForm',
 			frame : true,
 			items : [{
@@ -134,7 +134,7 @@ PssInventoryChangeForm = Ext.extend(Ext.Window, {
 		if (this.recId) {
 			this.formPanel.getForm().load({
 				deferredRender : false,
-				url : __ctxPath + '/act/getPssInventoryChange.do?recId='+ this.recId,
+				url : __ctxPath + '/pss/getPssInventoryChange.do?recId='+ this.recId,
 				waitMsg : '正在載入數據...',
 				success : function(form, action) {
 

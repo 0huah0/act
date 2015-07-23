@@ -24,7 +24,7 @@ PssSupplierForm = Ext.extend(Ext.Window, {
 	},
 	initUIComponents : function() {
 		this.formPanel = new Ext.FormPanel({
-			url : __ctxPath + '/act/savePssSupplier.do',
+			url : __ctxPath + '/pss/savePssSupplier.do',
 			id : 'PssSupplierForm',
 			frame : true,
 			items : [{
@@ -164,7 +164,7 @@ PssSupplierForm = Ext.extend(Ext.Window, {
 		if (this.recId) {
 			this.formPanel.getForm().load({
 				deferredRender : false,
-				url : __ctxPath + '/act/getPssSupplier.do?recId='+ this.recId,
+				url : __ctxPath + '/pss/getPssSupplier.do?recId='+ this.recId,
 				waitMsg : '正在載入數據...',
 				success : function(form, action) {
 

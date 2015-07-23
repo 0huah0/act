@@ -57,12 +57,12 @@ PssDeliveryOrderHeadView = Ext.extend(Ext.Panel, {
 					title : '出貨單',
 					items : [{
 						layout : 'column',
-						columnWidth : 0.5,
+						columnWidth : 0.33,
 						defaults : {
 							layout : 'form',
 							padding : '0 0 0 20px',
 							labelAlign : 'right',
-							labelWidth : 80,
+							labelWidth : 100,
 							defaults : {
 								xtype : 'textfield',
 								width : 140
@@ -70,22 +70,11 @@ PssDeliveryOrderHeadView = Ext.extend(Ext.Panel, {
 						},
 						items : [{
 							items : [{
-										name : 'pssDeliveryOrderHead.id',
-										id : 'id',
-										xtype : 'hidden',
-										value : recId||''
-									},{
-										fieldLabel : '出貨單編號，出貨單代碼2位(DO)+當前日期8位(yyyyMMdd)+流水號6位。',
+										fieldLabel : '銷貨單編號',
 										maxLength:18,
 										allowBlank : false,
-										name : 'pssDeliveryOrderHead.doHeadId',
-										id : 'doHeadId'
-									},{
-										fieldLabel : '出貨倉庫編號/倉庫代號',
-										maxLength:18,
-										allowBlank : false,
-										name : 'pssDeliveryOrderHead.warehouseId',
-										id : 'warehouseId'
+										name : 'pssDeliveryOrderHead.soHeadId',
+										id : 'soHeadId'
 									},{
 										fieldLabel : '送貨人名稱',
 										maxLength:18,
@@ -93,17 +82,11 @@ PssDeliveryOrderHeadView = Ext.extend(Ext.Panel, {
 										name : 'pssDeliveryOrderHead.diliverName',
 										id : 'diliverName'
 									},{
-										fieldLabel : '收貨人電話',
+										fieldLabel : '出貨發票號碼 (應收帳款)',
 										maxLength:18,
 										allowBlank : false,
-										name : 'pssDeliveryOrderHead.receiverTel',
-										id : 'receiverTel'
-									},{
-										fieldLabel : '備註',
-										maxLength:18,
-										allowBlank : false,
-										name : 'pssDeliveryOrderHead.remark',
-										id : 'remark'
+										name : 'pssDeliveryOrderHead.doInvoice',
+										id : 'doInvoice'
 									},{
 										fieldLabel : '創建人員',
 										maxLength:18,
@@ -111,27 +94,14 @@ PssDeliveryOrderHeadView = Ext.extend(Ext.Panel, {
 										name : 'pssDeliveryOrderHead.createBy',
 										id : 'createBy'
 									},{
-										fieldLabel : '修改人員',
-										maxLength:18,
-										allowBlank : false,
-										name : 'pssDeliveryOrderHead.updateBy',
-										id : 'updateBy'
-						     }]
+									}]
 						},{
 							items : [{
-										xtype : 'hidden'
-									},{
-										fieldLabel : '銷貨單編號',
+										fieldLabel : '出貨倉庫編號/倉庫代號',
 										maxLength:18,
 										allowBlank : false,
-										name : 'pssDeliveryOrderHead.soHeadId',
-										id : 'soHeadId'
-									},{
-										fieldLabel : '送貨人電話',
-										maxLength:18,
-										allowBlank : false,
-										name : 'pssDeliveryOrderHead.diliverTel',
-										id : 'diliverTel'
+										name : 'pssDeliveryOrderHead.warehouseId',
+										id : 'warehouseId'
 									},{
 										fieldLabel : '收貨人名稱',
 										maxLength:18,
@@ -139,11 +109,38 @@ PssDeliveryOrderHeadView = Ext.extend(Ext.Panel, {
 										name : 'pssDeliveryOrderHead.receiverName',
 										id : 'receiverName'
 									},{
-										fieldLabel : '出貨發票號碼 (應收帳款)',
+										fieldLabel : '備註',
 										maxLength:18,
 										allowBlank : false,
-										name : 'pssDeliveryOrderHead.doInvoice',
-										id : 'doInvoice'
+										name : 'pssDeliveryOrderHead.remark',
+										id : 'remark'
+									},{
+										fieldLabel : '修改日期',
+										maxLength:18,
+										allowBlank : false,
+										name : 'pssDeliveryOrderHead.updateDate',
+										id : 'updateDate'
+									},{
+									}]
+						},{
+							items : [{
+										fieldLabel : '出貨單編號，出貨單代碼2位(DO)+當前日期8位(yyyyMMdd)+流水號6位。',
+										maxLength:18,
+										allowBlank : false,
+										name : 'pssDeliveryOrderHead.doHeadId',
+										id : 'doHeadId'
+									},{
+										fieldLabel : '送貨人電話',
+										maxLength:18,
+										allowBlank : false,
+										name : 'pssDeliveryOrderHead.diliverTel',
+										id : 'diliverTel'
+									},{
+										fieldLabel : '收貨人電話',
+										maxLength:18,
+										allowBlank : false,
+										name : 'pssDeliveryOrderHead.receiverTel',
+										id : 'receiverTel'
 									},{
 										fieldLabel : '創建日期',
 										maxLength:18,
@@ -151,19 +148,20 @@ PssDeliveryOrderHeadView = Ext.extend(Ext.Panel, {
 										name : 'pssDeliveryOrderHead.createDate',
 										id : 'createDate'
 									},{
-										fieldLabel : '修改日期',
+										fieldLabel : '修改人員',
 										maxLength:18,
 										allowBlank : false,
-										name : 'pssDeliveryOrderHead.updateDate',
-										id : 'updateDate'
-					         }]
+										name : 'pssDeliveryOrderHead.updateBy',
+										id : 'updateBy'
+									},{
+									}]
 						}]
 					}]
 				}]
 			}]
 		});
 		this.store = new Ext.data.JsonStore({
-					url : __ctxPath + '/act/listPssDeliveryOrderHead.do',
+					url : __ctxPath + '/pss/listPssDeliveryOrderHead.do',
 					root : 'result',
 					totalProperty : 'totalCounts',
 					fields : ['id'
@@ -182,7 +180,7 @@ PssDeliveryOrderHeadView = Ext.extend(Ext.Panel, {
 								,'updateBy'
 							]
 				});
-		this.store.setDefaultSort('id', 'asc');
+		//this.store.setDefaultSort('id', 'asc');
 		this.store.load({
 					params : {
 						start : 0,
@@ -294,7 +292,7 @@ PssDeliveryOrderHeadView.remove = function(id) {
 		if (btn == 'yes') {
 			Ext.Ajax.request({
 				url : __ctxPath
-						+ '/act/multiDelPssDeliveryOrderHead.do',
+						+ '/pss/multiDelPssDeliveryOrderHead.do',
 				params : {
 					ids : id
 				},

@@ -57,12 +57,12 @@ PssMatesReceiptDetailView = Ext.extend(Ext.Panel, {
 					title : '收貨單子項',
 					items : [{
 						layout : 'column',
-						columnWidth : 0.5,
+						columnWidth : 0.33,
 						defaults : {
 							layout : 'form',
 							padding : '0 0 0 20px',
 							labelAlign : 'right',
-							labelWidth : 80,
+							labelWidth : 100,
 							defaults : {
 								xtype : 'textfield',
 								width : 140
@@ -70,22 +70,11 @@ PssMatesReceiptDetailView = Ext.extend(Ext.Panel, {
 						},
 						items : [{
 							items : [{
-										name : 'pssMatesReceiptDetail.id',
-										id : 'id',
-										xtype : 'hidden',
-										value : recId||''
-									},{
-										fieldLabel : '收貨單編號',
+										fieldLabel : '收貨單明細編號',
 										maxLength:18,
 										allowBlank : false,
-										name : 'pssMatesReceiptDetail.mrHeadId',
-										id : 'mrHeadId'
-									},{
-										fieldLabel : '原料編號',
-										maxLength:18,
-										allowBlank : false,
-										name : 'pssMatesReceiptDetail.materialId',
-										id : 'materialId'
+										name : 'pssMatesReceiptDetail.mrDetailId',
+										id : 'mrDetailId'
 									},{
 										fieldLabel : '接收數量',
 										maxLength:18,
@@ -93,33 +82,20 @@ PssMatesReceiptDetailView = Ext.extend(Ext.Panel, {
 										name : 'pssMatesReceiptDetail.receiptNum',
 										id : 'receiptNum'
 									},{
-										fieldLabel : '創建日期',
+										fieldLabel : '創建人員',
 										maxLength:18,
 										allowBlank : false,
-										name : 'pssMatesReceiptDetail.createDate',
-										id : 'createDate'
+										name : 'pssMatesReceiptDetail.createBy',
+										id : 'createBy'
 									},{
-										fieldLabel : '修改日期',
-										maxLength:18,
-										allowBlank : false,
-										name : 'pssMatesReceiptDetail.updateDate',
-										id : 'updateDate'
-						     }]
+									}]
 						},{
 							items : [{
-										xtype : 'hidden'
-									},{
-										fieldLabel : '收貨單明細編號',
+										fieldLabel : '原料編號',
 										maxLength:18,
 										allowBlank : false,
-										name : 'pssMatesReceiptDetail.mrDetailId',
-										id : 'mrDetailId'
-									},{
-										fieldLabel : '來貨數量',
-										maxLength:18,
-										allowBlank : false,
-										name : 'pssMatesReceiptDetail.allNum',
-										id : 'allNum'
+										name : 'pssMatesReceiptDetail.materialId',
+										id : 'materialId'
 									},{
 										fieldLabel : '退回數量',
 										maxLength:18,
@@ -127,25 +103,47 @@ PssMatesReceiptDetailView = Ext.extend(Ext.Panel, {
 										name : 'pssMatesReceiptDetail.rejectNum',
 										id : 'rejectNum'
 									},{
-										fieldLabel : '創建人員',
+										fieldLabel : '修改日期',
 										maxLength:18,
 										allowBlank : false,
-										name : 'pssMatesReceiptDetail.createBy',
-										id : 'createBy'
+										name : 'pssMatesReceiptDetail.updateDate',
+										id : 'updateDate'
+									},{
+									}]
+						},{
+							items : [{
+										fieldLabel : '收貨單編號',
+										maxLength:18,
+										allowBlank : false,
+										name : 'pssMatesReceiptDetail.mrHeadId',
+										id : 'mrHeadId'
+									},{
+										fieldLabel : '來貨數量',
+										maxLength:18,
+										allowBlank : false,
+										name : 'pssMatesReceiptDetail.allNum',
+										id : 'allNum'
+									},{
+										fieldLabel : '創建日期',
+										maxLength:18,
+										allowBlank : false,
+										name : 'pssMatesReceiptDetail.createDate',
+										id : 'createDate'
 									},{
 										fieldLabel : '修改人員',
 										maxLength:18,
 										allowBlank : false,
 										name : 'pssMatesReceiptDetail.updateBy',
 										id : 'updateBy'
-					         }]
+									},{
+									}]
 						}]
 					}]
 				}]
 			}]
 		});
 		this.store = new Ext.data.JsonStore({
-					url : __ctxPath + '/act/listPssMatesReceiptDetail.do',
+					url : __ctxPath + '/pss/listPssMatesReceiptDetail.do',
 					root : 'result',
 					totalProperty : 'totalCounts',
 					fields : ['id'
@@ -161,7 +159,7 @@ PssMatesReceiptDetailView = Ext.extend(Ext.Panel, {
 								,'updateBy'
 							]
 				});
-		this.store.setDefaultSort('id', 'asc');
+		//this.store.setDefaultSort('id', 'asc');
 		this.store.load({
 					params : {
 						start : 0,
@@ -261,7 +259,7 @@ PssMatesReceiptDetailView.remove = function(id) {
 		if (btn == 'yes') {
 			Ext.Ajax.request({
 				url : __ctxPath
-						+ '/act/multiDelPssMatesReceiptDetail.do',
+						+ '/pss/multiDelPssMatesReceiptDetail.do',
 				params : {
 					ids : id
 				},

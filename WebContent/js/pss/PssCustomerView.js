@@ -22,7 +22,8 @@ PssCustomerView = Ext.extend(Ext.Panel, {
 	},
 	initUIComponents : function() {
 		this.searchPanel = new Ext.FormPanel({
-			//height : 115,
+			height : 320,
+			autoHeight:true,
 			frame : true,
 			region : 'north',
 			id : 'PssCustomerSearchForm',
@@ -57,12 +58,12 @@ PssCustomerView = Ext.extend(Ext.Panel, {
 					title : '客戶',
 					items : [{
 						layout : 'column',
-						columnWidth : 0.5,
+						columnWidth : 0.33,
 						defaults : {
 							layout : 'form',
 							padding : '0 0 0 20px',
 							labelAlign : 'right',
-							labelWidth : 80,
+							labelWidth : 100,
 							defaults : {
 								xtype : 'textfield',
 								width : 140
@@ -70,22 +71,11 @@ PssCustomerView = Ext.extend(Ext.Panel, {
 						},
 						items : [{
 							items : [{
-										name : 'pssCustomer.id',
-										id : 'id',
-										xtype : 'hidden',
-										value : recId||''
-									},{
-										fieldLabel : '客戶編號/客戶代號',
+										fieldLabel : '公司名稱(中文)',
 										maxLength:18,
 										allowBlank : false,
-										name : 'pssCustomer.customerId',
-										id : 'customerId'
-									},{
-										fieldLabel : '公司名稱(英文)',
-										maxLength:18,
-										allowBlank : false,
-										name : 'pssCustomer.companyNameEn',
-										id : 'companyNameEn'
+										name : 'pssCustomer.companyNameCn',
+										id : 'companyNameCn'
 									},{
 										fieldLabel : '負責人名稱',
 										maxLength:18,
@@ -93,17 +83,11 @@ PssCustomerView = Ext.extend(Ext.Panel, {
 										name : 'pssCustomer.personInCharge',
 										id : 'personInCharge'
 									},{
-										fieldLabel : '電話',
+										fieldLabel : '傳真',
 										maxLength:18,
 										allowBlank : false,
-										name : 'pssCustomer.tel',
-										id : 'tel'
-									},{
-										fieldLabel : '電子郵箱',
-										maxLength:18,
-										allowBlank : false,
-										name : 'pssCustomer.email',
-										id : 'email'
+										name : 'pssCustomer.fax',
+										id : 'fax'
 									},{
 										fieldLabel : '資本額，1：小於100萬、2：100萬~1000萬、3：1000萬~5000萬、4：大於5000萬（單位：TWD）。',
 										maxLength:18,
@@ -111,39 +95,25 @@ PssCustomerView = Ext.extend(Ext.Panel, {
 										name : 'pssCustomer.capital',
 										id : 'capital'
 									},{
-										fieldLabel : '有效否，0：無效、1：有效。',
+										fieldLabel : '創建日期',
 										maxLength:18,
 										allowBlank : false,
-										name : 'pssCustomer.active',
-										id : 'active'
-									},{
-										fieldLabel : '創建人員',
-										maxLength:18,
-										allowBlank : false,
-										name : 'pssCustomer.createBy',
-										id : 'createBy'
+										name : 'pssCustomer.createDate',
+										id : 'createDate'
 									},{
 										fieldLabel : '修改人員',
 										maxLength:18,
 										allowBlank : false,
 										name : 'pssCustomer.updateBy',
 										id : 'updateBy'
-						     }]
+									}]
 						},{
 							items : [{
-										xtype : 'hidden'
-									},{
-										fieldLabel : '公司名稱(中文)',
+										fieldLabel : '公司名稱(英文)',
 										maxLength:18,
 										allowBlank : false,
-										name : 'pssCustomer.companyNameCn',
-										id : 'companyNameCn'
-									},{
-										fieldLabel : '法人代號',
-										maxLength:18,
-										allowBlank : false,
-										name : 'pssCustomer.legalPersonCode',
-										id : 'legalPersonCode'
+										name : 'pssCustomer.companyNameEn',
+										id : 'companyNameEn'
 									},{
 										fieldLabel : '地址',
 										maxLength:18,
@@ -151,17 +121,11 @@ PssCustomerView = Ext.extend(Ext.Panel, {
 										name : 'pssCustomer.addr',
 										id : 'addr'
 									},{
-										fieldLabel : '傳真',
+										fieldLabel : '電子郵箱',
 										maxLength:18,
 										allowBlank : false,
-										name : 'pssCustomer.fax',
-										id : 'fax'
-									},{
-										fieldLabel : '資質證明圖片/營業執照影本，保存系統框架中檔案上傳的記錄編號。',
-										maxLength:18,
-										allowBlank : false,
-										name : 'pssCustomer.licenseImgId',
-										id : 'licenseImgId'
+										name : 'pssCustomer.email',
+										id : 'email'
 									},{
 										fieldLabel : '員工數，1：小於10、2：11~50、3：51~100、4：101~500、5：501~1000、6：大於1000（單位：人）。',
 										maxLength:18,
@@ -169,29 +133,60 @@ PssCustomerView = Ext.extend(Ext.Panel, {
 										name : 'pssCustomer.empAmount',
 										id : 'empAmount'
 									},{
-										fieldLabel : '創建日期',
+										fieldLabel : '創建人員',
 										maxLength:18,
 										allowBlank : false,
-										name : 'pssCustomer.createDate',
-										id : 'createDate'
+										name : 'pssCustomer.createBy',
+										id : 'createBy'
+									}]
+						},{
+							items : [{
+										fieldLabel : '客戶編號/客戶代號',
+										maxLength:18,
+										allowBlank : false,
+										name : 'pssCustomer.customerId',
+										id : 'customerId'
+									},{
+										fieldLabel : '法人代號',
+										maxLength:18,
+										allowBlank : false,
+										name : 'pssCustomer.legalPersonCode',
+										id : 'legalPersonCode'
+									},{
+										fieldLabel : '電話',
+										maxLength:18,
+										allowBlank : false,
+										name : 'pssCustomer.tel',
+										id : 'tel'
+									},{
+										fieldLabel : '資質證明圖片/營業執照影本，保存系統框架中檔案上傳的記錄編號。',
+										maxLength:18,
+										allowBlank : false,
+										name : 'pssCustomer.licenseImgId',
+										id : 'licenseImgId'
+									},{
+										fieldLabel : '有效否，0：無效、1：有效。',
+										maxLength:18,
+										allowBlank : false,
+										name : 'pssCustomer.active',
+										id : 'active'
 									},{
 										fieldLabel : '修改日期',
 										maxLength:18,
 										allowBlank : false,
 										name : 'pssCustomer.updateDate',
 										id : 'updateDate'
-					         }]
+									}]
 						}]
 					}]
 				}]
 			}]
 		});
 		this.store = new Ext.data.JsonStore({
-					url : __ctxPath + '/act/listPssCustomer.do',
+					url : __ctxPath + '/pss/listPssCustomer.do',
 					root : 'result',
 					totalProperty : 'totalCounts',
-					fields : ['id'
-								,'customerId'
+					fields : ['customerId'
 								,'companyNameCn'
 								,'companyNameEn'
 								,'legalPersonCode'
@@ -210,7 +205,7 @@ PssCustomerView = Ext.extend(Ext.Panel, {
 								,'updateBy'
 							]
 				});
-		this.store.setDefaultSort('id', 'asc');
+		//this.store.setDefaultSort('id', 'asc');
 		this.store.load({
 					params : {
 						start : 0,
@@ -288,7 +283,7 @@ PssCustomerView = Ext.extend(Ext.Panel, {
 							dataIndex : 'updateBy'
 						},{
 						header : '管理',
-						dataIndex : 'id',
+						dataIndex : 'customerId',
 						renderer : function(v,m,r) {
 							return '&nbsp;<button title="修改" value=" " class="btn-edit" onclick="PssCustomerView.edit('
 							+ v + ')"></button><button title="刪除" value=" " class="btn-del" onclick="PssCustomerView.remove('
@@ -338,7 +333,7 @@ PssCustomerView.remove = function(id) {
 		if (btn == 'yes') {
 			Ext.Ajax.request({
 				url : __ctxPath
-						+ '/act/multiDelPssCustomer.do',
+						+ '/pss/multiDelPssCustomer.do',
 				params : {
 					ids : id
 				},

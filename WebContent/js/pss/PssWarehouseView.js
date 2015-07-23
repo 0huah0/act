@@ -57,12 +57,12 @@ PssWarehouseView = Ext.extend(Ext.Panel, {
 					title : '倉庫',
 					items : [{
 						layout : 'column',
-						columnWidth : 0.5,
+						columnWidth : 0.33,
 						defaults : {
 							layout : 'form',
 							padding : '0 0 0 20px',
 							labelAlign : 'right',
-							labelWidth : 80,
+							labelWidth : 100,
 							defaults : {
 								xtype : 'textfield',
 								width : 140
@@ -70,22 +70,11 @@ PssWarehouseView = Ext.extend(Ext.Panel, {
 						},
 						items : [{
 							items : [{
-										name : 'pssWarehouse.id',
-										id : 'id',
-										xtype : 'hidden',
-										value : recId||''
-									},{
-										fieldLabel : '倉庫編號/倉庫代號',
+										fieldLabel : '名稱',
 										maxLength:18,
 										allowBlank : false,
-										name : 'pssWarehouse.warehouseId',
-										id : 'warehouseId'
-									},{
-										fieldLabel : '描述',
-										maxLength:18,
-										allowBlank : false,
-										name : 'pssWarehouse.desc',
-										id : 'desc'
+										name : 'pssWarehouse.name',
+										id : 'name'
 									},{
 										fieldLabel : '創建人員',
 										maxLength:18,
@@ -93,21 +82,29 @@ PssWarehouseView = Ext.extend(Ext.Panel, {
 										name : 'pssWarehouse.createBy',
 										id : 'createBy'
 									},{
-										fieldLabel : '修改人員',
-										maxLength:18,
-										allowBlank : false,
-										name : 'pssWarehouse.updateBy',
-										id : 'updateBy'
-						     }]
+									}]
 						},{
 							items : [{
-										xtype : 'hidden'
-									},{
-										fieldLabel : '名稱',
+										fieldLabel : '描述',
 										maxLength:18,
 										allowBlank : false,
-										name : 'pssWarehouse.name',
-										id : 'name'
+										name : 'pssWarehouse.desc',
+										id : 'desc'
+									},{
+										fieldLabel : '修改日期',
+										maxLength:18,
+										allowBlank : false,
+										name : 'pssWarehouse.updateDate',
+										id : 'updateDate'
+									},{
+									}]
+						},{
+							items : [{
+										fieldLabel : '倉庫編號/倉庫代號',
+										maxLength:18,
+										allowBlank : false,
+										name : 'pssWarehouse.warehouseId',
+										id : 'warehouseId'
 									},{
 										fieldLabel : '創建日期',
 										maxLength:18,
@@ -115,19 +112,20 @@ PssWarehouseView = Ext.extend(Ext.Panel, {
 										name : 'pssWarehouse.createDate',
 										id : 'createDate'
 									},{
-										fieldLabel : '修改日期',
+										fieldLabel : '修改人員',
 										maxLength:18,
 										allowBlank : false,
-										name : 'pssWarehouse.updateDate',
-										id : 'updateDate'
-					         }]
+										name : 'pssWarehouse.updateBy',
+										id : 'updateBy'
+									},{
+									}]
 						}]
 					}]
 				}]
 			}]
 		});
 		this.store = new Ext.data.JsonStore({
-					url : __ctxPath + '/act/listPssWarehouse.do',
+					url : __ctxPath + '/pss/listPssWarehouse.do',
 					root : 'result',
 					totalProperty : 'totalCounts',
 					fields : ['id'
@@ -140,7 +138,7 @@ PssWarehouseView = Ext.extend(Ext.Panel, {
 								,'updateBy'
 							]
 				});
-		this.store.setDefaultSort('id', 'asc');
+		//this.store.setDefaultSort('id', 'asc');
 		this.store.load({
 					params : {
 						start : 0,
@@ -228,7 +226,7 @@ PssWarehouseView.remove = function(id) {
 		if (btn == 'yes') {
 			Ext.Ajax.request({
 				url : __ctxPath
-						+ '/act/multiDelPssWarehouse.do',
+						+ '/pss/multiDelPssWarehouse.do',
 				params : {
 					ids : id
 				},

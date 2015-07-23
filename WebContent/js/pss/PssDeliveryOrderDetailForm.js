@@ -24,7 +24,7 @@ PssDeliveryOrderDetailForm = Ext.extend(Ext.Window, {
 	},
 	initUIComponents : function() {
 		this.formPanel = new Ext.FormPanel({
-			url : __ctxPath + '/act/savePssDeliveryOrderDetail.do',
+			url : __ctxPath + '/pss/savePssDeliveryOrderDetail.do',
 			id : 'PssDeliveryOrderDetailForm',
 			frame : true,
 			items : [{
@@ -122,7 +122,7 @@ PssDeliveryOrderDetailForm = Ext.extend(Ext.Window, {
 		if (this.recId) {
 			this.formPanel.getForm().load({
 				deferredRender : false,
-				url : __ctxPath + '/act/getPssDeliveryOrderDetail.do?recId='+ this.recId,
+				url : __ctxPath + '/pss/getPssDeliveryOrderDetail.do?recId='+ this.recId,
 				waitMsg : '正在載入數據...',
 				success : function(form, action) {
 

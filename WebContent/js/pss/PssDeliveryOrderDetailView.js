@@ -57,12 +57,12 @@ PssDeliveryOrderDetailView = Ext.extend(Ext.Panel, {
 					title : '出貨單子項',
 					items : [{
 						layout : 'column',
-						columnWidth : 0.5,
+						columnWidth : 0.33,
 						defaults : {
 							layout : 'form',
 							padding : '0 0 0 20px',
 							labelAlign : 'right',
-							labelWidth : 80,
+							labelWidth : 100,
 							defaults : {
 								xtype : 'textfield',
 								width : 140
@@ -70,22 +70,11 @@ PssDeliveryOrderDetailView = Ext.extend(Ext.Panel, {
 						},
 						items : [{
 							items : [{
-										name : 'pssDeliveryOrderDetail.id',
-										id : 'id',
-										xtype : 'hidden',
-										value : recId||''
-									},{
-										fieldLabel : '出貨單編號',
+										fieldLabel : '出貨單明細編號',
 										maxLength:18,
 										allowBlank : false,
-										name : 'pssDeliveryOrderDetail.doHeadId',
-										id : 'doHeadId'
-									},{
-										fieldLabel : '產品編號',
-										maxLength:18,
-										allowBlank : false,
-										name : 'pssDeliveryOrderDetail.pdtId',
-										id : 'pdtId'
+										name : 'pssDeliveryOrderDetail.doDetailId',
+										id : 'doDetailId'
 									},{
 										fieldLabel : '接收數量',
 										maxLength:18,
@@ -93,33 +82,20 @@ PssDeliveryOrderDetailView = Ext.extend(Ext.Panel, {
 										name : 'pssDeliveryOrderDetail.receiptNum',
 										id : 'receiptNum'
 									},{
-										fieldLabel : '創建日期',
+										fieldLabel : '創建人員',
 										maxLength:18,
 										allowBlank : false,
-										name : 'pssDeliveryOrderDetail.createDate',
-										id : 'createDate'
+										name : 'pssDeliveryOrderDetail.createBy',
+										id : 'createBy'
 									},{
-										fieldLabel : '修改日期',
-										maxLength:18,
-										allowBlank : false,
-										name : 'pssDeliveryOrderDetail.updateDate',
-										id : 'updateDate'
-						     }]
+									}]
 						},{
 							items : [{
-										xtype : 'hidden'
-									},{
-										fieldLabel : '出貨單明細編號',
+										fieldLabel : '產品編號',
 										maxLength:18,
 										allowBlank : false,
-										name : 'pssDeliveryOrderDetail.doDetailId',
-										id : 'doDetailId'
-									},{
-										fieldLabel : '出貨數量',
-										maxLength:18,
-										allowBlank : false,
-										name : 'pssDeliveryOrderDetail.allNum',
-										id : 'allNum'
+										name : 'pssDeliveryOrderDetail.pdtId',
+										id : 'pdtId'
 									},{
 										fieldLabel : '退回數量',
 										maxLength:18,
@@ -127,25 +103,47 @@ PssDeliveryOrderDetailView = Ext.extend(Ext.Panel, {
 										name : 'pssDeliveryOrderDetail.rejectNum',
 										id : 'rejectNum'
 									},{
-										fieldLabel : '創建人員',
+										fieldLabel : '修改日期',
 										maxLength:18,
 										allowBlank : false,
-										name : 'pssDeliveryOrderDetail.createBy',
-										id : 'createBy'
+										name : 'pssDeliveryOrderDetail.updateDate',
+										id : 'updateDate'
+									},{
+									}]
+						},{
+							items : [{
+										fieldLabel : '出貨單編號',
+										maxLength:18,
+										allowBlank : false,
+										name : 'pssDeliveryOrderDetail.doHeadId',
+										id : 'doHeadId'
+									},{
+										fieldLabel : '出貨數量',
+										maxLength:18,
+										allowBlank : false,
+										name : 'pssDeliveryOrderDetail.allNum',
+										id : 'allNum'
+									},{
+										fieldLabel : '創建日期',
+										maxLength:18,
+										allowBlank : false,
+										name : 'pssDeliveryOrderDetail.createDate',
+										id : 'createDate'
 									},{
 										fieldLabel : '修改人員',
 										maxLength:18,
 										allowBlank : false,
 										name : 'pssDeliveryOrderDetail.updateBy',
 										id : 'updateBy'
-					         }]
+									},{
+									}]
 						}]
 					}]
 				}]
 			}]
 		});
 		this.store = new Ext.data.JsonStore({
-					url : __ctxPath + '/act/listPssDeliveryOrderDetail.do',
+					url : __ctxPath + '/pss/listPssDeliveryOrderDetail.do',
 					root : 'result',
 					totalProperty : 'totalCounts',
 					fields : ['id'
@@ -161,7 +159,7 @@ PssDeliveryOrderDetailView = Ext.extend(Ext.Panel, {
 								,'updateBy'
 							]
 				});
-		this.store.setDefaultSort('id', 'asc');
+		//this.store.setDefaultSort('id', 'asc');
 		this.store.load({
 					params : {
 						start : 0,
@@ -261,7 +259,7 @@ PssDeliveryOrderDetailView.remove = function(id) {
 		if (btn == 'yes') {
 			Ext.Ajax.request({
 				url : __ctxPath
-						+ '/act/multiDelPssDeliveryOrderDetail.do',
+						+ '/pss/multiDelPssDeliveryOrderDetail.do',
 				params : {
 					ids : id
 				},

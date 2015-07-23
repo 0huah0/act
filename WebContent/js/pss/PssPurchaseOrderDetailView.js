@@ -57,12 +57,12 @@ PssPurchaseOrderDetailView = Ext.extend(Ext.Panel, {
 					title : '採購單子項',
 					items : [{
 						layout : 'column',
-						columnWidth : 0.5,
+						columnWidth : 0.33,
 						defaults : {
 							layout : 'form',
 							padding : '0 0 0 20px',
 							labelAlign : 'right',
-							labelWidth : 80,
+							labelWidth : 100,
 							defaults : {
 								xtype : 'textfield',
 								width : 140
@@ -70,22 +70,11 @@ PssPurchaseOrderDetailView = Ext.extend(Ext.Panel, {
 						},
 						items : [{
 							items : [{
-										name : 'pssPurchaseOrderDetail.id',
-										id : 'id',
-										xtype : 'hidden',
-										value : recId||''
-									},{
-										fieldLabel : '採購單編號',
+										fieldLabel : '採購單明細編號',
 										maxLength:18,
 										allowBlank : false,
-										name : 'pssPurchaseOrderDetail.poHeadId',
-										id : 'poHeadId'
-									},{
-										fieldLabel : '原料編號',
-										maxLength:18,
-										allowBlank : false,
-										name : 'pssPurchaseOrderDetail.materialId',
-										id : 'materialId'
+										name : 'pssPurchaseOrderDetail.poDetailId',
+										id : 'poDetailId'
 									},{
 										fieldLabel : '原料定價(單價)',
 										maxLength:18,
@@ -93,39 +82,26 @@ PssPurchaseOrderDetailView = Ext.extend(Ext.Panel, {
 										name : 'pssPurchaseOrderDetail.materialPrice',
 										id : 'materialPrice'
 									},{
-										fieldLabel : '小計',
+										fieldLabel : '創建日期',
 										maxLength:18,
 										allowBlank : false,
-										name : 'pssPurchaseOrderDetail.amount',
-										id : 'amount'
-									},{
-										fieldLabel : '創建人員',
-										maxLength:18,
-										allowBlank : false,
-										name : 'pssPurchaseOrderDetail.createBy',
-										id : 'createBy'
+										name : 'pssPurchaseOrderDetail.createDate',
+										id : 'createDate'
 									},{
 										fieldLabel : '修改人員',
 										maxLength:18,
 										allowBlank : false,
 										name : 'pssPurchaseOrderDetail.updateBy',
 										id : 'updateBy'
-						     }]
+									},{
+									}]
 						},{
 							items : [{
-										xtype : 'hidden'
-									},{
-										fieldLabel : '採購單明細編號',
+										fieldLabel : '原料編號',
 										maxLength:18,
 										allowBlank : false,
-										name : 'pssPurchaseOrderDetail.poDetailId',
-										id : 'poDetailId'
-									},{
-										fieldLabel : '原料數量',
-										maxLength:18,
-										allowBlank : false,
-										name : 'pssPurchaseOrderDetail.materialNum',
-										id : 'materialNum'
+										name : 'pssPurchaseOrderDetail.materialId',
+										id : 'materialId'
 									},{
 										fieldLabel : '原料建議售價(單價)',
 										maxLength:18,
@@ -133,25 +109,47 @@ PssPurchaseOrderDetailView = Ext.extend(Ext.Panel, {
 										name : 'pssPurchaseOrderDetail.materialSalePrice',
 										id : 'materialSalePrice'
 									},{
-										fieldLabel : '創建日期',
+										fieldLabel : '創建人員',
 										maxLength:18,
 										allowBlank : false,
-										name : 'pssPurchaseOrderDetail.createDate',
-										id : 'createDate'
+										name : 'pssPurchaseOrderDetail.createBy',
+										id : 'createBy'
+									},{
+									}]
+						},{
+							items : [{
+										fieldLabel : '採購單編號',
+										maxLength:18,
+										allowBlank : false,
+										name : 'pssPurchaseOrderDetail.poHeadId',
+										id : 'poHeadId'
+									},{
+										fieldLabel : '原料數量',
+										maxLength:18,
+										allowBlank : false,
+										name : 'pssPurchaseOrderDetail.materialNum',
+										id : 'materialNum'
+									},{
+										fieldLabel : '小計',
+										maxLength:18,
+										allowBlank : false,
+										name : 'pssPurchaseOrderDetail.amount',
+										id : 'amount'
 									},{
 										fieldLabel : '修改日期',
 										maxLength:18,
 										allowBlank : false,
 										name : 'pssPurchaseOrderDetail.updateDate',
 										id : 'updateDate'
-					         }]
+									},{
+									}]
 						}]
 					}]
 				}]
 			}]
 		});
 		this.store = new Ext.data.JsonStore({
-					url : __ctxPath + '/act/listPssPurchaseOrderDetail.do',
+					url : __ctxPath + '/pss/listPssPurchaseOrderDetail.do',
 					root : 'result',
 					totalProperty : 'totalCounts',
 					fields : ['id'
@@ -168,7 +166,7 @@ PssPurchaseOrderDetailView = Ext.extend(Ext.Panel, {
 								,'updateBy'
 							]
 				});
-		this.store.setDefaultSort('id', 'asc');
+		//this.store.setDefaultSort('id', 'asc');
 		this.store.load({
 					params : {
 						start : 0,
@@ -272,7 +270,7 @@ PssPurchaseOrderDetailView.remove = function(id) {
 		if (btn == 'yes') {
 			Ext.Ajax.request({
 				url : __ctxPath
-						+ '/act/multiDelPssPurchaseOrderDetail.do',
+						+ '/pss/multiDelPssPurchaseOrderDetail.do',
 				params : {
 					ids : id
 				},

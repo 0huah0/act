@@ -57,12 +57,12 @@ PssPurchaseOrderHeadView = Ext.extend(Ext.Panel, {
 					title : '採購單',
 					items : [{
 						layout : 'column',
-						columnWidth : 0.5,
+						columnWidth : 0.33,
 						defaults : {
 							layout : 'form',
 							padding : '0 0 0 20px',
 							labelAlign : 'right',
-							labelWidth : 80,
+							labelWidth : 100,
 							defaults : {
 								xtype : 'textfield',
 								width : 140
@@ -70,22 +70,11 @@ PssPurchaseOrderHeadView = Ext.extend(Ext.Panel, {
 						},
 						items : [{
 							items : [{
-										name : 'pssPurchaseOrderHead.id',
-										id : 'id',
-										xtype : 'hidden',
-										value : recId||''
-									},{
-										fieldLabel : '採購單編號，採購單代碼2位(PO)+當前日期8位(yyyyMMdd)+流水號6位。',
+										fieldLabel : '供應商編號/供應商代號',
 										maxLength:18,
 										allowBlank : false,
-										name : 'pssPurchaseOrderHead.poHeadId',
-										id : 'poHeadId'
-									},{
-										fieldLabel : '定價總金額',
-										maxLength:18,
-										allowBlank : false,
-										name : 'pssPurchaseOrderHead.priceAmount',
-										id : 'priceAmount'
+										name : 'pssPurchaseOrderHead.supplierId',
+										id : 'supplierId'
 									},{
 										fieldLabel : '成交價總金額',
 										maxLength:18,
@@ -93,33 +82,20 @@ PssPurchaseOrderHeadView = Ext.extend(Ext.Panel, {
 										name : 'pssPurchaseOrderHead.payAmount',
 										id : 'payAmount'
 									},{
-										fieldLabel : '創建日期',
+										fieldLabel : '創建人員',
 										maxLength:18,
 										allowBlank : false,
-										name : 'pssPurchaseOrderHead.createDate',
-										id : 'createDate'
+										name : 'pssPurchaseOrderHead.createBy',
+										id : 'createBy'
 									},{
-										fieldLabel : '修改日期',
-										maxLength:18,
-										allowBlank : false,
-										name : 'pssPurchaseOrderHead.updateDate',
-										id : 'updateDate'
-						     }]
+									}]
 						},{
 							items : [{
-										xtype : 'hidden'
-									},{
-										fieldLabel : '供應商編號/供應商代號',
+										fieldLabel : '定價總金額',
 										maxLength:18,
 										allowBlank : false,
-										name : 'pssPurchaseOrderHead.supplierId',
-										id : 'supplierId'
-									},{
-										fieldLabel : '建議售價總金額',
-										maxLength:18,
-										allowBlank : false,
-										name : 'pssPurchaseOrderHead.salePriceAmount',
-										id : 'salePriceAmount'
+										name : 'pssPurchaseOrderHead.priceAmount',
+										id : 'priceAmount'
 									},{
 										fieldLabel : '備註',
 										maxLength:18,
@@ -127,25 +103,47 @@ PssPurchaseOrderHeadView = Ext.extend(Ext.Panel, {
 										name : 'pssPurchaseOrderHead.remark',
 										id : 'remark'
 									},{
-										fieldLabel : '創建人員',
+										fieldLabel : '修改日期',
 										maxLength:18,
 										allowBlank : false,
-										name : 'pssPurchaseOrderHead.createBy',
-										id : 'createBy'
+										name : 'pssPurchaseOrderHead.updateDate',
+										id : 'updateDate'
+									},{
+									}]
+						},{
+							items : [{
+										fieldLabel : '採購單編號，採購單代碼2位(PO)+當前日期8位(yyyyMMdd)+流水號6位。',
+										maxLength:18,
+										allowBlank : false,
+										name : 'pssPurchaseOrderHead.poHeadId',
+										id : 'poHeadId'
+									},{
+										fieldLabel : '建議售價總金額',
+										maxLength:18,
+										allowBlank : false,
+										name : 'pssPurchaseOrderHead.salePriceAmount',
+										id : 'salePriceAmount'
+									},{
+										fieldLabel : '創建日期',
+										maxLength:18,
+										allowBlank : false,
+										name : 'pssPurchaseOrderHead.createDate',
+										id : 'createDate'
 									},{
 										fieldLabel : '修改人員',
 										maxLength:18,
 										allowBlank : false,
 										name : 'pssPurchaseOrderHead.updateBy',
 										id : 'updateBy'
-					         }]
+									},{
+									}]
 						}]
 					}]
 				}]
 			}]
 		});
 		this.store = new Ext.data.JsonStore({
-					url : __ctxPath + '/act/listPssPurchaseOrderHead.do',
+					url : __ctxPath + '/pss/listPssPurchaseOrderHead.do',
 					root : 'result',
 					totalProperty : 'totalCounts',
 					fields : ['id'
@@ -161,7 +159,7 @@ PssPurchaseOrderHeadView = Ext.extend(Ext.Panel, {
 								,'updateBy'
 							]
 				});
-		this.store.setDefaultSort('id', 'asc');
+		//this.store.setDefaultSort('id', 'asc');
 		this.store.load({
 					params : {
 						start : 0,
@@ -261,7 +259,7 @@ PssPurchaseOrderHeadView.remove = function(id) {
 		if (btn == 'yes') {
 			Ext.Ajax.request({
 				url : __ctxPath
-						+ '/act/multiDelPssPurchaseOrderHead.do',
+						+ '/pss/multiDelPssPurchaseOrderHead.do',
 				params : {
 					ids : id
 				},

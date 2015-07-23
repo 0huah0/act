@@ -57,12 +57,12 @@ PssSupplierMaterialRelView = Ext.extend(Ext.Panel, {
 					title : '供應商原料關係表',
 					items : [{
 						layout : 'column',
-						columnWidth : 0.5,
+						columnWidth : 0.33,
 						defaults : {
 							layout : 'form',
 							padding : '0 0 0 20px',
 							labelAlign : 'right',
-							labelWidth : 80,
+							labelWidth : 100,
 							defaults : {
 								xtype : 'textfield',
 								width : 140
@@ -70,22 +70,11 @@ PssSupplierMaterialRelView = Ext.extend(Ext.Panel, {
 						},
 						items : [{
 							items : [{
-										name : 'pssSupplierMaterialRel.id',
-										id : 'id',
-										xtype : 'hidden',
-										value : recId||''
-									},{
-										fieldLabel : '供應商編號/供應商代號',
+										fieldLabel : '原料編號/原料代號',
 										maxLength:18,
 										allowBlank : false,
-										name : 'pssSupplierMaterialRel.supplierId',
-										id : 'supplierId'
-									},{
-										fieldLabel : '產品定價(單價)',
-										maxLength:18,
-										allowBlank : false,
-										name : 'pssSupplierMaterialRel.price',
-										id : 'price'
+										name : 'pssSupplierMaterialRel.materialId',
+										id : 'materialId'
 									},{
 										fieldLabel : '創建日期',
 										maxLength:18,
@@ -93,27 +82,20 @@ PssSupplierMaterialRelView = Ext.extend(Ext.Panel, {
 										name : 'pssSupplierMaterialRel.createDate',
 										id : 'createDate'
 									},{
-										fieldLabel : '修改日期',
+										fieldLabel : '修改人員',
 										maxLength:18,
 										allowBlank : false,
-										name : 'pssSupplierMaterialRel.updateDate',
-										id : 'updateDate'
-						     }]
+										name : 'pssSupplierMaterialRel.updateBy',
+										id : 'updateBy'
+									},{
+									}]
 						},{
 							items : [{
-										xtype : 'hidden'
-									},{
-										fieldLabel : '原料編號/原料代號',
+										fieldLabel : '產品定價(單價)',
 										maxLength:18,
 										allowBlank : false,
-										name : 'pssSupplierMaterialRel.materialId',
-										id : 'materialId'
-									},{
-										fieldLabel : '產品建議售價(單價)',
-										maxLength:18,
-										allowBlank : false,
-										name : 'pssSupplierMaterialRel.salePrice',
-										id : 'salePrice'
+										name : 'pssSupplierMaterialRel.price',
+										id : 'price'
 									},{
 										fieldLabel : '創建人員',
 										maxLength:18,
@@ -121,19 +103,35 @@ PssSupplierMaterialRelView = Ext.extend(Ext.Panel, {
 										name : 'pssSupplierMaterialRel.createBy',
 										id : 'createBy'
 									},{
-										fieldLabel : '修改人員',
+									}]
+						},{
+							items : [{
+										fieldLabel : '供應商編號/供應商代號',
 										maxLength:18,
 										allowBlank : false,
-										name : 'pssSupplierMaterialRel.updateBy',
-										id : 'updateBy'
-					         }]
+										name : 'pssSupplierMaterialRel.supplierId',
+										id : 'supplierId'
+									},{
+										fieldLabel : '產品建議售價(單價)',
+										maxLength:18,
+										allowBlank : false,
+										name : 'pssSupplierMaterialRel.salePrice',
+										id : 'salePrice'
+									},{
+										fieldLabel : '修改日期',
+										maxLength:18,
+										allowBlank : false,
+										name : 'pssSupplierMaterialRel.updateDate',
+										id : 'updateDate'
+									},{
+									}]
 						}]
 					}]
 				}]
 			}]
 		});
 		this.store = new Ext.data.JsonStore({
-					url : __ctxPath + '/act/listPssSupplierMaterialRel.do',
+					url : __ctxPath + '/pss/listPssSupplierMaterialRel.do',
 					root : 'result',
 					totalProperty : 'totalCounts',
 					fields : ['id'
@@ -147,7 +145,7 @@ PssSupplierMaterialRelView = Ext.extend(Ext.Panel, {
 								,'updateBy'
 							]
 				});
-		this.store.setDefaultSort('id', 'asc');
+		//this.store.setDefaultSort('id', 'asc');
 		this.store.load({
 					params : {
 						start : 0,
@@ -239,7 +237,7 @@ PssSupplierMaterialRelView.remove = function(id) {
 		if (btn == 'yes') {
 			Ext.Ajax.request({
 				url : __ctxPath
-						+ '/act/multiDelPssSupplierMaterialRel.do',
+						+ '/pss/multiDelPssSupplierMaterialRel.do',
 				params : {
 					ids : id
 				},

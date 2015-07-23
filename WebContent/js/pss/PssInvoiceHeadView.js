@@ -57,12 +57,12 @@ PssInvoiceHeadView = Ext.extend(Ext.Panel, {
 					title : '發票',
 					items : [{
 						layout : 'column',
-						columnWidth : 0.5,
+						columnWidth : 0.33,
 						defaults : {
 							layout : 'form',
 							padding : '0 0 0 20px',
 							labelAlign : 'right',
-							labelWidth : 80,
+							labelWidth : 100,
 							defaults : {
 								xtype : 'textfield',
 								width : 140
@@ -70,22 +70,11 @@ PssInvoiceHeadView = Ext.extend(Ext.Panel, {
 						},
 						items : [{
 							items : [{
-										name : 'pssInvoiceHead.id',
-										id : 'id',
-										xtype : 'hidden',
-										value : recId||''
-									},{
-										fieldLabel : '發票編號',
+										fieldLabel : '客戶編號/供應商編號，TYPE=1時，該欄位存客戶編號，TYPE=2時，該欄位存供應商編號。',
 										maxLength:18,
 										allowBlank : false,
-										name : 'pssInvoiceHead.invoiceHeadId',
-										id : 'invoiceHeadId'
-									},{
-										fieldLabel : '發票金額',
-										maxLength:18,
-										allowBlank : false,
-										name : 'pssInvoiceHead.invAmount',
-										id : 'invAmount'
+										name : 'pssInvoiceHead.cusOrSupId',
+										id : 'cusOrSupId'
 									},{
 										fieldLabel : '創建日期',
 										maxLength:18,
@@ -93,27 +82,20 @@ PssInvoiceHeadView = Ext.extend(Ext.Panel, {
 										name : 'pssInvoiceHead.createDate',
 										id : 'createDate'
 									},{
-										fieldLabel : '修改日期',
+										fieldLabel : '修改人員',
 										maxLength:18,
 										allowBlank : false,
-										name : 'pssInvoiceHead.updateDate',
-										id : 'updateDate'
-						     }]
+										name : 'pssInvoiceHead.updateBy',
+										id : 'updateBy'
+									},{
+									}]
 						},{
 							items : [{
-										xtype : 'hidden'
-									},{
-										fieldLabel : '客戶編號/供應商編號，TYPE=1時，該欄位存客戶編號，TYPE=2時，該欄位存供應商編號。',
+										fieldLabel : '發票金額',
 										maxLength:18,
 										allowBlank : false,
-										name : 'pssInvoiceHead.cusOrSupId',
-										id : 'cusOrSupId'
-									},{
-										fieldLabel : '類型，1：出貨發票、2：收貨發票。',
-										maxLength:18,
-										allowBlank : false,
-										name : 'pssInvoiceHead.type',
-										id : 'type'
+										name : 'pssInvoiceHead.invAmount',
+										id : 'invAmount'
 									},{
 										fieldLabel : '創建人員',
 										maxLength:18,
@@ -121,19 +103,35 @@ PssInvoiceHeadView = Ext.extend(Ext.Panel, {
 										name : 'pssInvoiceHead.createBy',
 										id : 'createBy'
 									},{
-										fieldLabel : '修改人員',
+									}]
+						},{
+							items : [{
+										fieldLabel : '發票編號',
 										maxLength:18,
 										allowBlank : false,
-										name : 'pssInvoiceHead.updateBy',
-										id : 'updateBy'
-					         }]
+										name : 'pssInvoiceHead.invoiceHeadId',
+										id : 'invoiceHeadId'
+									},{
+										fieldLabel : '類型，1：出貨發票、2：收貨發票。',
+										maxLength:18,
+										allowBlank : false,
+										name : 'pssInvoiceHead.type',
+										id : 'type'
+									},{
+										fieldLabel : '修改日期',
+										maxLength:18,
+										allowBlank : false,
+										name : 'pssInvoiceHead.updateDate',
+										id : 'updateDate'
+									},{
+									}]
 						}]
 					}]
 				}]
 			}]
 		});
 		this.store = new Ext.data.JsonStore({
-					url : __ctxPath + '/act/listPssInvoiceHead.do',
+					url : __ctxPath + '/pss/listPssInvoiceHead.do',
 					root : 'result',
 					totalProperty : 'totalCounts',
 					fields : ['id'
@@ -147,7 +145,7 @@ PssInvoiceHeadView = Ext.extend(Ext.Panel, {
 								,'updateBy'
 							]
 				});
-		this.store.setDefaultSort('id', 'asc');
+		//this.store.setDefaultSort('id', 'asc');
 		this.store.load({
 					params : {
 						start : 0,
@@ -239,7 +237,7 @@ PssInvoiceHeadView.remove = function(id) {
 		if (btn == 'yes') {
 			Ext.Ajax.request({
 				url : __ctxPath
-						+ '/act/multiDelPssInvoiceHead.do',
+						+ '/pss/multiDelPssInvoiceHead.do',
 				params : {
 					ids : id
 				},

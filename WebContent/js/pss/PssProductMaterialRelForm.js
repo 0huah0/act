@@ -24,7 +24,7 @@ PssProductMaterialRelForm = Ext.extend(Ext.Window, {
 	},
 	initUIComponents : function() {
 		this.formPanel = new Ext.FormPanel({
-			url : __ctxPath + '/act/savePssProductMaterialRel.do',
+			url : __ctxPath + '/pss/savePssProductMaterialRel.do',
 			id : 'PssProductMaterialRelForm',
 			frame : true,
 			items : [{
@@ -104,7 +104,7 @@ PssProductMaterialRelForm = Ext.extend(Ext.Window, {
 		if (this.recId) {
 			this.formPanel.getForm().load({
 				deferredRender : false,
-				url : __ctxPath + '/act/getPssProductMaterialRel.do?recId='+ this.recId,
+				url : __ctxPath + '/pss/getPssProductMaterialRel.do?recId='+ this.recId,
 				waitMsg : '正在載入數據...',
 				success : function(form, action) {
 

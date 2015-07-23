@@ -57,12 +57,12 @@ PssInventoryChangeView = Ext.extend(Ext.Panel, {
 					title : '庫存變動記錄',
 					items : [{
 						layout : 'column',
-						columnWidth : 0.5,
+						columnWidth : 0.33,
 						defaults : {
 							layout : 'form',
 							padding : '0 0 0 20px',
 							labelAlign : 'right',
-							labelWidth : 80,
+							labelWidth : 100,
 							defaults : {
 								xtype : 'textfield',
 								width : 140
@@ -70,22 +70,11 @@ PssInventoryChangeView = Ext.extend(Ext.Panel, {
 						},
 						items : [{
 							items : [{
-										name : 'pssInventoryChange.id',
-										id : 'id',
-										xtype : 'hidden',
-										value : recId||''
-									},{
-										fieldLabel : '記錄編號',
+										fieldLabel : '倉庫編號/倉庫代號',
 										maxLength:18,
 										allowBlank : false,
-										name : 'pssInventoryChange.changeId',
-										id : 'changeId'
-									},{
-										fieldLabel : '原料編號/原料代號',
-										maxLength:18,
-										allowBlank : false,
-										name : 'pssInventoryChange.materialId',
-										id : 'materialId'
+										name : 'pssInventoryChange.warehouseId',
+										id : 'warehouseId'
 									},{
 										fieldLabel : '變更數量',
 										maxLength:18,
@@ -93,39 +82,26 @@ PssInventoryChangeView = Ext.extend(Ext.Panel, {
 										name : 'pssInventoryChange.num',
 										id : 'num'
 									},{
-										fieldLabel : '原因記錄編號，當REASON為1、2時，分別保存出貨單編號、收貨單編號；為4、5時不保存。',
+										fieldLabel : '備註',
 										maxLength:18,
 										allowBlank : false,
-										name : 'pssInventoryChange.recordId',
-										id : 'recordId'
-									},{
-										fieldLabel : '創建日期',
-										maxLength:18,
-										allowBlank : false,
-										name : 'pssInventoryChange.createDate',
-										id : 'createDate'
+										name : 'pssInventoryChange.remark',
+										id : 'remark'
 									},{
 										fieldLabel : '修改日期',
 										maxLength:18,
 										allowBlank : false,
 										name : 'pssInventoryChange.updateDate',
 										id : 'updateDate'
-						     }]
+									},{
+									}]
 						},{
 							items : [{
-										xtype : 'hidden'
-									},{
-										fieldLabel : '倉庫編號/倉庫代號',
+										fieldLabel : '原料編號/原料代號',
 										maxLength:18,
 										allowBlank : false,
-										name : 'pssInventoryChange.warehouseId',
-										id : 'warehouseId'
-									},{
-										fieldLabel : '變更類型，1：增加、2：減少。',
-										maxLength:18,
-										allowBlank : false,
-										name : 'pssInventoryChange.type',
-										id : 'type'
+										name : 'pssInventoryChange.materialId',
+										id : 'materialId'
 									},{
 										fieldLabel : '變更原因，1：出貨、2：收貨、3：生產取出、4：生產存入、5：...。',
 										maxLength:18,
@@ -133,11 +109,38 @@ PssInventoryChangeView = Ext.extend(Ext.Panel, {
 										name : 'pssInventoryChange.reason',
 										id : 'reason'
 									},{
-										fieldLabel : '備註',
+										fieldLabel : '創建日期',
 										maxLength:18,
 										allowBlank : false,
-										name : 'pssInventoryChange.remark',
-										id : 'remark'
+										name : 'pssInventoryChange.createDate',
+										id : 'createDate'
+									},{
+										fieldLabel : '修改人員',
+										maxLength:18,
+										allowBlank : false,
+										name : 'pssInventoryChange.updateBy',
+										id : 'updateBy'
+									},{
+									}]
+						},{
+							items : [{
+										fieldLabel : '記錄編號',
+										maxLength:18,
+										allowBlank : false,
+										name : 'pssInventoryChange.changeId',
+										id : 'changeId'
+									},{
+										fieldLabel : '變更類型，1：增加、2：減少。',
+										maxLength:18,
+										allowBlank : false,
+										name : 'pssInventoryChange.type',
+										id : 'type'
+									},{
+										fieldLabel : '原因記錄編號，當REASON為1、2時，分別保存出貨單編號、收貨單編號；為4、5時不保存。',
+										maxLength:18,
+										allowBlank : false,
+										name : 'pssInventoryChange.recordId',
+										id : 'recordId'
 									},{
 										fieldLabel : '創建人員',
 										maxLength:18,
@@ -145,19 +148,14 @@ PssInventoryChangeView = Ext.extend(Ext.Panel, {
 										name : 'pssInventoryChange.createBy',
 										id : 'createBy'
 									},{
-										fieldLabel : '修改人員',
-										maxLength:18,
-										allowBlank : false,
-										name : 'pssInventoryChange.updateBy',
-										id : 'updateBy'
-					         }]
+									}]
 						}]
 					}]
 				}]
 			}]
 		});
 		this.store = new Ext.data.JsonStore({
-					url : __ctxPath + '/act/listPssInventoryChange.do',
+					url : __ctxPath + '/pss/listPssInventoryChange.do',
 					root : 'result',
 					totalProperty : 'totalCounts',
 					fields : ['id'
@@ -175,7 +173,7 @@ PssInventoryChangeView = Ext.extend(Ext.Panel, {
 								,'updateBy'
 							]
 				});
-		this.store.setDefaultSort('id', 'asc');
+		//this.store.setDefaultSort('id', 'asc');
 		this.store.load({
 					params : {
 						start : 0,
@@ -283,7 +281,7 @@ PssInventoryChangeView.remove = function(id) {
 		if (btn == 'yes') {
 			Ext.Ajax.request({
 				url : __ctxPath
-						+ '/act/multiDelPssInventoryChange.do',
+						+ '/pss/multiDelPssInventoryChange.do',
 				params : {
 					ids : id
 				},
