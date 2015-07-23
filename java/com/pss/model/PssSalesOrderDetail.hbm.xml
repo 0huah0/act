@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="com.pss.model">
+    <class name="PssSalesOrderDetail" table="pss_sales_order_detail">
+
+        <id name="soDetailId" column="SO_DETAIL_ID" type="java.lang.Long">
+            <generator class="native"/>
+        </id>
+		
+		
+		
+		<property 
+			name="soHeadId" 
+			column="SO_HEAD_ID" 
+			update="true"
+            insert="true"
+            type="java.lang.String"
+			not-null="true" 
+			unique="false" 
+			length="50"/>
+		
+		<property 
+			name="pdtId" 
+			column="PDT_ID" 
+			update="true"
+            insert="true"
+            type="java.lang.String"
+			not-null="true" 
+			unique="false" 
+			length="50"/>
+		
+		<property 
+			name="pdtNum" 
+			column="PDT_NUM" 
+			update="true"
+            insert="true"
+            type="Long"
+			not-null="true" 
+			unique="false" 
+			length="8"/>
+		
+		<property 
+			name="pdtPrice" 
+			column="PDT_PRICE" 
+			update="true"
+            insert="true"
+            type="Long"
+			not-null="false" 
+			unique="false" 
+			length="15"/>
+		
+		<property 
+			name="pdtSalePrice" 
+			column="PDT_SALE_PRICE" 
+			update="true"
+            insert="true"
+            type="Long"
+			not-null="false" 
+			unique="false" 
+			length="15"/>
+		
+		<property 
+			name="pdtRealPrice" 
+			column="PDT_REAL_PRICE" 
+			update="true"
+            insert="true"
+            type="Long"
+			not-null="false" 
+			unique="false" 
+			length="15"/>
+		
+		<property 
+			name="amount" 
+			column="AMOUNT" 
+			update="true"
+            insert="true"
+            type="Long"
+			not-null="false" 
+			unique="false" 
+			length="15"/>
+		
+		<property 
+			name="createDate" 
+			column="CREATE_DATE" 
+			update="true"
+            insert="true"
+            type="java.util.Date"
+			not-null="false" 
+			unique="false" 
+			length="0"/>
+		
+		<property 
+			name="createBy" 
+			column="CREATE_BY" 
+			update="true"
+            insert="true"
+            type="java.lang.String"
+			not-null="false" 
+			unique="false" 
+			length="50"/>
+		
+		<property 
+			name="updateDate" 
+			column="UPDATE_DATE" 
+			update="true"
+            insert="true"
+            type="java.util.Date"
+			not-null="false" 
+			unique="false" 
+			length="0"/>
+		
+		<property 
+			name="updateBy" 
+			column="UPDATE_BY" 
+			update="true"
+            insert="true"
+            type="java.lang.String"
+			not-null="false" 
+			unique="false" 
+			length="50"/>
+		
+		<!-- One-To-Many attributes -->
+
+		<!-- Many-To-One attributes -->
+
+    </class>
+</hibernate-mapping>
+

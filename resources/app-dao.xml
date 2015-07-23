@@ -59,4 +59,30 @@
 	
 	<bean id="accountingPeriodDao" class="com.act.dao.impl.AccountingPeriodDaoImpl" parent="baseDao"/>
 	
+	
+	<!-- PSS -->
+	<bean id="pssCustomerDao" class="com.pss.dao.impl.PssCustomerDaoImpl" parent="baseDao"/>
+	<bean id="pssWarehouseDao" class="com.pss.dao.impl.PssWarehouseDaoImpl" parent="baseDao"/>
+	<bean id="pssSupplierMaterialRelDao" class="com.pss.dao.impl.PssSupplierMaterialRelDaoImpl" parent="baseDao"/>
+	<bean id="pssSupplierDao" class="com.pss.dao.impl.PssSupplierDaoImpl" parent="baseDao"/>
+	<bean id="pssSoAttachmentDao" class="com.pss.dao.impl.PssSoAttachmentDaoImpl" parent="baseDao"/>
+	<bean id="pssSalesOrderHeadDao" class="com.pss.dao.impl.PssSalesOrderHeadDaoImpl" parent="baseDao"/>
+	<bean id="pssSalesOrderDetailDao" class="com.pss.dao.impl.PssSalesOrderDetailDaoImpl" parent="baseDao"/>
+	<bean id="pssPurchaseOrderHeadDao" class="com.pss.dao.impl.PssPurchaseOrderHeadDaoImpl" parent="baseDao"/>
+	<bean id="pssPurchaseOrderDetailDao" class="com.pss.dao.impl.PssPurchaseOrderDetailDaoImpl" parent="baseDao"/>
+	<bean id="pssProductMaterialRelDao" class="com.pss.dao.impl.PssProductMaterialRelDaoImpl" parent="baseDao"/>
+	<bean id="pssProductImageDao" class="com.pss.dao.impl.PssProductImageDaoImpl" parent="baseDao"/>
+	<bean id="pssProductDao" class="com.pss.dao.impl.PssProductDaoImpl" parent="baseDao"/>
+	<bean id="pssPoAttachmentDao" class="com.pss.dao.impl.PssPoAttachmentDaoImpl" parent="baseDao"/>
+	<bean id="pssMatesReceiptHeadDao" class="com.pss.dao.impl.PssMatesReceiptHeadDaoImpl" parent="baseDao"/>
+	<bean id="pssMatesReceiptDetailDao" class="com.pss.dao.impl.PssMatesReceiptDetailDaoImpl" parent="baseDao"/>
+	<bean id="pssMaterialDao" class="com.pss.dao.impl.PssMaterialDaoImpl" parent="baseDao"/>
+	<bean id="pssInvoiceHeadDao" class="com.pss.dao.impl.PssInvoiceHeadDaoImpl" parent="baseDao"/>
+	<bean id="pssInventoryChangeDao" class="com.pss.dao.impl.PssInventoryChangeDaoImpl" parent="baseDao"/>
+	<bean id="pssInventoryDao" class="com.pss.dao.impl.PssInventoryDaoImpl" parent="baseDao"/>
+	<bean id="pssDeliveryOrderHeadDao" class="com.pss.dao.impl.PssDeliveryOrderHeadDaoImpl" parent="baseDao"/>
+	<bean id="pssDeliveryOrderDetailDao" class="com.pss.dao.impl.PssDeliveryOrderDetailDaoImpl" parent="baseDao"/>
+		
+	
+	
 </beans>

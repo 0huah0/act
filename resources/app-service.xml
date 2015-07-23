@@ -130,4 +130,74 @@
 		<constructor-arg index="0" ref="accountingPeriodDao"/>
 	</bean>
 	
+	
+	
+	
+	<!-- PSS -->
+	<bean id="pssCustomerService" class="com.pss.service.impl.PssCustomerServiceImpl">
+		<constructor-arg index="0" ref="pssCustomerDao"/>
+	</bean>
+	 	<bean id="pssWarehouseService" class="com.pss.service.impl.PssWarehouseServiceImpl">
+		<constructor-arg index="0" ref="pssWarehouseDao"/>
+	</bean>
+	 	<bean id="pssSupplierMaterialRelService" class="com.pss.service.impl.PssSupplierMaterialRelServiceImpl">
+		<constructor-arg index="0" ref="pssSupplierMaterialRelDao"/>
+	</bean>
+	 	<bean id="pssSupplierService" class="com.pss.service.impl.PssSupplierServiceImpl">
+		<constructor-arg index="0" ref="pssSupplierDao"/>
+	</bean>
+	 	<bean id="pssSoAttachmentService" class="com.pss.service.impl.PssSoAttachmentServiceImpl">
+		<constructor-arg index="0" ref="pssSoAttachmentDao"/>
+	</bean>
+	 	<bean id="pssSalesOrderHeadService" class="com.pss.service.impl.PssSalesOrderHeadServiceImpl">
+		<constructor-arg index="0" ref="pssSalesOrderHeadDao"/>
+	</bean>
+	 	<bean id="pssSalesOrderDetailService" class="com.pss.service.impl.PssSalesOrderDetailServiceImpl">
+		<constructor-arg index="0" ref="pssSalesOrderDetailDao"/>
+	</bean>
+	 	<bean id="pssPurchaseOrderHeadService" class="com.pss.service.impl.PssPurchaseOrderHeadServiceImpl">
+		<constructor-arg index="0" ref="pssPurchaseOrderHeadDao"/>
+	</bean>
+	 	<bean id="pssPurchaseOrderDetailService" class="com.pss.service.impl.PssPurchaseOrderDetailServiceImpl">
+		<constructor-arg index="0" ref="pssPurchaseOrderDetailDao"/>
+	</bean>
+	 	<bean id="pssProductMaterialRelService" class="com.pss.service.impl.PssProductMaterialRelServiceImpl">
+		<constructor-arg index="0" ref="pssProductMaterialRelDao"/>
+	</bean>
+	 	<bean id="pssProductImageService" class="com.pss.service.impl.PssProductImageServiceImpl">
+		<constructor-arg index="0" ref="pssProductImageDao"/>
+	</bean>
+	 	<bean id="pssProductService" class="com.pss.service.impl.PssProductServiceImpl">
+		<constructor-arg index="0" ref="pssProductDao"/>
+	</bean>
+	 	<bean id="pssPoAttachmentService" class="com.pss.service.impl.PssPoAttachmentServiceImpl">
+		<constructor-arg index="0" ref="pssPoAttachmentDao"/>
+	</bean>
+	 	<bean id="pssMatesReceiptHeadService" class="com.pss.service.impl.PssMatesReceiptHeadServiceImpl">
+		<constructor-arg index="0" ref="pssMatesReceiptHeadDao"/>
+	</bean>
+	 	<bean id="pssMatesReceiptDetailService" class="com.pss.service.impl.PssMatesReceiptDetailServiceImpl">
+		<constructor-arg index="0" ref="pssMatesReceiptDetailDao"/>
+	</bean>
+	 	<bean id="pssMaterialService" class="com.pss.service.impl.PssMaterialServiceImpl">
+		<constructor-arg index="0" ref="pssMaterialDao"/>
+	</bean>
+	 	<bean id="pssInvoiceHeadService" class="com.pss.service.impl.PssInvoiceHeadServiceImpl">
+		<constructor-arg index="0" ref="pssInvoiceHeadDao"/>
+	</bean>
+	 	<bean id="pssInventoryChangeService" class="com.pss.service.impl.PssInventoryChangeServiceImpl">
+		<constructor-arg index="0" ref="pssInventoryChangeDao"/>
+	</bean>
+	 	<bean id="pssInventoryService" class="com.pss.service.impl.PssInventoryServiceImpl">
+		<constructor-arg index="0" ref="pssInventoryDao"/>
+	</bean>
+	 	<bean id="pssDeliveryOrderHeadService" class="com.pss.service.impl.PssDeliveryOrderHeadServiceImpl">
+		<constructor-arg index="0" ref="pssDeliveryOrderHeadDao"/>
+	</bean>
+	 	<bean id="pssDeliveryOrderDetailService" class="com.pss.service.impl.PssDeliveryOrderDetailServiceImpl">
+		<constructor-arg index="0" ref="pssDeliveryOrderDetailDao"/>
+	</bean>
+	
+	
+	
 </beans>

@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="com.pss.model">
+    <class name="PssInventoryChange" table="pss_inventory_change">
+
+        <id name="changeId" column="CHANGE_ID" type="java.lang.Long">
+            <generator class="native"/>
+        </id>
+		
+		
+		
+		<property 
+			name="warehouseId" 
+			column="WAREHOUSE_ID" 
+			update="true"
+            insert="true"
+            type="java.lang.String"
+			not-null="true" 
+			unique="false" 
+			length="50"/>
+		
+		<property 
+			name="materialId" 
+			column="MATERIAL_ID" 
+			update="true"
+            insert="true"
+            type="java.lang.String"
+			not-null="true" 
+			unique="false" 
+			length="50"/>
+		
+		<property 
+			name="type" 
+			column="TYPE" 
+			update="true"
+            insert="true"
+            type="java.lang.Integer"
+			not-null="true" 
+			unique="false" 
+			length="10"/>
+		
+		<property 
+			name="num" 
+			column="NUM" 
+			update="true"
+            insert="true"
+            type="Long"
+			not-null="true" 
+			unique="false" 
+			length="10"/>
+		
+		<property 
+			name="reason" 
+			column="REASON" 
+			update="true"
+            insert="true"
+            type="java.lang.Integer"
+			not-null="true" 
+			unique="false" 
+			length="10"/>
+		
+		<property 
+			name="recordId" 
+			column="RECORD_ID" 
+			update="true"
+            insert="true"
+            type="java.lang.String"
+			not-null="false" 
+			unique="false" 
+			length="50"/>
+		
+		<property 
+			name="remark" 
+			column="REMARK" 
+			update="true"
+            insert="true"
+            type="java.lang.String"
+			not-null="false" 
+			unique="false" 
+			length="1000"/>
+		
+		<property 
+			name="createDate" 
+			column="CREATE_DATE" 
+			update="true"
+            insert="true"
+            type="java.util.Date"
+			not-null="false" 
+			unique="false" 
+			length="0"/>
+		
+		<property 
+			name="createBy" 
+			column="CREATE_BY" 
+			update="true"
+            insert="true"
+            type="java.lang.String"
+			not-null="false" 
+			unique="false" 
+			length="50"/>
+		
+		<property 
+			name="updateDate" 
+			column="UPDATE_DATE" 
+			update="true"
+            insert="true"
+            type="java.util.Date"
+			not-null="false" 
+			unique="false" 
+			length="0"/>
+		
+		<property 
+			name="updateBy" 
+			column="UPDATE_BY" 
+			update="true"
+            insert="true"
+            type="java.lang.String"
+			not-null="false" 
+			unique="false" 
+			length="50"/>
+		
+		<!-- One-To-Many attributes -->
+
+		<!-- Many-To-One attributes -->
+
+    </class>
+</hibernate-mapping>
+

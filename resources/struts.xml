@@ -5,8 +5,8 @@
 <struts>
 	<constant name="struts.action.extension" value="do" />
 	<constant name="struts.devMode" value="false" />
-	<constant name="struts.ui.theme" value="xhtml"/>
-	
+	<constant name="struts.ui.theme" value="xhtml" />
+
 	<package name="/" extends="struts-default" namespace="/">
 		<action name="login" class="LoginAction" method="login">
 			<result>${successResultValue}</result>
@@ -20,12 +20,12 @@
 		<action name="panelTreeMenu" class="MenuAction" method="panelTree">
 			<result>${successResultValue}</result>
 		</action>
-		
+
 		<action name="check" class="LoginAction" method="check">
 			<result>${successResultValue}</result>
 		</action>
 	</package>
-	
+
 	<package name="system" extends="struts-default" namespace="/system">
 		<action name="*AppUser" class="AppUserAction" method="{1}">
 			<result>${successResultValue}</result>
@@ -67,7 +67,7 @@
 			<result>${successResultValue}</result>
 		</action>
 	</package>
-	
+
 	<package name="info" extends="struts-default" namespace="/info">
 		<action name="*AppTips" class="AppTipsAction" method="{1}">
 			<result>${successResultValue}</result>
@@ -84,11 +84,12 @@
 			<result name="detail">/WEB-INF/pages/info/messagedetail.jsp</result>
 		</action>
 	</package>
-	
-	
-	
+
+
+
 	<package name="act" extends="struts-default" namespace="/act">
-		<action name="*AccountingTitle" class="accountingTitleAction" method="{1}">
+		<action name="*AccountingTitle" class="accountingTitleAction"
+			method="{1}">
 			<result>${successResultValue}</result>
 		</action>
 		<action name="*Journal" class="journalHeadAction" method="{1}">
@@ -100,7 +101,68 @@
 		<action name="*JHandle" class="journalHandleAction" method="{1}">
 			<result>${successResultValue}</result>
 		</action>
-		
+	</package>
+
+
+
+
+	<!-- PSS -->
+	<package name="pss" extends="struts-default" namespace="/pss">
+		<action name="*PssCustomer" class="pssCustomerAction" method="{1}">
+			<result>${successResultValue}</result>
+		</action>
+		<action name="*PssWarehouse" class="pssWarehouseAction" method="{1}">
+			<result>${successResultValue}</result>
+		</action>
+		<action name="*PssSupplierMaterialRel" class="pssSupplierMaterialRelAction" method="{1}">
+			<result>${successResultValue}</result>
+		</action>
+		<action name="*PssSupplier" class="pssSupplierAction" method="{1}">
+			<result>${successResultValue}</result>
+		</action>
+		<action name="*PssSalesOrderHead" class="pssSalesOrderHeadAction" method="{1}">
+			<result>${successResultValue}</result>
+		</action>
+		<action name="*PssSalesOrderDetail" class="pssSalesOrderDetailAction" method="{1}">
+			<result>${successResultValue}</result>
+		</action>
+
+		<action name="*PssPurchaseOrderHead" class="pssPurchaseOrderHeadAction" method="{1}">
+			<result>${successResultValue}</result>
+		</action>
+		<action name="*PssPurchaseOrderDetail" class="pssPurchaseOrderDetailAction" method="{1}">
+			<result>${successResultValue}</result>
+		</action>
+		<action name="*PssProductMaterialRel" class="pssProductMaterialRelAction" method="{1}">
+			<result>${successResultValue}</result>
+		</action>
+		<action name="*PssProduct" class="pssProductAction" method="{1}">
+			<result>${successResultValue}</result>
+		</action>
+		<action name="*PssMatesReceiptHead" class="pssMatesReceiptHeadAction" method="{1}">
+			<result>${successResultValue}</result>
+		</action>
+		<action name="*PssMatesReceiptDetail" class="pssMatesReceiptDetailAction" method="{1}">
+			<result>${successResultValue}</result>
+		</action>
+		<action name="*PssMaterial" class="pssMaterialAction" method="{1}">
+			<result>${successResultValue}</result>
+		</action>
+		<action name="*PssInvoiceHead" class="pssInvoiceHeadAction" method="{1}">
+			<result>${successResultValue}</result>
+		</action>
+		<action name="*PssInventoryChange" class="pssInventoryChangeAction" method="{1}">
+			<result>${successResultValue}</result>
+		</action>
+		<action name="*PssInventory" class="pssInventoryAction" method="{1}">
+			<result>${successResultValue}</result>
+		</action>
+		<action name="*PssDeliveryOrderHead" class="pssDeliveryOrderHeadAction" method="{1}">
+			<result>${successResultValue}</result>
+		</action>
+		<action name="*PssDeliveryOrderDetail" class="pssDeliveryOrderDetailAction" method="{1}">
+			<result>${successResultValue}</result>
+		</action>
 	</package>
 </struts>
 

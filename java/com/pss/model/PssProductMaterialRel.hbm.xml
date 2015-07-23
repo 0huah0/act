@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="com.pss.model">
+    <class name="PssProductMaterialRel" table="pss_product_material_rel">
+
+		
+		
+		
+		<property 
+			name="pdtId" 
+			column="PDT_ID" 
+			update="true"
+            insert="true"
+            type="java.lang.String"
+			not-null="true" 
+			unique="false" 
+			length="50"/>
+		
+		<property 
+			name="materialId" 
+			column="MATERIAL_ID" 
+			update="true"
+            insert="true"
+            type="java.lang.String"
+			not-null="true" 
+			unique="false" 
+			length="50"/>
+		
+		<property 
+			name="type" 
+			column="TYPE" 
+			update="true"
+            insert="true"
+            type="java.lang.Integer"
+			not-null="true" 
+			unique="false" 
+			length="10"/>
+		
+		<property 
+			name="createDate" 
+			column="CREATE_DATE" 
+			update="true"
+            insert="true"
+            type="java.util.Date"
+			not-null="false" 
+			unique="false" 
+			length="0"/>
+		
+		<property 
+			name="createBy" 
+			column="CREATE_BY" 
+			update="true"
+            insert="true"
+            type="java.lang.String"
+			not-null="false" 
+			unique="false" 
+			length="50"/>
+		
+		<property 
+			name="updateDate" 
+			column="UPDATE_DATE" 
+			update="true"
+            insert="true"
+            type="java.util.Date"
+			not-null="false" 
+			unique="false" 
+			length="0"/>
+		
+		<property 
+			name="updateBy" 
+			column="UPDATE_BY" 
+			update="true"
+            insert="true"
+            type="java.lang.String"
+			not-null="false" 
+			unique="false" 
+			length="50"/>
+		
+		<!-- One-To-Many attributes -->
+
+		<!-- Many-To-One attributes -->
+
+    </class>
+</hibernate-mapping>
+

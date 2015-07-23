@@ -76,4 +76,28 @@
 	<bean id="journalHandleAction" class="com.act.action.JournalHandleAction"
 		scope="prototype" />
 
+
+
+
+	<!-- PSS -->
+	<bean id="pssCustomerAction" class="com.pss.action.PssCustomerAction" scope="prototype" />
+	<bean id="pssWarehouseAction" class="com.pss.action.PssWarehouseAction" scope="prototype" />
+	<bean id="pssSupplierMaterialRelAction" class="com.pss.action.PssSupplierMaterialRelAction" scope="prototype" />
+	<bean id="pssSupplierAction" class="com.pss.action.PssSupplierAction" scope="prototype" />
+	<bean id="pssSalesOrderHeadAction" class="com.pss.action.PssSalesOrderHeadAction" scope="prototype" />
+	<bean id="pssSalesOrderDetailAction" class="com.pss.action.PssSalesOrderDetailAction" scope="prototype" />
+	<bean id="pssPurchaseOrderHeadAction" class="com.pss.action.PssPurchaseOrderHeadAction" scope="prototype" />
+	<bean id="pssPurchaseOrderDetailAction" class="com.pss.action.PssPurchaseOrderDetailAction" scope="prototype" />
+	<bean id="pssProductMaterialRelAction" class="com.pss.action.PssProductMaterialRelAction" scope="prototype" />
+	<bean id="pssProductAction" class="com.pss.action.PssProductAction" scope="prototype" />
+	<bean id="pssMatesReceiptHeadAction" class="com.pss.action.PssMatesReceiptHeadAction" scope="prototype" />
+	<bean id="pssMatesReceiptDetailAction" class="com.pss.action.PssMatesReceiptDetailAction" scope="prototype" />
+	<bean id="pssMaterialAction" class="com.pss.action.PssMaterialAction" scope="prototype" />
+	<bean id="pssInvoiceHeadAction" class="com.pss.action.PssInvoiceHeadAction" scope="prototype" />
+	<bean id="pssInventoryChangeAction" class="com.pss.action.PssInventoryChangeAction" scope="prototype" />
+	<bean id="pssInventoryAction" class="com.pss.action.PssInventoryAction" scope="prototype" />
+	<bean id="pssDeliveryOrderHeadAction" class="com.pss.action.PssDeliveryOrderHeadAction" scope="prototype" />
+	<bean id="pssDeliveryOrderDetailAction" class="com.pss.action.PssDeliveryOrderDetailAction" scope="prototype" />
+
+
 </beans>

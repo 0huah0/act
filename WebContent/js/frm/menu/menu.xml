@@ -112,14 +112,32 @@
 		<Item id="JournalClearView" text="資料清除" iconCls="menu-customer"/>
 	</Items>
 	
-	<Items id="Sales" text="銷售" iconCls="menu-plantype" isPublic="false">
-		<Item id="SalesOrderMgmt" text="銷貨單管理" iconCls="menu-holidayRecord"/>
+	<!-- PSS -->
+	<Items id="PssCustomer" text="客戶" iconCls="menu-plantype" isPublic="false">
+		<Item id="PssCustomerView" text="客戶管理" iconCls="menu-holidayRecord"/>
+		<Item id="PssSalesOrderHeadView" text="銷貨單管理" iconCls="menu-holidayRecord"/>
+		<Item id="PssSalesOrderDetailView" text="銷貨單子項管理" iconCls="menu-holidayRecord"/>
+		<Item id="PssInvoiceHeadView" text="發票管理" iconCls="menu-holidayRecord"/>
+		<Item id="PssDeliveryOrderHeadView" text="出貨單管理" iconCls="menu-holidayRecord"/>
+		<Item id="PssDeliveryOrderDetailView" text="出貨單子項管理" iconCls="menu-holidayRecord"/>
 	</Items>
-	<Items id="Order" text="訂單" iconCls="menu-plantype" isPublic="false">
-		<Item id="OrderMgmt" text="訂單管理" iconCls="menu-holidayRecord"/>
+	<Items id="PssSupplier" text="供應商" iconCls="menu-plantype" isPublic="false">
+		<Item id="PssSupplierView" text="供應商管理" iconCls="menu-holidayRecord"/>
+		<Item id="PssPurchaseOrderHeadView" text="採購單管理" iconCls="menu-holidayRecord"/>
+		<Item id="PssPurchaseOrderDetailView" text="採購單子項管理" iconCls="menu-holidayRecord"/>
+		<Item id="PssSupplierMaterialRelView" text="供應商原料關係表管理" iconCls="menu-holidayRecord"/>
 	</Items>
-	<Items id="Product" text="產品" iconCls="menu-plantype" isPublic="false">
-		<Item id="ProductMgmt" text="產品管理" iconCls="menu-holidayRecord"/>
+	<Items id="PssWarehouse" text="倉庫" iconCls="menu-plantype" isPublic="false">
+		<Item id="PssWarehouseView" text="倉庫管理" iconCls="menu-holidayRecord"/>
+		<Item id="PssInventoryView" text="庫存管理" iconCls="menu-holidayRecord"/>
+		<Item id="PssProductView" text="產品管理" iconCls="menu-holidayRecord"/>
+		<Item id="PssProductMaterialRelView" text="產品原料關係表管理" iconCls="menu-holidayRecord"/>
+		<Item id="PssMatesReceiptHeadView" text="收貨單管理" iconCls="menu-holidayRecord"/>
+		<Item id="PssMatesReceiptDetailView" text="收貨單子項管理" iconCls="menu-holidayRecord"/>
+		<Item id="PssMaterialView" text="原料管理" iconCls="menu-holidayRecord"/>
+		<Item id="PssInventoryChangeView" text="庫存變動記錄管理" iconCls="menu-holidayRecord"/>
 	</Items>
+
 </Menus>
+
 

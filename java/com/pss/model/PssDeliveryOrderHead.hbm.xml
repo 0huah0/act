@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="com.pss.model">
+    <class name="PssDeliveryOrderHead" table="pss_delivery_order_head">
+
+        <id name="doHeadId" column="DO_HEAD_ID" type="java.lang.String">
+            <generator class="native"/>
+        </id>
+		
+		
+		
+		<property 
+			name="soHeadId" 
+			column="SO_HEAD_ID" 
+			update="true"
+            insert="true"
+            type="java.lang.String"
+			not-null="true" 
+			unique="false" 
+			length="50"/>
+		
+		<property 
+			name="warehouseId" 
+			column="WAREHOUSE_ID" 
+			update="true"
+            insert="true"
+            type="java.lang.String"
+			not-null="true" 
+			unique="false" 
+			length="50"/>
+		
+		<property 
+			name="diliverTel" 
+			column="DILIVER_TEL" 
+			update="true"
+            insert="true"
+            type="java.lang.String"
+			not-null="false" 
+			unique="false" 
+			length="50"/>
+		
+		<property 
+			name="diliverName" 
+			column="DILIVER_NAME" 
+			update="true"
+            insert="true"
+            type="java.lang.String"
+			not-null="false" 
+			unique="false" 
+			length="100"/>
+		
+		<property 
+			name="receiverName" 
+			column="RECEIVER_NAME" 
+			update="true"
+            insert="true"
+            type="java.lang.String"
+			not-null="false" 
+			unique="false" 
+			length="100"/>
+		
+		<property 
+			name="receiverTel" 
+			column="RECEIVER_TEL" 
+			update="true"
+            insert="true"
+            type="java.lang.String"
+			not-null="false" 
+			unique="false" 
+			length="50"/>
+		
+		<property 
+			name="doInvoice" 
+			column="DO_INVOICE" 
+			update="true"
+            insert="true"
+            type="java.lang.String"
+			not-null="false" 
+			unique="false" 
+			length="50"/>
+		
+		<property 
+			name="remark" 
+			column="REMARK" 
+			update="true"
+            insert="true"
+            type="java.lang.String"
+			not-null="false" 
+			unique="false" 
+			length="1000"/>
+		
+		<property 
+			name="createDate" 
+			column="CREATE_DATE" 
+			update="true"
+            insert="true"
+            type="java.util.Date"
+			not-null="false" 
+			unique="false" 
+			length="0"/>
+		
+		<property 
+			name="createBy" 
+			column="CREATE_BY" 
+			update="true"
+            insert="true"
+            type="java.lang.String"
+			not-null="false" 
+			unique="false" 
+			length="50"/>
+		
+		<property 
+			name="updateDate" 
+			column="UPDATE_DATE" 
+			update="true"
+            insert="true"
+            type="java.util.Date"
+			not-null="false" 
+			unique="false" 
+			length="0"/>
+		
+		<property 
+			name="updateBy" 
+			column="UPDATE_BY" 
+			update="true"
+            insert="true"
+            type="java.lang.String"
+			not-null="false" 
+			unique="false" 
+			length="50"/>
+		
+		<!-- One-To-Many attributes -->
+
+		<!-- Many-To-One attributes -->
+
+    </class>
+</hibernate-mapping>
+
