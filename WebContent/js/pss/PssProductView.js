@@ -1,6 +1,7 @@
 /*
  * Powered By [shi_zenghua@qq.com]
  */
+ 
 Ext.ns('PssProductView');
 PssProductView = Ext.extend(Ext.Panel, {
 	constructor : function(_cfg) {
@@ -63,19 +64,19 @@ PssProductView = Ext.extend(Ext.Panel, {
 						items : [{
 									fieldLabel : '產品名稱',
 									maxLength:18,
-									name : 'S_name_S_LK'
+									name : "pssProduct.name"
 								},{
 									fieldLabel : '產品定價(單價)',
 									maxLength:18,
-									name : 'S_price_L_EQ'
+									name : "pssProduct.price"
 								},{
 									fieldLabel : '創建日期',
 									maxLength:18,
-									name : 'S_createDate_D_DL'
+									xtype:"hidden",name : "pssProduct.createDate"
 								},{
 									fieldLabel : '修改人員',
 									maxLength:18,
-									name : 'S_updateBy_S_LK'
+									xtype:"hidden",name : "pssProduct.updateBy"
 								},{
 								xtype:'hidden'
 								}]//
@@ -83,15 +84,15 @@ PssProductView = Ext.extend(Ext.Panel, {
 						items : [{
 									fieldLabel : '描述',
 									maxLength:18,
-									name : 'S_desc_S_LK'
+									name : "pssProduct.desc"
 								},{
 									fieldLabel : '產品建議售價(單價)',
 									maxLength:18,
-									name : 'S_salePrice_L_EQ'
+									name : "pssProduct.salePrice"
 								},{
 									fieldLabel : '創建人員',
 									maxLength:18,
-									name : 'S_createBy_S_LK'
+									xtype:"hidden",name : "pssProduct.createBy"
 								},{
 									xtype:'hidden'
 								}]//
@@ -100,19 +101,19 @@ PssProductView = Ext.extend(Ext.Panel, {
 									xtype:'hidden',
 									fieldLabel : '產品編號/產品代號',
 									maxLength:18,
-									name : 'S_productId_S_LK'
+									name : "pssProduct.productId"
 								},{
 									fieldLabel : '單位',
 									maxLength:18,
-									name : 'S_unit_N_EQ',xtype:"combo",store:[[1,"個"],[2,"塊"],[3,"條"],[4,"片"],[5,"公斤"],[6,"公噸"],[7,"..."]]
+									hiddenName:"Q_unit_N_EQ",mode:"local",triggerAction:"all",xtype:"combo",store:[[1,"個"],[2,"塊"],[3,"條"],[4,"片"],[5,"公斤"],[6,"公噸"],[7,"..."]]
 								},{
 									fieldLabel : '有效否',
 									maxLength:18,
-									name : 'S_active_N_EQ',xtype:"combo",store:[[0,"無效"],[1,"有效"]]
+									hiddenName:"Q_active_N_EQ",mode:"local",triggerAction:"all",xtype:"combo",store:[[0,"無效"],[1,"有效"]]
 								},{
 									fieldLabel : '修改日期',
 									maxLength:18,
-									name : 'S_updateDate_D_DL'
+									xtype:"hidden",name : "pssProduct.updateDate"
 								},{
 									xtype:'hidden'
 								}]//
@@ -163,13 +164,13 @@ PssProductView = Ext.extend(Ext.Panel, {
 							dataIndex : 'active',renderer:function(v){if(0 == v){return "無效";}else if(1 == v){return "有效";}}
 						},{
 							header : '創建日期',
-							dataIndex : 'createDate'
+							dataIndex : 'createDate',renderer:function(v){if(v){return new Date(v).format("Y-m-d H:i");}else{return "";}}
 						},{
 							header : '創建人員',
 							dataIndex : 'createBy'
 						},{
 							header : '修改日期',
-							dataIndex : 'updateDate'
+							dataIndex : 'updateDate',renderer:function(v){if(v){return new Date(v).format("Y-m-d H:i");}else{return "";}}
 						},{
 							header : '修改人員',
 							dataIndex : 'updateBy'
@@ -177,9 +178,9 @@ PssProductView = Ext.extend(Ext.Panel, {
 						header : '管理',
 						dataIndex : 'productId',//
 						renderer : function(v,m,r) {
-							return isGranted('_PssProductEdit') ?('&nbsp;<button title="修改" value=" " class="btn-edit" onclick="PssProductView.edit('
-							+ v + ')"></button><button title="刪除" value=" " class="btn-del" onclick="PssProductView.remove('
-							+ v + ')"></button>'):'';
+							return isGranted('_PssProductEdit') ?('&nbsp;<button title="修改" value=" " class="btn-edit" onclick="PssProductView.edit(\''
+							+ v + '\')"></button><button title="刪除" value=" " class="btn-del" onclick="PssProductView.remove(\''
+							+ v + '\')"></button>'):'';
 						}
 					}],
 			defaults : {
@@ -191,6 +192,7 @@ PssProductView = Ext.extend(Ext.Panel, {
 
 		this.gridPanel = new Ext.grid.GridPanel({
 					id : 'PssProductGrid',
+					height : 380,
 					tbar : (isGranted('_PssProductEdit') ? new Ext.Toolbar({
 								id : 'PssProductFootBar',
 								bodyStyle : 'text-align:left',
@@ -205,7 +207,6 @@ PssProductView = Ext.extend(Ext.Panel, {
 					store : this.store,
 					//autoExpandColumn :'remark1',
 					loadMask : true,
-					autoHeight : true,
 					cm : cm,
 					bbar : new Ext.PagingToolbar({
 								pageSize : 25,

@@ -1,6 +1,7 @@
 /*
  * Powered By [shi_zenghua@qq.com]
  */
+ 
 Ext.ns('PssCustomerForm');
 PssCustomerForm = Ext.extend(Ext.Window, {
 	constructor : function(_cfg) {
@@ -18,8 +19,8 @@ PssCustomerForm = Ext.extend(Ext.Window, {
 				});
 	},
 	initUIComponents : function() {
+		var recId = this.recId;
 		this.formPanel = new Ext.FormPanel({
-			url : __ctxPath + '/pss/savePssCustomer.do',
 			id : 'PssCustomerForm',
 			autoHeight:true,
 			frame : true,
@@ -42,76 +43,97 @@ PssCustomerForm = Ext.extend(Ext.Window, {
 						items : [{
 									id:'hiddenId',
 									xtype : 'hidden',
-									value : this.recId||''
+									value : recId||''
 								},{
 									fieldLabel : '客戶編號/客戶代號',
-									name : 'pssCustomer.customerId'
+									id:'customerId',
+									name : "pssCustomer.customerId"
 								},{
 									fieldLabel : '公司名稱(英文)',
-									name : 'pssCustomer.companyNameEn'
+									id:'companyNameEn',
+									name : "pssCustomer.companyNameEn"
 								},{
 									fieldLabel : '負責人名稱',
-									name : 'pssCustomer.personInCharge'
+									id:'personInCharge',
+									name : "pssCustomer.personInCharge"
 								},{
 									fieldLabel : '電話',
-									name : 'pssCustomer.tel'
+									id:'tel',
+									name : "pssCustomer.tel"
 								},{
 									fieldLabel : '電子郵箱',
-									name : 'pssCustomer.email'
+									id:'email',
+									name : "pssCustomer.email"
 								},{
 									fieldLabel : '資本額（單位：TWD）',
-									name : 'pssCustomer.capital',xtype:"combo",store:[[1,"小於100萬"],[2,"100萬~1000萬"],[3,"1000萬~5000萬"],[4,"大於5000萬"]]
+									id:'capital',
+									hiddenName:"pssCustomer.capital",mode:"local",triggerAction:"all",xtype:"combo",store:[[1,"小於100萬"],[2,"100萬~1000萬"],[3,"1000萬~5000萬"],[4,"大於5000萬"]]
 								},{
 									fieldLabel : '有效否',
-									name : 'pssCustomer.active',xtype:"combo",store:[[0,"無效"],[1,"有效"]]
+									id:'active',
+									hiddenName:"pssCustomer.active",mode:"local",triggerAction:"all",xtype:"combo",store:[[0,"無效"],[1,"有效"]]
 								},{
 									fieldLabel : '創建人員',
-									name : 'pssCustomer.createBy'
+									id:'createBy',
+									xtype:"hidden",name : "pssCustomer.createBy"
 								},{
 									fieldLabel : '修改人員',
-									name : 'pssCustomer.updateBy'
+									id:'updateBy',
+									xtype:"hidden",name : "pssCustomer.updateBy"
 					      }]
 					},{
 						items : [{
 									xtype : 'hidden'
 								},{
 									fieldLabel : '公司名稱(中文)',
-									name : 'pssCustomer.companyNameCn'
+									id:'companyNameCn',
+									name : "pssCustomer.companyNameCn"
 								},{
 									fieldLabel : '法人代號',
-									name : 'pssCustomer.legalPersonCode'
+									id:'legalPersonCode',
+									name : "pssCustomer.legalPersonCode"
 								},{
 									fieldLabel : '地址',
-									name : 'pssCustomer.addr'
+									id:'addr',
+									name : "pssCustomer.addr"
 								},{
 									fieldLabel : '傳真',
-									name : 'pssCustomer.fax'
+									id:'fax',
+									name : "pssCustomer.fax"
 								},{
 									fieldLabel : '資質證明圖片/營業執照影本（保存系統框架中檔案上傳的記錄編號）',
-									name : 'pssCustomer.licenseImgId'
+									id:'licenseImgId',
+									name : "pssCustomer.licenseImgId"
 								},{
 									fieldLabel : '員工數（單位：人）',
-									name : 'pssCustomer.empAmount',xtype:"combo",store:[[1,"小於10"],[2,"11~50"],[3,"51~100"],[4,"101~500"],[5,"501~1000"],[6,"大於1000"]]
+									id:'empAmount',
+									hiddenName:"pssCustomer.empAmount",mode:"local",triggerAction:"all",xtype:"combo",store:[[1,"小於10"],[2,"11~50"],[3,"51~100"],[4,"101~500"],[5,"501~1000"],[6,"大於1000"]]
 								},{
 									fieldLabel : '創建日期',
-									name : 'pssCustomer.createDate'
+									id:'createDate',
+									xtype:"hidden",name : "pssCustomer.createDate"
 								},{
 									fieldLabel : '修改日期',
-									name : 'pssCustomer.updateDate'
+									id:'updateDate',
+									xtype:"hidden",name : "pssCustomer.updateDate"
 				        }]
 					}]
 				}]
 		});
 
-		if (this.recId) {
-			this.formPanel.getForm().load({
-				deferredRender : false,
-				url : __ctxPath + '/pss/getPssCustomer.do?id='+ this.recId,
-				waitMsg : '正在載入數據...',
-				success : function(form, action) {
-
-				}
-			});
+		if (recId) {
+				Ext.Ajax.request({
+					url : __ctxPath + '/pss/getPssCustomer.do?id='+ recId,
+						success : function(response , options ) {
+							var jr = Ext.util.JSON.decode(response.responseText); 
+							jr.data.createDate = new Date(jr.data.createDate).format('Y-m-d H:i');
+							if(jr.data.updateDate)jr.data.updateDate = new Date(jr.data.updateDate).format('Y-m-d H:i');
+							Ext.getCmp("PssCustomerForm").getForm().loadRecord(jr);
+					},
+					failure : function(response , options ) {
+						
+					}
+				});
 		}
 
 		this.buttons = [{
@@ -120,10 +142,17 @@ PssCustomerForm = Ext.extend(Ext.Window, {
 			handler : function() {
 				var fp = Ext.getCmp("PssCustomerForm");
 				if (fp.getForm().isValid()) {
-					fp.getForm().submit({
-						method : 'post',
-						waitMsg : '正在提交數據...',
-						success : function(fp, action) {
+					var data = fp.getForm().getValues();
+					if(recId){
+						data['pssCustomer.updateBy'] = curUserInfo.username;
+						data['pssCustomer.updateDate'] = new Date().format('Y-m-d H:i');
+					}else{
+						data['pssCustomer.createBy'] = curUserInfo.username;
+						data['pssCustomer.createDate'] = new Date().format('Y-m-d H:i');
+					}
+					Ext.Ajax.request({
+							url : __ctxPath + '/pss/savePssCustomer.do',
+					    success : function(response , options ) {
 							Ext.ux.Toast.msg('信息', '成功保存信息！');
 							Ext.getCmp('PssCustomerFormWin').close();
 							Ext.getCmp('PssCustomerGrid').getStore().reload();
@@ -135,9 +164,11 @@ PssCustomerForm = Ext.extend(Ext.Window, {
 										buttons : Ext.MessageBox.OK,
 										icon : 'ext-mb-error'
 									});
-						}
+						},
+					    params: data
 					});
 				}
+			
 			}
 		}, {
 			text : '清空',

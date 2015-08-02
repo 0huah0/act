@@ -1,6 +1,7 @@
 /*
  * Powered By [shi_zenghua@qq.com]
  */
+ 
 Ext.ns('PssInvoiceHeadView');
 PssInvoiceHeadView = Ext.extend(Ext.Panel, {
 	constructor : function(_cfg) {
@@ -63,15 +64,15 @@ PssInvoiceHeadView = Ext.extend(Ext.Panel, {
 						items : [{
 									fieldLabel : '客戶編號/供應商編號（TYPE=1時，該欄位存客戶編號，TYPE=2時，該欄位存供應商編號）',
 									maxLength:18,
-									name : 'S_cusOrSupId_S_LK'
+									name : "pssInvoiceHead.cusOrSupId"
 								},{
 									fieldLabel : '創建日期',
 									maxLength:18,
-									name : 'S_createDate_D_DL'
+									xtype:"hidden",name : "pssInvoiceHead.createDate"
 								},{
 									fieldLabel : '修改人員',
 									maxLength:18,
-									name : 'S_updateBy_S_LK'
+									xtype:"hidden",name : "pssInvoiceHead.updateBy"
 								},{
 								xtype:'hidden'
 								}]//
@@ -79,11 +80,11 @@ PssInvoiceHeadView = Ext.extend(Ext.Panel, {
 						items : [{
 									fieldLabel : '發票金額',
 									maxLength:18,
-									name : 'S_invAmount_L_EQ'
+									name : "pssInvoiceHead.invAmount"
 								},{
 									fieldLabel : '創建人員',
 									maxLength:18,
-									name : 'S_createBy_S_LK'
+									xtype:"hidden",name : "pssInvoiceHead.createBy"
 								},{
 									xtype:'hidden'
 								}]//
@@ -92,15 +93,15 @@ PssInvoiceHeadView = Ext.extend(Ext.Panel, {
 									xtype:'hidden',
 									fieldLabel : '發票編號',
 									maxLength:18,
-									name : 'S_invoiceHeadId_S_LK'
+									name : "pssInvoiceHead.invoiceHeadId"
 								},{
 									fieldLabel : '類型',
 									maxLength:18,
-									name : 'S_type_N_EQ',xtype:"combo",store:[[1,"出貨發票"],[2,"收貨發票"]]
+									hiddenName:"Q_type_N_EQ",mode:"local",triggerAction:"all",xtype:"combo",store:[[1,"出貨發票"],[2,"收貨發票"]]
 								},{
 									fieldLabel : '修改日期',
 									maxLength:18,
-									name : 'S_updateDate_D_DL'
+									xtype:"hidden",name : "pssInvoiceHead.updateDate"
 								},{
 									xtype:'hidden'
 								}]//
@@ -142,13 +143,13 @@ PssInvoiceHeadView = Ext.extend(Ext.Panel, {
 							dataIndex : 'type',renderer:function(v){if(1 == v){return "出貨發票";}else if(2 == v){return "收貨發票";}}
 						},{
 							header : '創建日期',
-							dataIndex : 'createDate'
+							dataIndex : 'createDate',renderer:function(v){if(v){return new Date(v).format("Y-m-d H:i");}else{return "";}}
 						},{
 							header : '創建人員',
 							dataIndex : 'createBy'
 						},{
 							header : '修改日期',
-							dataIndex : 'updateDate'
+							dataIndex : 'updateDate',renderer:function(v){if(v){return new Date(v).format("Y-m-d H:i");}else{return "";}}
 						},{
 							header : '修改人員',
 							dataIndex : 'updateBy'
@@ -156,9 +157,9 @@ PssInvoiceHeadView = Ext.extend(Ext.Panel, {
 						header : '管理',
 						dataIndex : 'invoiceHeadId',//
 						renderer : function(v,m,r) {
-							return isGranted('_PssInvoiceHeadEdit') ?('&nbsp;<button title="修改" value=" " class="btn-edit" onclick="PssInvoiceHeadView.edit('
-							+ v + ')"></button><button title="刪除" value=" " class="btn-del" onclick="PssInvoiceHeadView.remove('
-							+ v + ')"></button>'):'';
+							return isGranted('_PssInvoiceHeadEdit') ?('&nbsp;<button title="修改" value=" " class="btn-edit" onclick="PssInvoiceHeadView.edit(\''
+							+ v + '\')"></button><button title="刪除" value=" " class="btn-del" onclick="PssInvoiceHeadView.remove(\''
+							+ v + '\')"></button>'):'';
 						}
 					}],
 			defaults : {
@@ -170,6 +171,7 @@ PssInvoiceHeadView = Ext.extend(Ext.Panel, {
 
 		this.gridPanel = new Ext.grid.GridPanel({
 					id : 'PssInvoiceHeadGrid',
+					height : 380,
 					tbar : (isGranted('_PssInvoiceHeadEdit') ? new Ext.Toolbar({
 								id : 'PssInvoiceHeadFootBar',
 								bodyStyle : 'text-align:left',
@@ -184,7 +186,6 @@ PssInvoiceHeadView = Ext.extend(Ext.Panel, {
 					store : this.store,
 					//autoExpandColumn :'remark1',
 					loadMask : true,
-					autoHeight : true,
 					cm : cm,
 					bbar : new Ext.PagingToolbar({
 								pageSize : 25,

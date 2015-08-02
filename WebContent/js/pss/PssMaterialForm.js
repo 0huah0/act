@@ -1,6 +1,7 @@
 /*
  * Powered By [shi_zenghua@qq.com]
  */
+ 
 Ext.ns('PssMaterialForm');
 PssMaterialForm = Ext.extend(Ext.Window, {
 	constructor : function(_cfg) {
@@ -18,8 +19,8 @@ PssMaterialForm = Ext.extend(Ext.Window, {
 				});
 	},
 	initUIComponents : function() {
+		var recId = this.recId;
 		this.formPanel = new Ext.FormPanel({
-			url : __ctxPath + '/pss/savePssMaterial.do',
 			id : 'PssMaterialForm',
 			autoHeight:true,
 			frame : true,
@@ -42,52 +43,65 @@ PssMaterialForm = Ext.extend(Ext.Window, {
 						items : [{
 									id:'hiddenId',
 									xtype : 'hidden',
-									value : this.recId||''
+									value : recId||''
 								},{
 									fieldLabel : '原料編號/原料代號',
-									name : 'pssMaterial.materialId'
+									id:'materialId',
+									name : "pssMaterial.materialId"
 								},{
 									fieldLabel : '單位',
-									name : 'pssMaterial.unit',xtype:"combo",store:[[1,"個"],[2,"塊"],[3,"條"],[4,"片"],[5,"公斤"],[6,"公噸"],[7,"..."]]
+									id:'unit',
+									hiddenName:"pssMaterial.unit",mode:"local",triggerAction:"all",xtype:"combo",store:[[1,"個"],[2,"塊"],[3,"條"],[4,"片"],[5,"公斤"],[6,"公噸"],[7,"..."]]
 								},{
 									fieldLabel : '有效否',
-									name : 'pssMaterial.active',xtype:"combo",store:[[0,"無效"],[1,"有效"]]
+									id:'active',
+									hiddenName:"pssMaterial.active",mode:"local",triggerAction:"all",xtype:"combo",store:[[0,"無效"],[1,"有效"]]
 								},{
 									fieldLabel : '創建人員',
-									name : 'pssMaterial.createBy'
+									id:'createBy',
+									xtype:"hidden",name : "pssMaterial.createBy"
 								},{
 									fieldLabel : '修改人員',
-									name : 'pssMaterial.updateBy'
+									id:'updateBy',
+									xtype:"hidden",name : "pssMaterial.updateBy"
 					      }]
 					},{
 						items : [{
 									xtype : 'hidden'
 								},{
 									fieldLabel : '原料名稱',
-									name : 'pssMaterial.name'
+									id:'name',
+									name : "pssMaterial.name"
 								},{
 									fieldLabel : '描述',
-									name : 'pssMaterial.desc'
+									id:'desc',
+									name : "pssMaterial.desc"
 								},{
 									fieldLabel : '創建日期',
-									name : 'pssMaterial.createDate'
+									id:'createDate',
+									xtype:"hidden",name : "pssMaterial.createDate"
 								},{
 									fieldLabel : '修改日期',
-									name : 'pssMaterial.updateDate'
+									id:'updateDate',
+									xtype:"hidden",name : "pssMaterial.updateDate"
 				        }]
 					}]
 				}]
 		});
 
-		if (this.recId) {
-			this.formPanel.getForm().load({
-				deferredRender : false,
-				url : __ctxPath + '/pss/getPssMaterial.do?id='+ this.recId,
-				waitMsg : '正在載入數據...',
-				success : function(form, action) {
-
-				}
-			});
+		if (recId) {
+				Ext.Ajax.request({
+					url : __ctxPath + '/pss/getPssMaterial.do?id='+ recId,
+						success : function(response , options ) {
+							var jr = Ext.util.JSON.decode(response.responseText); 
+							jr.data.createDate = new Date(jr.data.createDate).format('Y-m-d H:i');
+							if(jr.data.updateDate)jr.data.updateDate = new Date(jr.data.updateDate).format('Y-m-d H:i');
+							Ext.getCmp("PssMaterialForm").getForm().loadRecord(jr);
+					},
+					failure : function(response , options ) {
+						
+					}
+				});
 		}
 
 		this.buttons = [{
@@ -96,10 +110,17 @@ PssMaterialForm = Ext.extend(Ext.Window, {
 			handler : function() {
 				var fp = Ext.getCmp("PssMaterialForm");
 				if (fp.getForm().isValid()) {
-					fp.getForm().submit({
-						method : 'post',
-						waitMsg : '正在提交數據...',
-						success : function(fp, action) {
+					var data = fp.getForm().getValues();
+					if(recId){
+						data['pssMaterial.updateBy'] = curUserInfo.username;
+						data['pssMaterial.updateDate'] = new Date().format('Y-m-d H:i');
+					}else{
+						data['pssMaterial.createBy'] = curUserInfo.username;
+						data['pssMaterial.createDate'] = new Date().format('Y-m-d H:i');
+					}
+					Ext.Ajax.request({
+							url : __ctxPath + '/pss/savePssMaterial.do',
+					    success : function(response , options ) {
 							Ext.ux.Toast.msg('信息', '成功保存信息！');
 							Ext.getCmp('PssMaterialFormWin').close();
 							Ext.getCmp('PssMaterialGrid').getStore().reload();
@@ -111,9 +132,11 @@ PssMaterialForm = Ext.extend(Ext.Window, {
 										buttons : Ext.MessageBox.OK,
 										icon : 'ext-mb-error'
 									});
-						}
+						},
+					    params: data
 					});
 				}
+			
 			}
 		}, {
 			text : '清空',

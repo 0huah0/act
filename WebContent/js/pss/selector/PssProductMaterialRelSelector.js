@@ -1,6 +1,7 @@
 /*
  * Powered By [shi_zenghua@qq.com]
  */
+ 
 /**
  * 產品原料關係表选择器
  */
@@ -71,7 +72,7 @@
 												,{
 							header : '創建日期',
 							width : 120,
-							dataIndex : 'createDate'
+							dataIndex : 'createDate',renderer:function(v){if(v){return new Date(v).format("Y-m-d H:i");}else{return "";}}
 						}
 												,{
 							header : '創建人員',
@@ -81,7 +82,7 @@
 												,{
 							header : '修改日期',
 							width : 120,
-							dataIndex : 'updateDate'
+							dataIndex : 'updateDate',renderer:function(v){if(v){return new Date(v).format("Y-m-d H:i");}else{return "";}}
 						}
 												,{
 							header : '修改人員',
@@ -167,11 +168,11 @@
 									xtype:'hidden',
 									fieldLabel : '原料編號/原料代號',
 									maxLength:18,
-									name : 'S_materialId_S_LK'
+									name : "pssProductMaterialRel.materialId"
 								},{
 									fieldLabel : '創建人員',
 									maxLength:18,
-									name : 'S_createBy_S_LK'
+									xtype:"hidden",name : "pssProductMaterialRel.createBy"
 								},{
 									xtype:'hidden'
 								}]//
@@ -179,11 +180,11 @@
 						items : [{
 									fieldLabel : '原料類型（一個產品只會對應一個成品原料）',
 									maxLength:18,
-									name : 'S_type_N_EQ',xtype:"combo",store:[[1,"原物料"],[2,"半成品"],[3,"成品"]]
+									hiddenName:"Q_type_N_EQ",mode:"local",triggerAction:"all",xtype:"combo",store:[[1,"原物料"],[2,"半成品"],[3,"成品"]]
 								},{
 									fieldLabel : '修改日期',
 									maxLength:18,
-									name : 'S_updateDate_D_DL'
+									xtype:"hidden",name : "pssProductMaterialRel.updateDate"
 								},{
 								xtype:'hidden'
 								}]//
@@ -192,15 +193,15 @@
 									xtype:'hidden',
 									fieldLabel : '產品編號',
 									maxLength:18,
-									name : 'S_pdtId_S_LK'
+									name : "pssProductMaterialRel.pdtId"
 								},{
 									fieldLabel : '創建日期',
 									maxLength:18,
-									name : 'S_createDate_D_DL'
+									xtype:"hidden",name : "pssProductMaterialRel.createDate"
 								},{
 									fieldLabel : '修改人員',
 									maxLength:18,
-									name : 'S_updateBy_S_LK'
+									xtype:"hidden",name : "pssProductMaterialRel.updateBy"
 								},{
 									xtype:'hidden'
 								}]//

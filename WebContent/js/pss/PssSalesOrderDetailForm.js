@@ -1,6 +1,7 @@
 /*
  * Powered By [shi_zenghua@qq.com]
  */
+ 
 Ext.ns('PssSalesOrderDetailForm');
 PssSalesOrderDetailForm = Ext.extend(Ext.Window, {
 	constructor : function(_cfg) {
@@ -18,8 +19,8 @@ PssSalesOrderDetailForm = Ext.extend(Ext.Window, {
 				});
 	},
 	initUIComponents : function() {
+		var recId = this.recId;
 		this.formPanel = new Ext.FormPanel({
-			url : __ctxPath + '/pss/savePssSalesOrderDetail.do',
 			id : 'PssSalesOrderDetailForm',
 			autoHeight:true,
 			frame : true,
@@ -42,61 +43,77 @@ PssSalesOrderDetailForm = Ext.extend(Ext.Window, {
 						items : [{
 									id:'hiddenId',
 									xtype : 'hidden',
-									value : this.recId||''
+									value : recId||''
 								},{
 									fieldLabel : '銷貨單編號',
-									name : 'pssSalesOrderDetail.soHeadId'
+									id:'soHeadId',
+									name : "pssSalesOrderDetail.soHeadId"
 								},{
 									fieldLabel : '產品編號',
-									name : 'pssSalesOrderDetail.pdtId'
+									id:'pdtId',
+									name : "pssSalesOrderDetail.pdtId"
 								},{
 									fieldLabel : '產品定價',
-									name : 'pssSalesOrderDetail.pdtPrice'
+									id:'pdtPrice',
+									name : "pssSalesOrderDetail.pdtPrice"
 								},{
 									fieldLabel : '產品實際售價',
-									name : 'pssSalesOrderDetail.pdtRealPrice'
+									id:'pdtRealPrice',
+									name : "pssSalesOrderDetail.pdtRealPrice"
 								},{
 									fieldLabel : '創建日期',
-									name : 'pssSalesOrderDetail.createDate'
+									id:'createDate',
+									xtype:"hidden",name : "pssSalesOrderDetail.createDate"
 								},{
 									fieldLabel : '修改日期',
-									name : 'pssSalesOrderDetail.updateDate'
+									id:'updateDate',
+									xtype:"hidden",name : "pssSalesOrderDetail.updateDate"
 					      }]
 					},{
 						items : [{
 									xtype : 'hidden'
 								},{
 									fieldLabel : '銷貨單明細編號',
-									name : 'pssSalesOrderDetail.soDetailId'
+									id:'soDetailId',
+									name : "pssSalesOrderDetail.soDetailId"
 								},{
 									fieldLabel : '產品數量',
-									name : 'pssSalesOrderDetail.pdtNum'
+									id:'pdtNum',
+									name : "pssSalesOrderDetail.pdtNum"
 								},{
 									fieldLabel : '產品建議售價',
-									name : 'pssSalesOrderDetail.pdtSalePrice'
+									id:'pdtSalePrice',
+									name : "pssSalesOrderDetail.pdtSalePrice"
 								},{
 									fieldLabel : '小計',
-									name : 'pssSalesOrderDetail.amount'
+									id:'amount',
+									name : "pssSalesOrderDetail.amount"
 								},{
 									fieldLabel : '創建人員',
-									name : 'pssSalesOrderDetail.createBy'
+									id:'createBy',
+									xtype:"hidden",name : "pssSalesOrderDetail.createBy"
 								},{
 									fieldLabel : '修改人員',
-									name : 'pssSalesOrderDetail.updateBy'
+									id:'updateBy',
+									xtype:"hidden",name : "pssSalesOrderDetail.updateBy"
 				        }]
 					}]
 				}]
 		});
 
-		if (this.recId) {
-			this.formPanel.getForm().load({
-				deferredRender : false,
-				url : __ctxPath + '/pss/getPssSalesOrderDetail.do?id='+ this.recId,
-				waitMsg : '正在載入數據...',
-				success : function(form, action) {
-
-				}
-			});
+		if (recId) {
+				Ext.Ajax.request({
+					url : __ctxPath + '/pss/getPssSalesOrderDetail.do?id='+ recId,
+						success : function(response , options ) {
+							var jr = Ext.util.JSON.decode(response.responseText); 
+							jr.data.createDate = new Date(jr.data.createDate).format('Y-m-d H:i');
+							if(jr.data.updateDate)jr.data.updateDate = new Date(jr.data.updateDate).format('Y-m-d H:i');
+							Ext.getCmp("PssSalesOrderDetailForm").getForm().loadRecord(jr);
+					},
+					failure : function(response , options ) {
+						
+					}
+				});
 		}
 
 		this.buttons = [{
@@ -105,10 +122,17 @@ PssSalesOrderDetailForm = Ext.extend(Ext.Window, {
 			handler : function() {
 				var fp = Ext.getCmp("PssSalesOrderDetailForm");
 				if (fp.getForm().isValid()) {
-					fp.getForm().submit({
-						method : 'post',
-						waitMsg : '正在提交數據...',
-						success : function(fp, action) {
+					var data = fp.getForm().getValues();
+					if(recId){
+						data['pssSalesOrderDetail.updateBy'] = curUserInfo.username;
+						data['pssSalesOrderDetail.updateDate'] = new Date().format('Y-m-d H:i');
+					}else{
+						data['pssSalesOrderDetail.createBy'] = curUserInfo.username;
+						data['pssSalesOrderDetail.createDate'] = new Date().format('Y-m-d H:i');
+					}
+					Ext.Ajax.request({
+							url : __ctxPath + '/pss/savePssSalesOrderDetail.do',
+					    success : function(response , options ) {
 							Ext.ux.Toast.msg('信息', '成功保存信息！');
 							Ext.getCmp('PssSalesOrderDetailFormWin').close();
 							Ext.getCmp('PssSalesOrderDetailGrid').getStore().reload();
@@ -120,9 +144,11 @@ PssSalesOrderDetailForm = Ext.extend(Ext.Window, {
 										buttons : Ext.MessageBox.OK,
 										icon : 'ext-mb-error'
 									});
-						}
+						},
+					    params: data
 					});
 				}
+			
 			}
 		}, {
 			text : '清空',

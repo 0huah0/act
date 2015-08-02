@@ -1,6 +1,7 @@
 /*
  * Powered By [shi_zenghua@qq.com]
  */
+ 
 /**
  * 出貨單选择器
  */
@@ -101,7 +102,7 @@
 												,{
 							header : '創建日期',
 							width : 120,
-							dataIndex : 'createDate'
+							dataIndex : 'createDate',renderer:function(v){if(v){return new Date(v).format("Y-m-d H:i");}else{return "";}}
 						}
 												,{
 							header : '創建人員',
@@ -111,7 +112,7 @@
 												,{
 							header : '修改日期',
 							width : 120,
-							dataIndex : 'updateDate'
+							dataIndex : 'updateDate',renderer:function(v){if(v){return new Date(v).format("Y-m-d H:i");}else{return "";}}
 						}
 												,{
 							header : '修改人員',
@@ -196,19 +197,19 @@
 						items : [{
 									fieldLabel : '銷貨單編號',
 									maxLength:18,
-									name : 'S_soHeadId_S_LK'
+									name : "pssDeliveryOrderHead.soHeadId"
 								},{
 									fieldLabel : '送貨人名稱',
 									maxLength:18,
-									name : 'S_diliverName_S_LK'
+									name : "pssDeliveryOrderHead.diliverName"
 								},{
 									fieldLabel : '出貨發票號碼 (應收帳款)',
 									maxLength:18,
-									name : 'S_doInvoice_S_LK'
+									name : "pssDeliveryOrderHead.doInvoice"
 								},{
 									fieldLabel : '創建人員',
 									maxLength:18,
-									name : 'S_createBy_S_LK'
+									xtype:"hidden",name : "pssDeliveryOrderHead.createBy"
 								},{
 									xtype:'hidden'
 								}]//
@@ -216,19 +217,19 @@
 						items : [{
 									fieldLabel : '出貨倉庫編號/倉庫代號',
 									maxLength:18,
-									name : 'S_warehouseId_S_LK'
+									name : "pssDeliveryOrderHead.warehouseId"
 								},{
 									fieldLabel : '收貨人名稱',
 									maxLength:18,
-									name : 'S_receiverName_S_LK'
+									name : "pssDeliveryOrderHead.receiverName"
 								},{
 									fieldLabel : '備註',
 									maxLength:18,
-									name : 'S_remark_S_LK'
+									name : "pssDeliveryOrderHead.remark"
 								},{
 									fieldLabel : '修改日期',
 									maxLength:18,
-									name : 'S_updateDate_D_DL'
+									xtype:"hidden",name : "pssDeliveryOrderHead.updateDate"
 								},{
 								xtype:'hidden'
 								}]//
@@ -237,23 +238,23 @@
 									xtype:'hidden',
 									fieldLabel : '出貨單編號（出貨單代碼2位(DO)+當前日期8位(yyyyMMdd)+流水號6位）',
 									maxLength:18,
-									name : 'S_doHeadId_S_LK'
+									name : "pssDeliveryOrderHead.doHeadId"
 								},{
 									fieldLabel : '送貨人電話',
 									maxLength:18,
-									name : 'S_diliverTel_S_LK'
+									name : "pssDeliveryOrderHead.diliverTel"
 								},{
 									fieldLabel : '收貨人電話',
 									maxLength:18,
-									name : 'S_receiverTel_S_LK'
+									name : "pssDeliveryOrderHead.receiverTel"
 								},{
 									fieldLabel : '創建日期',
 									maxLength:18,
-									name : 'S_createDate_D_DL'
+									xtype:"hidden",name : "pssDeliveryOrderHead.createDate"
 								},{
 									fieldLabel : '修改人員',
 									maxLength:18,
-									name : 'S_updateBy_S_LK'
+									xtype:"hidden",name : "pssDeliveryOrderHead.updateBy"
 								},{
 									xtype:'hidden'
 								}]//

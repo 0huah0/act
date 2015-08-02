@@ -1,6 +1,7 @@
 /*
  * Powered By [shi_zenghua@qq.com]
  */
+ 
 Ext.ns('PssSupplierMaterialRelView');
 PssSupplierMaterialRelView = Ext.extend(Ext.Panel, {
 	constructor : function(_cfg) {
@@ -64,15 +65,15 @@ PssSupplierMaterialRelView = Ext.extend(Ext.Panel, {
 									xtype:'hidden',
 									fieldLabel : '原料編號/原料代號',
 									maxLength:18,
-									name : 'S_materialId_S_LK'
+									name : "pssSupplierMaterialRel.materialId"
 								},{
 									fieldLabel : '創建日期',
 									maxLength:18,
-									name : 'S_createDate_D_DL'
+									xtype:"hidden",name : "pssSupplierMaterialRel.createDate"
 								},{
 									fieldLabel : '修改人員',
 									maxLength:18,
-									name : 'S_updateBy_S_LK'
+									xtype:"hidden",name : "pssSupplierMaterialRel.updateBy"
 								},{
 								xtype:'hidden'
 								}]//
@@ -80,11 +81,11 @@ PssSupplierMaterialRelView = Ext.extend(Ext.Panel, {
 						items : [{
 									fieldLabel : '產品定價(單價)',
 									maxLength:18,
-									name : 'S_price_L_EQ'
+									name : "pssSupplierMaterialRel.price"
 								},{
 									fieldLabel : '創建人員',
 									maxLength:18,
-									name : 'S_createBy_S_LK'
+									xtype:"hidden",name : "pssSupplierMaterialRel.createBy"
 								},{
 									xtype:'hidden'
 								}]//
@@ -93,15 +94,15 @@ PssSupplierMaterialRelView = Ext.extend(Ext.Panel, {
 									xtype:'hidden',
 									fieldLabel : '供應商編號/供應商代號',
 									maxLength:18,
-									name : 'S_supplierId_S_LK'
+									name : "pssSupplierMaterialRel.supplierId"
 								},{
 									fieldLabel : '產品建議售價(單價)',
 									maxLength:18,
-									name : 'S_salePrice_L_EQ'
+									name : "pssSupplierMaterialRel.salePrice"
 								},{
 									fieldLabel : '修改日期',
 									maxLength:18,
-									name : 'S_updateDate_D_DL'
+									xtype:"hidden",name : "pssSupplierMaterialRel.updateDate"
 								},{
 									xtype:'hidden'
 								}]//
@@ -143,13 +144,13 @@ PssSupplierMaterialRelView = Ext.extend(Ext.Panel, {
 							dataIndex : 'salePrice'
 						},{
 							header : '創建日期',
-							dataIndex : 'createDate'
+							dataIndex : 'createDate',renderer:function(v){if(v){return new Date(v).format("Y-m-d H:i");}else{return "";}}
 						},{
 							header : '創建人員',
 							dataIndex : 'createBy'
 						},{
 							header : '修改日期',
-							dataIndex : 'updateDate'
+							dataIndex : 'updateDate',renderer:function(v){if(v){return new Date(v).format("Y-m-d H:i");}else{return "";}}
 						},{
 							header : '修改人員',
 							dataIndex : 'updateBy'
@@ -157,9 +158,9 @@ PssSupplierMaterialRelView = Ext.extend(Ext.Panel, {
 						header : '管理',
 						dataIndex : 'supplierId',//
 						renderer : function(v,m,r) {
-							return isGranted('_PssSupplierMaterialRelEdit') ?('&nbsp;<button title="修改" value=" " class="btn-edit" onclick="PssSupplierMaterialRelView.edit('
-							+ v + ')"></button><button title="刪除" value=" " class="btn-del" onclick="PssSupplierMaterialRelView.remove('
-							+ v + ')"></button>'):'';
+							return isGranted('_PssSupplierMaterialRelEdit') ?('&nbsp;<button title="修改" value=" " class="btn-edit" onclick="PssSupplierMaterialRelView.edit(\''
+							+ v + '\')"></button><button title="刪除" value=" " class="btn-del" onclick="PssSupplierMaterialRelView.remove(\''
+							+ v + '\')"></button>'):'';
 						}
 					}],
 			defaults : {
@@ -171,6 +172,7 @@ PssSupplierMaterialRelView = Ext.extend(Ext.Panel, {
 
 		this.gridPanel = new Ext.grid.GridPanel({
 					id : 'PssSupplierMaterialRelGrid',
+					height : 380,
 					tbar : (isGranted('_PssSupplierMaterialRelEdit') ? new Ext.Toolbar({
 								id : 'PssSupplierMaterialRelFootBar',
 								bodyStyle : 'text-align:left',
@@ -185,7 +187,6 @@ PssSupplierMaterialRelView = Ext.extend(Ext.Panel, {
 					store : this.store,
 					//autoExpandColumn :'remark1',
 					loadMask : true,
-					autoHeight : true,
 					cm : cm,
 					bbar : new Ext.PagingToolbar({
 								pageSize : 25,

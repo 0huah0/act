@@ -1,6 +1,7 @@
 /*
  * Powered By [shi_zenghua@qq.com]
  */
+ 
 Ext.ns('PssSupplierMaterialRelForm');
 PssSupplierMaterialRelForm = Ext.extend(Ext.Window, {
 	constructor : function(_cfg) {
@@ -18,8 +19,8 @@ PssSupplierMaterialRelForm = Ext.extend(Ext.Window, {
 				});
 	},
 	initUIComponents : function() {
+		var recId = this.recId;
 		this.formPanel = new Ext.FormPanel({
-			url : __ctxPath + '/pss/savePssSupplierMaterialRel.do',
 			id : 'PssSupplierMaterialRelForm',
 			autoHeight:true,
 			frame : true,
@@ -42,49 +43,61 @@ PssSupplierMaterialRelForm = Ext.extend(Ext.Window, {
 						items : [{
 									id:'hiddenId',
 									xtype : 'hidden',
-									value : this.recId||''
+									value : recId||''
 								},{
 									fieldLabel : '供應商編號/供應商代號',
-									name : 'pssSupplierMaterialRel.supplierId'
+									id:'supplierId',
+									name : "pssSupplierMaterialRel.supplierId"
 								},{
 									fieldLabel : '產品定價(單價)',
-									name : 'pssSupplierMaterialRel.price'
+									id:'price',
+									name : "pssSupplierMaterialRel.price"
 								},{
 									fieldLabel : '創建日期',
-									name : 'pssSupplierMaterialRel.createDate'
+									id:'createDate',
+									xtype:"hidden",name : "pssSupplierMaterialRel.createDate"
 								},{
 									fieldLabel : '修改日期',
-									name : 'pssSupplierMaterialRel.updateDate'
+									id:'updateDate',
+									xtype:"hidden",name : "pssSupplierMaterialRel.updateDate"
 					      }]
 					},{
 						items : [{
 									xtype : 'hidden'
 								},{
 									fieldLabel : '原料編號/原料代號',
-									name : 'pssSupplierMaterialRel.materialId'
+									id:'materialId',
+									name : "pssSupplierMaterialRel.materialId"
 								},{
 									fieldLabel : '產品建議售價(單價)',
-									name : 'pssSupplierMaterialRel.salePrice'
+									id:'salePrice',
+									name : "pssSupplierMaterialRel.salePrice"
 								},{
 									fieldLabel : '創建人員',
-									name : 'pssSupplierMaterialRel.createBy'
+									id:'createBy',
+									xtype:"hidden",name : "pssSupplierMaterialRel.createBy"
 								},{
 									fieldLabel : '修改人員',
-									name : 'pssSupplierMaterialRel.updateBy'
+									id:'updateBy',
+									xtype:"hidden",name : "pssSupplierMaterialRel.updateBy"
 				        }]
 					}]
 				}]
 		});
 
-		if (this.recId) {
-			this.formPanel.getForm().load({
-				deferredRender : false,
-				url : __ctxPath + '/pss/getPssSupplierMaterialRel.do?id='+ this.recId,
-				waitMsg : '正在載入數據...',
-				success : function(form, action) {
-
-				}
-			});
+		if (recId) {
+				Ext.Ajax.request({
+					url : __ctxPath + '/pss/getPssSupplierMaterialRel.do?id='+ recId,
+						success : function(response , options ) {
+							var jr = Ext.util.JSON.decode(response.responseText); 
+							jr.data.createDate = new Date(jr.data.createDate).format('Y-m-d H:i');
+							if(jr.data.updateDate)jr.data.updateDate = new Date(jr.data.updateDate).format('Y-m-d H:i');
+							Ext.getCmp("PssSupplierMaterialRelForm").getForm().loadRecord(jr);
+					},
+					failure : function(response , options ) {
+						
+					}
+				});
 		}
 
 		this.buttons = [{
@@ -93,10 +106,17 @@ PssSupplierMaterialRelForm = Ext.extend(Ext.Window, {
 			handler : function() {
 				var fp = Ext.getCmp("PssSupplierMaterialRelForm");
 				if (fp.getForm().isValid()) {
-					fp.getForm().submit({
-						method : 'post',
-						waitMsg : '正在提交數據...',
-						success : function(fp, action) {
+					var data = fp.getForm().getValues();
+					if(recId){
+						data['pssSupplierMaterialRel.updateBy'] = curUserInfo.username;
+						data['pssSupplierMaterialRel.updateDate'] = new Date().format('Y-m-d H:i');
+					}else{
+						data['pssSupplierMaterialRel.createBy'] = curUserInfo.username;
+						data['pssSupplierMaterialRel.createDate'] = new Date().format('Y-m-d H:i');
+					}
+					Ext.Ajax.request({
+							url : __ctxPath + '/pss/savePssSupplierMaterialRel.do',
+					    success : function(response , options ) {
 							Ext.ux.Toast.msg('信息', '成功保存信息！');
 							Ext.getCmp('PssSupplierMaterialRelFormWin').close();
 							Ext.getCmp('PssSupplierMaterialRelGrid').getStore().reload();
@@ -108,9 +128,11 @@ PssSupplierMaterialRelForm = Ext.extend(Ext.Window, {
 										buttons : Ext.MessageBox.OK,
 										icon : 'ext-mb-error'
 									});
-						}
+						},
+					    params: data
 					});
 				}
+			
 			}
 		}, {
 			text : '清空',

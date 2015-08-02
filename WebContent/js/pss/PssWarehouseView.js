@@ -1,6 +1,7 @@
 /*
  * Powered By [shi_zenghua@qq.com]
  */
+ 
 Ext.ns('PssWarehouseView');
 PssWarehouseView = Ext.extend(Ext.Panel, {
 	constructor : function(_cfg) {
@@ -63,11 +64,11 @@ PssWarehouseView = Ext.extend(Ext.Panel, {
 						items : [{
 									fieldLabel : '名稱',
 									maxLength:18,
-									name : 'S_name_S_LK'
+									name : "pssWarehouse.name"
 								},{
 									fieldLabel : '創建人員',
 									maxLength:18,
-									name : 'S_createBy_S_LK'
+									xtype:"hidden",name : "pssWarehouse.createBy"
 								},{
 								xtype:'hidden'
 								}]//
@@ -75,11 +76,11 @@ PssWarehouseView = Ext.extend(Ext.Panel, {
 						items : [{
 									fieldLabel : '描述',
 									maxLength:18,
-									name : 'S_desc_S_LK'
+									name : "pssWarehouse.desc"
 								},{
 									fieldLabel : '修改日期',
 									maxLength:18,
-									name : 'S_updateDate_D_DL'
+									xtype:"hidden",name : "pssWarehouse.updateDate"
 								},{
 									xtype:'hidden'
 								}]//
@@ -88,15 +89,15 @@ PssWarehouseView = Ext.extend(Ext.Panel, {
 									xtype:'hidden',
 									fieldLabel : '倉庫編號/倉庫代號',
 									maxLength:18,
-									name : 'S_warehouseId_S_LK'
+									name : "pssWarehouse.warehouseId"
 								},{
 									fieldLabel : '創建日期',
 									maxLength:18,
-									name : 'S_createDate_D_DL'
+									xtype:"hidden",name : "pssWarehouse.createDate"
 								},{
 									fieldLabel : '修改人員',
 									maxLength:18,
-									name : 'S_updateBy_S_LK'
+									xtype:"hidden",name : "pssWarehouse.updateBy"
 								},{
 									xtype:'hidden'
 								}]//
@@ -135,13 +136,13 @@ PssWarehouseView = Ext.extend(Ext.Panel, {
 							dataIndex : 'desc'
 						},{
 							header : '創建日期',
-							dataIndex : 'createDate'
+							dataIndex : 'createDate',renderer:function(v){if(v){return new Date(v).format("Y-m-d H:i");}else{return "";}}
 						},{
 							header : '創建人員',
 							dataIndex : 'createBy'
 						},{
 							header : '修改日期',
-							dataIndex : 'updateDate'
+							dataIndex : 'updateDate',renderer:function(v){if(v){return new Date(v).format("Y-m-d H:i");}else{return "";}}
 						},{
 							header : '修改人員',
 							dataIndex : 'updateBy'
@@ -149,9 +150,9 @@ PssWarehouseView = Ext.extend(Ext.Panel, {
 						header : '管理',
 						dataIndex : 'warehouseId',//
 						renderer : function(v,m,r) {
-							return isGranted('_PssWarehouseEdit') ?('&nbsp;<button title="修改" value=" " class="btn-edit" onclick="PssWarehouseView.edit('
-							+ v + ')"></button><button title="刪除" value=" " class="btn-del" onclick="PssWarehouseView.remove('
-							+ v + ')"></button>'):'';
+							return isGranted('_PssWarehouseEdit') ?('&nbsp;<button title="修改" value=" " class="btn-edit" onclick="PssWarehouseView.edit(\''
+							+ v + '\')"></button><button title="刪除" value=" " class="btn-del" onclick="PssWarehouseView.remove(\''
+							+ v + '\')"></button>'):'';
 						}
 					}],
 			defaults : {
@@ -163,6 +164,7 @@ PssWarehouseView = Ext.extend(Ext.Panel, {
 
 		this.gridPanel = new Ext.grid.GridPanel({
 					id : 'PssWarehouseGrid',
+					height : 380,
 					tbar : (isGranted('_PssWarehouseEdit') ? new Ext.Toolbar({
 								id : 'PssWarehouseFootBar',
 								bodyStyle : 'text-align:left',
@@ -177,7 +179,6 @@ PssWarehouseView = Ext.extend(Ext.Panel, {
 					store : this.store,
 					//autoExpandColumn :'remark1',
 					loadMask : true,
-					autoHeight : true,
 					cm : cm,
 					bbar : new Ext.PagingToolbar({
 								pageSize : 25,

@@ -1,6 +1,7 @@
 /*
  * Powered By [shi_zenghua@qq.com]
  */
+ 
 Ext.ns('PssMatesReceiptDetailView');
 PssMatesReceiptDetailView = Ext.extend(Ext.Panel, {
 	constructor : function(_cfg) {
@@ -63,15 +64,15 @@ PssMatesReceiptDetailView = Ext.extend(Ext.Panel, {
 						items : [{
 									fieldLabel : '收貨單明細編號',
 									maxLength:18,
-									name : 'S_mrDetailId_L_EQ'
+									name : "pssMatesReceiptDetail.mrDetailId"
 								},{
 									fieldLabel : '接收數量',
 									maxLength:18,
-									name : 'S_receiptNum_L_EQ'
+									name : "pssMatesReceiptDetail.receiptNum"
 								},{
 									fieldLabel : '創建人員',
 									maxLength:18,
-									name : 'S_createBy_S_LK'
+									xtype:"hidden",name : "pssMatesReceiptDetail.createBy"
 								},{
 								xtype:'hidden'
 								}]//
@@ -79,15 +80,15 @@ PssMatesReceiptDetailView = Ext.extend(Ext.Panel, {
 						items : [{
 									fieldLabel : '原料編號',
 									maxLength:18,
-									name : 'S_materialId_S_LK'
+									name : "pssMatesReceiptDetail.materialId"
 								},{
 									fieldLabel : '退回數量',
 									maxLength:18,
-									name : 'S_rejectNum_L_EQ'
+									name : "pssMatesReceiptDetail.rejectNum"
 								},{
 									fieldLabel : '修改日期',
 									maxLength:18,
-									name : 'S_updateDate_D_DL'
+									xtype:"hidden",name : "pssMatesReceiptDetail.updateDate"
 								},{
 									xtype:'hidden'
 								}]//
@@ -95,19 +96,19 @@ PssMatesReceiptDetailView = Ext.extend(Ext.Panel, {
 						items : [{
 									fieldLabel : '收貨單編號',
 									maxLength:18,
-									name : 'S_mrHeadId_S_LK'
+									name : "pssMatesReceiptDetail.mrHeadId"
 								},{
 									fieldLabel : '來貨數量',
 									maxLength:18,
-									name : 'S_allNum_L_EQ'
+									name : "pssMatesReceiptDetail.allNum"
 								},{
 									fieldLabel : '創建日期',
 									maxLength:18,
-									name : 'S_createDate_D_DL'
+									xtype:"hidden",name : "pssMatesReceiptDetail.createDate"
 								},{
 									fieldLabel : '修改人員',
 									maxLength:18,
-									name : 'S_updateBy_S_LK'
+									xtype:"hidden",name : "pssMatesReceiptDetail.updateBy"
 								},{
 									xtype:'hidden'
 								}]//
@@ -155,13 +156,13 @@ PssMatesReceiptDetailView = Ext.extend(Ext.Panel, {
 							dataIndex : 'rejectNum'
 						},{
 							header : '創建日期',
-							dataIndex : 'createDate'
+							dataIndex : 'createDate',renderer:function(v){if(v){return new Date(v).format("Y-m-d H:i");}else{return "";}}
 						},{
 							header : '創建人員',
 							dataIndex : 'createBy'
 						},{
 							header : '修改日期',
-							dataIndex : 'updateDate'
+							dataIndex : 'updateDate',renderer:function(v){if(v){return new Date(v).format("Y-m-d H:i");}else{return "";}}
 						},{
 							header : '修改人員',
 							dataIndex : 'updateBy'
@@ -169,9 +170,9 @@ PssMatesReceiptDetailView = Ext.extend(Ext.Panel, {
 						header : '管理',
 						dataIndex : 'mrDetailId',//
 						renderer : function(v,m,r) {
-							return isGranted('_PssMatesReceiptDetailEdit') ?('&nbsp;<button title="修改" value=" " class="btn-edit" onclick="PssMatesReceiptDetailView.edit('
-							+ v + ')"></button><button title="刪除" value=" " class="btn-del" onclick="PssMatesReceiptDetailView.remove('
-							+ v + ')"></button>'):'';
+							return isGranted('_PssMatesReceiptDetailEdit') ?('&nbsp;<button title="修改" value=" " class="btn-edit" onclick="PssMatesReceiptDetailView.edit(\''
+							+ v + '\')"></button><button title="刪除" value=" " class="btn-del" onclick="PssMatesReceiptDetailView.remove(\''
+							+ v + '\')"></button>'):'';
 						}
 					}],
 			defaults : {
@@ -183,6 +184,7 @@ PssMatesReceiptDetailView = Ext.extend(Ext.Panel, {
 
 		this.gridPanel = new Ext.grid.GridPanel({
 					id : 'PssMatesReceiptDetailGrid',
+					height : 380,
 					tbar : (isGranted('_PssMatesReceiptDetailEdit') ? new Ext.Toolbar({
 								id : 'PssMatesReceiptDetailFootBar',
 								bodyStyle : 'text-align:left',
@@ -197,7 +199,6 @@ PssMatesReceiptDetailView = Ext.extend(Ext.Panel, {
 					store : this.store,
 					//autoExpandColumn :'remark1',
 					loadMask : true,
-					autoHeight : true,
 					cm : cm,
 					bbar : new Ext.PagingToolbar({
 								pageSize : 25,

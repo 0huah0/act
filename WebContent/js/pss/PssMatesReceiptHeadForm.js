@@ -1,6 +1,7 @@
 /*
  * Powered By [shi_zenghua@qq.com]
  */
+ 
 Ext.ns('PssMatesReceiptHeadForm');
 PssMatesReceiptHeadForm = Ext.extend(Ext.Window, {
 	constructor : function(_cfg) {
@@ -18,8 +19,8 @@ PssMatesReceiptHeadForm = Ext.extend(Ext.Window, {
 				});
 	},
 	initUIComponents : function() {
+		var recId = this.recId;
 		this.formPanel = new Ext.FormPanel({
-			url : __ctxPath + '/pss/savePssMatesReceiptHead.do',
 			id : 'PssMatesReceiptHeadForm',
 			autoHeight:true,
 			frame : true,
@@ -42,64 +43,81 @@ PssMatesReceiptHeadForm = Ext.extend(Ext.Window, {
 						items : [{
 									id:'hiddenId',
 									xtype : 'hidden',
-									value : this.recId||''
+									value : recId||''
 								},{
 									fieldLabel : '收貨單編號（收貨單代碼2位(MR)+當前日期8位(yyyyMMdd)+流水號6位）。',
-									name : 'pssMatesReceiptHead.mrHeadId'
+									id:'mrHeadId',
+									name : "pssMatesReceiptHead.mrHeadId"
 								},{
 									fieldLabel : '收貨倉庫編號/倉庫代號',
-									name : 'pssMatesReceiptHead.warehouseId'
+									id:'warehouseId',
+									name : "pssMatesReceiptHead.warehouseId"
 								},{
 									fieldLabel : '收貨人電話',
-									name : 'pssMatesReceiptHead.receiverTel'
+									id:'receiverTel',
+									name : "pssMatesReceiptHead.receiverTel"
 								},{
 									fieldLabel : '送貨人名稱',
-									name : 'pssMatesReceiptHead.diliverName'
+									id:'diliverName',
+									name : "pssMatesReceiptHead.diliverName"
 								},{
 									fieldLabel : '備註',
-									name : 'pssMatesReceiptHead.remark'
+									id:'remark',
+									name : "pssMatesReceiptHead.remark"
 								},{
 									fieldLabel : '創建人員',
-									name : 'pssMatesReceiptHead.createBy'
+									id:'createBy',
+									xtype:"hidden",name : "pssMatesReceiptHead.createBy"
 								},{
 									fieldLabel : '修改人員',
-									name : 'pssMatesReceiptHead.updateBy'
+									id:'updateBy',
+									xtype:"hidden",name : "pssMatesReceiptHead.updateBy"
 					      }]
 					},{
 						items : [{
 									xtype : 'hidden'
 								},{
 									fieldLabel : '採購單編號',
-									name : 'pssMatesReceiptHead.poHeadId'
+									id:'poHeadId',
+									name : "pssMatesReceiptHead.poHeadId"
 								},{
 									fieldLabel : '收貨人名稱/倉管人員名稱',
-									name : 'pssMatesReceiptHead.receiverName'
+									id:'receiverName',
+									name : "pssMatesReceiptHead.receiverName"
 								},{
 									fieldLabel : '收貨發票號碼(應付帳款)',
-									name : 'pssMatesReceiptHead.mrInvoice'
+									id:'mrInvoice',
+									name : "pssMatesReceiptHead.mrInvoice"
 								},{
 									fieldLabel : '送貨人電話',
-									name : 'pssMatesReceiptHead.diliverTel'
+									id:'diliverTel',
+									name : "pssMatesReceiptHead.diliverTel"
 								},{
 									fieldLabel : '創建日期',
-									name : 'pssMatesReceiptHead.createDate'
+									id:'createDate',
+									xtype:"hidden",name : "pssMatesReceiptHead.createDate"
 								},{
 									fieldLabel : '修改日期',
-									name : 'pssMatesReceiptHead.updateDate'
+									id:'updateDate',
+									xtype:"hidden",name : "pssMatesReceiptHead.updateDate"
 				        }]
 					}]
 				}]
 		});
 
-		if (this.recId) {
-			this.formPanel.getForm().load({
-				deferredRender : false,
-				url : __ctxPath + '/pss/getPssMatesReceiptHead.do?id='+ this.recId,
-				waitMsg : '正在載入數據...',
-				success : function(form, action) {
-
-				}
-			});
+		if (recId) {
+				Ext.Ajax.request({
+					url : __ctxPath + '/pss/getPssMatesReceiptHead.do?id='+ recId,
+						success : function(response , options ) {
+							var jr = Ext.util.JSON.decode(response.responseText); 
+							jr.data.createDate = new Date(jr.data.createDate).format('Y-m-d H:i');
+							if(jr.data.updateDate)jr.data.updateDate = new Date(jr.data.updateDate).format('Y-m-d H:i');
+							Ext.getCmp("PssMatesReceiptHeadForm").getForm().loadRecord(jr);
+					},
+					failure : function(response , options ) {
+						
+					}
+				});
 		}
 
 		this.buttons = [{
@@ -108,10 +126,17 @@ PssMatesReceiptHeadForm = Ext.extend(Ext.Window, {
 			handler : function() {
 				var fp = Ext.getCmp("PssMatesReceiptHeadForm");
 				if (fp.getForm().isValid()) {
-					fp.getForm().submit({
-						method : 'post',
-						waitMsg : '正在提交數據...',
-						success : function(fp, action) {
+					var data = fp.getForm().getValues();
+					if(recId){
+						data['pssMatesReceiptHead.updateBy'] = curUserInfo.username;
+						data['pssMatesReceiptHead.updateDate'] = new Date().format('Y-m-d H:i');
+					}else{
+						data['pssMatesReceiptHead.createBy'] = curUserInfo.username;
+						data['pssMatesReceiptHead.createDate'] = new Date().format('Y-m-d H:i');
+					}
+					Ext.Ajax.request({
+							url : __ctxPath + '/pss/savePssMatesReceiptHead.do',
+					    success : function(response , options ) {
 							Ext.ux.Toast.msg('信息', '成功保存信息！');
 							Ext.getCmp('PssMatesReceiptHeadFormWin').close();
 							Ext.getCmp('PssMatesReceiptHeadGrid').getStore().reload();
@@ -123,9 +148,11 @@ PssMatesReceiptHeadForm = Ext.extend(Ext.Window, {
 										buttons : Ext.MessageBox.OK,
 										icon : 'ext-mb-error'
 									});
-						}
+						},
+					    params: data
 					});
 				}
+			
 			}
 		}, {
 			text : '清空',

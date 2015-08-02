@@ -1,6 +1,7 @@
 /*
  * Powered By [shi_zenghua@qq.com]
  */
+ 
 /**
  * 倉庫选择器
  */
@@ -71,7 +72,7 @@
 												,{
 							header : '創建日期',
 							width : 120,
-							dataIndex : 'createDate'
+							dataIndex : 'createDate',renderer:function(v){if(v){return new Date(v).format("Y-m-d H:i");}else{return "";}}
 						}
 												,{
 							header : '創建人員',
@@ -81,7 +82,7 @@
 												,{
 							header : '修改日期',
 							width : 120,
-							dataIndex : 'updateDate'
+							dataIndex : 'updateDate',renderer:function(v){if(v){return new Date(v).format("Y-m-d H:i");}else{return "";}}
 						}
 												,{
 							header : '修改人員',
@@ -166,11 +167,11 @@
 						items : [{
 									fieldLabel : '名稱',
 									maxLength:18,
-									name : 'S_name_S_LK'
+									name : "pssWarehouse.name"
 								},{
 									fieldLabel : '創建人員',
 									maxLength:18,
-									name : 'S_createBy_S_LK'
+									xtype:"hidden",name : "pssWarehouse.createBy"
 								},{
 									xtype:'hidden'
 								}]//
@@ -178,11 +179,11 @@
 						items : [{
 									fieldLabel : '描述',
 									maxLength:18,
-									name : 'S_desc_S_LK'
+									name : "pssWarehouse.desc"
 								},{
 									fieldLabel : '修改日期',
 									maxLength:18,
-									name : 'S_updateDate_D_DL'
+									xtype:"hidden",name : "pssWarehouse.updateDate"
 								},{
 								xtype:'hidden'
 								}]//
@@ -191,15 +192,15 @@
 									xtype:'hidden',
 									fieldLabel : '倉庫編號/倉庫代號',
 									maxLength:18,
-									name : 'S_warehouseId_S_LK'
+									name : "pssWarehouse.warehouseId"
 								},{
 									fieldLabel : '創建日期',
 									maxLength:18,
-									name : 'S_createDate_D_DL'
+									xtype:"hidden",name : "pssWarehouse.createDate"
 								},{
 									fieldLabel : '修改人員',
 									maxLength:18,
-									name : 'S_updateBy_S_LK'
+									xtype:"hidden",name : "pssWarehouse.updateBy"
 								},{
 									xtype:'hidden'
 								}]//

@@ -1,6 +1,7 @@
 /*
  * Powered By [shi_zenghua@qq.com]
  */
+ 
 /**
  * 收貨單子項选择器
  */
@@ -86,7 +87,7 @@
 												,{
 							header : '創建日期',
 							width : 120,
-							dataIndex : 'createDate'
+							dataIndex : 'createDate',renderer:function(v){if(v){return new Date(v).format("Y-m-d H:i");}else{return "";}}
 						}
 												,{
 							header : '創建人員',
@@ -96,7 +97,7 @@
 												,{
 							header : '修改日期',
 							width : 120,
-							dataIndex : 'updateDate'
+							dataIndex : 'updateDate',renderer:function(v){if(v){return new Date(v).format("Y-m-d H:i");}else{return "";}}
 						}
 												,{
 							header : '修改人員',
@@ -181,15 +182,15 @@
 						items : [{
 									fieldLabel : '收貨單明細編號',
 									maxLength:18,
-									name : 'S_mrDetailId_L_EQ'
+									name : "pssMatesReceiptDetail.mrDetailId"
 								},{
 									fieldLabel : '接收數量',
 									maxLength:18,
-									name : 'S_receiptNum_L_EQ'
+									name : "pssMatesReceiptDetail.receiptNum"
 								},{
 									fieldLabel : '創建人員',
 									maxLength:18,
-									name : 'S_createBy_S_LK'
+									xtype:"hidden",name : "pssMatesReceiptDetail.createBy"
 								},{
 									xtype:'hidden'
 								}]//
@@ -197,15 +198,15 @@
 						items : [{
 									fieldLabel : '原料編號',
 									maxLength:18,
-									name : 'S_materialId_S_LK'
+									name : "pssMatesReceiptDetail.materialId"
 								},{
 									fieldLabel : '退回數量',
 									maxLength:18,
-									name : 'S_rejectNum_L_EQ'
+									name : "pssMatesReceiptDetail.rejectNum"
 								},{
 									fieldLabel : '修改日期',
 									maxLength:18,
-									name : 'S_updateDate_D_DL'
+									xtype:"hidden",name : "pssMatesReceiptDetail.updateDate"
 								},{
 								xtype:'hidden'
 								}]//
@@ -213,19 +214,19 @@
 						items : [{
 									fieldLabel : '收貨單編號',
 									maxLength:18,
-									name : 'S_mrHeadId_S_LK'
+									name : "pssMatesReceiptDetail.mrHeadId"
 								},{
 									fieldLabel : '來貨數量',
 									maxLength:18,
-									name : 'S_allNum_L_EQ'
+									name : "pssMatesReceiptDetail.allNum"
 								},{
 									fieldLabel : '創建日期',
 									maxLength:18,
-									name : 'S_createDate_D_DL'
+									xtype:"hidden",name : "pssMatesReceiptDetail.createDate"
 								},{
 									fieldLabel : '修改人員',
 									maxLength:18,
-									name : 'S_updateBy_S_LK'
+									xtype:"hidden",name : "pssMatesReceiptDetail.updateBy"
 								},{
 									xtype:'hidden'
 								}]//

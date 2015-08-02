@@ -1,6 +1,7 @@
 /*
  * Powered By [shi_zenghua@qq.com]
  */
+ 
 Ext.ns('PssDeliveryOrderDetailForm');
 PssDeliveryOrderDetailForm = Ext.extend(Ext.Window, {
 	constructor : function(_cfg) {
@@ -18,8 +19,8 @@ PssDeliveryOrderDetailForm = Ext.extend(Ext.Window, {
 				});
 	},
 	initUIComponents : function() {
+		var recId = this.recId;
 		this.formPanel = new Ext.FormPanel({
-			url : __ctxPath + '/pss/savePssDeliveryOrderDetail.do',
 			id : 'PssDeliveryOrderDetailForm',
 			autoHeight:true,
 			frame : true,
@@ -42,55 +43,69 @@ PssDeliveryOrderDetailForm = Ext.extend(Ext.Window, {
 						items : [{
 									id:'hiddenId',
 									xtype : 'hidden',
-									value : this.recId||''
+									value : recId||''
 								},{
 									fieldLabel : '出貨單編號',
-									name : 'pssDeliveryOrderDetail.doHeadId'
+									id:'doHeadId',
+									name : "pssDeliveryOrderDetail.doHeadId"
 								},{
 									fieldLabel : '產品編號',
-									name : 'pssDeliveryOrderDetail.pdtId'
+									id:'pdtId',
+									name : "pssDeliveryOrderDetail.pdtId"
 								},{
 									fieldLabel : '接收數量',
-									name : 'pssDeliveryOrderDetail.receiptNum'
+									id:'receiptNum',
+									name : "pssDeliveryOrderDetail.receiptNum"
 								},{
 									fieldLabel : '創建日期',
-									name : 'pssDeliveryOrderDetail.createDate'
+									id:'createDate',
+									xtype:"hidden",name : "pssDeliveryOrderDetail.createDate"
 								},{
 									fieldLabel : '修改日期',
-									name : 'pssDeliveryOrderDetail.updateDate'
+									id:'updateDate',
+									xtype:"hidden",name : "pssDeliveryOrderDetail.updateDate"
 					      }]
 					},{
 						items : [{
 									xtype : 'hidden'
 								},{
 									fieldLabel : '出貨單明細編號',
-									name : 'pssDeliveryOrderDetail.doDetailId'
+									id:'doDetailId',
+									name : "pssDeliveryOrderDetail.doDetailId"
 								},{
 									fieldLabel : '出貨數量',
-									name : 'pssDeliveryOrderDetail.allNum'
+									id:'allNum',
+									name : "pssDeliveryOrderDetail.allNum"
 								},{
 									fieldLabel : '退回數量',
-									name : 'pssDeliveryOrderDetail.rejectNum'
+									id:'rejectNum',
+									name : "pssDeliveryOrderDetail.rejectNum"
 								},{
 									fieldLabel : '創建人員',
-									name : 'pssDeliveryOrderDetail.createBy'
+									id:'createBy',
+									xtype:"hidden",name : "pssDeliveryOrderDetail.createBy"
 								},{
 									fieldLabel : '修改人員',
-									name : 'pssDeliveryOrderDetail.updateBy'
+									id:'updateBy',
+									xtype:"hidden",name : "pssDeliveryOrderDetail.updateBy"
 				        }]
 					}]
 				}]
 		});
 
-		if (this.recId) {
-			this.formPanel.getForm().load({
-				deferredRender : false,
-				url : __ctxPath + '/pss/getPssDeliveryOrderDetail.do?id='+ this.recId,
-				waitMsg : '正在載入數據...',
-				success : function(form, action) {
-
-				}
-			});
+		if (recId) {
+				Ext.Ajax.request({
+					url : __ctxPath + '/pss/getPssDeliveryOrderDetail.do?id='+ recId,
+						success : function(response , options ) {
+							var jr = Ext.util.JSON.decode(response.responseText); 
+							jr.data.createDate = new Date(jr.data.createDate).format('Y-m-d H:i');
+							if(jr.data.updateDate)jr.data.updateDate = new Date(jr.data.updateDate).format('Y-m-d H:i');
+							Ext.getCmp("PssDeliveryOrderDetailForm").getForm().loadRecord(jr);
+					},
+					failure : function(response , options ) {
+						
+					}
+				});
 		}
 
 		this.buttons = [{
@@ -99,10 +114,17 @@ PssDeliveryOrderDetailForm = Ext.extend(Ext.Window, {
 			handler : function() {
 				var fp = Ext.getCmp("PssDeliveryOrderDetailForm");
 				if (fp.getForm().isValid()) {
-					fp.getForm().submit({
-						method : 'post',
-						waitMsg : '正在提交數據...',
-						success : function(fp, action) {
+					var data = fp.getForm().getValues();
+					if(recId){
+						data['pssDeliveryOrderDetail.updateBy'] = curUserInfo.username;
+						data['pssDeliveryOrderDetail.updateDate'] = new Date().format('Y-m-d H:i');
+					}else{
+						data['pssDeliveryOrderDetail.createBy'] = curUserInfo.username;
+						data['pssDeliveryOrderDetail.createDate'] = new Date().format('Y-m-d H:i');
+					}
+					Ext.Ajax.request({
+							url : __ctxPath + '/pss/savePssDeliveryOrderDetail.do',
+					    success : function(response , options ) {
 							Ext.ux.Toast.msg('信息', '成功保存信息！');
 							Ext.getCmp('PssDeliveryOrderDetailFormWin').close();
 							Ext.getCmp('PssDeliveryOrderDetailGrid').getStore().reload();
@@ -114,9 +136,11 @@ PssDeliveryOrderDetailForm = Ext.extend(Ext.Window, {
 										buttons : Ext.MessageBox.OK,
 										icon : 'ext-mb-error'
 									});
-						}
+						},
+					    params: data
 					});
 				}
+			
 			}
 		}, {
 			text : '清空',

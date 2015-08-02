@@ -1,6 +1,7 @@
 /*
  * Powered By [shi_zenghua@qq.com]
  */
+ 
 /**
  * 採購單子項选择器
  */
@@ -91,7 +92,7 @@
 												,{
 							header : '創建日期',
 							width : 120,
-							dataIndex : 'createDate'
+							dataIndex : 'createDate',renderer:function(v){if(v){return new Date(v).format("Y-m-d H:i");}else{return "";}}
 						}
 												,{
 							header : '創建人員',
@@ -101,7 +102,7 @@
 												,{
 							header : '修改日期',
 							width : 120,
-							dataIndex : 'updateDate'
+							dataIndex : 'updateDate',renderer:function(v){if(v){return new Date(v).format("Y-m-d H:i");}else{return "";}}
 						}
 												,{
 							header : '修改人員',
@@ -186,19 +187,19 @@
 						items : [{
 									fieldLabel : '採購單明細編號',
 									maxLength:18,
-									name : 'S_poDetailId_L_EQ'
+									name : "pssPurchaseOrderDetail.poDetailId"
 								},{
 									fieldLabel : '原料定價(單價)',
 									maxLength:18,
-									name : 'S_materialPrice_L_EQ'
+									name : "pssPurchaseOrderDetail.materialPrice"
 								},{
 									fieldLabel : '創建日期',
 									maxLength:18,
-									name : 'S_createDate_D_DL'
+									xtype:"hidden",name : "pssPurchaseOrderDetail.createDate"
 								},{
 									fieldLabel : '修改人員',
 									maxLength:18,
-									name : 'S_updateBy_S_LK'
+									xtype:"hidden",name : "pssPurchaseOrderDetail.updateBy"
 								},{
 									xtype:'hidden'
 								}]//
@@ -206,15 +207,15 @@
 						items : [{
 									fieldLabel : '原料編號',
 									maxLength:18,
-									name : 'S_materialId_S_LK'
+									name : "pssPurchaseOrderDetail.materialId"
 								},{
 									fieldLabel : '原料建議售價(單價)',
 									maxLength:18,
-									name : 'S_materialSalePrice_L_EQ'
+									name : "pssPurchaseOrderDetail.materialSalePrice"
 								},{
 									fieldLabel : '創建人員',
 									maxLength:18,
-									name : 'S_createBy_S_LK'
+									xtype:"hidden",name : "pssPurchaseOrderDetail.createBy"
 								},{
 								xtype:'hidden'
 								}]//
@@ -222,19 +223,19 @@
 						items : [{
 									fieldLabel : '採購單編號',
 									maxLength:18,
-									name : 'S_poHeadId_S_LK'
+									name : "pssPurchaseOrderDetail.poHeadId"
 								},{
 									fieldLabel : '原料數量',
 									maxLength:18,
-									name : 'S_materialNum_L_EQ'
+									name : "pssPurchaseOrderDetail.materialNum"
 								},{
 									fieldLabel : '小計',
 									maxLength:18,
-									name : 'S_amount_L_EQ'
+									name : "pssPurchaseOrderDetail.amount"
 								},{
 									fieldLabel : '修改日期',
 									maxLength:18,
-									name : 'S_updateDate_D_DL'
+									xtype:"hidden",name : "pssPurchaseOrderDetail.updateDate"
 								},{
 									xtype:'hidden'
 								}]//

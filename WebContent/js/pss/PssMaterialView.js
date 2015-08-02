@@ -1,6 +1,7 @@
 /*
  * Powered By [shi_zenghua@qq.com]
  */
+ 
 Ext.ns('PssMaterialView');
 PssMaterialView = Ext.extend(Ext.Panel, {
 	constructor : function(_cfg) {
@@ -63,15 +64,15 @@ PssMaterialView = Ext.extend(Ext.Panel, {
 						items : [{
 									fieldLabel : '原料名稱',
 									maxLength:18,
-									name : 'S_name_S_LK'
+									name : "pssMaterial.name"
 								},{
 									fieldLabel : '有效否',
 									maxLength:18,
-									name : 'S_active_N_EQ',xtype:"combo",store:[[0,"無效"],[1,"有效"]]
+									hiddenName:"Q_active_N_EQ",mode:"local",triggerAction:"all",xtype:"combo",store:[[0,"無效"],[1,"有效"]]
 								},{
 									fieldLabel : '修改日期',
 									maxLength:18,
-									name : 'S_updateDate_D_DL'
+									xtype:"hidden",name : "pssMaterial.updateDate"
 								},{
 								xtype:'hidden'
 								}]//
@@ -79,15 +80,15 @@ PssMaterialView = Ext.extend(Ext.Panel, {
 						items : [{
 									fieldLabel : '單位',
 									maxLength:18,
-									name : 'S_unit_N_EQ',xtype:"combo",store:[[1,"個"],[2,"塊"],[3,"條"],[4,"片"],[5,"公斤"],[6,"公噸"],[7,"..."]]
+									hiddenName:"Q_unit_N_EQ",mode:"local",triggerAction:"all",xtype:"combo",store:[[1,"個"],[2,"塊"],[3,"條"],[4,"片"],[5,"公斤"],[6,"公噸"],[7,"..."]]
 								},{
 									fieldLabel : '創建日期',
 									maxLength:18,
-									name : 'S_createDate_D_DL'
+									xtype:"hidden",name : "pssMaterial.createDate"
 								},{
 									fieldLabel : '修改人員',
 									maxLength:18,
-									name : 'S_updateBy_S_LK'
+									xtype:"hidden",name : "pssMaterial.updateBy"
 								},{
 									xtype:'hidden'
 								}]//
@@ -96,15 +97,15 @@ PssMaterialView = Ext.extend(Ext.Panel, {
 									xtype:'hidden',
 									fieldLabel : '原料編號/原料代號',
 									maxLength:18,
-									name : 'S_materialId_S_LK'
+									name : "pssMaterial.materialId"
 								},{
 									fieldLabel : '描述',
 									maxLength:18,
-									name : 'S_desc_S_LK'
+									name : "pssMaterial.desc"
 								},{
 									fieldLabel : '創建人員',
 									maxLength:18,
-									name : 'S_createBy_S_LK'
+									xtype:"hidden",name : "pssMaterial.createBy"
 								},{
 									xtype:'hidden'
 								}]//
@@ -149,13 +150,13 @@ PssMaterialView = Ext.extend(Ext.Panel, {
 							dataIndex : 'active',renderer:function(v){if(0 == v){return "無效";}else if(1 == v){return "有效";}}
 						},{
 							header : '創建日期',
-							dataIndex : 'createDate'
+							dataIndex : 'createDate',renderer:function(v){if(v){return new Date(v).format("Y-m-d H:i");}else{return "";}}
 						},{
 							header : '創建人員',
 							dataIndex : 'createBy'
 						},{
 							header : '修改日期',
-							dataIndex : 'updateDate'
+							dataIndex : 'updateDate',renderer:function(v){if(v){return new Date(v).format("Y-m-d H:i");}else{return "";}}
 						},{
 							header : '修改人員',
 							dataIndex : 'updateBy'
@@ -163,9 +164,9 @@ PssMaterialView = Ext.extend(Ext.Panel, {
 						header : '管理',
 						dataIndex : 'materialId',//
 						renderer : function(v,m,r) {
-							return isGranted('_PssMaterialEdit') ?('&nbsp;<button title="修改" value=" " class="btn-edit" onclick="PssMaterialView.edit('
-							+ v + ')"></button><button title="刪除" value=" " class="btn-del" onclick="PssMaterialView.remove('
-							+ v + ')"></button>'):'';
+							return isGranted('_PssMaterialEdit') ?('&nbsp;<button title="修改" value=" " class="btn-edit" onclick="PssMaterialView.edit(\''
+							+ v + '\')"></button><button title="刪除" value=" " class="btn-del" onclick="PssMaterialView.remove(\''
+							+ v + '\')"></button>'):'';
 						}
 					}],
 			defaults : {
@@ -177,6 +178,7 @@ PssMaterialView = Ext.extend(Ext.Panel, {
 
 		this.gridPanel = new Ext.grid.GridPanel({
 					id : 'PssMaterialGrid',
+					height : 380,
 					tbar : (isGranted('_PssMaterialEdit') ? new Ext.Toolbar({
 								id : 'PssMaterialFootBar',
 								bodyStyle : 'text-align:left',
@@ -191,7 +193,6 @@ PssMaterialView = Ext.extend(Ext.Panel, {
 					store : this.store,
 					//autoExpandColumn :'remark1',
 					loadMask : true,
-					autoHeight : true,
 					cm : cm,
 					bbar : new Ext.PagingToolbar({
 								pageSize : 25,

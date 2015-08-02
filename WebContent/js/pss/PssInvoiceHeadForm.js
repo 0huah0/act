@@ -1,6 +1,7 @@
 /*
  * Powered By [shi_zenghua@qq.com]
  */
+ 
 Ext.ns('PssInvoiceHeadForm');
 PssInvoiceHeadForm = Ext.extend(Ext.Window, {
 	constructor : function(_cfg) {
@@ -18,8 +19,8 @@ PssInvoiceHeadForm = Ext.extend(Ext.Window, {
 				});
 	},
 	initUIComponents : function() {
+		var recId = this.recId;
 		this.formPanel = new Ext.FormPanel({
-			url : __ctxPath + '/pss/savePssInvoiceHead.do',
 			id : 'PssInvoiceHeadForm',
 			autoHeight:true,
 			frame : true,
@@ -42,49 +43,61 @@ PssInvoiceHeadForm = Ext.extend(Ext.Window, {
 						items : [{
 									id:'hiddenId',
 									xtype : 'hidden',
-									value : this.recId||''
+									value : recId||''
 								},{
 									fieldLabel : '發票編號',
-									name : 'pssInvoiceHead.invoiceHeadId'
+									id:'invoiceHeadId',
+									name : "pssInvoiceHead.invoiceHeadId"
 								},{
 									fieldLabel : '發票金額',
-									name : 'pssInvoiceHead.invAmount'
+									id:'invAmount',
+									name : "pssInvoiceHead.invAmount"
 								},{
 									fieldLabel : '創建日期',
-									name : 'pssInvoiceHead.createDate'
+									id:'createDate',
+									xtype:"hidden",name : "pssInvoiceHead.createDate"
 								},{
 									fieldLabel : '修改日期',
-									name : 'pssInvoiceHead.updateDate'
+									id:'updateDate',
+									xtype:"hidden",name : "pssInvoiceHead.updateDate"
 					      }]
 					},{
 						items : [{
 									xtype : 'hidden'
 								},{
 									fieldLabel : '客戶編號/供應商編號（TYPE=1時，該欄位存客戶編號，TYPE=2時，該欄位存供應商編號）',
-									name : 'pssInvoiceHead.cusOrSupId'
+									id:'cusOrSupId',
+									name : "pssInvoiceHead.cusOrSupId"
 								},{
 									fieldLabel : '類型',
-									name : 'pssInvoiceHead.type',xtype:"combo",store:[[1,"出貨發票"],[2,"收貨發票"]]
+									id:'type',
+									hiddenName:"pssInvoiceHead.type",mode:"local",triggerAction:"all",xtype:"combo",store:[[1,"出貨發票"],[2,"收貨發票"]]
 								},{
 									fieldLabel : '創建人員',
-									name : 'pssInvoiceHead.createBy'
+									id:'createBy',
+									xtype:"hidden",name : "pssInvoiceHead.createBy"
 								},{
 									fieldLabel : '修改人員',
-									name : 'pssInvoiceHead.updateBy'
+									id:'updateBy',
+									xtype:"hidden",name : "pssInvoiceHead.updateBy"
 				        }]
 					}]
 				}]
 		});
 
-		if (this.recId) {
-			this.formPanel.getForm().load({
-				deferredRender : false,
-				url : __ctxPath + '/pss/getPssInvoiceHead.do?id='+ this.recId,
-				waitMsg : '正在載入數據...',
-				success : function(form, action) {
-
-				}
-			});
+		if (recId) {
+				Ext.Ajax.request({
+					url : __ctxPath + '/pss/getPssInvoiceHead.do?id='+ recId,
+						success : function(response , options ) {
+							var jr = Ext.util.JSON.decode(response.responseText); 
+							jr.data.createDate = new Date(jr.data.createDate).format('Y-m-d H:i');
+							if(jr.data.updateDate)jr.data.updateDate = new Date(jr.data.updateDate).format('Y-m-d H:i');
+							Ext.getCmp("PssInvoiceHeadForm").getForm().loadRecord(jr);
+					},
+					failure : function(response , options ) {
+						
+					}
+				});
 		}
 
 		this.buttons = [{
@@ -93,10 +106,17 @@ PssInvoiceHeadForm = Ext.extend(Ext.Window, {
 			handler : function() {
 				var fp = Ext.getCmp("PssInvoiceHeadForm");
 				if (fp.getForm().isValid()) {
-					fp.getForm().submit({
-						method : 'post',
-						waitMsg : '正在提交數據...',
-						success : function(fp, action) {
+					var data = fp.getForm().getValues();
+					if(recId){
+						data['pssInvoiceHead.updateBy'] = curUserInfo.username;
+						data['pssInvoiceHead.updateDate'] = new Date().format('Y-m-d H:i');
+					}else{
+						data['pssInvoiceHead.createBy'] = curUserInfo.username;
+						data['pssInvoiceHead.createDate'] = new Date().format('Y-m-d H:i');
+					}
+					Ext.Ajax.request({
+							url : __ctxPath + '/pss/savePssInvoiceHead.do',
+					    success : function(response , options ) {
 							Ext.ux.Toast.msg('信息', '成功保存信息！');
 							Ext.getCmp('PssInvoiceHeadFormWin').close();
 							Ext.getCmp('PssInvoiceHeadGrid').getStore().reload();
@@ -108,9 +128,11 @@ PssInvoiceHeadForm = Ext.extend(Ext.Window, {
 										buttons : Ext.MessageBox.OK,
 										icon : 'ext-mb-error'
 									});
-						}
+						},
+					    params: data
 					});
 				}
+			
 			}
 		}, {
 			text : '清空',

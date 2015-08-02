@@ -1,6 +1,7 @@
 /*
  * Powered By [shi_zenghua@qq.com]
  */
+ 
 Ext.ns('PssPurchaseOrderDetailView');
 PssPurchaseOrderDetailView = Ext.extend(Ext.Panel, {
 	constructor : function(_cfg) {
@@ -63,19 +64,19 @@ PssPurchaseOrderDetailView = Ext.extend(Ext.Panel, {
 						items : [{
 									fieldLabel : '採購單明細編號',
 									maxLength:18,
-									name : 'S_poDetailId_L_EQ'
+									name : "pssPurchaseOrderDetail.poDetailId"
 								},{
 									fieldLabel : '原料定價(單價)',
 									maxLength:18,
-									name : 'S_materialPrice_L_EQ'
+									name : "pssPurchaseOrderDetail.materialPrice"
 								},{
 									fieldLabel : '創建日期',
 									maxLength:18,
-									name : 'S_createDate_D_DL'
+									xtype:"hidden",name : "pssPurchaseOrderDetail.createDate"
 								},{
 									fieldLabel : '修改人員',
 									maxLength:18,
-									name : 'S_updateBy_S_LK'
+									xtype:"hidden",name : "pssPurchaseOrderDetail.updateBy"
 								},{
 								xtype:'hidden'
 								}]//
@@ -83,15 +84,15 @@ PssPurchaseOrderDetailView = Ext.extend(Ext.Panel, {
 						items : [{
 									fieldLabel : '原料編號',
 									maxLength:18,
-									name : 'S_materialId_S_LK'
+									name : "pssPurchaseOrderDetail.materialId"
 								},{
 									fieldLabel : '原料建議售價(單價)',
 									maxLength:18,
-									name : 'S_materialSalePrice_L_EQ'
+									name : "pssPurchaseOrderDetail.materialSalePrice"
 								},{
 									fieldLabel : '創建人員',
 									maxLength:18,
-									name : 'S_createBy_S_LK'
+									xtype:"hidden",name : "pssPurchaseOrderDetail.createBy"
 								},{
 									xtype:'hidden'
 								}]//
@@ -99,19 +100,19 @@ PssPurchaseOrderDetailView = Ext.extend(Ext.Panel, {
 						items : [{
 									fieldLabel : '採購單編號',
 									maxLength:18,
-									name : 'S_poHeadId_S_LK'
+									name : "pssPurchaseOrderDetail.poHeadId"
 								},{
 									fieldLabel : '原料數量',
 									maxLength:18,
-									name : 'S_materialNum_L_EQ'
+									name : "pssPurchaseOrderDetail.materialNum"
 								},{
 									fieldLabel : '小計',
 									maxLength:18,
-									name : 'S_amount_L_EQ'
+									name : "pssPurchaseOrderDetail.amount"
 								},{
 									fieldLabel : '修改日期',
 									maxLength:18,
-									name : 'S_updateDate_D_DL'
+									xtype:"hidden",name : "pssPurchaseOrderDetail.updateDate"
 								},{
 									xtype:'hidden'
 								}]//
@@ -162,13 +163,13 @@ PssPurchaseOrderDetailView = Ext.extend(Ext.Panel, {
 							dataIndex : 'amount'
 						},{
 							header : '創建日期',
-							dataIndex : 'createDate'
+							dataIndex : 'createDate',renderer:function(v){if(v){return new Date(v).format("Y-m-d H:i");}else{return "";}}
 						},{
 							header : '創建人員',
 							dataIndex : 'createBy'
 						},{
 							header : '修改日期',
-							dataIndex : 'updateDate'
+							dataIndex : 'updateDate',renderer:function(v){if(v){return new Date(v).format("Y-m-d H:i");}else{return "";}}
 						},{
 							header : '修改人員',
 							dataIndex : 'updateBy'
@@ -176,9 +177,9 @@ PssPurchaseOrderDetailView = Ext.extend(Ext.Panel, {
 						header : '管理',
 						dataIndex : 'poDetailId',//
 						renderer : function(v,m,r) {
-							return isGranted('_PssPurchaseOrderDetailEdit') ?('&nbsp;<button title="修改" value=" " class="btn-edit" onclick="PssPurchaseOrderDetailView.edit('
-							+ v + ')"></button><button title="刪除" value=" " class="btn-del" onclick="PssPurchaseOrderDetailView.remove('
-							+ v + ')"></button>'):'';
+							return isGranted('_PssPurchaseOrderDetailEdit') ?('&nbsp;<button title="修改" value=" " class="btn-edit" onclick="PssPurchaseOrderDetailView.edit(\''
+							+ v + '\')"></button><button title="刪除" value=" " class="btn-del" onclick="PssPurchaseOrderDetailView.remove(\''
+							+ v + '\')"></button>'):'';
 						}
 					}],
 			defaults : {
@@ -190,6 +191,7 @@ PssPurchaseOrderDetailView = Ext.extend(Ext.Panel, {
 
 		this.gridPanel = new Ext.grid.GridPanel({
 					id : 'PssPurchaseOrderDetailGrid',
+					height : 380,
 					tbar : (isGranted('_PssPurchaseOrderDetailEdit') ? new Ext.Toolbar({
 								id : 'PssPurchaseOrderDetailFootBar',
 								bodyStyle : 'text-align:left',
@@ -204,7 +206,6 @@ PssPurchaseOrderDetailView = Ext.extend(Ext.Panel, {
 					store : this.store,
 					//autoExpandColumn :'remark1',
 					loadMask : true,
-					autoHeight : true,
 					cm : cm,
 					bbar : new Ext.PagingToolbar({
 								pageSize : 25,

@@ -1,6 +1,7 @@
 /*
  * Powered By [shi_zenghua@qq.com]
  */
+ 
 Ext.ns('PssPurchaseOrderHeadView');
 PssPurchaseOrderHeadView = Ext.extend(Ext.Panel, {
 	constructor : function(_cfg) {
@@ -63,15 +64,15 @@ PssPurchaseOrderHeadView = Ext.extend(Ext.Panel, {
 						items : [{
 									fieldLabel : '供應商編號/供應商代號',
 									maxLength:18,
-									name : 'S_supplierId_S_LK'
+									name : "pssPurchaseOrderHead.supplierId"
 								},{
 									fieldLabel : '成交價總金額',
 									maxLength:18,
-									name : 'S_payAmount_L_EQ'
+									name : "pssPurchaseOrderHead.payAmount"
 								},{
 									fieldLabel : '創建人員',
 									maxLength:18,
-									name : 'S_createBy_S_LK'
+									xtype:"hidden",name : "pssPurchaseOrderHead.createBy"
 								},{
 								xtype:'hidden'
 								}]//
@@ -79,15 +80,15 @@ PssPurchaseOrderHeadView = Ext.extend(Ext.Panel, {
 						items : [{
 									fieldLabel : '定價總金額',
 									maxLength:18,
-									name : 'S_priceAmount_L_EQ'
+									name : "pssPurchaseOrderHead.priceAmount"
 								},{
 									fieldLabel : '備註',
 									maxLength:18,
-									name : 'S_remark_S_LK'
+									name : "pssPurchaseOrderHead.remark"
 								},{
 									fieldLabel : '修改日期',
 									maxLength:18,
-									name : 'S_updateDate_D_DL'
+									xtype:"hidden",name : "pssPurchaseOrderHead.updateDate"
 								},{
 									xtype:'hidden'
 								}]//
@@ -96,19 +97,19 @@ PssPurchaseOrderHeadView = Ext.extend(Ext.Panel, {
 									xtype:'hidden',
 									fieldLabel : '採購單編號（採購單代碼2位(PO)+當前日期8位(yyyyMMdd)+流水號6位）',
 									maxLength:18,
-									name : 'S_poHeadId_S_LK'
+									name : "pssPurchaseOrderHead.poHeadId"
 								},{
 									fieldLabel : '建議售價總金額',
 									maxLength:18,
-									name : 'S_salePriceAmount_L_EQ'
+									name : "pssPurchaseOrderHead.salePriceAmount"
 								},{
 									fieldLabel : '創建日期',
 									maxLength:18,
-									name : 'S_createDate_D_DL'
+									xtype:"hidden",name : "pssPurchaseOrderHead.createDate"
 								},{
 									fieldLabel : '修改人員',
 									maxLength:18,
-									name : 'S_updateBy_S_LK'
+									xtype:"hidden",name : "pssPurchaseOrderHead.updateBy"
 								},{
 									xtype:'hidden'
 								}]//
@@ -156,13 +157,13 @@ PssPurchaseOrderHeadView = Ext.extend(Ext.Panel, {
 							dataIndex : 'remark'
 						},{
 							header : '創建日期',
-							dataIndex : 'createDate'
+							dataIndex : 'createDate',renderer:function(v){if(v){return new Date(v).format("Y-m-d H:i");}else{return "";}}
 						},{
 							header : '創建人員',
 							dataIndex : 'createBy'
 						},{
 							header : '修改日期',
-							dataIndex : 'updateDate'
+							dataIndex : 'updateDate',renderer:function(v){if(v){return new Date(v).format("Y-m-d H:i");}else{return "";}}
 						},{
 							header : '修改人員',
 							dataIndex : 'updateBy'
@@ -170,9 +171,9 @@ PssPurchaseOrderHeadView = Ext.extend(Ext.Panel, {
 						header : '管理',
 						dataIndex : 'poHeadId',//
 						renderer : function(v,m,r) {
-							return isGranted('_PssPurchaseOrderHeadEdit') ?('&nbsp;<button title="修改" value=" " class="btn-edit" onclick="PssPurchaseOrderHeadView.edit('
-							+ v + ')"></button><button title="刪除" value=" " class="btn-del" onclick="PssPurchaseOrderHeadView.remove('
-							+ v + ')"></button>'):'';
+							return isGranted('_PssPurchaseOrderHeadEdit') ?('&nbsp;<button title="修改" value=" " class="btn-edit" onclick="PssPurchaseOrderHeadView.edit(\''
+							+ v + '\')"></button><button title="刪除" value=" " class="btn-del" onclick="PssPurchaseOrderHeadView.remove(\''
+							+ v + '\')"></button>'):'';
 						}
 					}],
 			defaults : {
@@ -184,6 +185,7 @@ PssPurchaseOrderHeadView = Ext.extend(Ext.Panel, {
 
 		this.gridPanel = new Ext.grid.GridPanel({
 					id : 'PssPurchaseOrderHeadGrid',
+					height : 380,
 					tbar : (isGranted('_PssPurchaseOrderHeadEdit') ? new Ext.Toolbar({
 								id : 'PssPurchaseOrderHeadFootBar',
 								bodyStyle : 'text-align:left',
@@ -198,7 +200,6 @@ PssPurchaseOrderHeadView = Ext.extend(Ext.Panel, {
 					store : this.store,
 					//autoExpandColumn :'remark1',
 					loadMask : true,
-					autoHeight : true,
 					cm : cm,
 					bbar : new Ext.PagingToolbar({
 								pageSize : 25,

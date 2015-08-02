@@ -1,6 +1,7 @@
 /*
  * Powered By [shi_zenghua@qq.com]
  */
+ 
 /**
  * 採購單选择器
  */
@@ -86,7 +87,7 @@
 												,{
 							header : '創建日期',
 							width : 120,
-							dataIndex : 'createDate'
+							dataIndex : 'createDate',renderer:function(v){if(v){return new Date(v).format("Y-m-d H:i");}else{return "";}}
 						}
 												,{
 							header : '創建人員',
@@ -96,7 +97,7 @@
 												,{
 							header : '修改日期',
 							width : 120,
-							dataIndex : 'updateDate'
+							dataIndex : 'updateDate',renderer:function(v){if(v){return new Date(v).format("Y-m-d H:i");}else{return "";}}
 						}
 												,{
 							header : '修改人員',
@@ -181,15 +182,15 @@
 						items : [{
 									fieldLabel : '供應商編號/供應商代號',
 									maxLength:18,
-									name : 'S_supplierId_S_LK'
+									name : "pssPurchaseOrderHead.supplierId"
 								},{
 									fieldLabel : '成交價總金額',
 									maxLength:18,
-									name : 'S_payAmount_L_EQ'
+									name : "pssPurchaseOrderHead.payAmount"
 								},{
 									fieldLabel : '創建人員',
 									maxLength:18,
-									name : 'S_createBy_S_LK'
+									xtype:"hidden",name : "pssPurchaseOrderHead.createBy"
 								},{
 									xtype:'hidden'
 								}]//
@@ -197,15 +198,15 @@
 						items : [{
 									fieldLabel : '定價總金額',
 									maxLength:18,
-									name : 'S_priceAmount_L_EQ'
+									name : "pssPurchaseOrderHead.priceAmount"
 								},{
 									fieldLabel : '備註',
 									maxLength:18,
-									name : 'S_remark_S_LK'
+									name : "pssPurchaseOrderHead.remark"
 								},{
 									fieldLabel : '修改日期',
 									maxLength:18,
-									name : 'S_updateDate_D_DL'
+									xtype:"hidden",name : "pssPurchaseOrderHead.updateDate"
 								},{
 								xtype:'hidden'
 								}]//
@@ -214,19 +215,19 @@
 									xtype:'hidden',
 									fieldLabel : '採購單編號（採購單代碼2位(PO)+當前日期8位(yyyyMMdd)+流水號6位）',
 									maxLength:18,
-									name : 'S_poHeadId_S_LK'
+									name : "pssPurchaseOrderHead.poHeadId"
 								},{
 									fieldLabel : '建議售價總金額',
 									maxLength:18,
-									name : 'S_salePriceAmount_L_EQ'
+									name : "pssPurchaseOrderHead.salePriceAmount"
 								},{
 									fieldLabel : '創建日期',
 									maxLength:18,
-									name : 'S_createDate_D_DL'
+									xtype:"hidden",name : "pssPurchaseOrderHead.createDate"
 								},{
 									fieldLabel : '修改人員',
 									maxLength:18,
-									name : 'S_updateBy_S_LK'
+									xtype:"hidden",name : "pssPurchaseOrderHead.updateBy"
 								},{
 									xtype:'hidden'
 								}]//

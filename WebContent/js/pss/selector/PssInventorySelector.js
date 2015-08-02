@@ -1,6 +1,7 @@
 /*
  * Powered By [shi_zenghua@qq.com]
  */
+ 
 /**
  * 庫存选择器
  */
@@ -86,7 +87,7 @@
 												,{
 							header : '創建日期',
 							width : 120,
-							dataIndex : 'createDate'
+							dataIndex : 'createDate',renderer:function(v){if(v){return new Date(v).format("Y-m-d H:i");}else{return "";}}
 						}
 												,{
 							header : '創建人員',
@@ -96,7 +97,7 @@
 												,{
 							header : '修改日期',
 							width : 120,
-							dataIndex : 'updateDate'
+							dataIndex : 'updateDate',renderer:function(v){if(v){return new Date(v).format("Y-m-d H:i");}else{return "";}}
 						}
 												,{
 							header : '修改人員',
@@ -182,15 +183,15 @@
 									xtype:'hidden',
 									fieldLabel : '原料編號/原料代號',
 									maxLength:18,
-									name : 'S_materialId_S_LK'
+									name : "pssInventory.materialId"
 								},{
 									fieldLabel : '庫存良品數量',
 									maxLength:18,
-									name : 'S_goodPdtNum_L_EQ'
+									name : "pssInventory.goodPdtNum"
 								},{
 									fieldLabel : '創建人員',
 									maxLength:18,
-									name : 'S_createBy_S_LK'
+									xtype:"hidden",name : "pssInventory.createBy"
 								},{
 									xtype:'hidden'
 								}]//
@@ -198,15 +199,15 @@
 						items : [{
 									fieldLabel : '報警水位數量 (According to 良品)',
 									maxLength:18,
-									name : 'S_alertNum_L_EQ'
+									name : "pssInventory.alertNum"
 								},{
 									fieldLabel : '庫存不良品數量',
 									maxLength:18,
-									name : 'S_rejectsNum_L_EQ'
+									name : "pssInventory.rejectsNum"
 								},{
 									fieldLabel : '修改日期',
 									maxLength:18,
-									name : 'S_updateDate_D_DL'
+									xtype:"hidden",name : "pssInventory.updateDate"
 								},{
 								xtype:'hidden'
 								}]//
@@ -215,19 +216,19 @@
 									xtype:'hidden',
 									fieldLabel : '倉庫編號/倉庫代號',
 									maxLength:18,
-									name : 'S_warehouseId_S_LK'
+									name : "pssInventory.warehouseId"
 								},{
 									fieldLabel : '庫存總數量',
 									maxLength:18,
-									name : 'S_allNum_L_EQ'
+									name : "pssInventory.allNum"
 								},{
 									fieldLabel : '創建日期',
 									maxLength:18,
-									name : 'S_createDate_D_DL'
+									xtype:"hidden",name : "pssInventory.createDate"
 								},{
 									fieldLabel : '修改人員',
 									maxLength:18,
-									name : 'S_updateBy_S_LK'
+									xtype:"hidden",name : "pssInventory.updateBy"
 								},{
 									xtype:'hidden'
 								}]//

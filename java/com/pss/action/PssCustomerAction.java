@@ -6,8 +6,6 @@ import java.util.List;
 import javax.annotation.Resource;
 import com.abcdef.core.command.QueryFilter;
 import com.abcdef.core.web.action.BaseAction;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import flexjson.JSONSerializer;
 import com.pss.model.PssCustomer;
 import com.pss.service.PssCustomerService;
@@ -86,14 +84,13 @@ public class PssCustomerAction extends BaseAction {
 		if(list.size() != 0){
 			pssCustomer = list.get(0);
 		}
-
-		Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
+ 
 		// 将数据转成JSON格式
-		StringBuffer sb = new StringBuffer("{success:true,data:");
-		sb.append(gson.toJson(pssCustomer));
-		sb.append("}");
-		setJsonString(sb.toString());
-
+		StringBuffer buff = new StringBuffer("{success:true,data:");
+		JSONSerializer json = new JSONSerializer();
+		buff.append(json.serialize(pssCustomer));
+		buff.append("}");
+		jsonString = buff.toString();
 		return SUCCESS;
 	}
 	

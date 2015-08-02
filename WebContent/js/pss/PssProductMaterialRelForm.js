@@ -1,6 +1,7 @@
 /*
  * Powered By [shi_zenghua@qq.com]
  */
+ 
 Ext.ns('PssProductMaterialRelForm');
 PssProductMaterialRelForm = Ext.extend(Ext.Window, {
 	constructor : function(_cfg) {
@@ -18,8 +19,8 @@ PssProductMaterialRelForm = Ext.extend(Ext.Window, {
 				});
 	},
 	initUIComponents : function() {
+		var recId = this.recId;
 		this.formPanel = new Ext.FormPanel({
-			url : __ctxPath + '/pss/savePssProductMaterialRel.do',
 			id : 'PssProductMaterialRelForm',
 			autoHeight:true,
 			frame : true,
@@ -42,46 +43,57 @@ PssProductMaterialRelForm = Ext.extend(Ext.Window, {
 						items : [{
 									id:'hiddenId',
 									xtype : 'hidden',
-									value : this.recId||''
+									value : recId||''
 								},{
 									fieldLabel : '產品編號',
-									name : 'pssProductMaterialRel.pdtId'
+									id:'pdtId',
+									name : "pssProductMaterialRel.pdtId"
 								},{
 									fieldLabel : '原料類型（一個產品只會對應一個成品原料）',
-									name : 'pssProductMaterialRel.type',xtype:"combo",store:[[1,"原物料"],[2,"半成品"],[3,"成品"]]
+									id:'type',
+									hiddenName:"pssProductMaterialRel.type",mode:"local",triggerAction:"all",xtype:"combo",store:[[1,"原物料"],[2,"半成品"],[3,"成品"]]
 								},{
 									fieldLabel : '創建人員',
-									name : 'pssProductMaterialRel.createBy'
+									id:'createBy',
+									xtype:"hidden",name : "pssProductMaterialRel.createBy"
 								},{
 									fieldLabel : '修改人員',
-									name : 'pssProductMaterialRel.updateBy'
+									id:'updateBy',
+									xtype:"hidden",name : "pssProductMaterialRel.updateBy"
 					      }]
 					},{
 						items : [{
 									xtype : 'hidden'
 								},{
 									fieldLabel : '原料編號/原料代號',
-									name : 'pssProductMaterialRel.materialId'
+									id:'materialId',
+									name : "pssProductMaterialRel.materialId"
 								},{
 									fieldLabel : '創建日期',
-									name : 'pssProductMaterialRel.createDate'
+									id:'createDate',
+									xtype:"hidden",name : "pssProductMaterialRel.createDate"
 								},{
 									fieldLabel : '修改日期',
-									name : 'pssProductMaterialRel.updateDate'
+									id:'updateDate',
+									xtype:"hidden",name : "pssProductMaterialRel.updateDate"
 				        }]
 					}]
 				}]
 		});
 
-		if (this.recId) {
-			this.formPanel.getForm().load({
-				deferredRender : false,
-				url : __ctxPath + '/pss/getPssProductMaterialRel.do?id='+ this.recId,
-				waitMsg : '正在載入數據...',
-				success : function(form, action) {
-
-				}
-			});
+		if (recId) {
+				Ext.Ajax.request({
+					url : __ctxPath + '/pss/getPssProductMaterialRel.do?id='+ recId,
+						success : function(response , options ) {
+							var jr = Ext.util.JSON.decode(response.responseText); 
+							jr.data.createDate = new Date(jr.data.createDate).format('Y-m-d H:i');
+							if(jr.data.updateDate)jr.data.updateDate = new Date(jr.data.updateDate).format('Y-m-d H:i');
+							Ext.getCmp("PssProductMaterialRelForm").getForm().loadRecord(jr);
+					},
+					failure : function(response , options ) {
+						
+					}
+				});
 		}
 
 		this.buttons = [{
@@ -90,10 +102,17 @@ PssProductMaterialRelForm = Ext.extend(Ext.Window, {
 			handler : function() {
 				var fp = Ext.getCmp("PssProductMaterialRelForm");
 				if (fp.getForm().isValid()) {
-					fp.getForm().submit({
-						method : 'post',
-						waitMsg : '正在提交數據...',
-						success : function(fp, action) {
+					var data = fp.getForm().getValues();
+					if(recId){
+						data['pssProductMaterialRel.updateBy'] = curUserInfo.username;
+						data['pssProductMaterialRel.updateDate'] = new Date().format('Y-m-d H:i');
+					}else{
+						data['pssProductMaterialRel.createBy'] = curUserInfo.username;
+						data['pssProductMaterialRel.createDate'] = new Date().format('Y-m-d H:i');
+					}
+					Ext.Ajax.request({
+							url : __ctxPath + '/pss/savePssProductMaterialRel.do',
+					    success : function(response , options ) {
 							Ext.ux.Toast.msg('信息', '成功保存信息！');
 							Ext.getCmp('PssProductMaterialRelFormWin').close();
 							Ext.getCmp('PssProductMaterialRelGrid').getStore().reload();
@@ -105,9 +124,11 @@ PssProductMaterialRelForm = Ext.extend(Ext.Window, {
 										buttons : Ext.MessageBox.OK,
 										icon : 'ext-mb-error'
 									});
-						}
+						},
+					    params: data
 					});
 				}
+			
 			}
 		}, {
 			text : '清空',

@@ -1,6 +1,7 @@
 /*
  * Powered By [shi_zenghua@qq.com]
  */
+ 
 Ext.ns('PssInventoryChangeForm');
 PssInventoryChangeForm = Ext.extend(Ext.Window, {
 	constructor : function(_cfg) {
@@ -18,8 +19,8 @@ PssInventoryChangeForm = Ext.extend(Ext.Window, {
 				});
 	},
 	initUIComponents : function() {
+		var recId = this.recId;
 		this.formPanel = new Ext.FormPanel({
-			url : __ctxPath + '/pss/savePssInventoryChange.do',
 			id : 'PssInventoryChangeForm',
 			autoHeight:true,
 			frame : true,
@@ -42,61 +43,77 @@ PssInventoryChangeForm = Ext.extend(Ext.Window, {
 						items : [{
 									id:'hiddenId',
 									xtype : 'hidden',
-									value : this.recId||''
+									value : recId||''
 								},{
 									fieldLabel : '記錄編號',
-									name : 'pssInventoryChange.changeId'
+									id:'changeId',
+									name : "pssInventoryChange.changeId"
 								},{
 									fieldLabel : '原料編號/原料代號',
-									name : 'pssInventoryChange.materialId'
+									id:'materialId',
+									name : "pssInventoryChange.materialId"
 								},{
 									fieldLabel : '變更數量',
-									name : 'pssInventoryChange.num'
+									id:'num',
+									name : "pssInventoryChange.num"
 								},{
 									fieldLabel : '原因記錄編號（當REASON為1、2時，分別保存出貨單編號、收貨單編號；為4、5時不保存）。',
-									name : 'pssInventoryChange.recordId'
+									id:'recordId',
+									name : "pssInventoryChange.recordId"
 								},{
 									fieldLabel : '創建日期',
-									name : 'pssInventoryChange.createDate'
+									id:'createDate',
+									xtype:"hidden",name : "pssInventoryChange.createDate"
 								},{
 									fieldLabel : '修改日期',
-									name : 'pssInventoryChange.updateDate'
+									id:'updateDate',
+									xtype:"hidden",name : "pssInventoryChange.updateDate"
 					      }]
 					},{
 						items : [{
 									xtype : 'hidden'
 								},{
 									fieldLabel : '倉庫編號/倉庫代號',
-									name : 'pssInventoryChange.warehouseId'
+									id:'warehouseId',
+									name : "pssInventoryChange.warehouseId"
 								},{
 									fieldLabel : '變更類型',
-									name : 'pssInventoryChange.type',xtype:"combo",store:[[1,"增加"],[2,"減少"]]
+									id:'type',
+									hiddenName:"pssInventoryChange.type",mode:"local",triggerAction:"all",xtype:"combo",store:[[1,"增加"],[2,"減少"]]
 								},{
 									fieldLabel : '變更原因',
-									name : 'pssInventoryChange.reason',xtype:"combo",store:[[1,"出貨"],[2,"收貨"],[3,"生產取出"],[4,"生產存入"],[5,"..."]]
+									id:'reason',
+									hiddenName:"pssInventoryChange.reason",mode:"local",triggerAction:"all",xtype:"combo",store:[[1,"出貨"],[2,"收貨"],[3,"生產取出"],[4,"生產存入"],[5,"..."]]
 								},{
 									fieldLabel : '備註',
-									name : 'pssInventoryChange.remark'
+									id:'remark',
+									name : "pssInventoryChange.remark"
 								},{
 									fieldLabel : '創建人員',
-									name : 'pssInventoryChange.createBy'
+									id:'createBy',
+									xtype:"hidden",name : "pssInventoryChange.createBy"
 								},{
 									fieldLabel : '修改人員',
-									name : 'pssInventoryChange.updateBy'
+									id:'updateBy',
+									xtype:"hidden",name : "pssInventoryChange.updateBy"
 				        }]
 					}]
 				}]
 		});
 
-		if (this.recId) {
-			this.formPanel.getForm().load({
-				deferredRender : false,
-				url : __ctxPath + '/pss/getPssInventoryChange.do?id='+ this.recId,
-				waitMsg : '正在載入數據...',
-				success : function(form, action) {
-
-				}
-			});
+		if (recId) {
+				Ext.Ajax.request({
+					url : __ctxPath + '/pss/getPssInventoryChange.do?id='+ recId,
+						success : function(response , options ) {
+							var jr = Ext.util.JSON.decode(response.responseText); 
+							jr.data.createDate = new Date(jr.data.createDate).format('Y-m-d H:i');
+							if(jr.data.updateDate)jr.data.updateDate = new Date(jr.data.updateDate).format('Y-m-d H:i');
+							Ext.getCmp("PssInventoryChangeForm").getForm().loadRecord(jr);
+					},
+					failure : function(response , options ) {
+						
+					}
+				});
 		}
 
 		this.buttons = [{
@@ -105,10 +122,17 @@ PssInventoryChangeForm = Ext.extend(Ext.Window, {
 			handler : function() {
 				var fp = Ext.getCmp("PssInventoryChangeForm");
 				if (fp.getForm().isValid()) {
-					fp.getForm().submit({
-						method : 'post',
-						waitMsg : '正在提交數據...',
-						success : function(fp, action) {
+					var data = fp.getForm().getValues();
+					if(recId){
+						data['pssInventoryChange.updateBy'] = curUserInfo.username;
+						data['pssInventoryChange.updateDate'] = new Date().format('Y-m-d H:i');
+					}else{
+						data['pssInventoryChange.createBy'] = curUserInfo.username;
+						data['pssInventoryChange.createDate'] = new Date().format('Y-m-d H:i');
+					}
+					Ext.Ajax.request({
+							url : __ctxPath + '/pss/savePssInventoryChange.do',
+					    success : function(response , options ) {
 							Ext.ux.Toast.msg('信息', '成功保存信息！');
 							Ext.getCmp('PssInventoryChangeFormWin').close();
 							Ext.getCmp('PssInventoryChangeGrid').getStore().reload();
@@ -120,9 +144,11 @@ PssInventoryChangeForm = Ext.extend(Ext.Window, {
 										buttons : Ext.MessageBox.OK,
 										icon : 'ext-mb-error'
 									});
-						}
+						},
+					    params: data
 					});
 				}
+			
 			}
 		}, {
 			text : '清空',

@@ -1,6 +1,7 @@
 /*
  * Powered By [shi_zenghua@qq.com]
  */
+ 
 /**
  * 銷貨單选择器
  */
@@ -96,7 +97,7 @@
 												,{
 							header : '創建日期',
 							width : 120,
-							dataIndex : 'createDate'
+							dataIndex : 'createDate',renderer:function(v){if(v){return new Date(v).format("Y-m-d H:i");}else{return "";}}
 						}
 												,{
 							header : '創建人員',
@@ -106,7 +107,7 @@
 												,{
 							header : '修改日期',
 							width : 120,
-							dataIndex : 'updateDate'
+							dataIndex : 'updateDate',renderer:function(v){if(v){return new Date(v).format("Y-m-d H:i");}else{return "";}}
 						}
 												,{
 							header : '修改人員',
@@ -191,19 +192,19 @@
 						items : [{
 									fieldLabel : '客戶編號',
 									maxLength:18,
-									name : 'S_customerId_S_LK'
+									name : "pssSalesOrderHead.customerId"
 								},{
 									fieldLabel : '建議售價總金額',
 									maxLength:18,
-									name : 'S_salePriceAmount_L_EQ'
+									name : "pssSalesOrderHead.salePriceAmount"
 								},{
 									fieldLabel : '備註',
 									maxLength:18,
-									name : 'S_remark_S_LK'
+									name : "pssSalesOrderHead.remark"
 								},{
 									fieldLabel : '修改日期',
 									maxLength:18,
-									name : 'S_updateDate_D_DL'
+									xtype:"hidden",name : "pssSalesOrderHead.updateDate"
 								},{
 									xtype:'hidden'
 								}]//
@@ -211,19 +212,19 @@
 						items : [{
 									fieldLabel : '客戶採購單編號',
 									maxLength:18,
-									name : 'S_custPoNo_S_LK'
+									name : "pssSalesOrderHead.custPoNo"
 								},{
 									fieldLabel : '實際售價總金額',
 									maxLength:18,
-									name : 'S_payAmount_L_EQ'
+									name : "pssSalesOrderHead.payAmount"
 								},{
 									fieldLabel : '創建日期',
 									maxLength:18,
-									name : 'S_createDate_D_DL'
+									xtype:"hidden",name : "pssSalesOrderHead.createDate"
 								},{
 									fieldLabel : '修改人員',
 									maxLength:18,
-									name : 'S_updateBy_S_LK'
+									xtype:"hidden",name : "pssSalesOrderHead.updateBy"
 								},{
 								xtype:'hidden'
 								}]//
@@ -232,19 +233,19 @@
 									xtype:'hidden',
 									fieldLabel : '銷貨單編號（銷貨單代碼2位(SO)+當前日期8位(yyyyMMdd)+流水號6位）',
 									maxLength:18,
-									name : 'S_soHeadId_S_LK'
+									name : "pssSalesOrderHead.soHeadId"
 								},{
 									fieldLabel : '定價總金額',
 									maxLength:18,
-									name : 'S_priceAmount_L_EQ'
+									name : "pssSalesOrderHead.priceAmount"
 								},{
 									fieldLabel : '優惠金額',
 									maxLength:18,
-									name : 'S_discountAmount_L_EQ'
+									name : "pssSalesOrderHead.discountAmount"
 								},{
 									fieldLabel : '創建人員',
 									maxLength:18,
-									name : 'S_createBy_S_LK'
+									xtype:"hidden",name : "pssSalesOrderHead.createBy"
 								},{
 									xtype:'hidden'
 								}]//

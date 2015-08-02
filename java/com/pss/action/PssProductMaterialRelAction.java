@@ -6,8 +6,6 @@ import java.util.List;
 import javax.annotation.Resource;
 import com.abcdef.core.command.QueryFilter;
 import com.abcdef.core.web.action.BaseAction;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import flexjson.JSONSerializer;
 import com.pss.model.PssProductMaterialRel;
 import com.pss.service.PssProductMaterialRelService;
@@ -86,14 +84,13 @@ public class PssProductMaterialRelAction extends BaseAction {
 		if(list.size() != 0){
 			pssProductMaterialRel = list.get(0);
 		}
-
-		Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
+ 
 		// 将数据转成JSON格式
-		StringBuffer sb = new StringBuffer("{success:true,data:");
-		sb.append(gson.toJson(pssProductMaterialRel));
-		sb.append("}");
-		setJsonString(sb.toString());
-
+		StringBuffer buff = new StringBuffer("{success:true,data:");
+		JSONSerializer json = new JSONSerializer();
+		buff.append(json.serialize(pssProductMaterialRel));
+		buff.append("}");
+		jsonString = buff.toString();
 		return SUCCESS;
 	}
 	

@@ -1,6 +1,7 @@
 /*
  * Powered By [shi_zenghua@qq.com]
  */
+ 
 Ext.ns('PssMatesReceiptDetailForm');
 PssMatesReceiptDetailForm = Ext.extend(Ext.Window, {
 	constructor : function(_cfg) {
@@ -18,8 +19,8 @@ PssMatesReceiptDetailForm = Ext.extend(Ext.Window, {
 				});
 	},
 	initUIComponents : function() {
+		var recId = this.recId;
 		this.formPanel = new Ext.FormPanel({
-			url : __ctxPath + '/pss/savePssMatesReceiptDetail.do',
 			id : 'PssMatesReceiptDetailForm',
 			autoHeight:true,
 			frame : true,
@@ -42,55 +43,69 @@ PssMatesReceiptDetailForm = Ext.extend(Ext.Window, {
 						items : [{
 									id:'hiddenId',
 									xtype : 'hidden',
-									value : this.recId||''
+									value : recId||''
 								},{
 									fieldLabel : '收貨單編號',
-									name : 'pssMatesReceiptDetail.mrHeadId'
+									id:'mrHeadId',
+									name : "pssMatesReceiptDetail.mrHeadId"
 								},{
 									fieldLabel : '原料編號',
-									name : 'pssMatesReceiptDetail.materialId'
+									id:'materialId',
+									name : "pssMatesReceiptDetail.materialId"
 								},{
 									fieldLabel : '接收數量',
-									name : 'pssMatesReceiptDetail.receiptNum'
+									id:'receiptNum',
+									name : "pssMatesReceiptDetail.receiptNum"
 								},{
 									fieldLabel : '創建日期',
-									name : 'pssMatesReceiptDetail.createDate'
+									id:'createDate',
+									xtype:"hidden",name : "pssMatesReceiptDetail.createDate"
 								},{
 									fieldLabel : '修改日期',
-									name : 'pssMatesReceiptDetail.updateDate'
+									id:'updateDate',
+									xtype:"hidden",name : "pssMatesReceiptDetail.updateDate"
 					      }]
 					},{
 						items : [{
 									xtype : 'hidden'
 								},{
 									fieldLabel : '收貨單明細編號',
-									name : 'pssMatesReceiptDetail.mrDetailId'
+									id:'mrDetailId',
+									name : "pssMatesReceiptDetail.mrDetailId"
 								},{
 									fieldLabel : '來貨數量',
-									name : 'pssMatesReceiptDetail.allNum'
+									id:'allNum',
+									name : "pssMatesReceiptDetail.allNum"
 								},{
 									fieldLabel : '退回數量',
-									name : 'pssMatesReceiptDetail.rejectNum'
+									id:'rejectNum',
+									name : "pssMatesReceiptDetail.rejectNum"
 								},{
 									fieldLabel : '創建人員',
-									name : 'pssMatesReceiptDetail.createBy'
+									id:'createBy',
+									xtype:"hidden",name : "pssMatesReceiptDetail.createBy"
 								},{
 									fieldLabel : '修改人員',
-									name : 'pssMatesReceiptDetail.updateBy'
+									id:'updateBy',
+									xtype:"hidden",name : "pssMatesReceiptDetail.updateBy"
 				        }]
 					}]
 				}]
 		});
 
-		if (this.recId) {
-			this.formPanel.getForm().load({
-				deferredRender : false,
-				url : __ctxPath + '/pss/getPssMatesReceiptDetail.do?id='+ this.recId,
-				waitMsg : '正在載入數據...',
-				success : function(form, action) {
-
-				}
-			});
+		if (recId) {
+				Ext.Ajax.request({
+					url : __ctxPath + '/pss/getPssMatesReceiptDetail.do?id='+ recId,
+						success : function(response , options ) {
+							var jr = Ext.util.JSON.decode(response.responseText); 
+							jr.data.createDate = new Date(jr.data.createDate).format('Y-m-d H:i');
+							if(jr.data.updateDate)jr.data.updateDate = new Date(jr.data.updateDate).format('Y-m-d H:i');
+							Ext.getCmp("PssMatesReceiptDetailForm").getForm().loadRecord(jr);
+					},
+					failure : function(response , options ) {
+						
+					}
+				});
 		}
 
 		this.buttons = [{
@@ -99,10 +114,17 @@ PssMatesReceiptDetailForm = Ext.extend(Ext.Window, {
 			handler : function() {
 				var fp = Ext.getCmp("PssMatesReceiptDetailForm");
 				if (fp.getForm().isValid()) {
-					fp.getForm().submit({
-						method : 'post',
-						waitMsg : '正在提交數據...',
-						success : function(fp, action) {
+					var data = fp.getForm().getValues();
+					if(recId){
+						data['pssMatesReceiptDetail.updateBy'] = curUserInfo.username;
+						data['pssMatesReceiptDetail.updateDate'] = new Date().format('Y-m-d H:i');
+					}else{
+						data['pssMatesReceiptDetail.createBy'] = curUserInfo.username;
+						data['pssMatesReceiptDetail.createDate'] = new Date().format('Y-m-d H:i');
+					}
+					Ext.Ajax.request({
+							url : __ctxPath + '/pss/savePssMatesReceiptDetail.do',
+					    success : function(response , options ) {
 							Ext.ux.Toast.msg('信息', '成功保存信息！');
 							Ext.getCmp('PssMatesReceiptDetailFormWin').close();
 							Ext.getCmp('PssMatesReceiptDetailGrid').getStore().reload();
@@ -114,9 +136,11 @@ PssMatesReceiptDetailForm = Ext.extend(Ext.Window, {
 										buttons : Ext.MessageBox.OK,
 										icon : 'ext-mb-error'
 									});
-						}
+						},
+					    params: data
 					});
 				}
+			
 			}
 		}, {
 			text : '清空',

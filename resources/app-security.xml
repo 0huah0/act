@@ -71,6 +71,23 @@
 				<beans:value>/pss/listPssDeliveryOrderHead.do</beans:value>
 				<beans:value>/pss/listPssDeliveryOrderDetail.do</beans:value>
 				
+				<beans:value>/pss/getPssCustomer.do</beans:value>
+				<beans:value>/pss/getPssWarehouse.do</beans:value>
+				<beans:value>/pss/getPssSupplier.do</beans:value>
+				<beans:value>/pss/getPssSalesOrderHead.do</beans:value>
+				<beans:value>/pss/getPssSalesOrderDetail.do</beans:value>
+				<beans:value>/pss/getPssPurchaseOrderHead.do</beans:value>
+				<beans:value>/pss/getPssPurchaseOrderDetail.do</beans:value>
+				<beans:value>/pss/getPssProduct.do</beans:value>
+				<beans:value>/pss/getPssMatesReceiptHead.do</beans:value>
+				<beans:value>/pss/getPssMatesReceiptDetail.do</beans:value>
+				<beans:value>/pss/getPssMaterial.do</beans:value>
+				<beans:value>/pss/getPssInvoiceHead.do</beans:value>
+				<beans:value>/pss/getPssInventoryChange.do</beans:value>
+				<beans:value>/pss/getPssInventory.do</beans:value>
+				<beans:value>/pss/getPssDeliveryOrderHead.do</beans:value>
+				<beans:value>/pss/getPssDeliveryOrderDetail.do</beans:value>
+				
 				<beans:value>/pss/savePssCustomer.do</beans:value>
 				<beans:value>/pss/savePssWarehouse.do</beans:value>
 				<beans:value>/pss/savePssSupplier.do</beans:value>

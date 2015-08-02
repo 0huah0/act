@@ -1,6 +1,7 @@
 /*
  * Powered By [shi_zenghua@qq.com]
  */
+ 
 Ext.ns('PssWarehouseForm');
 PssWarehouseForm = Ext.extend(Ext.Window, {
 	constructor : function(_cfg) {
@@ -18,8 +19,8 @@ PssWarehouseForm = Ext.extend(Ext.Window, {
 				});
 	},
 	initUIComponents : function() {
+		var recId = this.recId;
 		this.formPanel = new Ext.FormPanel({
-			url : __ctxPath + '/pss/savePssWarehouse.do',
 			id : 'PssWarehouseForm',
 			autoHeight:true,
 			frame : true,
@@ -42,46 +43,57 @@ PssWarehouseForm = Ext.extend(Ext.Window, {
 						items : [{
 									id:'hiddenId',
 									xtype : 'hidden',
-									value : this.recId||''
+									value : recId||''
 								},{
 									fieldLabel : '倉庫編號/倉庫代號',
-									name : 'pssWarehouse.warehouseId'
+									id:'warehouseId',
+									name : "pssWarehouse.warehouseId"
 								},{
 									fieldLabel : '描述',
-									name : 'pssWarehouse.desc'
+									id:'desc',
+									name : "pssWarehouse.desc"
 								},{
 									fieldLabel : '創建人員',
-									name : 'pssWarehouse.createBy'
+									id:'createBy',
+									xtype:"hidden",name : "pssWarehouse.createBy"
 								},{
 									fieldLabel : '修改人員',
-									name : 'pssWarehouse.updateBy'
+									id:'updateBy',
+									xtype:"hidden",name : "pssWarehouse.updateBy"
 					      }]
 					},{
 						items : [{
 									xtype : 'hidden'
 								},{
 									fieldLabel : '名稱',
-									name : 'pssWarehouse.name'
+									id:'name',
+									name : "pssWarehouse.name"
 								},{
 									fieldLabel : '創建日期',
-									name : 'pssWarehouse.createDate'
+									id:'createDate',
+									xtype:"hidden",name : "pssWarehouse.createDate"
 								},{
 									fieldLabel : '修改日期',
-									name : 'pssWarehouse.updateDate'
+									id:'updateDate',
+									xtype:"hidden",name : "pssWarehouse.updateDate"
 				        }]
 					}]
 				}]
 		});
 
-		if (this.recId) {
-			this.formPanel.getForm().load({
-				deferredRender : false,
-				url : __ctxPath + '/pss/getPssWarehouse.do?id='+ this.recId,
-				waitMsg : '正在載入數據...',
-				success : function(form, action) {
-
-				}
-			});
+		if (recId) {
+				Ext.Ajax.request({
+					url : __ctxPath + '/pss/getPssWarehouse.do?id='+ recId,
+						success : function(response , options ) {
+							var jr = Ext.util.JSON.decode(response.responseText); 
+							jr.data.createDate = new Date(jr.data.createDate).format('Y-m-d H:i');
+							if(jr.data.updateDate)jr.data.updateDate = new Date(jr.data.updateDate).format('Y-m-d H:i');
+							Ext.getCmp("PssWarehouseForm").getForm().loadRecord(jr);
+					},
+					failure : function(response , options ) {
+						
+					}
+				});
 		}
 
 		this.buttons = [{
@@ -90,10 +102,17 @@ PssWarehouseForm = Ext.extend(Ext.Window, {
 			handler : function() {
 				var fp = Ext.getCmp("PssWarehouseForm");
 				if (fp.getForm().isValid()) {
-					fp.getForm().submit({
-						method : 'post',
-						waitMsg : '正在提交數據...',
-						success : function(fp, action) {
+					var data = fp.getForm().getValues();
+					if(recId){
+						data['pssWarehouse.updateBy'] = curUserInfo.username;
+						data['pssWarehouse.updateDate'] = new Date().format('Y-m-d H:i');
+					}else{
+						data['pssWarehouse.createBy'] = curUserInfo.username;
+						data['pssWarehouse.createDate'] = new Date().format('Y-m-d H:i');
+					}
+					Ext.Ajax.request({
+							url : __ctxPath + '/pss/savePssWarehouse.do',
+					    success : function(response , options ) {
 							Ext.ux.Toast.msg('信息', '成功保存信息！');
 							Ext.getCmp('PssWarehouseFormWin').close();
 							Ext.getCmp('PssWarehouseGrid').getStore().reload();
@@ -105,9 +124,11 @@ PssWarehouseForm = Ext.extend(Ext.Window, {
 										buttons : Ext.MessageBox.OK,
 										icon : 'ext-mb-error'
 									});
-						}
+						},
+					    params: data
 					});
 				}
+			
 			}
 		}, {
 			text : '清空',

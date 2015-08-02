@@ -1,6 +1,7 @@
 /*
  * Powered By [shi_zenghua@qq.com]
  */
+ 
 Ext.ns('PssDeliveryOrderHeadView');
 PssDeliveryOrderHeadView = Ext.extend(Ext.Panel, {
 	constructor : function(_cfg) {
@@ -63,19 +64,19 @@ PssDeliveryOrderHeadView = Ext.extend(Ext.Panel, {
 						items : [{
 									fieldLabel : '銷貨單編號',
 									maxLength:18,
-									name : 'S_soHeadId_S_LK'
+									name : "pssDeliveryOrderHead.soHeadId"
 								},{
 									fieldLabel : '送貨人名稱',
 									maxLength:18,
-									name : 'S_diliverName_S_LK'
+									name : "pssDeliveryOrderHead.diliverName"
 								},{
 									fieldLabel : '出貨發票號碼 (應收帳款)',
 									maxLength:18,
-									name : 'S_doInvoice_S_LK'
+									name : "pssDeliveryOrderHead.doInvoice"
 								},{
 									fieldLabel : '創建人員',
 									maxLength:18,
-									name : 'S_createBy_S_LK'
+									xtype:"hidden",name : "pssDeliveryOrderHead.createBy"
 								},{
 								xtype:'hidden'
 								}]//
@@ -83,19 +84,19 @@ PssDeliveryOrderHeadView = Ext.extend(Ext.Panel, {
 						items : [{
 									fieldLabel : '出貨倉庫編號/倉庫代號',
 									maxLength:18,
-									name : 'S_warehouseId_S_LK'
+									name : "pssDeliveryOrderHead.warehouseId"
 								},{
 									fieldLabel : '收貨人名稱',
 									maxLength:18,
-									name : 'S_receiverName_S_LK'
+									name : "pssDeliveryOrderHead.receiverName"
 								},{
 									fieldLabel : '備註',
 									maxLength:18,
-									name : 'S_remark_S_LK'
+									name : "pssDeliveryOrderHead.remark"
 								},{
 									fieldLabel : '修改日期',
 									maxLength:18,
-									name : 'S_updateDate_D_DL'
+									xtype:"hidden",name : "pssDeliveryOrderHead.updateDate"
 								},{
 									xtype:'hidden'
 								}]//
@@ -104,23 +105,23 @@ PssDeliveryOrderHeadView = Ext.extend(Ext.Panel, {
 									xtype:'hidden',
 									fieldLabel : '出貨單編號（出貨單代碼2位(DO)+當前日期8位(yyyyMMdd)+流水號6位）',
 									maxLength:18,
-									name : 'S_doHeadId_S_LK'
+									name : "pssDeliveryOrderHead.doHeadId"
 								},{
 									fieldLabel : '送貨人電話',
 									maxLength:18,
-									name : 'S_diliverTel_S_LK'
+									name : "pssDeliveryOrderHead.diliverTel"
 								},{
 									fieldLabel : '收貨人電話',
 									maxLength:18,
-									name : 'S_receiverTel_S_LK'
+									name : "pssDeliveryOrderHead.receiverTel"
 								},{
 									fieldLabel : '創建日期',
 									maxLength:18,
-									name : 'S_createDate_D_DL'
+									xtype:"hidden",name : "pssDeliveryOrderHead.createDate"
 								},{
 									fieldLabel : '修改人員',
 									maxLength:18,
-									name : 'S_updateBy_S_LK'
+									xtype:"hidden",name : "pssDeliveryOrderHead.updateBy"
 								},{
 									xtype:'hidden'
 								}]//
@@ -177,13 +178,13 @@ PssDeliveryOrderHeadView = Ext.extend(Ext.Panel, {
 							dataIndex : 'remark'
 						},{
 							header : '創建日期',
-							dataIndex : 'createDate'
+							dataIndex : 'createDate',renderer:function(v){if(v){return new Date(v).format("Y-m-d H:i");}else{return "";}}
 						},{
 							header : '創建人員',
 							dataIndex : 'createBy'
 						},{
 							header : '修改日期',
-							dataIndex : 'updateDate'
+							dataIndex : 'updateDate',renderer:function(v){if(v){return new Date(v).format("Y-m-d H:i");}else{return "";}}
 						},{
 							header : '修改人員',
 							dataIndex : 'updateBy'
@@ -191,9 +192,9 @@ PssDeliveryOrderHeadView = Ext.extend(Ext.Panel, {
 						header : '管理',
 						dataIndex : 'doHeadId',//
 						renderer : function(v,m,r) {
-							return isGranted('_PssDeliveryOrderHeadEdit') ?('&nbsp;<button title="修改" value=" " class="btn-edit" onclick="PssDeliveryOrderHeadView.edit('
-							+ v + ')"></button><button title="刪除" value=" " class="btn-del" onclick="PssDeliveryOrderHeadView.remove('
-							+ v + ')"></button>'):'';
+							return isGranted('_PssDeliveryOrderHeadEdit') ?('&nbsp;<button title="修改" value=" " class="btn-edit" onclick="PssDeliveryOrderHeadView.edit(\''
+							+ v + '\')"></button><button title="刪除" value=" " class="btn-del" onclick="PssDeliveryOrderHeadView.remove(\''
+							+ v + '\')"></button>'):'';
 						}
 					}],
 			defaults : {
@@ -205,6 +206,7 @@ PssDeliveryOrderHeadView = Ext.extend(Ext.Panel, {
 
 		this.gridPanel = new Ext.grid.GridPanel({
 					id : 'PssDeliveryOrderHeadGrid',
+					height : 380,
 					tbar : (isGranted('_PssDeliveryOrderHeadEdit') ? new Ext.Toolbar({
 								id : 'PssDeliveryOrderHeadFootBar',
 								bodyStyle : 'text-align:left',
@@ -219,7 +221,6 @@ PssDeliveryOrderHeadView = Ext.extend(Ext.Panel, {
 					store : this.store,
 					//autoExpandColumn :'remark1',
 					loadMask : true,
-					autoHeight : true,
 					cm : cm,
 					bbar : new Ext.PagingToolbar({
 								pageSize : 25,

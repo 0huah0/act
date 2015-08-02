@@ -1,6 +1,7 @@
 /*
  * Powered By [shi_zenghua@qq.com]
  */
+ 
 Ext.ns('PssProductForm');
 PssProductForm = Ext.extend(Ext.Window, {
 	constructor : function(_cfg) {
@@ -18,9 +19,7 @@ PssProductForm = Ext.extend(Ext.Window, {
 				});
 	},
 	initUIComponents : function() {
-		
 		var recId = this.recId;
-		
 		this.formPanel = new Ext.FormPanel({
 			id : 'PssProductForm',
 			autoHeight:true,
@@ -43,78 +42,72 @@ PssProductForm = Ext.extend(Ext.Window, {
 					items : [{
 						items : [{
 									fieldLabel : '產品編號/產品代號',
-									xtype : 'hidden',
-									name : recId?"pssProduct.productId":'--',
-									value : recId,
-									id:'productId'
-								},{
-									fieldLabel : '產品名稱',
-									name : "pssProduct.name",
-									id:'name'
-								},{
-									fieldLabel : '產品定價(單價)',
-									name : "pssProduct.price",
-									id:'price'										
+									id:'productId',
+									name : recId?"pssProduct.productId":''
 								},{
 									fieldLabel : '描述',
-									name : "pssProduct.desc",
-									id:'desc'
+									id:'desc',
+									name : "pssProduct.desc"
 								},{
-									fieldLabel : '創建人員',
-									name : "pssProduct.createBy",
-									id:'createBy'
-								},{
-									fieldLabel : '修改人員',
-									xtype:'hidden',
-									name : "pssProduct.updateBy",
-									id:'updateBy'
-								}]
-					},{
-						items : [{
-									fieldLabel : '單位',
-									hiddenName:"pssProduct.unit",mode:"local",triggerAction:"all",xtype:"combo",store:[[1,"個"],[2,"塊"],[3,"條"],[4,"片"],[5,"公斤"],[6,"公噸"],[7,"..."]],
-									id:'unit'
-								},{
-									fieldLabel : '產品建議售價(單價)',
-									name : "pssProduct.salePrice",
-									id:'salePrice'
+									fieldLabel : '產品定價(單價)',
+									id:'price',
+									name : "pssProduct.price"
 								},{
 									fieldLabel : '有效否',
+									id:'active',
 									hiddenName:"pssProduct.active",mode:"local",triggerAction:"all",xtype:"combo",store:[[0,"無效"],[1,"有效"]]
 								},{
+									fieldLabel : '創建人員',
+									id:'createBy',
+									xtype:"hidden",name : "pssProduct.createBy"
+								},{
+									fieldLabel : '修改人員',
+									id:'updateBy',
+									xtype:"hidden",name : "pssProduct.updateBy"
+					      }]
+					},{
+						items : [{
+									xtype : 'hidden'
+								},{
+									fieldLabel : '產品名稱',
+									id:'name',
+									name : "pssProduct.name"
+								},{
+									fieldLabel : '單位',
+									id:'unit',
+									hiddenName:"pssProduct.unit",mode:"local",triggerAction:"all",xtype:"combo",store:[[1,"個"],[2,"塊"],[3,"條"],[4,"片"],[5,"公斤"],[6,"公噸"],[7,"..."]]
+								},{
+									fieldLabel : '產品建議售價(單價)',
+									id:'salePrice',
+									name : "pssProduct.salePrice"
+								},{
 									fieldLabel : '創建日期',
-									xtype:'hidden',
-									name : "pssProduct.createDate"
+									id:'createDate',
+									xtype:"hidden",name : "pssProduct.createDate"
 								},{
 									fieldLabel : '修改日期',
-									xtype:'hidden',
-									name : "pssProduct.updateDate"
-								}]
+									id:'updateDate',
+									xtype:"hidden",name : "pssProduct.updateDate"
+				        }]
 					}]
 				}]
 		});
 
 		if (recId) {
-			Ext.Ajax.request({
-				url : __ctxPath + '/pss/getPssProduct.do?id='+ recId,
-			    success : function(response , options ) {
-			    	var jsonResult = Ext.util.JSON.decode(response.responseText); 
-			    	Ext.getCmp("PssProductForm").getForm().loadRecord(jsonResult);
-				},
-				failure : function(response , options ) {
-					
-				}
-			});
-			/*this.formPanel.getForm().load({
-				deferredRender : false,
-				url : __ctxPath + '/pss/getPssProduct.do?id='+ recId,
-				waitMsg : '正在載入數據...',
-				success : function(form, action) {
-
-				}
-			});*/
+				Ext.Ajax.request({
+					url : __ctxPath + '/pss/getPssProduct.do?id='+ recId,
+						success : function(response , options ) {
+							var jr = Ext.util.JSON.decode(response.responseText); 
+							jr.data.createDate = new Date(jr.data.createDate).format('Y-m-d H:i');
+							if(jr.data.updateDate)jr.data.updateDate = new Date(jr.data.updateDate).format('Y-m-d H:i');
+							Ext.getCmp("PssProductForm").getForm().loadRecord(jr);
+					},
+					failure : function(response , options ) {
+						
+					}
+				});
 		}
-		
+
 		this.buttons = [{
 			text : '保存',
 			iconCls : 'btn-save',
@@ -124,13 +117,13 @@ PssProductForm = Ext.extend(Ext.Window, {
 					var data = fp.getForm().getValues();
 					if(recId){
 						data['pssProduct.updateBy'] = curUserInfo.username;
-						data['pssProduct.updateDate'] = new Date().format('Y-m-d');
+						data['pssProduct.updateDate'] = new Date().format('Y-m-d H:i');
 					}else{
 						data['pssProduct.createBy'] = curUserInfo.username;
-						data['pssProduct.createDate'] = new Date().format('Y-m-d');
+						data['pssProduct.createDate'] = new Date().format('Y-m-d H:i');
 					}
 					Ext.Ajax.request({
-						url : __ctxPath + '/pss/savePssProduct.do',
+							url : __ctxPath + '/pss/savePssProduct.do',
 					    success : function(response , options ) {
 							Ext.ux.Toast.msg('信息', '成功保存信息！');
 							Ext.getCmp('PssProductFormWin').close();
@@ -147,6 +140,7 @@ PssProductForm = Ext.extend(Ext.Window, {
 					    params: data
 					});
 				}
+			
 			}
 		}, {
 			text : '清空',

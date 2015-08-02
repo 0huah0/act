@@ -1,6 +1,7 @@
 /*
  * Powered By [shi_zenghua@qq.com]
  */
+ 
 /**
  * 供應商原料關係表选择器
  */
@@ -76,7 +77,7 @@
 												,{
 							header : '創建日期',
 							width : 120,
-							dataIndex : 'createDate'
+							dataIndex : 'createDate',renderer:function(v){if(v){return new Date(v).format("Y-m-d H:i");}else{return "";}}
 						}
 												,{
 							header : '創建人員',
@@ -86,7 +87,7 @@
 												,{
 							header : '修改日期',
 							width : 120,
-							dataIndex : 'updateDate'
+							dataIndex : 'updateDate',renderer:function(v){if(v){return new Date(v).format("Y-m-d H:i");}else{return "";}}
 						}
 												,{
 							header : '修改人員',
@@ -172,15 +173,15 @@
 									xtype:'hidden',
 									fieldLabel : '原料編號/原料代號',
 									maxLength:18,
-									name : 'S_materialId_S_LK'
+									name : "pssSupplierMaterialRel.materialId"
 								},{
 									fieldLabel : '創建日期',
 									maxLength:18,
-									name : 'S_createDate_D_DL'
+									xtype:"hidden",name : "pssSupplierMaterialRel.createDate"
 								},{
 									fieldLabel : '修改人員',
 									maxLength:18,
-									name : 'S_updateBy_S_LK'
+									xtype:"hidden",name : "pssSupplierMaterialRel.updateBy"
 								},{
 									xtype:'hidden'
 								}]//
@@ -188,11 +189,11 @@
 						items : [{
 									fieldLabel : '產品定價(單價)',
 									maxLength:18,
-									name : 'S_price_L_EQ'
+									name : "pssSupplierMaterialRel.price"
 								},{
 									fieldLabel : '創建人員',
 									maxLength:18,
-									name : 'S_createBy_S_LK'
+									xtype:"hidden",name : "pssSupplierMaterialRel.createBy"
 								},{
 								xtype:'hidden'
 								}]//
@@ -201,15 +202,15 @@
 									xtype:'hidden',
 									fieldLabel : '供應商編號/供應商代號',
 									maxLength:18,
-									name : 'S_supplierId_S_LK'
+									name : "pssSupplierMaterialRel.supplierId"
 								},{
 									fieldLabel : '產品建議售價(單價)',
 									maxLength:18,
-									name : 'S_salePrice_L_EQ'
+									name : "pssSupplierMaterialRel.salePrice"
 								},{
 									fieldLabel : '修改日期',
 									maxLength:18,
-									name : 'S_updateDate_D_DL'
+									xtype:"hidden",name : "pssSupplierMaterialRel.updateDate"
 								},{
 									xtype:'hidden'
 								}]//

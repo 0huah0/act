@@ -1,6 +1,7 @@
 /*
  * Powered By [shi_zenghua@qq.com]
  */
+ 
 /**
  * 供應商选择器
  */
@@ -121,7 +122,7 @@
 												,{
 							header : '創建日期',
 							width : 120,
-							dataIndex : 'createDate'
+							dataIndex : 'createDate',renderer:function(v){if(v){return new Date(v).format("Y-m-d H:i");}else{return "";}}
 						}
 												,{
 							header : '創建人員',
@@ -131,7 +132,7 @@
 												,{
 							header : '修改日期',
 							width : 120,
-							dataIndex : 'updateDate'
+							dataIndex : 'updateDate',renderer:function(v){if(v){return new Date(v).format("Y-m-d H:i");}else{return "";}}
 						}
 												,{
 							header : '修改人員',
@@ -216,27 +217,27 @@
 						items : [{
 									fieldLabel : '公司名稱(中文)',
 									maxLength:18,
-									name : 'S_companyNameCn_S_LK'
+									name : "pssSupplier.companyNameCn"
 								},{
 									fieldLabel : '負責人名稱',
 									maxLength:18,
-									name : 'S_personInCharge_S_LK'
+									name : "pssSupplier.personInCharge"
 								},{
 									fieldLabel : '傳真',
 									maxLength:18,
-									name : 'S_fax_S_LK'
+									name : "pssSupplier.fax"
 								},{
 									fieldLabel : '資本額（單位：TWD）',
 									maxLength:18,
-									name : 'S_capital_N_EQ',xtype:"combo",store:[[1,"小於100萬"],[2,"100萬~1000萬"],[3,"1000萬~5000萬"],[4,"大於5000萬"]]
+									hiddenName:"Q_capital_N_EQ",mode:"local",triggerAction:"all",xtype:"combo",store:[[1,"小於100萬"],[2,"100萬~1000萬"],[3,"1000萬~5000萬"],[4,"大於5000萬"]]
 								},{
 									fieldLabel : '創建日期',
 									maxLength:18,
-									name : 'S_createDate_D_DL'
+									xtype:"hidden",name : "pssSupplier.createDate"
 								},{
 									fieldLabel : '修改人員',
 									maxLength:18,
-									name : 'S_updateBy_S_LK'
+									xtype:"hidden",name : "pssSupplier.updateBy"
 								},{
 									xtype:'hidden'
 								}]//
@@ -244,23 +245,23 @@
 						items : [{
 									fieldLabel : '公司名稱(英文)',
 									maxLength:18,
-									name : 'S_companyNameEn_S_LK'
+									name : "pssSupplier.companyNameEn"
 								},{
 									fieldLabel : '地址',
 									maxLength:18,
-									name : 'S_addr_S_LK'
+									name : "pssSupplier.addr"
 								},{
 									fieldLabel : '電子郵箱',
 									maxLength:18,
-									name : 'S_email_S_LK'
+									name : "pssSupplier.email"
 								},{
 									fieldLabel : '員工數（單位：人）',
 									maxLength:18,
-									name : 'S_empAmount_N_EQ',xtype:"combo",store:[[1,"小於10"],[2,"11~50"],[3,"51~100"],[4,"101~500"],[5,"501~1000"],[6,"大於1000"]]
+									hiddenName:"Q_empAmount_N_EQ",mode:"local",triggerAction:"all",xtype:"combo",store:[[1,"小於10"],[2,"11~50"],[3,"51~100"],[4,"101~500"],[5,"501~1000"],[6,"大於1000"]]
 								},{
 									fieldLabel : '創建人員',
 									maxLength:18,
-									name : 'S_createBy_S_LK'
+									xtype:"hidden",name : "pssSupplier.createBy"
 								},{
 								xtype:'hidden'
 								}]//
@@ -269,27 +270,27 @@
 									xtype:'hidden',
 									fieldLabel : '供應商編號/供應商代號',
 									maxLength:18,
-									name : 'S_supplierId_S_LK'
+									name : "pssSupplier.supplierId"
 								},{
 									fieldLabel : '法人代號',
 									maxLength:18,
-									name : 'S_legalPersonCode_S_LK'
+									name : "pssSupplier.legalPersonCode"
 								},{
 									fieldLabel : '電話',
 									maxLength:18,
-									name : 'S_tel_S_LK'
+									name : "pssSupplier.tel"
 								},{
 									fieldLabel : '資質證明圖片/營業執照影本，保存系統框架中檔案上傳的記錄編號',
 									maxLength:18,
-									name : 'S_licenseImgId_S_LK'
+									name : "pssSupplier.licenseImgId"
 								},{
 									fieldLabel : '有效否',
 									maxLength:18,
-									name : 'S_active_N_EQ',xtype:"combo",store:[[0,"無效"],[1,"有效"]]
+									hiddenName:"Q_active_N_EQ",mode:"local",triggerAction:"all",xtype:"combo",store:[[0,"無效"],[1,"有效"]]
 								},{
 									fieldLabel : '修改日期',
 									maxLength:18,
-									name : 'S_updateDate_D_DL'
+									xtype:"hidden",name : "pssSupplier.updateDate"
 								},{
 									xtype:'hidden'
 								}]//

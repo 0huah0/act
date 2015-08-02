@@ -1,6 +1,7 @@
 /*
  * Powered By [shi_zenghua@qq.com]
  */
+ 
 Ext.ns('PssPurchaseOrderHeadForm');
 PssPurchaseOrderHeadForm = Ext.extend(Ext.Window, {
 	constructor : function(_cfg) {
@@ -18,8 +19,8 @@ PssPurchaseOrderHeadForm = Ext.extend(Ext.Window, {
 				});
 	},
 	initUIComponents : function() {
+		var recId = this.recId;
 		this.formPanel = new Ext.FormPanel({
-			url : __ctxPath + '/pss/savePssPurchaseOrderHead.do',
 			id : 'PssPurchaseOrderHeadForm',
 			autoHeight:true,
 			frame : true,
@@ -42,55 +43,69 @@ PssPurchaseOrderHeadForm = Ext.extend(Ext.Window, {
 						items : [{
 									id:'hiddenId',
 									xtype : 'hidden',
-									value : this.recId||''
+									value : recId||''
 								},{
 									fieldLabel : '採購單編號（採購單代碼2位(PO)+當前日期8位(yyyyMMdd)+流水號6位）',
-									name : 'pssPurchaseOrderHead.poHeadId'
+									id:'poHeadId',
+									name : "pssPurchaseOrderHead.poHeadId"
 								},{
 									fieldLabel : '定價總金額',
-									name : 'pssPurchaseOrderHead.priceAmount'
+									id:'priceAmount',
+									name : "pssPurchaseOrderHead.priceAmount"
 								},{
 									fieldLabel : '成交價總金額',
-									name : 'pssPurchaseOrderHead.payAmount'
+									id:'payAmount',
+									name : "pssPurchaseOrderHead.payAmount"
 								},{
 									fieldLabel : '創建日期',
-									name : 'pssPurchaseOrderHead.createDate'
+									id:'createDate',
+									xtype:"hidden",name : "pssPurchaseOrderHead.createDate"
 								},{
 									fieldLabel : '修改日期',
-									name : 'pssPurchaseOrderHead.updateDate'
+									id:'updateDate',
+									xtype:"hidden",name : "pssPurchaseOrderHead.updateDate"
 					      }]
 					},{
 						items : [{
 									xtype : 'hidden'
 								},{
 									fieldLabel : '供應商編號/供應商代號',
-									name : 'pssPurchaseOrderHead.supplierId'
+									id:'supplierId',
+									name : "pssPurchaseOrderHead.supplierId"
 								},{
 									fieldLabel : '建議售價總金額',
-									name : 'pssPurchaseOrderHead.salePriceAmount'
+									id:'salePriceAmount',
+									name : "pssPurchaseOrderHead.salePriceAmount"
 								},{
 									fieldLabel : '備註',
-									name : 'pssPurchaseOrderHead.remark'
+									id:'remark',
+									name : "pssPurchaseOrderHead.remark"
 								},{
 									fieldLabel : '創建人員',
-									name : 'pssPurchaseOrderHead.createBy'
+									id:'createBy',
+									xtype:"hidden",name : "pssPurchaseOrderHead.createBy"
 								},{
 									fieldLabel : '修改人員',
-									name : 'pssPurchaseOrderHead.updateBy'
+									id:'updateBy',
+									xtype:"hidden",name : "pssPurchaseOrderHead.updateBy"
 				        }]
 					}]
 				}]
 		});
 
-		if (this.recId) {
-			this.formPanel.getForm().load({
-				deferredRender : false,
-				url : __ctxPath + '/pss/getPssPurchaseOrderHead.do?id='+ this.recId,
-				waitMsg : '正在載入數據...',
-				success : function(form, action) {
-
-				}
-			});
+		if (recId) {
+				Ext.Ajax.request({
+					url : __ctxPath + '/pss/getPssPurchaseOrderHead.do?id='+ recId,
+						success : function(response , options ) {
+							var jr = Ext.util.JSON.decode(response.responseText); 
+							jr.data.createDate = new Date(jr.data.createDate).format('Y-m-d H:i');
+							if(jr.data.updateDate)jr.data.updateDate = new Date(jr.data.updateDate).format('Y-m-d H:i');
+							Ext.getCmp("PssPurchaseOrderHeadForm").getForm().loadRecord(jr);
+					},
+					failure : function(response , options ) {
+						
+					}
+				});
 		}
 
 		this.buttons = [{
@@ -99,10 +114,17 @@ PssPurchaseOrderHeadForm = Ext.extend(Ext.Window, {
 			handler : function() {
 				var fp = Ext.getCmp("PssPurchaseOrderHeadForm");
 				if (fp.getForm().isValid()) {
-					fp.getForm().submit({
-						method : 'post',
-						waitMsg : '正在提交數據...',
-						success : function(fp, action) {
+					var data = fp.getForm().getValues();
+					if(recId){
+						data['pssPurchaseOrderHead.updateBy'] = curUserInfo.username;
+						data['pssPurchaseOrderHead.updateDate'] = new Date().format('Y-m-d H:i');
+					}else{
+						data['pssPurchaseOrderHead.createBy'] = curUserInfo.username;
+						data['pssPurchaseOrderHead.createDate'] = new Date().format('Y-m-d H:i');
+					}
+					Ext.Ajax.request({
+							url : __ctxPath + '/pss/savePssPurchaseOrderHead.do',
+					    success : function(response , options ) {
 							Ext.ux.Toast.msg('信息', '成功保存信息！');
 							Ext.getCmp('PssPurchaseOrderHeadFormWin').close();
 							Ext.getCmp('PssPurchaseOrderHeadGrid').getStore().reload();
@@ -114,9 +136,11 @@ PssPurchaseOrderHeadForm = Ext.extend(Ext.Window, {
 										buttons : Ext.MessageBox.OK,
 										icon : 'ext-mb-error'
 									});
-						}
+						},
+					    params: data
 					});
 				}
+			
 			}
 		}, {
 			text : '清空',

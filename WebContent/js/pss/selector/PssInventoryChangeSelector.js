@@ -1,6 +1,7 @@
 /*
  * Powered By [shi_zenghua@qq.com]
  */
+ 
 /**
  * 庫存變動記錄选择器
  */
@@ -96,7 +97,7 @@
 												,{
 							header : '創建日期',
 							width : 120,
-							dataIndex : 'createDate'
+							dataIndex : 'createDate',renderer:function(v){if(v){return new Date(v).format("Y-m-d H:i");}else{return "";}}
 						}
 												,{
 							header : '創建人員',
@@ -106,7 +107,7 @@
 												,{
 							header : '修改日期',
 							width : 120,
-							dataIndex : 'updateDate'
+							dataIndex : 'updateDate',renderer:function(v){if(v){return new Date(v).format("Y-m-d H:i");}else{return "";}}
 						}
 												,{
 							header : '修改人員',
@@ -191,19 +192,19 @@
 						items : [{
 									fieldLabel : '倉庫編號/倉庫代號',
 									maxLength:18,
-									name : 'S_warehouseId_S_LK'
+									name : "pssInventoryChange.warehouseId"
 								},{
 									fieldLabel : '變更數量',
 									maxLength:18,
-									name : 'S_num_L_EQ'
+									name : "pssInventoryChange.num"
 								},{
 									fieldLabel : '備註',
 									maxLength:18,
-									name : 'S_remark_S_LK'
+									name : "pssInventoryChange.remark"
 								},{
 									fieldLabel : '修改日期',
 									maxLength:18,
-									name : 'S_updateDate_D_DL'
+									xtype:"hidden",name : "pssInventoryChange.updateDate"
 								},{
 									xtype:'hidden'
 								}]//
@@ -211,19 +212,19 @@
 						items : [{
 									fieldLabel : '原料編號/原料代號',
 									maxLength:18,
-									name : 'S_materialId_S_LK'
+									name : "pssInventoryChange.materialId"
 								},{
 									fieldLabel : '變更原因',
 									maxLength:18,
-									name : 'S_reason_N_EQ',xtype:"combo",store:[[1,"出貨"],[2,"收貨"],[3,"生產取出"],[4,"生產存入"],[5,"..."]]
+									hiddenName:"Q_reason_N_EQ",mode:"local",triggerAction:"all",xtype:"combo",store:[[1,"出貨"],[2,"收貨"],[3,"生產取出"],[4,"生產存入"],[5,"..."]]
 								},{
 									fieldLabel : '創建日期',
 									maxLength:18,
-									name : 'S_createDate_D_DL'
+									xtype:"hidden",name : "pssInventoryChange.createDate"
 								},{
 									fieldLabel : '修改人員',
 									maxLength:18,
-									name : 'S_updateBy_S_LK'
+									xtype:"hidden",name : "pssInventoryChange.updateBy"
 								},{
 								xtype:'hidden'
 								}]//
@@ -231,19 +232,19 @@
 						items : [{
 									fieldLabel : '記錄編號',
 									maxLength:18,
-									name : 'S_changeId_L_EQ'
+									name : "pssInventoryChange.changeId"
 								},{
 									fieldLabel : '變更類型',
 									maxLength:18,
-									name : 'S_type_N_EQ',xtype:"combo",store:[[1,"增加"],[2,"減少"]]
+									hiddenName:"Q_type_N_EQ",mode:"local",triggerAction:"all",xtype:"combo",store:[[1,"增加"],[2,"減少"]]
 								},{
 									fieldLabel : '原因記錄編號（當REASON為1、2時，分別保存出貨單編號、收貨單編號；為4、5時不保存）。',
 									maxLength:18,
-									name : 'S_recordId_S_LK'
+									name : "pssInventoryChange.recordId"
 								},{
 									fieldLabel : '創建人員',
 									maxLength:18,
-									name : 'S_createBy_S_LK'
+									xtype:"hidden",name : "pssInventoryChange.createBy"
 								},{
 									xtype:'hidden'
 								}]//

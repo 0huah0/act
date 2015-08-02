@@ -1,6 +1,7 @@
 /*
  * Powered By [shi_zenghua@qq.com]
  */
+ 
 /**
  * 產品圖片表选择器
  */
@@ -81,7 +82,7 @@
 												,{
 							header : '創建日期',
 							width : 120,
-							dataIndex : 'createDate'
+							dataIndex : 'createDate',renderer:function(v){if(v){return new Date(v).format("Y-m-d H:i");}else{return "";}}
 						}
 												,{
 							header : '創建人員',
@@ -91,7 +92,7 @@
 												,{
 							header : '修改日期',
 							width : 120,
-							dataIndex : 'updateDate'
+							dataIndex : 'updateDate',renderer:function(v){if(v){return new Date(v).format("Y-m-d H:i");}else{return "";}}
 						}
 												,{
 							header : '修改人員',
@@ -177,15 +178,15 @@
 									xtype:'hidden',
 									fieldLabel : '產品圖片編號，保存系統框架中檔案上傳的記錄編號。',
 									maxLength:18,
-									name : 'S_pdtImgId_S_LK'
+									name : "pssProductImage.pdtImgId"
 								},{
 									fieldLabel : '是否封面（一個產品只會有一張封面）',
 									maxLength:18,
-									name : 'S_isCover_N_EQ',xtype:"combo",store:[[0,"不是"],[1,"是"]]
+									hiddenName:"Q_isCover_N_EQ",mode:"local",triggerAction:"all",xtype:"combo",store:[[0,"不是"],[1,"是"]]
 								},{
 									fieldLabel : '修改日期',
 									maxLength:18,
-									name : 'S_updateDate_D_DL'
+									xtype:"hidden",name : "pssProductImage.updateDate"
 								},{
 									xtype:'hidden'
 								}]//
@@ -193,15 +194,15 @@
 						items : [{
 									fieldLabel : '描述',
 									maxLength:18,
-									name : 'S_desc_S_LK'
+									name : "pssProductImage.desc"
 								},{
 									fieldLabel : '創建日期',
 									maxLength:18,
-									name : 'S_createDate_D_DL'
+									xtype:"hidden",name : "pssProductImage.createDate"
 								},{
 									fieldLabel : '修改人員',
 									maxLength:18,
-									name : 'S_updateBy_S_LK'
+									xtype:"hidden",name : "pssProductImage.updateBy"
 								},{
 								xtype:'hidden'
 								}]//
@@ -209,15 +210,15 @@
 						items : [{
 									fieldLabel : '產品編號',
 									maxLength:18,
-									name : 'S_pdtId_S_LK'
+									name : "pssProductImage.pdtId"
 								},{
 									fieldLabel : '排序',
 									maxLength:18,
-									name : 'S_sn_N_EQ'
+									name : "pssProductImage.sn"
 								},{
 									fieldLabel : '創建人員',
 									maxLength:18,
-									name : 'S_createBy_S_LK'
+									xtype:"hidden",name : "pssProductImage.createBy"
 								},{
 									xtype:'hidden'
 								}]//

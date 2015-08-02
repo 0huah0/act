@@ -1,6 +1,7 @@
 /*
  * Powered By [shi_zenghua@qq.com]
  */
+ 
 /**
  * 出貨單子項选择器
  */
@@ -86,7 +87,7 @@
 												,{
 							header : '創建日期',
 							width : 120,
-							dataIndex : 'createDate'
+							dataIndex : 'createDate',renderer:function(v){if(v){return new Date(v).format("Y-m-d H:i");}else{return "";}}
 						}
 												,{
 							header : '創建人員',
@@ -96,7 +97,7 @@
 												,{
 							header : '修改日期',
 							width : 120,
-							dataIndex : 'updateDate'
+							dataIndex : 'updateDate',renderer:function(v){if(v){return new Date(v).format("Y-m-d H:i");}else{return "";}}
 						}
 												,{
 							header : '修改人員',
@@ -181,15 +182,15 @@
 						items : [{
 									fieldLabel : '出貨單明細編號',
 									maxLength:18,
-									name : 'S_doDetailId_L_EQ'
+									name : "pssDeliveryOrderDetail.doDetailId"
 								},{
 									fieldLabel : '接收數量',
 									maxLength:18,
-									name : 'S_receiptNum_L_EQ'
+									name : "pssDeliveryOrderDetail.receiptNum"
 								},{
 									fieldLabel : '創建人員',
 									maxLength:18,
-									name : 'S_createBy_S_LK'
+									xtype:"hidden",name : "pssDeliveryOrderDetail.createBy"
 								},{
 									xtype:'hidden'
 								}]//
@@ -197,15 +198,15 @@
 						items : [{
 									fieldLabel : '產品編號',
 									maxLength:18,
-									name : 'S_pdtId_S_LK'
+									name : "pssDeliveryOrderDetail.pdtId"
 								},{
 									fieldLabel : '退回數量',
 									maxLength:18,
-									name : 'S_rejectNum_L_EQ'
+									name : "pssDeliveryOrderDetail.rejectNum"
 								},{
 									fieldLabel : '修改日期',
 									maxLength:18,
-									name : 'S_updateDate_D_DL'
+									xtype:"hidden",name : "pssDeliveryOrderDetail.updateDate"
 								},{
 								xtype:'hidden'
 								}]//
@@ -213,19 +214,19 @@
 						items : [{
 									fieldLabel : '出貨單編號',
 									maxLength:18,
-									name : 'S_doHeadId_S_LK'
+									name : "pssDeliveryOrderDetail.doHeadId"
 								},{
 									fieldLabel : '出貨數量',
 									maxLength:18,
-									name : 'S_allNum_L_EQ'
+									name : "pssDeliveryOrderDetail.allNum"
 								},{
 									fieldLabel : '創建日期',
 									maxLength:18,
-									name : 'S_createDate_D_DL'
+									xtype:"hidden",name : "pssDeliveryOrderDetail.createDate"
 								},{
 									fieldLabel : '修改人員',
 									maxLength:18,
-									name : 'S_updateBy_S_LK'
+									xtype:"hidden",name : "pssDeliveryOrderDetail.updateBy"
 								},{
 									xtype:'hidden'
 								}]//
