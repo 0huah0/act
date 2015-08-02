@@ -4,10 +4,6 @@
 
 Ext.ns('PssSalesOrderHeadView');
 PssSalesOrderHeadView = Ext.extend(Ext.Panel, {
-	searchPanel : null,
-	gridPanel : null,
-	store : null,
-	topbar : null,
 	constructor : function(_cfg) {
 		Ext.applyIf(this, _cfg);
 		this.initUIComponents();
@@ -22,8 +18,9 @@ PssSalesOrderHeadView = Ext.extend(Ext.Panel, {
 	},
 	initUIComponents : function() {
 		this.searchPanel = new Ext.FormPanel({
-			//height : 115,
 			frame : true,
+//			autoHeight : true,
+			height:140,
 			region : 'north',
 			id : 'PssSalesOrderHeadSearchForm',
 			buttonAlign : 'center',
@@ -53,103 +50,44 @@ PssSalesOrderHeadView = Ext.extend(Ext.Panel, {
 				title : '銷貨單查詢',
 				layout : 'form',
 				items : [{
-					xtype : 'fieldset',
-					title : '銷貨單',
-					items : [{
-						layout : 'column',
-						columnWidth : 0.33,
+					layout : 'column',
+					columnWidth : 0.33,
+					defaults : {
+						layout : 'form',
+						padding : '0 0 0 20px',
+						labelAlign : 'right',
+						labelWidth : 100,
 						defaults : {
-							layout : 'form',
-							padding : '0 0 0 20px',
-							labelAlign : 'right',
-							labelWidth : 100,
-							defaults : {
-								xtype : 'textfield',
-								width : 140
-							}
-						},
+							xtype : 'textfield',
+							width : 140
+						}
+					},
+					items : [{
 						items : [{
-							items : [{
-										fieldLabel : '客戶編號',
-										maxLength:18,
-										allowBlank : false,
-										name : 'pssSalesOrderHead.customerId',
-										id : 'customerId'
-									},{
-										fieldLabel : '建議售價總金額',
-										maxLength:18,
-										allowBlank : false,
-										name : 'pssSalesOrderHead.salePriceAmount',
-										id : 'salePriceAmount'
-									},{
-										fieldLabel : '備註',
-										maxLength:18,
-										allowBlank : false,
-										name : 'pssSalesOrderHead.remark',
-										id : 'remark'
-									},{
-										fieldLabel : '修改日期',
-										maxLength:18,
-										allowBlank : false,
-										name : 'pssSalesOrderHead.updateDate',
-										id : 'updateDate'
-									},{
-									}]
-						},{
-							items : [{
-										fieldLabel : '客戶採購單編號',
-										maxLength:18,
-										allowBlank : false,
-										name : 'pssSalesOrderHead.custPoNo',
-										id : 'custPoNo'
-									},{
-										fieldLabel : '實際售價總金額',
-										maxLength:18,
-										allowBlank : false,
-										name : 'pssSalesOrderHead.payAmount',
-										id : 'payAmount'
-									},{
-										fieldLabel : '創建日期',
-										maxLength:18,
-										allowBlank : false,
-										name : 'pssSalesOrderHead.createDate',
-										id : 'createDate'
-									},{
-										fieldLabel : '修改人員',
-										maxLength:18,
-										allowBlank : false,
-										name : 'pssSalesOrderHead.updateBy',
-										id : 'updateBy'
-									},{
-									}]
-						},{
-							items : [{
-										fieldLabel : '銷貨單編號，銷貨單代碼2位(SO)+當前日期8位(yyyyMMdd)+流水號6位。',
-										maxLength:18,
-										allowBlank : false,
-										name : 'pssSalesOrderHead.soHeadId',
-										id : 'soHeadId'
-									},{
-										fieldLabel : '定價總金額',
-										maxLength:18,
-										allowBlank : false,
-										name : 'pssSalesOrderHead.priceAmount',
-										id : 'priceAmount'
-									},{
-										fieldLabel : '優惠金額',
-										maxLength:18,
-										allowBlank : false,
-										name : 'pssSalesOrderHead.discountAmount',
-										id : 'discountAmount'
-									},{
-										fieldLabel : '創建人員',
-										maxLength:18,
-										allowBlank : false,
-										name : 'pssSalesOrderHead.createBy',
-										id : 'createBy'
-									},{
-									}]
-						}]
+									fieldLabel : '客戶編號',
+									maxLength:18,
+									allowBlank : false,
+									name : 'pssSalesOrderHead.customerId'
+								},{
+									fieldLabel : '備註',
+									maxLength:18,
+									allowBlank : false,
+									name : 'pssSalesOrderHead.remark'
+								}]
+					},{
+						items : [{
+									fieldLabel : '客戶採購單編號',
+									maxLength:18,
+									allowBlank : false,
+									name : 'pssSalesOrderHead.custPoNo'
+								}]
+					},{
+						items : [{
+									fieldLabel : '銷貨單編號',
+									maxLength:18,
+									allowBlank : false,
+									name : 'pssSalesOrderHead.soHeadId'
+								}]
 					}]
 				}]
 			}]
@@ -158,8 +96,7 @@ PssSalesOrderHeadView = Ext.extend(Ext.Panel, {
 					url : __ctxPath + '/pss/listPssSalesOrderHead.do',
 					root : 'result',
 					totalProperty : 'totalCounts',
-					fields : ['id'
-								,'soHeadId'
+					fields : ['soHeadId'
 								,'customerId'
 								,'custPoNo'
 								,'priceAmount'
@@ -173,7 +110,7 @@ PssSalesOrderHeadView = Ext.extend(Ext.Panel, {
 								,'updateBy'
 							]
 				});
-		//this.store.setDefaultSort('id', 'asc');
+		this.store.setDefaultSort('soHeadId', 'asc');
 		this.store.load({
 					params : {
 						start : 0,
@@ -182,7 +119,7 @@ PssSalesOrderHeadView = Ext.extend(Ext.Panel, {
 				});
 		var cm = new Ext.grid.ColumnModel({
 			columns : [new Ext.grid.RowNumberer(),{
-							header : '銷貨單編號，銷貨單代碼2位(SO)+當前日期8位(yyyyMMdd)+流水號6位。',
+							header : '銷貨單編號',
 							width : 120,
 							dataIndex : 'soHeadId'
 						},{
@@ -212,6 +149,7 @@ PssSalesOrderHeadView = Ext.extend(Ext.Panel, {
 						},{
 							header : '備註',
 							width : 120,
+							id:'remark',
 							dataIndex : 'remark'
 						},{
 							header : '創建日期',
@@ -231,11 +169,11 @@ PssSalesOrderHeadView = Ext.extend(Ext.Panel, {
 							dataIndex : 'updateBy'
 						},{
 						header : '管理',
-						dataIndex : 'id',
+						dataIndex : 'soHeadId',
 						renderer : function(v,m,r) {
-							return '&nbsp;<button title="修改" value=" " class="btn-edit" onclick="PssSalesOrderHeadView.edit('
-							+ v + ')"></button><button title="刪除" value=" " class="btn-del" onclick="PssSalesOrderHeadView.remove('
-							+ v + ')"></button>';
+							return '&nbsp;<button title="修改" value=" " class="btn-edit" onclick="PssSalesOrderHeadView.edit(\''
+							+ v + '\')"></button><button title="刪除" value=" " class="btn-del" onclick="PssSalesOrderHeadView.remove(\''
+							+ v + '\')"></button>';
 						}
 					}],
 			defaults : {
@@ -248,7 +186,7 @@ PssSalesOrderHeadView = Ext.extend(Ext.Panel, {
 		this.gridPanel = new Ext.grid.GridPanel({
 					id : 'PssSalesOrderHeadGrid',
 					region : 'center',
-					tbar : (isGranted('_PssSalesOrderHeadAdd') ? new Ext.Toolbar({
+					tbar : new Ext.Toolbar({
 								id : 'PssSalesOrderHeadFootBar',
 								bodyStyle : 'text-align:left',
 								items : [new Ext.Button({
@@ -258,9 +196,9 @@ PssSalesOrderHeadView = Ext.extend(Ext.Panel, {
 												new PssSalesOrderHeadForm().show();
 											}
 										})]
-							}) : null),
+							}),
 					store : this.store,
-					//autoExpandColumn :'remark1',
+					autoExpandColumn :'remark',
 					loadMask : true,
 					autoHeight : true,
 					cm : cm,

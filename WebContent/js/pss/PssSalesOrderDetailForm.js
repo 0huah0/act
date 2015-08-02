@@ -1,10 +1,8 @@
 /*
  * Powered By [shi_zenghua@qq.com]
  */
-
 Ext.ns('PssSalesOrderDetailForm');
 PssSalesOrderDetailForm = Ext.extend(Ext.Window, {
-	formPanel : null,
 	constructor : function(_cfg) {
 		Ext.applyIf(this, _cfg);
 		this.initUIComponents();
@@ -16,8 +14,6 @@ PssSalesOrderDetailForm = Ext.extend(Ext.Window, {
 					title : this.recId?'修改銷貨單子項':'新增銷貨單子項',
 					iconCls : 'menu-planmanage',
 					width : 600,
-					height : 240,
-					resizable : false,
 					buttonAlign : 'center',
 					buttons : this.buttons
 				});
@@ -28,16 +24,13 @@ PssSalesOrderDetailForm = Ext.extend(Ext.Window, {
 			id : 'PssSalesOrderDetailForm',
 			frame : true,
 			items : [{
-				xtype : 'fieldset',
-				title : '銷貨單子項',
-				items : [{
 					layout : 'column',
 					columnWidth : 0.5,
 					defaults : {
 						layout : 'form',
 						padding : '0 0 0 20px',
 						labelAlign : 'right',
-						labelWidth : 80,
+						labelWidth : 120,
 						defaults : {
 							xtype : 'textfield',
 							width : 140
@@ -45,96 +38,70 @@ PssSalesOrderDetailForm = Ext.extend(Ext.Window, {
 					},
 					items : [{
 						items : [{
-									name : 'pssSalesOrderDetail.id',
-									id : 'id',
+									id:'hiddenId',
 									xtype : 'hidden',
-									value : recId||''
+									value : this.recId||''
 								},{
 									fieldLabel : '銷貨單編號',
 									maxLength:18,
-									allowBlank : false,
-									name : 'pssSalesOrderDetail.soHeadId',
-									id : 'soHeadId'
+									name : 'S_soHeadId_S_LK'
 								},{
 									fieldLabel : '產品編號',
 									maxLength:18,
-									allowBlank : false,
-									name : 'pssSalesOrderDetail.pdtId',
-									id : 'pdtId'
+									name : 'S_pdtId_S_LK'
 								},{
 									fieldLabel : '產品定價',
 									maxLength:18,
-									allowBlank : false,
-									name : 'pssSalesOrderDetail.pdtPrice',
-									id : 'pdtPrice'
+									name : 'S_pdtPrice_L_EQ'
 								},{
 									fieldLabel : '產品實際售價',
 									maxLength:18,
-									allowBlank : false,
-									name : 'pssSalesOrderDetail.pdtRealPrice',
-									id : 'pdtRealPrice'
+									name : 'S_pdtRealPrice_L_EQ'
 								},{
 									fieldLabel : '創建日期',
 									maxLength:18,
-									allowBlank : false,
-									name : 'pssSalesOrderDetail.createDate',
-									id : 'createDate'
+									name : 'S_createDate_D_DL'
 								},{
 									fieldLabel : '修改日期',
 									maxLength:18,
-									allowBlank : false,
-									name : 'pssSalesOrderDetail.updateDate',
-									id : 'updateDate'
-					     }]
+									name : 'S_updateDate_D_DL'
+					      }]
 					},{
 						items : [{
 									xtype : 'hidden'
 								},{
 									fieldLabel : '銷貨單明細編號',
 									maxLength:18,
-									allowBlank : false,
-									name : 'pssSalesOrderDetail.soDetailId',
-									id : 'soDetailId'
+									name : 'S_soDetailId_L_EQ'
 								},{
 									fieldLabel : '產品數量',
 									maxLength:18,
-									allowBlank : false,
-									name : 'pssSalesOrderDetail.pdtNum',
-									id : 'pdtNum'
+									name : 'S_pdtNum_L_EQ'
 								},{
 									fieldLabel : '產品建議售價',
 									maxLength:18,
-									allowBlank : false,
-									name : 'pssSalesOrderDetail.pdtSalePrice',
-									id : 'pdtSalePrice'
+									name : 'S_pdtSalePrice_L_EQ'
 								},{
 									fieldLabel : '小計',
 									maxLength:18,
-									allowBlank : false,
-									name : 'pssSalesOrderDetail.amount',
-									id : 'amount'
+									name : 'S_amount_L_EQ'
 								},{
 									fieldLabel : '創建人員',
 									maxLength:18,
-									allowBlank : false,
-									name : 'pssSalesOrderDetail.createBy',
-									id : 'createBy'
+									name : 'S_createBy_S_LK'
 								},{
 									fieldLabel : '修改人員',
 									maxLength:18,
-									allowBlank : false,
-									name : 'pssSalesOrderDetail.updateBy',
-									id : 'updateBy'
-				         }]
+									name : 'S_updateBy_S_LK'
+				        }]
 					}]
 				}]
-			}]
 		});
 
 		if (this.recId) {
 			this.formPanel.getForm().load({
 				deferredRender : false,
-				url : __ctxPath + '/pss/getPssSalesOrderDetail.do?recId='+ this.recId,
+				url : __ctxPath + '/pss/getPssSalesOrderDetail.do?id='+ this.recId,
 				waitMsg : '正在載入數據...',
 				success : function(form, action) {
 

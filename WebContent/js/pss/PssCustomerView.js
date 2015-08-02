@@ -4,10 +4,6 @@
 
 Ext.ns('PssCustomerView');
 PssCustomerView = Ext.extend(Ext.Panel, {
-	searchPanel : null,
-	gridPanel : null,
-	store : null,
-	topbar : null,
 	constructor : function(_cfg) {
 		Ext.applyIf(this, _cfg);
 		this.initUIComponents();
@@ -21,9 +17,9 @@ PssCustomerView = Ext.extend(Ext.Panel, {
 				});
 	},
 	initUIComponents : function() {
+		//searchPanel
 		this.searchPanel = new Ext.FormPanel({
-			height : 320,
-			autoHeight:true,
+			height : 140,
 			frame : true,
 			region : 'north',
 			id : 'PssCustomerSearchForm',
@@ -54,253 +50,194 @@ PssCustomerView = Ext.extend(Ext.Panel, {
 				title : '客戶查詢',
 				layout : 'form',
 				items : [{
-					xtype : 'fieldset',
-					title : '客戶',
-					items : [{
-						layout : 'column',
-						columnWidth : 0.33,
+					layout : 'column',
+					columnWidth : 0.33,
+					defaults : {
+						layout : 'form',
+						padding : '0 0 0 20px',
+						labelAlign : 'right',
+						labelWidth : 120,
 						defaults : {
-							layout : 'form',
-							padding : '0 0 0 20px',
-							labelAlign : 'right',
-							labelWidth : 100,
-							defaults : {
-								xtype : 'textfield',
-								width : 140
-							}
-						},
+							xtype : 'textfield',
+							width : 140
+						}
+					},
+					items : [{
 						items : [{
-							items : [{
-										fieldLabel : '公司名稱(中文)',
-										maxLength:18,
-										allowBlank : false,
-										name : 'pssCustomer.companyNameCn',
-										id : 'companyNameCn'
-									},{
-										fieldLabel : '負責人名稱',
-										maxLength:18,
-										allowBlank : false,
-										name : 'pssCustomer.personInCharge',
-										id : 'personInCharge'
-									},{
-										fieldLabel : '傳真',
-										maxLength:18,
-										allowBlank : false,
-										name : 'pssCustomer.fax',
-										id : 'fax'
-									},{
-										fieldLabel : '資本額，1：小於100萬、2：100萬~1000萬、3：1000萬~5000萬、4：大於5000萬（單位：TWD）。',
-										maxLength:18,
-										allowBlank : false,
-										name : 'pssCustomer.capital',
-										id : 'capital'
-									},{
-										fieldLabel : '創建日期',
-										maxLength:18,
-										allowBlank : false,
-										name : 'pssCustomer.createDate',
-										id : 'createDate'
-									},{
-										fieldLabel : '修改人員',
-										maxLength:18,
-										allowBlank : false,
-										name : 'pssCustomer.updateBy',
-										id : 'updateBy'
-									}]
-						},{
-							items : [{
-										fieldLabel : '公司名稱(英文)',
-										maxLength:18,
-										allowBlank : false,
-										name : 'pssCustomer.companyNameEn',
-										id : 'companyNameEn'
-									},{
-										fieldLabel : '地址',
-										maxLength:18,
-										allowBlank : false,
-										name : 'pssCustomer.addr',
-										id : 'addr'
-									},{
-										fieldLabel : '電子郵箱',
-										maxLength:18,
-										allowBlank : false,
-										name : 'pssCustomer.email',
-										id : 'email'
-									},{
-										fieldLabel : '員工數，1：小於10、2：11~50、3：51~100、4：101~500、5：501~1000、6：大於1000（單位：人）。',
-										maxLength:18,
-										allowBlank : false,
-										name : 'pssCustomer.empAmount',
-										id : 'empAmount'
-									},{
-										fieldLabel : '創建人員',
-										maxLength:18,
-										allowBlank : false,
-										name : 'pssCustomer.createBy',
-										id : 'createBy'
-									}]
-						},{
-							items : [{
-										fieldLabel : '客戶編號/客戶代號',
-										maxLength:18,
-										allowBlank : false,
-										name : 'pssCustomer.customerId',
-										id : 'customerId'
-									},{
-										fieldLabel : '法人代號',
-										maxLength:18,
-										allowBlank : false,
-										name : 'pssCustomer.legalPersonCode',
-										id : 'legalPersonCode'
-									},{
-										fieldLabel : '電話',
-										maxLength:18,
-										allowBlank : false,
-										name : 'pssCustomer.tel',
-										id : 'tel'
-									},{
-										fieldLabel : '資質證明圖片/營業執照影本，保存系統框架中檔案上傳的記錄編號。',
-										maxLength:18,
-										allowBlank : false,
-										name : 'pssCustomer.licenseImgId',
-										id : 'licenseImgId'
-									},{
-										fieldLabel : '有效否，0：無效、1：有效。',
-										maxLength:18,
-										allowBlank : false,
-										name : 'pssCustomer.active',
-										id : 'active'
-									},{
-										fieldLabel : '修改日期',
-										maxLength:18,
-										allowBlank : false,
-										name : 'pssCustomer.updateDate',
-										id : 'updateDate'
-									}]
-						}]
+									fieldLabel : '',
+									maxLength:18,
+									name : 'S_companyNameCn_S_LK'
+								},{
+									fieldLabel : '',
+									maxLength:18,
+									name : 'S_personInCharge_S_LK'
+								},{
+									fieldLabel : '',
+									maxLength:18,
+									name : 'S_fax_S_LK'
+								},{
+									fieldLabel : '資本額（單位：TWD）',
+									maxLength:18,
+									name : 'S_capital_N_EQ',xtype:"combo",store:[[1,"小於100萬"],[2,"100萬~1000萬"],[3,"1000萬~5000萬"],[4,"大於5000萬"]]
+								},{
+									fieldLabel : '',
+									maxLength:18,
+									name : 'S_createDate_D_DL'
+								},{
+									fieldLabel : '',
+									maxLength:18,
+									name : 'S_updateBy_S_LK'
+								},{
+									a:1
+								}]//
+					},{
+						items : [{
+									fieldLabel : '',
+									maxLength:18,
+									name : 'S_companyNameEn_S_LK'
+								},{
+									fieldLabel : '',
+									maxLength:18,
+									name : 'S_addr_S_LK'
+								},{
+									fieldLabel : '',
+									maxLength:18,
+									name : 'S_email_S_LK'
+								},{
+									fieldLabel : '員工數（單位：人）',
+									maxLength:18,
+									name : 'S_empAmount_N_EQ',xtype:"combo",store:[[1,"小於10"],[2,"11~50"],[3,"51~100"],[4,"101~500"],[5,"501~1000"],[6,"大於1000"]]
+								},{
+									fieldLabel : '',
+									maxLength:18,
+									name : 'S_createBy_S_LK'
+								},{
+									a:1
+								}]//
+					},{
+						items : [{
+									xtype:'hidden',
+									fieldLabel : '',
+									maxLength:18,
+									name : 'S_customerId_S_LK'
+								},{
+									fieldLabel : '',
+									maxLength:18,
+									name : 'S_legalPersonCode_S_LK'
+								},{
+									fieldLabel : '',
+									maxLength:18,
+									name : 'S_tel_S_LK'
+								},{
+									fieldLabel : '',
+									maxLength:18,
+									name : 'S_licenseImgId_S_LK'
+								},{
+									fieldLabel : '有效否',
+									maxLength:18,
+									name : 'S_active_N_EQ',xtype:"combo",store:[[0,"無效"],[1,"有效"]]
+								},{
+									fieldLabel : '',
+									maxLength:18,
+									name : 'S_updateDate_D_DL'
+								},{
+									a:1
+								}]//
 					}]
 				}]
 			}]
 		});
+		//end of searchPanel
+		
+		
+		//store
 		this.store = new Ext.data.JsonStore({
 					url : __ctxPath + '/pss/listPssCustomer.do',
 					root : 'result',
 					totalProperty : 'totalCounts',
-					fields : ['customerId'
-								,'companyNameCn'
-								,'companyNameEn'
-								,'legalPersonCode'
-								,'personInCharge'
-								,'addr'
-								,'tel'
-								,'fax'
-								,'email'
-								,'licenseImgId'
-								,'capital'
-								,'empAmount'
-								,'active'
-								,'createDate'
-								,'createBy'
-								,'updateDate'
-								,'updateBy'
-							]
-				});
+					fields : ['customerId','companyNameCn','companyNameEn','legalPersonCode','personInCharge','addr','tel','fax','email','licenseImgId','capital','empAmount','active','createDate','createBy','updateDate','updateBy'
+					]
+		});
+		
 		//this.store.setDefaultSort('id', 'asc');
 		this.store.load({
-					params : {
+				params : {
 						start : 0,
 						limit : 25
-					}
-				});
+				}
+		});
 		var cm = new Ext.grid.ColumnModel({
-			columns : [new Ext.grid.RowNumberer(),{
-							header : '客戶編號/客戶代號',
-							width : 120,
+				columns : [new Ext.grid.RowNumberer(),{
+							fieldLabel : '',
 							dataIndex : 'customerId'
 						},{
-							header : '公司名稱(中文)',
-							width : 120,
+							fieldLabel : '',
 							dataIndex : 'companyNameCn'
 						},{
-							header : '公司名稱(英文)',
-							width : 120,
+							fieldLabel : '',
 							dataIndex : 'companyNameEn'
 						},{
-							header : '法人代號',
-							width : 120,
+							fieldLabel : '',
 							dataIndex : 'legalPersonCode'
 						},{
-							header : '負責人名稱',
-							width : 120,
+							fieldLabel : '',
 							dataIndex : 'personInCharge'
 						},{
-							header : '地址',
-							width : 120,
+							fieldLabel : '',
 							dataIndex : 'addr'
 						},{
-							header : '電話',
-							width : 120,
+							fieldLabel : '',
 							dataIndex : 'tel'
 						},{
-							header : '傳真',
-							width : 120,
+							fieldLabel : '',
 							dataIndex : 'fax'
 						},{
-							header : '電子郵箱',
-							width : 120,
+							fieldLabel : '',
 							dataIndex : 'email'
 						},{
-							header : '資質證明圖片/營業執照影本，保存系統框架中檔案上傳的記錄編號。',
-							width : 120,
+							fieldLabel : '',
 							dataIndex : 'licenseImgId'
 						},{
-							header : '資本額，1：小於100萬、2：100萬~1000萬、3：1000萬~5000萬、4：大於5000萬（單位：TWD）。',
-							width : 120,
-							dataIndex : 'capital'
+							fieldLabel : '資本額（單位：TWD）',
+							dataIndex : 'capital',renderer:function(v){if(1 == v){return "小於100萬";}else if(2 == v){return "100萬~1000萬";}else if(3 == v){return "1000萬~5000萬";}else if(4 == v){return "大於5000萬";}}
 						},{
-							header : '員工數，1：小於10、2：11~50、3：51~100、4：101~500、5：501~1000、6：大於1000（單位：人）。',
-							width : 120,
-							dataIndex : 'empAmount'
+							fieldLabel : '員工數（單位：人）',
+							dataIndex : 'empAmount',renderer:function(v){if(1 == v){return "小於10";}else if(2 == v){return "11~50";}else if(3 == v){return "51~100";}else if(4 == v){return "101~500";}else if(5 == v){return "501~1000";}else if(6 == v){return "大於1000";}}
 						},{
-							header : '有效否，0：無效、1：有效。',
-							width : 120,
-							dataIndex : 'active'
+							fieldLabel : '有效否',
+							dataIndex : 'active',renderer:function(v){if(0 == v){return "無效";}else if(1 == v){return "有效";}}
 						},{
-							header : '創建日期',
-							width : 120,
+							fieldLabel : '',
 							dataIndex : 'createDate'
 						},{
-							header : '創建人員',
-							width : 120,
+							fieldLabel : '',
 							dataIndex : 'createBy'
 						},{
-							header : '修改日期',
-							width : 120,
+							fieldLabel : '',
 							dataIndex : 'updateDate'
 						},{
-							header : '修改人員',
-							width : 120,
+							fieldLabel : '',
 							dataIndex : 'updateBy'
 						},{
 						header : '管理',
-						dataIndex : 'customerId',
+						dataIndex : 'customerId',//
 						renderer : function(v,m,r) {
-							return '&nbsp;<button title="修改" value=" " class="btn-edit" onclick="PssCustomerView.edit('
+							return isGranted('_PssCustomerEdit') ?('&nbsp;<button title="修改" value=" " class="btn-edit" onclick="PssCustomerView.edit('
 							+ v + ')"></button><button title="刪除" value=" " class="btn-del" onclick="PssCustomerView.remove('
-							+ v + ')"></button>';
+							+ v + ')"></button>'):'';
 						}
 					}],
 			defaults : {
 				sortable : true,
 				menuDisabled : false,
-				width : 80
+				width : 120
 			}
 		});
 
 		this.gridPanel = new Ext.grid.GridPanel({
 					id : 'PssCustomerGrid',
 					region : 'center',
-					tbar : (isGranted('_PssCustomerAdd') ? new Ext.Toolbar({
+					tbar : (isGranted('_PssCustomerEdit') ? new Ext.Toolbar({
 								id : 'PssCustomerFootBar',
 								bodyStyle : 'text-align:left',
 								items : [new Ext.Button({
@@ -324,9 +261,12 @@ PssCustomerView = Ext.extend(Ext.Panel, {
 								emptyMsg : "無記錄"
 							})
 				});
+		//end of store
 	}
-});
+});// end of main view
 
+
+//view static method
 PssCustomerView.remove = function(id) {
 	var grid = Ext.getCmp("PssCustomerGrid");
 	Ext.Msg.confirm('刪除確認', '確定要刪除此筆數據？', function(btn) {
@@ -340,7 +280,7 @@ PssCustomerView.remove = function(id) {
 				method : 'post',
 				success : function(response, options) {
 					var dbJson = eval("(" + response.responseText + ")");
-	                if(dbJson.success){
+					if(dbJson.success){
 						Ext.ux.Toast.msg("信息", "成功刪除！");
 						grid.getStore().reload({
 							params : {
@@ -349,7 +289,7 @@ PssCustomerView.remove = function(id) {
 							}
 						});
 					}else{
-						Ext.Msg.alert("信息", "該項已經被使用，不能刪除！");
+						Ext.Msg.alert("信息", "該項沒能被刪除！");
 					}
 				}
 			});
@@ -362,3 +302,5 @@ PssCustomerView.edit = function(id) {
 				recId : id
 			}).show();
 };
+
+//end of view static method
