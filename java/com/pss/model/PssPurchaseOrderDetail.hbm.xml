@@ -8,8 +8,6 @@
             <generator class="native"/>
         </id>
 		
-		
-		
 		<property 
 			name="poHeadId" 
 			column="PO_HEAD_ID" 
@@ -35,7 +33,7 @@
 			column="MATERIAL_NUM" 
 			update="true"
             insert="true"
-            type="Long"
+            type="java.lang.Long"
 			not-null="true" 
 			unique="false" 
 			length="8"/>
@@ -45,7 +43,7 @@
 			column="MATERIAL_PRICE" 
 			update="true"
             insert="true"
-            type="Long"
+            type="java.lang.Long"
 			not-null="false" 
 			unique="false" 
 			length="15"/>
@@ -55,7 +53,7 @@
 			column="MATERIAL_SALE_PRICE" 
 			update="true"
             insert="true"
-            type="Long"
+            type="java.lang.Long"
 			not-null="false" 
 			unique="false" 
 			length="15"/>
@@ -65,7 +63,7 @@
 			column="AMOUNT" 
 			update="true"
             insert="true"
-            type="Long"
+            type="java.lang.Long"
 			not-null="false" 
 			unique="false" 
 			length="15"/>

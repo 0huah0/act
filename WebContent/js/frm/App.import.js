@@ -52,6 +52,7 @@ App.importJs = {
 
 	ReportCashFlow : [ __ctxPath + '/js/act/ReportCashFlow.js' ],
 
+	
 	/* PSS */
 	PssCustomerView : [ __ctxPath + '/js/pss/PssCustomerView.js',
 			__ctxPath + '/js/pss/PssCustomerForm.js' ],
@@ -63,7 +64,8 @@ App.importJs = {
 	PssSupplierView : [ __ctxPath + '/js/pss/PssSupplierView.js',
 			__ctxPath + '/js/pss/PssSupplierForm.js' ],
 	PssSalesOrderHeadView : [ __ctxPath + '/js/pss/PssSalesOrderHeadView.js',
-			__ctxPath + '/js/pss/PssSalesOrderHeadForm.js' ],
+			__ctxPath + '/js/pss/PssSalesOrderHeadForm.js',
+			__ctxPath + '/js/pss/selector/ProductSelector.js' ],
 	PssSalesOrderDetailView : [
 			__ctxPath + '/js/pss/PssSalesOrderDetailView.js',
 			__ctxPath + '/js/pss/PssSalesOrderDetailForm.js' ],

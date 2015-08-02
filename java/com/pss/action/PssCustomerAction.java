@@ -1,8 +1,6 @@
 /*
  * Powered By [shi_zenghua@qq.com]
- */
-
-package com.pss.action;
+ */package com.pss.action;
 
 import java.util.List;
 import javax.annotation.Resource;
@@ -33,12 +31,14 @@ public class PssCustomerAction extends BaseAction {
 	 * 記錄的新增和修改
 	 */
 	public String save() {
+		boolean sus = true;
 		try {
 			pssCustomerService.save(pssCustomer);
 		} catch (Exception e) {
+			sus = false;
 			e.printStackTrace();
 		}
-		setJsonString("{success:true}");
+		setJsonString("{success:"+sus+"}");
 		return SUCCESS;
 	}
 	
@@ -48,20 +48,26 @@ public class PssCustomerAction extends BaseAction {
 	 * @return
 	 */
 	public String multiDel() {
-		String[] ids = getRequest().getParameterValues("ids");
-		if (ids != null) {
-			for (String id : ids) {
-				try {
-					pssCustomerService.remove(new Long(id));
-				} catch (NumberFormatException e) {
-					e.printStackTrace();
-				} catch (Exception e) {
-					e.printStackTrace();
+		boolean sus = true;
+		try {
+				String ids = getRequest().getParameter("ids");
+				if (ids != null  && ids.length() > 0) {
+					QueryFilter filter = new QueryFilter(getRequest());
+					filter.addFilter("Q_customerId_S_SIN", ids);
+					List<PssCustomer> list = pssCustomerService.getAll(filter);
+					for (PssCustomer pssCustomer : list) {
+							pssCustomerService.remove(pssCustomer);
+					}
 				}
-			}
+				
+		} catch (NumberFormatException e) {
+			sus = false;
+			e.printStackTrace();
+		} catch (Exception e) {
+			sus = false;
+			e.printStackTrace();
 		}
-
-		jsonString = "{success:true}";
+		setJsonString("{success:"+sus+"}");
 		return SUCCESS;
 	}
 	
@@ -72,7 +78,14 @@ public class PssCustomerAction extends BaseAction {
 	 */
 	public String get() {
 		String id = getRequest().getParameter("id");
-		PssCustomer pssCustomer = pssCustomerService.get(new Long(id));
+		
+		QueryFilter filter = new QueryFilter(getRequest());
+		filter.addFilter("Q_customerId_S_EQ", id);
+		List<PssCustomer> list = pssCustomerService.getAll(filter);
+		PssCustomer pssCustomer = new PssCustomer();
+		if(list.size() != 0){
+			pssCustomer = list.get(0);
+		}
 
 		Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
 		// 将数据转成JSON格式

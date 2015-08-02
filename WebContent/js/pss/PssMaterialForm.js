@@ -1,24 +1,19 @@
 /*
  * Powered By [shi_zenghua@qq.com]
  */
-
 Ext.ns('PssMaterialForm');
 PssMaterialForm = Ext.extend(Ext.Window, {
-	formPanel : null,
 	constructor : function(_cfg) {
 		Ext.applyIf(this, _cfg);
 		this.initUIComponents();
 		PssMaterialForm.superclass.constructor.call(this, {
-					layout : 'fit',
 					items : this.formPanel,
 					modal : true,
 					id : 'PssMaterialFormWin',
 					title : this.recId?'修改原料':'新增原料',
 					iconCls : 'menu-planmanage',
-					width : 600,
-					height : 240,
-					resizable : false,
-					buttonAlign : 'center',
+					width : 820,
+					autoHeight : true,
 					buttons : this.buttons
 				});
 	},
@@ -26,97 +21,68 @@ PssMaterialForm = Ext.extend(Ext.Window, {
 		this.formPanel = new Ext.FormPanel({
 			url : __ctxPath + '/pss/savePssMaterial.do',
 			id : 'PssMaterialForm',
+			autoHeight:true,
 			frame : true,
 			items : [{
-				xtype : 'fieldset',
-				title : '原料',
-				items : [{
 					layout : 'column',
 					columnWidth : 0.5,
 					defaults : {
 						layout : 'form',
 						padding : '0 0 0 20px',
 						labelAlign : 'right',
-						labelWidth : 80,
+						labelWidth : 160,
 						defaults : {
 							xtype : 'textfield',
-							width : 140
+							allowBlank : false,
+							maxLength:100,
+							width : 200
 						}
 					},
 					items : [{
 						items : [{
-									name : 'pssMaterial.id',
-									id : 'id',
+									id:'hiddenId',
 									xtype : 'hidden',
-									value : recId||''
+									value : this.recId||''
 								},{
 									fieldLabel : '原料編號/原料代號',
-									maxLength:18,
-									allowBlank : false,
-									name : 'pssMaterial.materialId',
-									id : 'materialId'
+									name : 'pssMaterial.materialId'
 								},{
-									fieldLabel : '單位，1：個、2：塊、3：條、4：片、5：公斤、6：公噸、7：...。',
-									maxLength:18,
-									allowBlank : false,
-									name : 'pssMaterial.unit',
-									id : 'unit'
+									fieldLabel : '單位',
+									name : 'pssMaterial.unit',xtype:"combo",store:[[1,"個"],[2,"塊"],[3,"條"],[4,"片"],[5,"公斤"],[6,"公噸"],[7,"..."]]
 								},{
-									fieldLabel : '有效否，0：無效、1：有效。',
-									maxLength:18,
-									allowBlank : false,
-									name : 'pssMaterial.active',
-									id : 'active'
+									fieldLabel : '有效否',
+									name : 'pssMaterial.active',xtype:"combo",store:[[0,"無效"],[1,"有效"]]
 								},{
 									fieldLabel : '創建人員',
-									maxLength:18,
-									allowBlank : false,
-									name : 'pssMaterial.createBy',
-									id : 'createBy'
+									name : 'pssMaterial.createBy'
 								},{
 									fieldLabel : '修改人員',
-									maxLength:18,
-									allowBlank : false,
-									name : 'pssMaterial.updateBy',
-									id : 'updateBy'
-					     }]
+									name : 'pssMaterial.updateBy'
+					      }]
 					},{
 						items : [{
 									xtype : 'hidden'
 								},{
 									fieldLabel : '原料名稱',
-									maxLength:18,
-									allowBlank : false,
-									name : 'pssMaterial.name',
-									id : 'name'
+									name : 'pssMaterial.name'
 								},{
 									fieldLabel : '描述',
-									maxLength:18,
-									allowBlank : false,
-									name : 'pssMaterial.desc',
-									id : 'desc'
+									name : 'pssMaterial.desc'
 								},{
 									fieldLabel : '創建日期',
-									maxLength:18,
-									allowBlank : false,
-									name : 'pssMaterial.createDate',
-									id : 'createDate'
+									name : 'pssMaterial.createDate'
 								},{
 									fieldLabel : '修改日期',
-									maxLength:18,
-									allowBlank : false,
-									name : 'pssMaterial.updateDate',
-									id : 'updateDate'
-				         }]
+									name : 'pssMaterial.updateDate'
+				        }]
 					}]
 				}]
-			}]
 		});
 
 		if (this.recId) {
 			this.formPanel.getForm().load({
 				deferredRender : false,
-				url : __ctxPath + '/pss/getPssMaterial.do?recId='+ this.recId,
+				url : __ctxPath + '/pss/getPssMaterial.do?id='+ this.recId,
 				waitMsg : '正在載入數據...',
 				success : function(form, action) {
 

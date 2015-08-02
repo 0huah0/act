@@ -1,24 +1,19 @@
 /*
  * Powered By [shi_zenghua@qq.com]
  */
-
 Ext.ns('PssDeliveryOrderHeadForm');
 PssDeliveryOrderHeadForm = Ext.extend(Ext.Window, {
-	formPanel : null,
 	constructor : function(_cfg) {
 		Ext.applyIf(this, _cfg);
 		this.initUIComponents();
 		PssDeliveryOrderHeadForm.superclass.constructor.call(this, {
-					layout : 'fit',
 					items : this.formPanel,
 					modal : true,
 					id : 'PssDeliveryOrderHeadFormWin',
 					title : this.recId?'修改出貨單':'新增出貨單',
 					iconCls : 'menu-planmanage',
-					width : 600,
-					height : 240,
-					resizable : false,
-					buttonAlign : 'center',
+					width : 820,
+					autoHeight : true,
 					buttons : this.buttons
 				});
 	},
@@ -26,121 +21,80 @@ PssDeliveryOrderHeadForm = Ext.extend(Ext.Window, {
 		this.formPanel = new Ext.FormPanel({
 			url : __ctxPath + '/pss/savePssDeliveryOrderHead.do',
 			id : 'PssDeliveryOrderHeadForm',
+			autoHeight:true,
 			frame : true,
 			items : [{
-				xtype : 'fieldset',
-				title : '出貨單',
-				items : [{
 					layout : 'column',
 					columnWidth : 0.5,
 					defaults : {
 						layout : 'form',
 						padding : '0 0 0 20px',
 						labelAlign : 'right',
-						labelWidth : 80,
+						labelWidth : 160,
 						defaults : {
 							xtype : 'textfield',
-							width : 140
+							allowBlank : false,
+							maxLength:100,
+							width : 200
 						}
 					},
 					items : [{
 						items : [{
-									name : 'pssDeliveryOrderHead.id',
-									id : 'id',
+									id:'hiddenId',
 									xtype : 'hidden',
-									value : recId||''
+									value : this.recId||''
 								},{
-									fieldLabel : '出貨單編號，出貨單代碼2位(DO)+當前日期8位(yyyyMMdd)+流水號6位。',
-									maxLength:18,
-									allowBlank : false,
-									name : 'pssDeliveryOrderHead.doHeadId',
-									id : 'doHeadId'
+									fieldLabel : '出貨單編號（出貨單代碼2位(DO)+當前日期8位(yyyyMMdd)+流水號6位）',
+									name : 'pssDeliveryOrderHead.doHeadId'
 								},{
 									fieldLabel : '出貨倉庫編號/倉庫代號',
-									maxLength:18,
-									allowBlank : false,
-									name : 'pssDeliveryOrderHead.warehouseId',
-									id : 'warehouseId'
+									name : 'pssDeliveryOrderHead.warehouseId'
 								},{
 									fieldLabel : '送貨人名稱',
-									maxLength:18,
-									allowBlank : false,
-									name : 'pssDeliveryOrderHead.diliverName',
-									id : 'diliverName'
+									name : 'pssDeliveryOrderHead.diliverName'
 								},{
 									fieldLabel : '收貨人電話',
-									maxLength:18,
-									allowBlank : false,
-									name : 'pssDeliveryOrderHead.receiverTel',
-									id : 'receiverTel'
+									name : 'pssDeliveryOrderHead.receiverTel'
 								},{
 									fieldLabel : '備註',
-									maxLength:18,
-									allowBlank : false,
-									name : 'pssDeliveryOrderHead.remark',
-									id : 'remark'
+									name : 'pssDeliveryOrderHead.remark'
 								},{
 									fieldLabel : '創建人員',
-									maxLength:18,
-									allowBlank : false,
-									name : 'pssDeliveryOrderHead.createBy',
-									id : 'createBy'
+									name : 'pssDeliveryOrderHead.createBy'
 								},{
 									fieldLabel : '修改人員',
-									maxLength:18,
-									allowBlank : false,
-									name : 'pssDeliveryOrderHead.updateBy',
-									id : 'updateBy'
-					     }]
+									name : 'pssDeliveryOrderHead.updateBy'
+					      }]
 					},{
 						items : [{
 									xtype : 'hidden'
 								},{
 									fieldLabel : '銷貨單編號',
-									maxLength:18,
-									allowBlank : false,
-									name : 'pssDeliveryOrderHead.soHeadId',
-									id : 'soHeadId'
+									name : 'pssDeliveryOrderHead.soHeadId'
 								},{
 									fieldLabel : '送貨人電話',
-									maxLength:18,
-									allowBlank : false,
-									name : 'pssDeliveryOrderHead.diliverTel',
-									id : 'diliverTel'
+									name : 'pssDeliveryOrderHead.diliverTel'
 								},{
 									fieldLabel : '收貨人名稱',
-									maxLength:18,
-									allowBlank : false,
-									name : 'pssDeliveryOrderHead.receiverName',
-									id : 'receiverName'
+									name : 'pssDeliveryOrderHead.receiverName'
 								},{
 									fieldLabel : '出貨發票號碼 (應收帳款)',
-									maxLength:18,
-									allowBlank : false,
-									name : 'pssDeliveryOrderHead.doInvoice',
-									id : 'doInvoice'
+									name : 'pssDeliveryOrderHead.doInvoice'
 								},{
 									fieldLabel : '創建日期',
-									maxLength:18,
-									allowBlank : false,
-									name : 'pssDeliveryOrderHead.createDate',
-									id : 'createDate'
+									name : 'pssDeliveryOrderHead.createDate'
 								},{
 									fieldLabel : '修改日期',
-									maxLength:18,
-									allowBlank : false,
-									name : 'pssDeliveryOrderHead.updateDate',
-									id : 'updateDate'
-				         }]
+									name : 'pssDeliveryOrderHead.updateDate'
+				        }]
 					}]
 				}]
-			}]
 		});
 
 		if (this.recId) {
 			this.formPanel.getForm().load({
 				deferredRender : false,
-				url : __ctxPath + '/pss/getPssDeliveryOrderHead.do?recId='+ this.recId,
+				url : __ctxPath + '/pss/getPssDeliveryOrderHead.do?id='+ this.recId,
 				waitMsg : '正在載入數據...',
 				success : function(form, action) {
 

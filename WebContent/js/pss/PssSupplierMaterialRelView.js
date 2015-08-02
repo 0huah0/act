@@ -1,13 +1,8 @@
 /*
  * Powered By [shi_zenghua@qq.com]
  */
-
 Ext.ns('PssSupplierMaterialRelView');
 PssSupplierMaterialRelView = Ext.extend(Ext.Panel, {
-	searchPanel : null,
-	gridPanel : null,
-	store : null,
-	topbar : null,
 	constructor : function(_cfg) {
 		Ext.applyIf(this, _cfg);
 		this.initUIComponents();
@@ -16,15 +11,14 @@ PssSupplierMaterialRelView = Ext.extend(Ext.Panel, {
 					title : '供應商原料關係表',
 					iconCls : 'menu-planmanage',
 					region : 'center',
-					layout : 'border',
 					items : [this.searchPanel, this.gridPanel]
-				});
+		});
 	},
 	initUIComponents : function() {
+		//searchPanel
 		this.searchPanel = new Ext.FormPanel({
-			//height : 115,
+			autoHeight : true,
 			frame : true,
-			region : 'north',
 			id : 'PssSupplierMaterialRelSearchForm',
 			buttonAlign : 'center',
 			buttons : [{
@@ -53,158 +47,131 @@ PssSupplierMaterialRelView = Ext.extend(Ext.Panel, {
 				title : '供應商原料關係表查詢',
 				layout : 'form',
 				items : [{
-					xtype : 'fieldset',
-					title : '供應商原料關係表',
-					items : [{
-						layout : 'column',
-						columnWidth : 0.33,
+					layout : 'column',
+					columnWidth : 0.33,
+					defaults : {
+						layout : 'form',
+						padding : '0 0 0 20px',
+						labelAlign : 'right',
+						labelWidth : 120,
 						defaults : {
-							layout : 'form',
-							padding : '0 0 0 20px',
-							labelAlign : 'right',
-							labelWidth : 100,
-							defaults : {
-								xtype : 'textfield',
-								width : 140
-							}
-						},
+							xtype : 'textfield',
+							width : 140
+						}
+					},
+					items : [{
 						items : [{
-							items : [{
-										fieldLabel : '原料編號/原料代號',
-										maxLength:18,
-										allowBlank : false,
-										name : 'pssSupplierMaterialRel.materialId',
-										id : 'materialId'
-									},{
-										fieldLabel : '創建日期',
-										maxLength:18,
-										allowBlank : false,
-										name : 'pssSupplierMaterialRel.createDate',
-										id : 'createDate'
-									},{
-										fieldLabel : '修改人員',
-										maxLength:18,
-										allowBlank : false,
-										name : 'pssSupplierMaterialRel.updateBy',
-										id : 'updateBy'
-									},{
-									}]
-						},{
-							items : [{
-										fieldLabel : '產品定價(單價)',
-										maxLength:18,
-										allowBlank : false,
-										name : 'pssSupplierMaterialRel.price',
-										id : 'price'
-									},{
-										fieldLabel : '創建人員',
-										maxLength:18,
-										allowBlank : false,
-										name : 'pssSupplierMaterialRel.createBy',
-										id : 'createBy'
-									},{
-									}]
-						},{
-							items : [{
-										fieldLabel : '供應商編號/供應商代號',
-										maxLength:18,
-										allowBlank : false,
-										name : 'pssSupplierMaterialRel.supplierId',
-										id : 'supplierId'
-									},{
-										fieldLabel : '產品建議售價(單價)',
-										maxLength:18,
-										allowBlank : false,
-										name : 'pssSupplierMaterialRel.salePrice',
-										id : 'salePrice'
-									},{
-										fieldLabel : '修改日期',
-										maxLength:18,
-										allowBlank : false,
-										name : 'pssSupplierMaterialRel.updateDate',
-										id : 'updateDate'
-									},{
-									}]
-						}]
+									xtype:'hidden',
+									fieldLabel : '原料編號/原料代號',
+									maxLength:18,
+									name : 'S_materialId_S_LK'
+								},{
+									fieldLabel : '創建日期',
+									maxLength:18,
+									name : 'S_createDate_D_DL'
+								},{
+									fieldLabel : '修改人員',
+									maxLength:18,
+									name : 'S_updateBy_S_LK'
+								},{
+								xtype:'hidden'
+								}]//
+					},{
+						items : [{
+									fieldLabel : '產品定價(單價)',
+									maxLength:18,
+									name : 'S_price_L_EQ'
+								},{
+									fieldLabel : '創建人員',
+									maxLength:18,
+									name : 'S_createBy_S_LK'
+								},{
+									xtype:'hidden'
+								}]//
+					},{
+						items : [{
+									xtype:'hidden',
+									fieldLabel : '供應商編號/供應商代號',
+									maxLength:18,
+									name : 'S_supplierId_S_LK'
+								},{
+									fieldLabel : '產品建議售價(單價)',
+									maxLength:18,
+									name : 'S_salePrice_L_EQ'
+								},{
+									fieldLabel : '修改日期',
+									maxLength:18,
+									name : 'S_updateDate_D_DL'
+								},{
+									xtype:'hidden'
+								}]//
 					}]
 				}]
 			}]
 		});
+		//end of searchPanel
+		
+		
+		//store
 		this.store = new Ext.data.JsonStore({
 					url : __ctxPath + '/pss/listPssSupplierMaterialRel.do',
 					root : 'result',
 					totalProperty : 'totalCounts',
-					fields : ['id'
-								,'supplierId'
-								,'materialId'
-								,'price'
-								,'salePrice'
-								,'createDate'
-								,'createBy'
-								,'updateDate'
-								,'updateBy'
-							]
-				});
+					fields : ['supplierId','materialId','price','salePrice','createDate','createBy','updateDate','updateBy'
+					]
+		});
+		
 		//this.store.setDefaultSort('id', 'asc');
 		this.store.load({
-					params : {
+				params : {
 						start : 0,
 						limit : 25
-					}
-				});
+				}
+		});
 		var cm = new Ext.grid.ColumnModel({
-			columns : [new Ext.grid.RowNumberer(),{
+				columns : [new Ext.grid.RowNumberer(),{
 							header : '供應商編號/供應商代號',
-							width : 120,
 							dataIndex : 'supplierId'
 						},{
 							header : '原料編號/原料代號',
-							width : 120,
 							dataIndex : 'materialId'
 						},{
 							header : '產品定價(單價)',
-							width : 120,
 							dataIndex : 'price'
 						},{
 							header : '產品建議售價(單價)',
-							width : 120,
 							dataIndex : 'salePrice'
 						},{
 							header : '創建日期',
-							width : 120,
 							dataIndex : 'createDate'
 						},{
 							header : '創建人員',
-							width : 120,
 							dataIndex : 'createBy'
 						},{
 							header : '修改日期',
-							width : 120,
 							dataIndex : 'updateDate'
 						},{
 							header : '修改人員',
-							width : 120,
 							dataIndex : 'updateBy'
 						},{
 						header : '管理',
-						dataIndex : 'id',
+						dataIndex : 'supplierId',//
 						renderer : function(v,m,r) {
-							return '&nbsp;<button title="修改" value=" " class="btn-edit" onclick="PssSupplierMaterialRelView.edit('
+							return isGranted('_PssSupplierMaterialRelEdit') ?('&nbsp;<button title="修改" value=" " class="btn-edit" onclick="PssSupplierMaterialRelView.edit('
 							+ v + ')"></button><button title="刪除" value=" " class="btn-del" onclick="PssSupplierMaterialRelView.remove('
-							+ v + ')"></button>';
+							+ v + ')"></button>'):'';
 						}
 					}],
 			defaults : {
 				sortable : true,
 				menuDisabled : false,
-				width : 80
+				width : 120
 			}
 		});
 
 		this.gridPanel = new Ext.grid.GridPanel({
 					id : 'PssSupplierMaterialRelGrid',
-					region : 'center',
-					tbar : (isGranted('_PssSupplierMaterialRelAdd') ? new Ext.Toolbar({
+					tbar : (isGranted('_PssSupplierMaterialRelEdit') ? new Ext.Toolbar({
 								id : 'PssSupplierMaterialRelFootBar',
 								bodyStyle : 'text-align:left',
 								items : [new Ext.Button({
@@ -228,9 +195,12 @@ PssSupplierMaterialRelView = Ext.extend(Ext.Panel, {
 								emptyMsg : "無記錄"
 							})
 				});
+		//end of store
 	}
-});
+});// end of main view
 
+
+//view static method
 PssSupplierMaterialRelView.remove = function(id) {
 	var grid = Ext.getCmp("PssSupplierMaterialRelGrid");
 	Ext.Msg.confirm('刪除確認', '確定要刪除此筆數據？', function(btn) {
@@ -244,7 +214,7 @@ PssSupplierMaterialRelView.remove = function(id) {
 				method : 'post',
 				success : function(response, options) {
 					var dbJson = eval("(" + response.responseText + ")");
-	                if(dbJson.success){
+					if(dbJson.success){
 						Ext.ux.Toast.msg("信息", "成功刪除！");
 						grid.getStore().reload({
 							params : {
@@ -253,7 +223,7 @@ PssSupplierMaterialRelView.remove = function(id) {
 							}
 						});
 					}else{
-						Ext.Msg.alert("信息", "該項已經被使用，不能刪除！");
+						Ext.Msg.alert("信息", "該項沒能被刪除！");
 					}
 				}
 			});
@@ -266,3 +236,5 @@ PssSupplierMaterialRelView.edit = function(id) {
 				recId : id
 			}).show();
 };
+
+//end of view static method

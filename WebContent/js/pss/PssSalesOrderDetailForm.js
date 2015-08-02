@@ -7,14 +7,13 @@ PssSalesOrderDetailForm = Ext.extend(Ext.Window, {
 		Ext.applyIf(this, _cfg);
 		this.initUIComponents();
 		PssSalesOrderDetailForm.superclass.constructor.call(this, {
-					layout : 'fit',
 					items : this.formPanel,
 					modal : true,
 					id : 'PssSalesOrderDetailFormWin',
 					title : this.recId?'修改銷貨單子項':'新增銷貨單子項',
 					iconCls : 'menu-planmanage',
-					width : 600,
-					buttonAlign : 'center',
+					width : 820,
+					autoHeight : true,
 					buttons : this.buttons
 				});
 	},
@@ -22,6 +21,7 @@ PssSalesOrderDetailForm = Ext.extend(Ext.Window, {
 		this.formPanel = new Ext.FormPanel({
 			url : __ctxPath + '/pss/savePssSalesOrderDetail.do',
 			id : 'PssSalesOrderDetailForm',
+			autoHeight:true,
 			frame : true,
 			items : [{
 					layout : 'column',
@@ -30,10 +30,12 @@ PssSalesOrderDetailForm = Ext.extend(Ext.Window, {
 						layout : 'form',
 						padding : '0 0 0 20px',
 						labelAlign : 'right',
-						labelWidth : 120,
+						labelWidth : 160,
 						defaults : {
 							xtype : 'textfield',
-							width : 140
+							allowBlank : false,
+							maxLength:100,
+							width : 200
 						}
 					},
 					items : [{
@@ -43,56 +45,44 @@ PssSalesOrderDetailForm = Ext.extend(Ext.Window, {
 									value : this.recId||''
 								},{
 									fieldLabel : '銷貨單編號',
-									maxLength:18,
-									name : 'S_soHeadId_S_LK'
+									name : 'pssSalesOrderDetail.soHeadId'
 								},{
 									fieldLabel : '產品編號',
-									maxLength:18,
-									name : 'S_pdtId_S_LK'
+									name : 'pssSalesOrderDetail.pdtId'
 								},{
 									fieldLabel : '產品定價',
-									maxLength:18,
-									name : 'S_pdtPrice_L_EQ'
+									name : 'pssSalesOrderDetail.pdtPrice'
 								},{
 									fieldLabel : '產品實際售價',
-									maxLength:18,
-									name : 'S_pdtRealPrice_L_EQ'
+									name : 'pssSalesOrderDetail.pdtRealPrice'
 								},{
 									fieldLabel : '創建日期',
-									maxLength:18,
-									name : 'S_createDate_D_DL'
+									name : 'pssSalesOrderDetail.createDate'
 								},{
 									fieldLabel : '修改日期',
-									maxLength:18,
-									name : 'S_updateDate_D_DL'
+									name : 'pssSalesOrderDetail.updateDate'
 					      }]
 					},{
 						items : [{
 									xtype : 'hidden'
 								},{
 									fieldLabel : '銷貨單明細編號',
-									maxLength:18,
-									name : 'S_soDetailId_L_EQ'
+									name : 'pssSalesOrderDetail.soDetailId'
 								},{
 									fieldLabel : '產品數量',
-									maxLength:18,
-									name : 'S_pdtNum_L_EQ'
+									name : 'pssSalesOrderDetail.pdtNum'
 								},{
 									fieldLabel : '產品建議售價',
-									maxLength:18,
-									name : 'S_pdtSalePrice_L_EQ'
+									name : 'pssSalesOrderDetail.pdtSalePrice'
 								},{
 									fieldLabel : '小計',
-									maxLength:18,
-									name : 'S_amount_L_EQ'
+									name : 'pssSalesOrderDetail.amount'
 								},{
 									fieldLabel : '創建人員',
-									maxLength:18,
-									name : 'S_createBy_S_LK'
+									name : 'pssSalesOrderDetail.createBy'
 								},{
 									fieldLabel : '修改人員',
-									maxLength:18,
-									name : 'S_updateBy_S_LK'
+									name : 'pssSalesOrderDetail.updateBy'
 				        }]
 					}]
 				}]

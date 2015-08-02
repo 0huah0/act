@@ -4,11 +4,14 @@
 <hibernate-mapping package="com.pss.model">
     <class name="PssMaterial" table="pss_material">
 
-        <id name="materialId" column="MATERIAL_ID" type="java.lang.String">
-            <generator class="native"/>
+		<id name="materialId" column="MATERIAL_ID">
+            <generator class="com.pss.util.GeneratePK" >
+              <param name="classname">PssMaterial</param>
+              <param name="pk">materialId</param>
+              <param name="sign">M</param>
+              <param name="idLength">13</param>
+            </generator>
         </id>
-		
-		
 		
 		<property 
 			name="name" 

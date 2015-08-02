@@ -4,11 +4,14 @@
 <hibernate-mapping package="com.pss.model">
     <class name="PssWarehouse" table="pss_warehouse">
 
-        <id name="warehouseId" column="WAREHOUSE_ID" type="java.lang.String">
-            <generator class="native"/>
+		<id name="warehouseId" column="WAREHOUSE_ID">
+            <generator class="com.pss.util.GeneratePK" >
+              <param name="classname">PssWarehouse</param>
+              <param name="pk">warehouseId</param>
+              <param name="sign">WAREHOUSE</param>
+              <param name="idLength">13</param>
+            </generator>
         </id>
-		
-		
 		
 		<property 
 			name="name" 

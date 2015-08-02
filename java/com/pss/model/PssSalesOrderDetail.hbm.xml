@@ -35,7 +35,7 @@
 			column="PDT_NUM" 
 			update="true"
             insert="true"
-            type="Long"
+            type="java.lang.Long"
 			not-null="true" 
 			unique="false" 
 			length="8"/>
@@ -45,7 +45,7 @@
 			column="PDT_PRICE" 
 			update="true"
             insert="true"
-            type="Long"
+            type="java.lang.Long"
 			not-null="false" 
 			unique="false" 
 			length="15"/>
@@ -55,7 +55,7 @@
 			column="PDT_SALE_PRICE" 
 			update="true"
             insert="true"
-            type="Long"
+            type="java.lang.Long"
 			not-null="false" 
 			unique="false" 
 			length="15"/>
@@ -65,7 +65,7 @@
 			column="PDT_REAL_PRICE" 
 			update="true"
             insert="true"
-            type="Long"
+            type="java.lang.Long"
 			not-null="false" 
 			unique="false" 
 			length="15"/>
@@ -75,7 +75,7 @@
 			column="AMOUNT" 
 			update="true"
             insert="true"
-            type="Long"
+            type="java.lang.Long"
 			not-null="false" 
 			unique="false" 
 			length="15"/>

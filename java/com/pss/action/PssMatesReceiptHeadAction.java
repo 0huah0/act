@@ -1,8 +1,6 @@
 /*
  * Powered By [shi_zenghua@qq.com]
- */
-
-package com.pss.action;
+ */package com.pss.action;
 
 import java.util.List;
 import javax.annotation.Resource;
@@ -33,12 +31,14 @@ public class PssMatesReceiptHeadAction extends BaseAction {
 	 * 記錄的新增和修改
 	 */
 	public String save() {
+		boolean sus = true;
 		try {
 			pssMatesReceiptHeadService.save(pssMatesReceiptHead);
 		} catch (Exception e) {
+			sus = false;
 			e.printStackTrace();
 		}
-		setJsonString("{success:true}");
+		setJsonString("{success:"+sus+"}");
 		return SUCCESS;
 	}
 	
@@ -48,20 +48,26 @@ public class PssMatesReceiptHeadAction extends BaseAction {
 	 * @return
 	 */
 	public String multiDel() {
-		String[] ids = getRequest().getParameterValues("ids");
-		if (ids != null) {
-			for (String id : ids) {
-				try {
-					pssMatesReceiptHeadService.remove(new Long(id));
-				} catch (NumberFormatException e) {
-					e.printStackTrace();
-				} catch (Exception e) {
-					e.printStackTrace();
+		boolean sus = true;
+		try {
+				String ids = getRequest().getParameter("ids");
+				if (ids != null  && ids.length() > 0) {
+					QueryFilter filter = new QueryFilter(getRequest());
+					filter.addFilter("Q_mrHeadId_S_SIN", ids);
+					List<PssMatesReceiptHead> list = pssMatesReceiptHeadService.getAll(filter);
+					for (PssMatesReceiptHead pssMatesReceiptHead : list) {
+							pssMatesReceiptHeadService.remove(pssMatesReceiptHead);
+					}
 				}
-			}
+				
+		} catch (NumberFormatException e) {
+			sus = false;
+			e.printStackTrace();
+		} catch (Exception e) {
+			sus = false;
+			e.printStackTrace();
 		}
-
-		jsonString = "{success:true}";
+		setJsonString("{success:"+sus+"}");
 		return SUCCESS;
 	}
 	
@@ -72,7 +78,14 @@ public class PssMatesReceiptHeadAction extends BaseAction {
 	 */
 	public String get() {
 		String id = getRequest().getParameter("id");
-		PssMatesReceiptHead pssMatesReceiptHead = pssMatesReceiptHeadService.get(new Long(id));
+		
+		QueryFilter filter = new QueryFilter(getRequest());
+		filter.addFilter("Q_mrHeadId_S_EQ", id);
+		List<PssMatesReceiptHead> list = pssMatesReceiptHeadService.getAll(filter);
+		PssMatesReceiptHead pssMatesReceiptHead = new PssMatesReceiptHead();
+		if(list.size() != 0){
+			pssMatesReceiptHead = list.get(0);
+		}
 
 		Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
 		// 将数据转成JSON格式

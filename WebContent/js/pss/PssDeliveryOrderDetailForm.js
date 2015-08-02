@@ -1,24 +1,19 @@
 /*
  * Powered By [shi_zenghua@qq.com]
  */
-
 Ext.ns('PssDeliveryOrderDetailForm');
 PssDeliveryOrderDetailForm = Ext.extend(Ext.Window, {
-	formPanel : null,
 	constructor : function(_cfg) {
 		Ext.applyIf(this, _cfg);
 		this.initUIComponents();
 		PssDeliveryOrderDetailForm.superclass.constructor.call(this, {
-					layout : 'fit',
 					items : this.formPanel,
 					modal : true,
 					id : 'PssDeliveryOrderDetailFormWin',
 					title : this.recId?'修改出貨單子項':'新增出貨單子項',
 					iconCls : 'menu-planmanage',
-					width : 600,
-					height : 240,
-					resizable : false,
-					buttonAlign : 'center',
+					width : 820,
+					autoHeight : true,
 					buttons : this.buttons
 				});
 	},
@@ -26,103 +21,71 @@ PssDeliveryOrderDetailForm = Ext.extend(Ext.Window, {
 		this.formPanel = new Ext.FormPanel({
 			url : __ctxPath + '/pss/savePssDeliveryOrderDetail.do',
 			id : 'PssDeliveryOrderDetailForm',
+			autoHeight:true,
 			frame : true,
 			items : [{
-				xtype : 'fieldset',
-				title : '出貨單子項',
-				items : [{
 					layout : 'column',
 					columnWidth : 0.5,
 					defaults : {
 						layout : 'form',
 						padding : '0 0 0 20px',
 						labelAlign : 'right',
-						labelWidth : 80,
+						labelWidth : 160,
 						defaults : {
 							xtype : 'textfield',
-							width : 140
+							allowBlank : false,
+							maxLength:100,
+							width : 200
 						}
 					},
 					items : [{
 						items : [{
-									name : 'pssDeliveryOrderDetail.id',
-									id : 'id',
+									id:'hiddenId',
 									xtype : 'hidden',
-									value : recId||''
+									value : this.recId||''
 								},{
 									fieldLabel : '出貨單編號',
-									maxLength:18,
-									allowBlank : false,
-									name : 'pssDeliveryOrderDetail.doHeadId',
-									id : 'doHeadId'
+									name : 'pssDeliveryOrderDetail.doHeadId'
 								},{
 									fieldLabel : '產品編號',
-									maxLength:18,
-									allowBlank : false,
-									name : 'pssDeliveryOrderDetail.pdtId',
-									id : 'pdtId'
+									name : 'pssDeliveryOrderDetail.pdtId'
 								},{
 									fieldLabel : '接收數量',
-									maxLength:18,
-									allowBlank : false,
-									name : 'pssDeliveryOrderDetail.receiptNum',
-									id : 'receiptNum'
+									name : 'pssDeliveryOrderDetail.receiptNum'
 								},{
 									fieldLabel : '創建日期',
-									maxLength:18,
-									allowBlank : false,
-									name : 'pssDeliveryOrderDetail.createDate',
-									id : 'createDate'
+									name : 'pssDeliveryOrderDetail.createDate'
 								},{
 									fieldLabel : '修改日期',
-									maxLength:18,
-									allowBlank : false,
-									name : 'pssDeliveryOrderDetail.updateDate',
-									id : 'updateDate'
-					     }]
+									name : 'pssDeliveryOrderDetail.updateDate'
+					      }]
 					},{
 						items : [{
 									xtype : 'hidden'
 								},{
 									fieldLabel : '出貨單明細編號',
-									maxLength:18,
-									allowBlank : false,
-									name : 'pssDeliveryOrderDetail.doDetailId',
-									id : 'doDetailId'
+									name : 'pssDeliveryOrderDetail.doDetailId'
 								},{
 									fieldLabel : '出貨數量',
-									maxLength:18,
-									allowBlank : false,
-									name : 'pssDeliveryOrderDetail.allNum',
-									id : 'allNum'
+									name : 'pssDeliveryOrderDetail.allNum'
 								},{
 									fieldLabel : '退回數量',
-									maxLength:18,
-									allowBlank : false,
-									name : 'pssDeliveryOrderDetail.rejectNum',
-									id : 'rejectNum'
+									name : 'pssDeliveryOrderDetail.rejectNum'
 								},{
 									fieldLabel : '創建人員',
-									maxLength:18,
-									allowBlank : false,
-									name : 'pssDeliveryOrderDetail.createBy',
-									id : 'createBy'
+									name : 'pssDeliveryOrderDetail.createBy'
 								},{
 									fieldLabel : '修改人員',
-									maxLength:18,
-									allowBlank : false,
-									name : 'pssDeliveryOrderDetail.updateBy',
-									id : 'updateBy'
-				         }]
+									name : 'pssDeliveryOrderDetail.updateBy'
+				        }]
 					}]
 				}]
-			}]
 		});
 
 		if (this.recId) {
 			this.formPanel.getForm().load({
 				deferredRender : false,
-				url : __ctxPath + '/pss/getPssDeliveryOrderDetail.do?recId='+ this.recId,
+				url : __ctxPath + '/pss/getPssDeliveryOrderDetail.do?id='+ this.recId,
 				waitMsg : '正在載入數據...',
 				success : function(form, action) {
 

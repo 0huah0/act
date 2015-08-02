@@ -1,8 +1,6 @@
 /*
  * Powered By [shi_zenghua@qq.com]
- */
-
-package com.pss.action;
+ */package com.pss.action;
 
 import java.util.List;
 import javax.annotation.Resource;
@@ -33,12 +31,14 @@ public class PssMatesReceiptDetailAction extends BaseAction {
 	 * 記錄的新增和修改
 	 */
 	public String save() {
+		boolean sus = true;
 		try {
 			pssMatesReceiptDetailService.save(pssMatesReceiptDetail);
 		} catch (Exception e) {
+			sus = false;
 			e.printStackTrace();
 		}
-		setJsonString("{success:true}");
+		setJsonString("{success:"+sus+"}");
 		return SUCCESS;
 	}
 	
@@ -48,20 +48,23 @@ public class PssMatesReceiptDetailAction extends BaseAction {
 	 * @return
 	 */
 	public String multiDel() {
-		String[] ids = getRequest().getParameterValues("ids");
-		if (ids != null) {
-			for (String id : ids) {
-				try {
-					pssMatesReceiptDetailService.remove(new Long(id));
-				} catch (NumberFormatException e) {
-					e.printStackTrace();
-				} catch (Exception e) {
-					e.printStackTrace();
+		boolean sus = true;
+		try {
+				String[] ids = getRequest().getParameterValues("ids");
+				if (ids != null && ids.length > 0) {
+					for (String id : ids) {
+							pssMatesReceiptDetailService.remove(new Long(id));
+					}
 				}
-			}
+				
+		} catch (NumberFormatException e) {
+			sus = false;
+			e.printStackTrace();
+		} catch (Exception e) {
+			sus = false;
+			e.printStackTrace();
 		}
-
-		jsonString = "{success:true}";
+		setJsonString("{success:"+sus+"}");
 		return SUCCESS;
 	}
 	
@@ -72,6 +75,7 @@ public class PssMatesReceiptDetailAction extends BaseAction {
 	 */
 	public String get() {
 		String id = getRequest().getParameter("id");
+		
 		PssMatesReceiptDetail pssMatesReceiptDetail = pssMatesReceiptDetailService.get(new Long(id));
 
 		Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();

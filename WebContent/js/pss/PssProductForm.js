@@ -1,24 +1,19 @@
 /*
  * Powered By [shi_zenghua@qq.com]
  */
-
 Ext.ns('PssProductForm');
 PssProductForm = Ext.extend(Ext.Window, {
-	formPanel : null,
 	constructor : function(_cfg) {
 		Ext.applyIf(this, _cfg);
 		this.initUIComponents();
 		PssProductForm.superclass.constructor.call(this, {
-					layout : 'fit',
 					items : this.formPanel,
 					modal : true,
 					id : 'PssProductFormWin',
 					title : this.recId?'修改產品':'新增產品',
 					iconCls : 'menu-planmanage',
-					width : 600,
-					height : 240,
-					resizable : false,
-					buttonAlign : 'center',
+					width : 820,
+					autoHeight : true,
 					buttons : this.buttons
 				});
 	},
@@ -26,109 +21,74 @@ PssProductForm = Ext.extend(Ext.Window, {
 		this.formPanel = new Ext.FormPanel({
 			url : __ctxPath + '/pss/savePssProduct.do',
 			id : 'PssProductForm',
+			autoHeight:true,
 			frame : true,
 			items : [{
-				xtype : 'fieldset',
-				title : '產品',
-				items : [{
 					layout : 'column',
 					columnWidth : 0.5,
 					defaults : {
 						layout : 'form',
 						padding : '0 0 0 20px',
 						labelAlign : 'right',
-						labelWidth : 80,
+						labelWidth : 160,
 						defaults : {
 							xtype : 'textfield',
-							width : 140
+							allowBlank : false,
+							maxLength:100,
+							width : 200
 						}
 					},
 					items : [{
 						items : [{
-									name : 'pssProduct.id',
-									id : 'id',
+									id:'hiddenId',
 									xtype : 'hidden',
-									value : recId||''
+									value : this.recId||''
 								},{
 									fieldLabel : '產品編號/產品代號',
-									maxLength:18,
-									allowBlank : false,
-									name : 'pssProduct.productId',
-									id : 'productId'
+									name : 'pssProduct.productId'
 								},{
 									fieldLabel : '描述',
-									maxLength:18,
-									allowBlank : false,
-									name : 'pssProduct.desc',
-									id : 'desc'
+									name : 'pssProduct.desc'
 								},{
 									fieldLabel : '產品定價(單價)',
-									maxLength:18,
-									allowBlank : false,
-									name : 'pssProduct.price',
-									id : 'price'
+									name : 'pssProduct.price'
 								},{
-									fieldLabel : '有效否，0：無效、1：有效。',
-									maxLength:18,
-									allowBlank : false,
-									name : 'pssProduct.active',
-									id : 'active'
+									fieldLabel : '有效否',
+									name : 'pssProduct.active',xtype:"combo",store:[[0,"無效"],[1,"有效"]]
 								},{
 									fieldLabel : '創建人員',
-									maxLength:18,
-									allowBlank : false,
-									name : 'pssProduct.createBy',
-									id : 'createBy'
+									name : 'pssProduct.createBy'
 								},{
 									fieldLabel : '修改人員',
-									maxLength:18,
-									allowBlank : false,
-									name : 'pssProduct.updateBy',
-									id : 'updateBy'
-					     }]
+									name : 'pssProduct.updateBy'
+					      }]
 					},{
 						items : [{
 									xtype : 'hidden'
 								},{
 									fieldLabel : '產品名稱',
-									maxLength:18,
-									allowBlank : false,
-									name : 'pssProduct.name',
-									id : 'name'
+									name : 'pssProduct.name'
 								},{
-									fieldLabel : '單位，1：個、2：塊、3：條、4：片、5：公斤、6：公噸、7：...。',
-									maxLength:18,
-									allowBlank : false,
-									name : 'pssProduct.unit',
-									id : 'unit'
+									fieldLabel : '單位',
+									name : 'pssProduct.unit',xtype:"combo",store:[[1,"個"],[2,"塊"],[3,"條"],[4,"片"],[5,"公斤"],[6,"公噸"],[7,"..."]]
 								},{
 									fieldLabel : '產品建議售價(單價)',
-									maxLength:18,
-									allowBlank : false,
-									name : 'pssProduct.salePrice',
-									id : 'salePrice'
+									name : 'pssProduct.salePrice'
 								},{
 									fieldLabel : '創建日期',
-									maxLength:18,
-									allowBlank : false,
-									name : 'pssProduct.createDate',
-									id : 'createDate'
+									name : 'pssProduct.createDate'
 								},{
 									fieldLabel : '修改日期',
-									maxLength:18,
-									allowBlank : false,
-									name : 'pssProduct.updateDate',
-									id : 'updateDate'
-				         }]
+									name : 'pssProduct.updateDate'
+				        }]
 					}]
 				}]
-			}]
 		});
 
 		if (this.recId) {
 			this.formPanel.getForm().load({
 				deferredRender : false,
-				url : __ctxPath + '/pss/getPssProduct.do?recId='+ this.recId,
+				url : __ctxPath + '/pss/getPssProduct.do?id='+ this.recId,
 				waitMsg : '正在載入數據...',
 				success : function(form, action) {
 

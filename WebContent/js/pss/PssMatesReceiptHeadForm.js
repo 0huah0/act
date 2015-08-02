@@ -1,24 +1,19 @@
 /*
  * Powered By [shi_zenghua@qq.com]
  */
-
 Ext.ns('PssMatesReceiptHeadForm');
 PssMatesReceiptHeadForm = Ext.extend(Ext.Window, {
-	formPanel : null,
 	constructor : function(_cfg) {
 		Ext.applyIf(this, _cfg);
 		this.initUIComponents();
 		PssMatesReceiptHeadForm.superclass.constructor.call(this, {
-					layout : 'fit',
 					items : this.formPanel,
 					modal : true,
 					id : 'PssMatesReceiptHeadFormWin',
 					title : this.recId?'修改收貨單':'新增收貨單',
 					iconCls : 'menu-planmanage',
-					width : 600,
-					height : 240,
-					resizable : false,
-					buttonAlign : 'center',
+					width : 820,
+					autoHeight : true,
 					buttons : this.buttons
 				});
 	},
@@ -26,121 +21,80 @@ PssMatesReceiptHeadForm = Ext.extend(Ext.Window, {
 		this.formPanel = new Ext.FormPanel({
 			url : __ctxPath + '/pss/savePssMatesReceiptHead.do',
 			id : 'PssMatesReceiptHeadForm',
+			autoHeight:true,
 			frame : true,
 			items : [{
-				xtype : 'fieldset',
-				title : '收貨單',
-				items : [{
 					layout : 'column',
 					columnWidth : 0.5,
 					defaults : {
 						layout : 'form',
 						padding : '0 0 0 20px',
 						labelAlign : 'right',
-						labelWidth : 80,
+						labelWidth : 160,
 						defaults : {
 							xtype : 'textfield',
-							width : 140
+							allowBlank : false,
+							maxLength:100,
+							width : 200
 						}
 					},
 					items : [{
 						items : [{
-									name : 'pssMatesReceiptHead.id',
-									id : 'id',
+									id:'hiddenId',
 									xtype : 'hidden',
-									value : recId||''
+									value : this.recId||''
 								},{
-									fieldLabel : '收貨單編號，收貨單代碼2位(MR)+當前日期8位(yyyyMMdd)+流水號6位。',
-									maxLength:18,
-									allowBlank : false,
-									name : 'pssMatesReceiptHead.mrHeadId',
-									id : 'mrHeadId'
+									fieldLabel : '收貨單編號（收貨單代碼2位(MR)+當前日期8位(yyyyMMdd)+流水號6位）。',
+									name : 'pssMatesReceiptHead.mrHeadId'
 								},{
 									fieldLabel : '收貨倉庫編號/倉庫代號',
-									maxLength:18,
-									allowBlank : false,
-									name : 'pssMatesReceiptHead.warehouseId',
-									id : 'warehouseId'
+									name : 'pssMatesReceiptHead.warehouseId'
 								},{
 									fieldLabel : '收貨人電話',
-									maxLength:18,
-									allowBlank : false,
-									name : 'pssMatesReceiptHead.receiverTel',
-									id : 'receiverTel'
+									name : 'pssMatesReceiptHead.receiverTel'
 								},{
 									fieldLabel : '送貨人名稱',
-									maxLength:18,
-									allowBlank : false,
-									name : 'pssMatesReceiptHead.diliverName',
-									id : 'diliverName'
+									name : 'pssMatesReceiptHead.diliverName'
 								},{
 									fieldLabel : '備註',
-									maxLength:18,
-									allowBlank : false,
-									name : 'pssMatesReceiptHead.remark',
-									id : 'remark'
+									name : 'pssMatesReceiptHead.remark'
 								},{
 									fieldLabel : '創建人員',
-									maxLength:18,
-									allowBlank : false,
-									name : 'pssMatesReceiptHead.createBy',
-									id : 'createBy'
+									name : 'pssMatesReceiptHead.createBy'
 								},{
 									fieldLabel : '修改人員',
-									maxLength:18,
-									allowBlank : false,
-									name : 'pssMatesReceiptHead.updateBy',
-									id : 'updateBy'
-					     }]
+									name : 'pssMatesReceiptHead.updateBy'
+					      }]
 					},{
 						items : [{
 									xtype : 'hidden'
 								},{
 									fieldLabel : '採購單編號',
-									maxLength:18,
-									allowBlank : false,
-									name : 'pssMatesReceiptHead.poHeadId',
-									id : 'poHeadId'
+									name : 'pssMatesReceiptHead.poHeadId'
 								},{
 									fieldLabel : '收貨人名稱/倉管人員名稱',
-									maxLength:18,
-									allowBlank : false,
-									name : 'pssMatesReceiptHead.receiverName',
-									id : 'receiverName'
+									name : 'pssMatesReceiptHead.receiverName'
 								},{
 									fieldLabel : '收貨發票號碼(應付帳款)',
-									maxLength:18,
-									allowBlank : false,
-									name : 'pssMatesReceiptHead.mrInvoice',
-									id : 'mrInvoice'
+									name : 'pssMatesReceiptHead.mrInvoice'
 								},{
 									fieldLabel : '送貨人電話',
-									maxLength:18,
-									allowBlank : false,
-									name : 'pssMatesReceiptHead.diliverTel',
-									id : 'diliverTel'
+									name : 'pssMatesReceiptHead.diliverTel'
 								},{
 									fieldLabel : '創建日期',
-									maxLength:18,
-									allowBlank : false,
-									name : 'pssMatesReceiptHead.createDate',
-									id : 'createDate'
+									name : 'pssMatesReceiptHead.createDate'
 								},{
 									fieldLabel : '修改日期',
-									maxLength:18,
-									allowBlank : false,
-									name : 'pssMatesReceiptHead.updateDate',
-									id : 'updateDate'
-				         }]
+									name : 'pssMatesReceiptHead.updateDate'
+				        }]
 					}]
 				}]
-			}]
 		});
 
 		if (this.recId) {
 			this.formPanel.getForm().load({
 				deferredRender : false,
-				url : __ctxPath + '/pss/getPssMatesReceiptHead.do?recId='+ this.recId,
+				url : __ctxPath + '/pss/getPssMatesReceiptHead.do?id='+ this.recId,
 				waitMsg : '正在載入數據...',
 				success : function(form, action) {
 

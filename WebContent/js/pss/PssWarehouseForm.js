@@ -1,24 +1,19 @@
 /*
  * Powered By [shi_zenghua@qq.com]
  */
-
 Ext.ns('PssWarehouseForm');
 PssWarehouseForm = Ext.extend(Ext.Window, {
-	formPanel : null,
 	constructor : function(_cfg) {
 		Ext.applyIf(this, _cfg);
 		this.initUIComponents();
 		PssWarehouseForm.superclass.constructor.call(this, {
-					layout : 'fit',
 					items : this.formPanel,
 					modal : true,
 					id : 'PssWarehouseFormWin',
 					title : this.recId?'修改倉庫':'新增倉庫',
 					iconCls : 'menu-planmanage',
-					width : 600,
-					height : 240,
-					resizable : false,
-					buttonAlign : 'center',
+					width : 820,
+					autoHeight : true,
 					buttons : this.buttons
 				});
 	},
@@ -26,85 +21,62 @@ PssWarehouseForm = Ext.extend(Ext.Window, {
 		this.formPanel = new Ext.FormPanel({
 			url : __ctxPath + '/pss/savePssWarehouse.do',
 			id : 'PssWarehouseForm',
+			autoHeight:true,
 			frame : true,
 			items : [{
-				xtype : 'fieldset',
-				title : '倉庫',
-				items : [{
 					layout : 'column',
 					columnWidth : 0.5,
 					defaults : {
 						layout : 'form',
 						padding : '0 0 0 20px',
 						labelAlign : 'right',
-						labelWidth : 80,
+						labelWidth : 160,
 						defaults : {
 							xtype : 'textfield',
-							width : 140
+							allowBlank : false,
+							maxLength:100,
+							width : 200
 						}
 					},
 					items : [{
 						items : [{
-									name : 'pssWarehouse.id',
-									id : 'id',
+									id:'hiddenId',
 									xtype : 'hidden',
-									value : recId||''
+									value : this.recId||''
 								},{
 									fieldLabel : '倉庫編號/倉庫代號',
-									maxLength:18,
-									allowBlank : false,
-									name : 'pssWarehouse.warehouseId',
-									id : 'warehouseId'
+									name : 'pssWarehouse.warehouseId'
 								},{
 									fieldLabel : '描述',
-									maxLength:18,
-									allowBlank : false,
-									name : 'pssWarehouse.desc',
-									id : 'desc'
+									name : 'pssWarehouse.desc'
 								},{
 									fieldLabel : '創建人員',
-									maxLength:18,
-									allowBlank : false,
-									name : 'pssWarehouse.createBy',
-									id : 'createBy'
+									name : 'pssWarehouse.createBy'
 								},{
 									fieldLabel : '修改人員',
-									maxLength:18,
-									allowBlank : false,
-									name : 'pssWarehouse.updateBy',
-									id : 'updateBy'
-					     }]
+									name : 'pssWarehouse.updateBy'
+					      }]
 					},{
 						items : [{
 									xtype : 'hidden'
 								},{
 									fieldLabel : '名稱',
-									maxLength:18,
-									allowBlank : false,
-									name : 'pssWarehouse.name',
-									id : 'name'
+									name : 'pssWarehouse.name'
 								},{
 									fieldLabel : '創建日期',
-									maxLength:18,
-									allowBlank : false,
-									name : 'pssWarehouse.createDate',
-									id : 'createDate'
+									name : 'pssWarehouse.createDate'
 								},{
 									fieldLabel : '修改日期',
-									maxLength:18,
-									allowBlank : false,
-									name : 'pssWarehouse.updateDate',
-									id : 'updateDate'
-				         }]
+									name : 'pssWarehouse.updateDate'
+				        }]
 					}]
 				}]
-			}]
 		});
 
 		if (this.recId) {
 			this.formPanel.getForm().load({
 				deferredRender : false,
-				url : __ctxPath + '/pss/getPssWarehouse.do?recId='+ this.recId,
+				url : __ctxPath + '/pss/getPssWarehouse.do?id='+ this.recId,
 				waitMsg : '正在載入數據...',
 				success : function(form, action) {
 

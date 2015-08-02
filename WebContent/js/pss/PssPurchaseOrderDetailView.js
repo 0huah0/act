@@ -1,13 +1,8 @@
 /*
  * Powered By [shi_zenghua@qq.com]
  */
-
 Ext.ns('PssPurchaseOrderDetailView');
 PssPurchaseOrderDetailView = Ext.extend(Ext.Panel, {
-	searchPanel : null,
-	gridPanel : null,
-	store : null,
-	topbar : null,
 	constructor : function(_cfg) {
 		Ext.applyIf(this, _cfg);
 		this.initUIComponents();
@@ -16,15 +11,14 @@ PssPurchaseOrderDetailView = Ext.extend(Ext.Panel, {
 					title : '採購單子項',
 					iconCls : 'menu-planmanage',
 					region : 'center',
-					layout : 'border',
 					items : [this.searchPanel, this.gridPanel]
-				});
+		});
 	},
 	initUIComponents : function() {
+		//searchPanel
 		this.searchPanel = new Ext.FormPanel({
-			//height : 115,
+			autoHeight : true,
 			frame : true,
-			region : 'north',
 			id : 'PssPurchaseOrderDetailSearchForm',
 			buttonAlign : 'center',
 			buttons : [{
@@ -53,191 +47,150 @@ PssPurchaseOrderDetailView = Ext.extend(Ext.Panel, {
 				title : '採購單子項查詢',
 				layout : 'form',
 				items : [{
-					xtype : 'fieldset',
-					title : '採購單子項',
-					items : [{
-						layout : 'column',
-						columnWidth : 0.33,
+					layout : 'column',
+					columnWidth : 0.33,
+					defaults : {
+						layout : 'form',
+						padding : '0 0 0 20px',
+						labelAlign : 'right',
+						labelWidth : 120,
 						defaults : {
-							layout : 'form',
-							padding : '0 0 0 20px',
-							labelAlign : 'right',
-							labelWidth : 100,
-							defaults : {
-								xtype : 'textfield',
-								width : 140
-							}
-						},
+							xtype : 'textfield',
+							width : 140
+						}
+					},
+					items : [{
 						items : [{
-							items : [{
-										fieldLabel : '採購單明細編號',
-										maxLength:18,
-										allowBlank : false,
-										name : 'pssPurchaseOrderDetail.poDetailId',
-										id : 'poDetailId'
-									},{
-										fieldLabel : '原料定價(單價)',
-										maxLength:18,
-										allowBlank : false,
-										name : 'pssPurchaseOrderDetail.materialPrice',
-										id : 'materialPrice'
-									},{
-										fieldLabel : '創建日期',
-										maxLength:18,
-										allowBlank : false,
-										name : 'pssPurchaseOrderDetail.createDate',
-										id : 'createDate'
-									},{
-										fieldLabel : '修改人員',
-										maxLength:18,
-										allowBlank : false,
-										name : 'pssPurchaseOrderDetail.updateBy',
-										id : 'updateBy'
-									},{
-									}]
-						},{
-							items : [{
-										fieldLabel : '原料編號',
-										maxLength:18,
-										allowBlank : false,
-										name : 'pssPurchaseOrderDetail.materialId',
-										id : 'materialId'
-									},{
-										fieldLabel : '原料建議售價(單價)',
-										maxLength:18,
-										allowBlank : false,
-										name : 'pssPurchaseOrderDetail.materialSalePrice',
-										id : 'materialSalePrice'
-									},{
-										fieldLabel : '創建人員',
-										maxLength:18,
-										allowBlank : false,
-										name : 'pssPurchaseOrderDetail.createBy',
-										id : 'createBy'
-									},{
-									}]
-						},{
-							items : [{
-										fieldLabel : '採購單編號',
-										maxLength:18,
-										allowBlank : false,
-										name : 'pssPurchaseOrderDetail.poHeadId',
-										id : 'poHeadId'
-									},{
-										fieldLabel : '原料數量',
-										maxLength:18,
-										allowBlank : false,
-										name : 'pssPurchaseOrderDetail.materialNum',
-										id : 'materialNum'
-									},{
-										fieldLabel : '小計',
-										maxLength:18,
-										allowBlank : false,
-										name : 'pssPurchaseOrderDetail.amount',
-										id : 'amount'
-									},{
-										fieldLabel : '修改日期',
-										maxLength:18,
-										allowBlank : false,
-										name : 'pssPurchaseOrderDetail.updateDate',
-										id : 'updateDate'
-									},{
-									}]
-						}]
+									fieldLabel : '採購單明細編號',
+									maxLength:18,
+									name : 'S_poDetailId_L_EQ'
+								},{
+									fieldLabel : '原料定價(單價)',
+									maxLength:18,
+									name : 'S_materialPrice_L_EQ'
+								},{
+									fieldLabel : '創建日期',
+									maxLength:18,
+									name : 'S_createDate_D_DL'
+								},{
+									fieldLabel : '修改人員',
+									maxLength:18,
+									name : 'S_updateBy_S_LK'
+								},{
+								xtype:'hidden'
+								}]//
+					},{
+						items : [{
+									fieldLabel : '原料編號',
+									maxLength:18,
+									name : 'S_materialId_S_LK'
+								},{
+									fieldLabel : '原料建議售價(單價)',
+									maxLength:18,
+									name : 'S_materialSalePrice_L_EQ'
+								},{
+									fieldLabel : '創建人員',
+									maxLength:18,
+									name : 'S_createBy_S_LK'
+								},{
+									xtype:'hidden'
+								}]//
+					},{
+						items : [{
+									fieldLabel : '採購單編號',
+									maxLength:18,
+									name : 'S_poHeadId_S_LK'
+								},{
+									fieldLabel : '原料數量',
+									maxLength:18,
+									name : 'S_materialNum_L_EQ'
+								},{
+									fieldLabel : '小計',
+									maxLength:18,
+									name : 'S_amount_L_EQ'
+								},{
+									fieldLabel : '修改日期',
+									maxLength:18,
+									name : 'S_updateDate_D_DL'
+								},{
+									xtype:'hidden'
+								}]//
 					}]
 				}]
 			}]
 		});
+		//end of searchPanel
+		
+		
+		//store
 		this.store = new Ext.data.JsonStore({
 					url : __ctxPath + '/pss/listPssPurchaseOrderDetail.do',
 					root : 'result',
 					totalProperty : 'totalCounts',
-					fields : ['id'
-								,'poHeadId'
-								,'poDetailId'
-								,'materialId'
-								,'materialNum'
-								,'materialPrice'
-								,'materialSalePrice'
-								,'amount'
-								,'createDate'
-								,'createBy'
-								,'updateDate'
-								,'updateBy'
-							]
-				});
+					fields : ['poHeadId','poDetailId','materialId','materialNum','materialPrice','materialSalePrice','amount','createDate','createBy','updateDate','updateBy'
+					]
+		});
+		
 		//this.store.setDefaultSort('id', 'asc');
 		this.store.load({
-					params : {
+				params : {
 						start : 0,
 						limit : 25
-					}
-				});
+				}
+		});
 		var cm = new Ext.grid.ColumnModel({
-			columns : [new Ext.grid.RowNumberer(),{
+				columns : [new Ext.grid.RowNumberer(),{
 							header : '採購單編號',
-							width : 120,
 							dataIndex : 'poHeadId'
 						},{
 							header : '採購單明細編號',
-							width : 120,
 							dataIndex : 'poDetailId'
 						},{
 							header : '原料編號',
-							width : 120,
 							dataIndex : 'materialId'
 						},{
 							header : '原料數量',
-							width : 120,
 							dataIndex : 'materialNum'
 						},{
 							header : '原料定價(單價)',
-							width : 120,
 							dataIndex : 'materialPrice'
 						},{
 							header : '原料建議售價(單價)',
-							width : 120,
 							dataIndex : 'materialSalePrice'
 						},{
 							header : '小計',
-							width : 120,
 							dataIndex : 'amount'
 						},{
 							header : '創建日期',
-							width : 120,
 							dataIndex : 'createDate'
 						},{
 							header : '創建人員',
-							width : 120,
 							dataIndex : 'createBy'
 						},{
 							header : '修改日期',
-							width : 120,
 							dataIndex : 'updateDate'
 						},{
 							header : '修改人員',
-							width : 120,
 							dataIndex : 'updateBy'
 						},{
 						header : '管理',
-						dataIndex : 'id',
+						dataIndex : 'poDetailId',//
 						renderer : function(v,m,r) {
-							return '&nbsp;<button title="修改" value=" " class="btn-edit" onclick="PssPurchaseOrderDetailView.edit('
+							return isGranted('_PssPurchaseOrderDetailEdit') ?('&nbsp;<button title="修改" value=" " class="btn-edit" onclick="PssPurchaseOrderDetailView.edit('
 							+ v + ')"></button><button title="刪除" value=" " class="btn-del" onclick="PssPurchaseOrderDetailView.remove('
-							+ v + ')"></button>';
+							+ v + ')"></button>'):'';
 						}
 					}],
 			defaults : {
 				sortable : true,
 				menuDisabled : false,
-				width : 80
+				width : 120
 			}
 		});
 
 		this.gridPanel = new Ext.grid.GridPanel({
 					id : 'PssPurchaseOrderDetailGrid',
-					region : 'center',
-					tbar : (isGranted('_PssPurchaseOrderDetailAdd') ? new Ext.Toolbar({
+					tbar : (isGranted('_PssPurchaseOrderDetailEdit') ? new Ext.Toolbar({
 								id : 'PssPurchaseOrderDetailFootBar',
 								bodyStyle : 'text-align:left',
 								items : [new Ext.Button({
@@ -261,9 +214,12 @@ PssPurchaseOrderDetailView = Ext.extend(Ext.Panel, {
 								emptyMsg : "無記錄"
 							})
 				});
+		//end of store
 	}
-});
+});// end of main view
 
+
+//view static method
 PssPurchaseOrderDetailView.remove = function(id) {
 	var grid = Ext.getCmp("PssPurchaseOrderDetailGrid");
 	Ext.Msg.confirm('刪除確認', '確定要刪除此筆數據？', function(btn) {
@@ -277,7 +233,7 @@ PssPurchaseOrderDetailView.remove = function(id) {
 				method : 'post',
 				success : function(response, options) {
 					var dbJson = eval("(" + response.responseText + ")");
-	                if(dbJson.success){
+					if(dbJson.success){
 						Ext.ux.Toast.msg("信息", "成功刪除！");
 						grid.getStore().reload({
 							params : {
@@ -286,7 +242,7 @@ PssPurchaseOrderDetailView.remove = function(id) {
 							}
 						});
 					}else{
-						Ext.Msg.alert("信息", "該項已經被使用，不能刪除！");
+						Ext.Msg.alert("信息", "該項沒能被刪除！");
 					}
 				}
 			});
@@ -299,3 +255,5 @@ PssPurchaseOrderDetailView.edit = function(id) {
 				recId : id
 			}).show();
 };
+
+//end of view static method

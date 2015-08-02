@@ -1,13 +1,8 @@
 /*
  * Powered By [shi_zenghua@qq.com]
  */
-
 Ext.ns('PssMatesReceiptDetailView');
 PssMatesReceiptDetailView = Ext.extend(Ext.Panel, {
-	searchPanel : null,
-	gridPanel : null,
-	store : null,
-	topbar : null,
 	constructor : function(_cfg) {
 		Ext.applyIf(this, _cfg);
 		this.initUIComponents();
@@ -16,15 +11,14 @@ PssMatesReceiptDetailView = Ext.extend(Ext.Panel, {
 					title : '收貨單子項',
 					iconCls : 'menu-planmanage',
 					region : 'center',
-					layout : 'border',
 					items : [this.searchPanel, this.gridPanel]
-				});
+		});
 	},
 	initUIComponents : function() {
+		//searchPanel
 		this.searchPanel = new Ext.FormPanel({
-			//height : 115,
+			autoHeight : true,
 			frame : true,
-			region : 'north',
 			id : 'PssMatesReceiptDetailSearchForm',
 			buttonAlign : 'center',
 			buttons : [{
@@ -53,180 +47,143 @@ PssMatesReceiptDetailView = Ext.extend(Ext.Panel, {
 				title : '收貨單子項查詢',
 				layout : 'form',
 				items : [{
-					xtype : 'fieldset',
-					title : '收貨單子項',
-					items : [{
-						layout : 'column',
-						columnWidth : 0.33,
+					layout : 'column',
+					columnWidth : 0.33,
+					defaults : {
+						layout : 'form',
+						padding : '0 0 0 20px',
+						labelAlign : 'right',
+						labelWidth : 120,
 						defaults : {
-							layout : 'form',
-							padding : '0 0 0 20px',
-							labelAlign : 'right',
-							labelWidth : 100,
-							defaults : {
-								xtype : 'textfield',
-								width : 140
-							}
-						},
+							xtype : 'textfield',
+							width : 140
+						}
+					},
+					items : [{
 						items : [{
-							items : [{
-										fieldLabel : '收貨單明細編號',
-										maxLength:18,
-										allowBlank : false,
-										name : 'pssMatesReceiptDetail.mrDetailId',
-										id : 'mrDetailId'
-									},{
-										fieldLabel : '接收數量',
-										maxLength:18,
-										allowBlank : false,
-										name : 'pssMatesReceiptDetail.receiptNum',
-										id : 'receiptNum'
-									},{
-										fieldLabel : '創建人員',
-										maxLength:18,
-										allowBlank : false,
-										name : 'pssMatesReceiptDetail.createBy',
-										id : 'createBy'
-									},{
-									}]
-						},{
-							items : [{
-										fieldLabel : '原料編號',
-										maxLength:18,
-										allowBlank : false,
-										name : 'pssMatesReceiptDetail.materialId',
-										id : 'materialId'
-									},{
-										fieldLabel : '退回數量',
-										maxLength:18,
-										allowBlank : false,
-										name : 'pssMatesReceiptDetail.rejectNum',
-										id : 'rejectNum'
-									},{
-										fieldLabel : '修改日期',
-										maxLength:18,
-										allowBlank : false,
-										name : 'pssMatesReceiptDetail.updateDate',
-										id : 'updateDate'
-									},{
-									}]
-						},{
-							items : [{
-										fieldLabel : '收貨單編號',
-										maxLength:18,
-										allowBlank : false,
-										name : 'pssMatesReceiptDetail.mrHeadId',
-										id : 'mrHeadId'
-									},{
-										fieldLabel : '來貨數量',
-										maxLength:18,
-										allowBlank : false,
-										name : 'pssMatesReceiptDetail.allNum',
-										id : 'allNum'
-									},{
-										fieldLabel : '創建日期',
-										maxLength:18,
-										allowBlank : false,
-										name : 'pssMatesReceiptDetail.createDate',
-										id : 'createDate'
-									},{
-										fieldLabel : '修改人員',
-										maxLength:18,
-										allowBlank : false,
-										name : 'pssMatesReceiptDetail.updateBy',
-										id : 'updateBy'
-									},{
-									}]
-						}]
+									fieldLabel : '收貨單明細編號',
+									maxLength:18,
+									name : 'S_mrDetailId_L_EQ'
+								},{
+									fieldLabel : '接收數量',
+									maxLength:18,
+									name : 'S_receiptNum_L_EQ'
+								},{
+									fieldLabel : '創建人員',
+									maxLength:18,
+									name : 'S_createBy_S_LK'
+								},{
+								xtype:'hidden'
+								}]//
+					},{
+						items : [{
+									fieldLabel : '原料編號',
+									maxLength:18,
+									name : 'S_materialId_S_LK'
+								},{
+									fieldLabel : '退回數量',
+									maxLength:18,
+									name : 'S_rejectNum_L_EQ'
+								},{
+									fieldLabel : '修改日期',
+									maxLength:18,
+									name : 'S_updateDate_D_DL'
+								},{
+									xtype:'hidden'
+								}]//
+					},{
+						items : [{
+									fieldLabel : '收貨單編號',
+									maxLength:18,
+									name : 'S_mrHeadId_S_LK'
+								},{
+									fieldLabel : '來貨數量',
+									maxLength:18,
+									name : 'S_allNum_L_EQ'
+								},{
+									fieldLabel : '創建日期',
+									maxLength:18,
+									name : 'S_createDate_D_DL'
+								},{
+									fieldLabel : '修改人員',
+									maxLength:18,
+									name : 'S_updateBy_S_LK'
+								},{
+									xtype:'hidden'
+								}]//
 					}]
 				}]
 			}]
 		});
+		//end of searchPanel
+		
+		
+		//store
 		this.store = new Ext.data.JsonStore({
 					url : __ctxPath + '/pss/listPssMatesReceiptDetail.do',
 					root : 'result',
 					totalProperty : 'totalCounts',
-					fields : ['id'
-								,'mrHeadId'
-								,'mrDetailId'
-								,'materialId'
-								,'allNum'
-								,'receiptNum'
-								,'rejectNum'
-								,'createDate'
-								,'createBy'
-								,'updateDate'
-								,'updateBy'
-							]
-				});
+					fields : ['mrHeadId','mrDetailId','materialId','allNum','receiptNum','rejectNum','createDate','createBy','updateDate','updateBy'
+					]
+		});
+		
 		//this.store.setDefaultSort('id', 'asc');
 		this.store.load({
-					params : {
+				params : {
 						start : 0,
 						limit : 25
-					}
-				});
+				}
+		});
 		var cm = new Ext.grid.ColumnModel({
-			columns : [new Ext.grid.RowNumberer(),{
+				columns : [new Ext.grid.RowNumberer(),{
 							header : '收貨單編號',
-							width : 120,
 							dataIndex : 'mrHeadId'
 						},{
 							header : '收貨單明細編號',
-							width : 120,
 							dataIndex : 'mrDetailId'
 						},{
 							header : '原料編號',
-							width : 120,
 							dataIndex : 'materialId'
 						},{
 							header : '來貨數量',
-							width : 120,
 							dataIndex : 'allNum'
 						},{
 							header : '接收數量',
-							width : 120,
 							dataIndex : 'receiptNum'
 						},{
 							header : '退回數量',
-							width : 120,
 							dataIndex : 'rejectNum'
 						},{
 							header : '創建日期',
-							width : 120,
 							dataIndex : 'createDate'
 						},{
 							header : '創建人員',
-							width : 120,
 							dataIndex : 'createBy'
 						},{
 							header : '修改日期',
-							width : 120,
 							dataIndex : 'updateDate'
 						},{
 							header : '修改人員',
-							width : 120,
 							dataIndex : 'updateBy'
 						},{
 						header : '管理',
-						dataIndex : 'id',
+						dataIndex : 'mrDetailId',//
 						renderer : function(v,m,r) {
-							return '&nbsp;<button title="修改" value=" " class="btn-edit" onclick="PssMatesReceiptDetailView.edit('
+							return isGranted('_PssMatesReceiptDetailEdit') ?('&nbsp;<button title="修改" value=" " class="btn-edit" onclick="PssMatesReceiptDetailView.edit('
 							+ v + ')"></button><button title="刪除" value=" " class="btn-del" onclick="PssMatesReceiptDetailView.remove('
-							+ v + ')"></button>';
+							+ v + ')"></button>'):'';
 						}
 					}],
 			defaults : {
 				sortable : true,
 				menuDisabled : false,
-				width : 80
+				width : 120
 			}
 		});
 
 		this.gridPanel = new Ext.grid.GridPanel({
 					id : 'PssMatesReceiptDetailGrid',
-					region : 'center',
-					tbar : (isGranted('_PssMatesReceiptDetailAdd') ? new Ext.Toolbar({
+					tbar : (isGranted('_PssMatesReceiptDetailEdit') ? new Ext.Toolbar({
 								id : 'PssMatesReceiptDetailFootBar',
 								bodyStyle : 'text-align:left',
 								items : [new Ext.Button({
@@ -250,9 +207,12 @@ PssMatesReceiptDetailView = Ext.extend(Ext.Panel, {
 								emptyMsg : "無記錄"
 							})
 				});
+		//end of store
 	}
-});
+});// end of main view
 
+
+//view static method
 PssMatesReceiptDetailView.remove = function(id) {
 	var grid = Ext.getCmp("PssMatesReceiptDetailGrid");
 	Ext.Msg.confirm('刪除確認', '確定要刪除此筆數據？', function(btn) {
@@ -266,7 +226,7 @@ PssMatesReceiptDetailView.remove = function(id) {
 				method : 'post',
 				success : function(response, options) {
 					var dbJson = eval("(" + response.responseText + ")");
-	                if(dbJson.success){
+					if(dbJson.success){
 						Ext.ux.Toast.msg("信息", "成功刪除！");
 						grid.getStore().reload({
 							params : {
@@ -275,7 +235,7 @@ PssMatesReceiptDetailView.remove = function(id) {
 							}
 						});
 					}else{
-						Ext.Msg.alert("信息", "該項已經被使用，不能刪除！");
+						Ext.Msg.alert("信息", "該項沒能被刪除！");
 					}
 				}
 			});
@@ -288,3 +248,5 @@ PssMatesReceiptDetailView.edit = function(id) {
 				recId : id
 			}).show();
 };
+
+//end of view static method

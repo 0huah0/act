@@ -1,24 +1,19 @@
 /*
  * Powered By [shi_zenghua@qq.com]
  */
-
 Ext.ns('PssMatesReceiptDetailForm');
 PssMatesReceiptDetailForm = Ext.extend(Ext.Window, {
-	formPanel : null,
 	constructor : function(_cfg) {
 		Ext.applyIf(this, _cfg);
 		this.initUIComponents();
 		PssMatesReceiptDetailForm.superclass.constructor.call(this, {
-					layout : 'fit',
 					items : this.formPanel,
 					modal : true,
 					id : 'PssMatesReceiptDetailFormWin',
 					title : this.recId?'修改收貨單子項':'新增收貨單子項',
 					iconCls : 'menu-planmanage',
-					width : 600,
-					height : 240,
-					resizable : false,
-					buttonAlign : 'center',
+					width : 820,
+					autoHeight : true,
 					buttons : this.buttons
 				});
 	},
@@ -26,103 +21,71 @@ PssMatesReceiptDetailForm = Ext.extend(Ext.Window, {
 		this.formPanel = new Ext.FormPanel({
 			url : __ctxPath + '/pss/savePssMatesReceiptDetail.do',
 			id : 'PssMatesReceiptDetailForm',
+			autoHeight:true,
 			frame : true,
 			items : [{
-				xtype : 'fieldset',
-				title : '收貨單子項',
-				items : [{
 					layout : 'column',
 					columnWidth : 0.5,
 					defaults : {
 						layout : 'form',
 						padding : '0 0 0 20px',
 						labelAlign : 'right',
-						labelWidth : 80,
+						labelWidth : 160,
 						defaults : {
 							xtype : 'textfield',
-							width : 140
+							allowBlank : false,
+							maxLength:100,
+							width : 200
 						}
 					},
 					items : [{
 						items : [{
-									name : 'pssMatesReceiptDetail.id',
-									id : 'id',
+									id:'hiddenId',
 									xtype : 'hidden',
-									value : recId||''
+									value : this.recId||''
 								},{
 									fieldLabel : '收貨單編號',
-									maxLength:18,
-									allowBlank : false,
-									name : 'pssMatesReceiptDetail.mrHeadId',
-									id : 'mrHeadId'
+									name : 'pssMatesReceiptDetail.mrHeadId'
 								},{
 									fieldLabel : '原料編號',
-									maxLength:18,
-									allowBlank : false,
-									name : 'pssMatesReceiptDetail.materialId',
-									id : 'materialId'
+									name : 'pssMatesReceiptDetail.materialId'
 								},{
 									fieldLabel : '接收數量',
-									maxLength:18,
-									allowBlank : false,
-									name : 'pssMatesReceiptDetail.receiptNum',
-									id : 'receiptNum'
+									name : 'pssMatesReceiptDetail.receiptNum'
 								},{
 									fieldLabel : '創建日期',
-									maxLength:18,
-									allowBlank : false,
-									name : 'pssMatesReceiptDetail.createDate',
-									id : 'createDate'
+									name : 'pssMatesReceiptDetail.createDate'
 								},{
 									fieldLabel : '修改日期',
-									maxLength:18,
-									allowBlank : false,
-									name : 'pssMatesReceiptDetail.updateDate',
-									id : 'updateDate'
-					     }]
+									name : 'pssMatesReceiptDetail.updateDate'
+					      }]
 					},{
 						items : [{
 									xtype : 'hidden'
 								},{
 									fieldLabel : '收貨單明細編號',
-									maxLength:18,
-									allowBlank : false,
-									name : 'pssMatesReceiptDetail.mrDetailId',
-									id : 'mrDetailId'
+									name : 'pssMatesReceiptDetail.mrDetailId'
 								},{
 									fieldLabel : '來貨數量',
-									maxLength:18,
-									allowBlank : false,
-									name : 'pssMatesReceiptDetail.allNum',
-									id : 'allNum'
+									name : 'pssMatesReceiptDetail.allNum'
 								},{
 									fieldLabel : '退回數量',
-									maxLength:18,
-									allowBlank : false,
-									name : 'pssMatesReceiptDetail.rejectNum',
-									id : 'rejectNum'
+									name : 'pssMatesReceiptDetail.rejectNum'
 								},{
 									fieldLabel : '創建人員',
-									maxLength:18,
-									allowBlank : false,
-									name : 'pssMatesReceiptDetail.createBy',
-									id : 'createBy'
+									name : 'pssMatesReceiptDetail.createBy'
 								},{
 									fieldLabel : '修改人員',
-									maxLength:18,
-									allowBlank : false,
-									name : 'pssMatesReceiptDetail.updateBy',
-									id : 'updateBy'
-				         }]
+									name : 'pssMatesReceiptDetail.updateBy'
+				        }]
 					}]
 				}]
-			}]
 		});
 
 		if (this.recId) {
 			this.formPanel.getForm().load({
 				deferredRender : false,
-				url : __ctxPath + '/pss/getPssMatesReceiptDetail.do?recId='+ this.recId,
+				url : __ctxPath + '/pss/getPssMatesReceiptDetail.do?id='+ this.recId,
 				waitMsg : '正在載入數據...',
 				success : function(form, action) {
 

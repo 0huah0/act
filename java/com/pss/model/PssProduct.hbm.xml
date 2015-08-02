@@ -4,10 +4,14 @@
 <hibernate-mapping package="com.pss.model">
     <class name="PssProduct" table="pss_product">
 
-        <id name="productId" column="PRODUCT_ID" type="java.lang.String">
-            <generator class="native"/>
+		<id name="productId" column="PRODUCT_ID">
+            <generator class="com.pss.util.GeneratePK" >
+              <param name="classname">PssProduct</param>
+              <param name="pk">productId</param>
+              <param name="sign">PROD</param>
+              <param name="idLength">13</param>
+            </generator>
         </id>
-		
 		
 		
 		<property 
@@ -45,7 +49,7 @@
 			column="PRICE" 
 			update="true"
             insert="true"
-            type="Long"
+            type="java.lang.Long"
 			not-null="false" 
 			unique="false" 
 			length="15"/>
@@ -55,7 +59,7 @@
 			column="SALE_PRICE" 
 			update="true"
             insert="true"
-            type="Long"
+            type="java.lang.Long"
 			not-null="false" 
 			unique="false" 
 			length="15"/>

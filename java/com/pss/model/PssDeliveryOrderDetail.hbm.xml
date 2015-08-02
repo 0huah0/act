@@ -9,7 +9,6 @@
         </id>
 		
 		
-		
 		<property 
 			name="doHeadId" 
 			column="DO_HEAD_ID" 
@@ -35,7 +34,7 @@
 			column="ALL_NUM" 
 			update="true"
             insert="true"
-            type="Long"
+            type="java.lang.Long"
 			not-null="true" 
 			unique="false" 
 			length="8"/>
@@ -45,7 +44,7 @@
 			column="RECEIPT_NUM" 
 			update="true"
             insert="true"
-            type="Long"
+            type="java.lang.Long"
 			not-null="false" 
 			unique="false" 
 			length="8"/>
@@ -55,7 +54,7 @@
 			column="REJECT_NUM" 
 			update="true"
             insert="true"
-            type="Long"
+            type="java.lang.Long"
 			not-null="false" 
 			unique="false" 
 			length="8"/>

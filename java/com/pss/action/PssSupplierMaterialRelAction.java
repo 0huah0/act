@@ -1,8 +1,6 @@
 /*
  * Powered By [shi_zenghua@qq.com]
- */
-
-package com.pss.action;
+ */package com.pss.action;
 
 import java.util.List;
 import javax.annotation.Resource;
@@ -33,12 +31,14 @@ public class PssSupplierMaterialRelAction extends BaseAction {
 	 * 記錄的新增和修改
 	 */
 	public String save() {
+		boolean sus = true;
 		try {
 			pssSupplierMaterialRelService.save(pssSupplierMaterialRel);
 		} catch (Exception e) {
+			sus = false;
 			e.printStackTrace();
 		}
-		setJsonString("{success:true}");
+		setJsonString("{success:"+sus+"}");
 		return SUCCESS;
 	}
 	
@@ -48,20 +48,26 @@ public class PssSupplierMaterialRelAction extends BaseAction {
 	 * @return
 	 */
 	public String multiDel() {
-		String[] ids = getRequest().getParameterValues("ids");
-		if (ids != null) {
-			for (String id : ids) {
-				try {
-					pssSupplierMaterialRelService.remove(new Long(id));
-				} catch (NumberFormatException e) {
-					e.printStackTrace();
-				} catch (Exception e) {
-					e.printStackTrace();
+		boolean sus = true;
+		try {
+				String ids = getRequest().getParameter("ids");
+				if (ids != null  && ids.length() > 0) {
+					QueryFilter filter = new QueryFilter(getRequest());
+					filter.addFilter("Q_supplierId_S_SIN", ids);
+					List<PssSupplierMaterialRel> list = pssSupplierMaterialRelService.getAll(filter);
+					for (PssSupplierMaterialRel pssSupplierMaterialRel : list) {
+							pssSupplierMaterialRelService.remove(pssSupplierMaterialRel);
+					}
 				}
-			}
+				
+		} catch (NumberFormatException e) {
+			sus = false;
+			e.printStackTrace();
+		} catch (Exception e) {
+			sus = false;
+			e.printStackTrace();
 		}
-
-		jsonString = "{success:true}";
+		setJsonString("{success:"+sus+"}");
 		return SUCCESS;
 	}
 	
@@ -72,7 +78,14 @@ public class PssSupplierMaterialRelAction extends BaseAction {
 	 */
 	public String get() {
 		String id = getRequest().getParameter("id");
-		PssSupplierMaterialRel pssSupplierMaterialRel = pssSupplierMaterialRelService.get(new Long(id));
+		
+		QueryFilter filter = new QueryFilter(getRequest());
+		filter.addFilter("Q_supplierId_S_EQ", id);
+		List<PssSupplierMaterialRel> list = pssSupplierMaterialRelService.getAll(filter);
+		PssSupplierMaterialRel pssSupplierMaterialRel = new PssSupplierMaterialRel();
+		if(list.size() != 0){
+			pssSupplierMaterialRel = list.get(0);
+		}
 
 		Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
 		// 将数据转成JSON格式

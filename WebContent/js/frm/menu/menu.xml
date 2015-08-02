@@ -1,6 +1,7 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <Menus>
-<Items id="SystemSetting" text="系統管理" iconCls="menu-manage" isPublic="false">
+	<Items id="SystemSetting" text="系統管理" iconCls="menu-manage"
+		isPublic="false">
 		<Item id="AppUserView" text="帳號管理" iconCls="menu-appuser">
 			<Function id="_AppUserQuery" text="查看账号" iconCls="menu-list">
 				<url>/system/listAppUser.do</url>
@@ -24,7 +25,7 @@
 				<url>/system/multiDelAppUser.do</url>
 			</Function>
 			<Function id="_AppUserReset" text="重置密码" iconCls="btn-password">
-				<url>/system/listAppUser.do</url> 
+				<url>/system/listAppUser.do</url>
 				<url>/system/chooseRolesAppUser.do</url>
 				<url>/system/selectedRolesAppUser.do</url>
 				<url>/system/createPasswordAppUser.do</url>
@@ -61,11 +62,13 @@
 			</Function>
 		</Item>
 	</Items>
-	<Items id="PersonInfomation" text="個人資料管理" iconCls="menu-person" isPublic="false">
-		<Item id="ProfileForm" text="個人資料修改" iconCls="menu-customer"/>
+	<Items id="PersonInfomation" text="個人資料管理" iconCls="menu-person"
+		isPublic="false">
+		<Item id="ProfileForm" text="個人資料修改" iconCls="menu-customer" />
 	</Items>
-	
-	<Items id="Accounting" text="基礎資料管理" iconCls="menu-workPlan" isPublic="false">
+
+	<Items id="Accounting" text="基礎資料管理" iconCls="menu-workPlan"
+		isPublic="false">
 		<Item id="AccountingTitleView" text="會計科目管理" iconCls="menu-planmanage">
 			<Function id="_AccountingTitleAdd" text="增加" iconCls="menu-add">
 				<url>/act/saveAccountingTitle.do</url>
@@ -78,7 +81,7 @@
 			</Function>
 		</Item>
 	</Items>
-	
+
 	<Items id="Journal" text="會計作業" iconCls="menu-plantype" isPublic="false">
 		<Item id="JournalView" text="日記帳管理" iconCls="menu-holidayRecord">
 			<Function id="_JournalAdd" text="增加" iconCls="menu-add">
@@ -91,51 +94,108 @@
 				<url>/act/saveJournal.do</url>
 			</Function>
 		</Item>
-		<Item id="JournalPostView" text="過帳處理" iconCls="menu-holidayRecord"/>
-		<Item id="AccountingPeriodMgt" text="會計區間管理" iconCls="menu-holidayRecord"/>
+		<Item id="JournalPostView" text="過帳處理" iconCls="menu-holidayRecord" />
+		<Item id="AccountingPeriodMgt" text="會計區間管理" iconCls="menu-holidayRecord" />
 	</Items>
-	
-	<Items id="MemberManager" text="報表列印" iconCls="menu-report" isPublic="false">
-		<Item id="AccountingTitleExport" text="會計科目報表" iconCls="menu-arch-dispatch"/>
-		<Item id="ReportJournal" text="日記帳報表" iconCls="menu-dutySetting"/>
-		<Item id="ReportActTitle" text="總分類帳報表" iconCls="menu-dutyRegister"/>
-		<Item id="ReportActTitleSum" text="試算表" iconCls="menu-dutySection"/>
-		<Item id="ReportIncomeStatement" text="損益表" iconCls="menu-dutyStats"/>
-		<Item id="ReportBalanceSheet" text="資產負債表" iconCls="menu-report"/>
-		<Item id="ReportCashFlow" text="現金流量表" iconCls="menu-planmanage"/>
-		<Item id="ReportEquityChanges" text="業主權益變動表" iconCls="mod-report"/>
+
+	<Items id="MemberManager" text="報表列印" iconCls="menu-report"
+		isPublic="false">
+		<Item id="AccountingTitleExport" text="會計科目報表" iconCls="menu-arch-dispatch" />
+		<Item id="ReportJournal" text="日記帳報表" iconCls="menu-dutySetting" />
+		<Item id="ReportActTitle" text="總分類帳報表" iconCls="menu-dutyRegister" />
+		<Item id="ReportActTitleSum" text="試算表" iconCls="menu-dutySection" />
+		<Item id="ReportIncomeStatement" text="損益表" iconCls="menu-dutyStats" />
+		<Item id="ReportBalanceSheet" text="資產負債表" iconCls="menu-report" />
+		<Item id="ReportCashFlow" text="現金流量表" iconCls="menu-planmanage" />
+		<Item id="ReportEquityChanges" text="業主權益變動表" iconCls="mod-report" />
 	</Items>
-	
-	<Items id="JournalAction" text="系統資料處理" iconCls="menu-plantype" isPublic="false">
-		<Item id="JournalRestoreView" text="資料恢復" iconCls="menu-car_repair"/>
-		<Item id="JournalBackupView" text="資料備份" iconCls="menu-company"/>
-		<Item id="JournalClearView" text="資料清除" iconCls="menu-customer"/>
+
+	<Items id="JournalAction" text="系統資料處理" iconCls="menu-plantype"
+		isPublic="false">
+		<Item id="JournalRestoreView" text="資料恢復" iconCls="menu-car_repair" />
+		<Item id="JournalBackupView" text="資料備份" iconCls="menu-company" />
+		<Item id="JournalClearView" text="資料清除" iconCls="menu-customer" />
 	</Items>
-	
+
 	<!-- PSS -->
 	<Items id="PssCustomer" text="客戶" iconCls="menu-plantype" isPublic="false">
-		<Item id="PssCustomerView" text="客戶管理" iconCls="menu-holidayRecord"/>
-		<Item id="PssSalesOrderHeadView" text="銷貨單管理" iconCls="menu-holidayRecord"/>
-		<Item id="PssSalesOrderDetailView" text="銷貨單子項管理" iconCls="menu-holidayRecord"/>
-		<Item id="PssInvoiceHeadView" text="發票管理" iconCls="menu-holidayRecord"/>
-		<Item id="PssDeliveryOrderHeadView" text="出貨單管理" iconCls="menu-holidayRecord"/>
-		<Item id="PssDeliveryOrderDetailView" text="出貨單子項管理" iconCls="menu-holidayRecord"/>
+		<Item id="PssCustomerView" text="客戶管理" iconCls="menu-holidayRecord">
+			<Function id="_PssCustomerEdit" text="可編輯" iconCls="btn-edit">
+				<url>/pss/savePssCustomer.do</url>
+				<url>/pss/multiDelPssCustomer.do</url>
+			</Function>
+		</Item>
+		<Item id="PssSalesOrderHeadView" text="銷貨單管理" iconCls="menu-holidayRecord">
+			<Function id="_PssSalesOrderHeadEdit" text="可編輯" iconCls="btn-edit">
+				<url>/pss/savePssSalesOrderHead.do</url>
+				<url>/pss/multiDelPssSalesOrderHead.do</url>
+			</Function>
+		</Item>
+		<Item id="PssInvoiceHeadView" text="發票管理" iconCls="menu-holidayRecord">
+			<Function id="_PssInvoiceHeadEdit" text="可編輯" iconCls="btn-edit">
+				<url>/pss/savePssInvoiceHead.do</url>
+				<url>/pss/multiDelPssInvoiceHead.do</url>
+			</Function>
+		</Item>
+		<Item id="PssDeliveryOrderHeadView" text="出貨單管理" iconCls="menu-holidayRecord">
+			<Function id="_PssDeliveryOrderHeadEdit" text="可編輯" iconCls="btn-edit">
+				<url>/pss/savePssDeliveryOrderHead.do</url>
+				<url>/pss/multiDelPssDeliveryOrderHead.do</url>
+			</Function>
+		</Item>
 	</Items>
 	<Items id="PssSupplier" text="供應商" iconCls="menu-plantype" isPublic="false">
-		<Item id="PssSupplierView" text="供應商管理" iconCls="menu-holidayRecord"/>
-		<Item id="PssPurchaseOrderHeadView" text="採購單管理" iconCls="menu-holidayRecord"/>
-		<Item id="PssPurchaseOrderDetailView" text="採購單子項管理" iconCls="menu-holidayRecord"/>
-		<Item id="PssSupplierMaterialRelView" text="供應商原料關係表管理" iconCls="menu-holidayRecord"/>
+		<Item id="PssSupplierView" text="供應商管理" iconCls="menu-holidayRecord">
+			<Function id="_PssSupplierEdit" text="可編輯" iconCls="btn-edit">
+				<url>/pss/savePssSupplier.do</url>
+				<url>/pss/multiDelPssSupplier.do</url>
+			</Function>
+		</Item>
+		<Item id="PssPurchaseOrderHeadView" text="採購單管理" iconCls="menu-holidayRecord">
+			<Function id="_PssPurchaseOrderHeadEdit" text="可編輯" iconCls="btn-edit">
+				<url>/pss/savePssPurchaseOrderHead.do</url>
+				<url>/pss/multiDelPssPurchaseOrderHead.do</url>
+			</Function>
+		</Item>
 	</Items>
-	<Items id="PssWarehouse" text="倉庫" iconCls="menu-plantype" isPublic="false">
-		<Item id="PssWarehouseView" text="倉庫管理" iconCls="menu-holidayRecord"/>
-		<Item id="PssInventoryView" text="庫存管理" iconCls="menu-holidayRecord"/>
-		<Item id="PssProductView" text="產品管理" iconCls="menu-holidayRecord"/>
-		<Item id="PssProductMaterialRelView" text="產品原料關係表管理" iconCls="menu-holidayRecord"/>
-		<Item id="PssMatesReceiptHeadView" text="收貨單管理" iconCls="menu-holidayRecord"/>
-		<Item id="PssMatesReceiptDetailView" text="收貨單子項管理" iconCls="menu-holidayRecord"/>
-		<Item id="PssMaterialView" text="原料管理" iconCls="menu-holidayRecord"/>
-		<Item id="PssInventoryChangeView" text="庫存變動記錄管理" iconCls="menu-holidayRecord"/>
+	<Items id="PssWarehouse" text="倉庫" iconCls="menu-plantype"
+		isPublic="false">
+		<Item id="PssWarehouseView" text="倉庫管理" iconCls="menu-holidayRecord">
+			<Function id="_PssWarehouseEdit" text="可編輯" iconCls="btn-edit">
+				<url>/pss/savePssWarehouse.do</url>
+				<url>/pss/multiDelPssWarehouse.do</url>
+			</Function>
+		</Item>
+		<Item id="PssInventoryView" text="庫存管理" iconCls="menu-holidayRecord">
+			<Function id="_PssInventoryEdit" text="可編輯" iconCls="btn-edit">
+				<url>/pss/savePssInventory.do</url>
+				<url>/pss/multiDelPssInventory.do</url>
+			</Function>
+		</Item>
+		<Item id="PssProductView" text="產品管理" iconCls="menu-holidayRecord">
+			<Function id="_PssProductEdit" text="可編輯" iconCls="btn-edit">
+				<url>/pss/savePssProduct.do</url>
+				<url>/pss/multiDelPssProduct.do</url>
+			</Function>
+		</Item>
+		<Item id="PssMatesReceiptHeadView" text="收貨單管理" iconCls="menu-holidayRecord">
+			<Function id="_PssMatesReceiptHeadEdit" text="可編輯" iconCls="btn-edit">
+				<url>/pss/savePssMatesReceiptHead.do</url>
+				<url>/pss/multiDelPssMatesReceiptHead.do</url>
+			</Function>
+		</Item>
+		<Item id="PssMaterialView" text="原料管理" iconCls="menu-holidayRecord">
+			<Function id="_PssMaterialEdit" text="可編輯" iconCls="btn-edit">
+				<url>/pss/savePssMaterial.do</url>
+				<url>/pss/multiDelPssMaterial.do</url>
+			</Function>
+		</Item>
+		<Item id="PssInventoryChangeView" text="庫存變動記錄管理" iconCls="menu-holidayRecord">
+			<Function id="_PssInventoryChangeEdit" text="可編輯" iconCls="btn-edit">
+				<url>/pss/savePssInventoryChange.do</url>
+				<url>/pss/multiDelPssInventoryChange.do</url>
+			</Function>
+		</Item>
 	</Items>
 
 </Menus>

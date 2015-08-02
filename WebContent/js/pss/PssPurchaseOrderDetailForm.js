@@ -1,24 +1,19 @@
 /*
  * Powered By [shi_zenghua@qq.com]
  */
-
 Ext.ns('PssPurchaseOrderDetailForm');
 PssPurchaseOrderDetailForm = Ext.extend(Ext.Window, {
-	formPanel : null,
 	constructor : function(_cfg) {
 		Ext.applyIf(this, _cfg);
 		this.initUIComponents();
 		PssPurchaseOrderDetailForm.superclass.constructor.call(this, {
-					layout : 'fit',
 					items : this.formPanel,
 					modal : true,
 					id : 'PssPurchaseOrderDetailFormWin',
 					title : this.recId?'修改採購單子項':'新增採購單子項',
 					iconCls : 'menu-planmanage',
-					width : 600,
-					height : 240,
-					resizable : false,
-					buttonAlign : 'center',
+					width : 820,
+					autoHeight : true,
 					buttons : this.buttons
 				});
 	},
@@ -26,109 +21,74 @@ PssPurchaseOrderDetailForm = Ext.extend(Ext.Window, {
 		this.formPanel = new Ext.FormPanel({
 			url : __ctxPath + '/pss/savePssPurchaseOrderDetail.do',
 			id : 'PssPurchaseOrderDetailForm',
+			autoHeight:true,
 			frame : true,
 			items : [{
-				xtype : 'fieldset',
-				title : '採購單子項',
-				items : [{
 					layout : 'column',
 					columnWidth : 0.5,
 					defaults : {
 						layout : 'form',
 						padding : '0 0 0 20px',
 						labelAlign : 'right',
-						labelWidth : 80,
+						labelWidth : 160,
 						defaults : {
 							xtype : 'textfield',
-							width : 140
+							allowBlank : false,
+							maxLength:100,
+							width : 200
 						}
 					},
 					items : [{
 						items : [{
-									name : 'pssPurchaseOrderDetail.id',
-									id : 'id',
+									id:'hiddenId',
 									xtype : 'hidden',
-									value : recId||''
+									value : this.recId||''
 								},{
 									fieldLabel : '採購單編號',
-									maxLength:18,
-									allowBlank : false,
-									name : 'pssPurchaseOrderDetail.poHeadId',
-									id : 'poHeadId'
+									name : 'pssPurchaseOrderDetail.poHeadId'
 								},{
 									fieldLabel : '原料編號',
-									maxLength:18,
-									allowBlank : false,
-									name : 'pssPurchaseOrderDetail.materialId',
-									id : 'materialId'
+									name : 'pssPurchaseOrderDetail.materialId'
 								},{
 									fieldLabel : '原料定價(單價)',
-									maxLength:18,
-									allowBlank : false,
-									name : 'pssPurchaseOrderDetail.materialPrice',
-									id : 'materialPrice'
+									name : 'pssPurchaseOrderDetail.materialPrice'
 								},{
 									fieldLabel : '小計',
-									maxLength:18,
-									allowBlank : false,
-									name : 'pssPurchaseOrderDetail.amount',
-									id : 'amount'
+									name : 'pssPurchaseOrderDetail.amount'
 								},{
 									fieldLabel : '創建人員',
-									maxLength:18,
-									allowBlank : false,
-									name : 'pssPurchaseOrderDetail.createBy',
-									id : 'createBy'
+									name : 'pssPurchaseOrderDetail.createBy'
 								},{
 									fieldLabel : '修改人員',
-									maxLength:18,
-									allowBlank : false,
-									name : 'pssPurchaseOrderDetail.updateBy',
-									id : 'updateBy'
-					     }]
+									name : 'pssPurchaseOrderDetail.updateBy'
+					      }]
 					},{
 						items : [{
 									xtype : 'hidden'
 								},{
 									fieldLabel : '採購單明細編號',
-									maxLength:18,
-									allowBlank : false,
-									name : 'pssPurchaseOrderDetail.poDetailId',
-									id : 'poDetailId'
+									name : 'pssPurchaseOrderDetail.poDetailId'
 								},{
 									fieldLabel : '原料數量',
-									maxLength:18,
-									allowBlank : false,
-									name : 'pssPurchaseOrderDetail.materialNum',
-									id : 'materialNum'
+									name : 'pssPurchaseOrderDetail.materialNum'
 								},{
 									fieldLabel : '原料建議售價(單價)',
-									maxLength:18,
-									allowBlank : false,
-									name : 'pssPurchaseOrderDetail.materialSalePrice',
-									id : 'materialSalePrice'
+									name : 'pssPurchaseOrderDetail.materialSalePrice'
 								},{
 									fieldLabel : '創建日期',
-									maxLength:18,
-									allowBlank : false,
-									name : 'pssPurchaseOrderDetail.createDate',
-									id : 'createDate'
+									name : 'pssPurchaseOrderDetail.createDate'
 								},{
 									fieldLabel : '修改日期',
-									maxLength:18,
-									allowBlank : false,
-									name : 'pssPurchaseOrderDetail.updateDate',
-									id : 'updateDate'
-				         }]
+									name : 'pssPurchaseOrderDetail.updateDate'
+				        }]
 					}]
 				}]
-			}]
 		});
 
 		if (this.recId) {
 			this.formPanel.getForm().load({
 				deferredRender : false,
-				url : __ctxPath + '/pss/getPssPurchaseOrderDetail.do?recId='+ this.recId,
+				url : __ctxPath + '/pss/getPssPurchaseOrderDetail.do?id='+ this.recId,
 				waitMsg : '正在載入數據...',
 				success : function(form, action) {
 

@@ -4,11 +4,14 @@
 <hibernate-mapping package="com.pss.model">
     <class name="PssSalesOrderHead" table="pss_sales_order_head">
 
-        <id name="soHeadId" column="SO_HEAD_ID" type="java.lang.String">
-            <generator class="native"/>
+		<id name="soHeadId" column="SO_HEAD_ID">
+            <generator class="com.pss.util.GeneratePK" >
+              <param name="classname">PssSalesOrderHead</param>
+              <param name="pk">soHeadId</param>
+              <param name="sign">SO</param>
+              <param name="idLength">13</param>
+            </generator>
         </id>
-		
-		
 		
 		<property 
 			name="customerId" 
@@ -35,7 +38,7 @@
 			column="PRICE_AMOUNT" 
 			update="true"
             insert="true"
-            type="Long"
+            type="java.lang.Long"
 			not-null="false" 
 			unique="false" 
 			length="15"/>
@@ -45,7 +48,7 @@
 			column="SALE_PRICE_AMOUNT" 
 			update="true"
             insert="true"
-            type="Long"
+            type="java.lang.Long"
 			not-null="false" 
 			unique="false" 
 			length="15"/>
@@ -55,7 +58,7 @@
 			column="PAY_AMOUNT" 
 			update="true"
             insert="true"
-            type="Long"
+            type="java.lang.Long"
 			not-null="false" 
 			unique="false" 
 			length="15"/>
@@ -65,7 +68,7 @@
 			column="DISCOUNT_AMOUNT" 
 			update="true"
             insert="true"
-            type="Long"
+            type="java.lang.Long"
 			not-null="false" 
 			unique="false" 
 			length="15"/>

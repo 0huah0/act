@@ -11,16 +11,14 @@ PssSalesOrderDetailView = Ext.extend(Ext.Panel, {
 					title : '銷貨單子項',
 					iconCls : 'menu-planmanage',
 					region : 'center',
-					layout : 'border',
 					items : [this.searchPanel, this.gridPanel]
-				});
+		});
 	},
 	initUIComponents : function() {
 		//searchPanel
 		this.searchPanel = new Ext.FormPanel({
-			height : 140,
+			autoHeight : true,
 			frame : true,
-			region : 'north',
 			id : 'PssSalesOrderDetailSearchForm',
 			buttonAlign : 'center',
 			buttons : [{
@@ -79,7 +77,7 @@ PssSalesOrderDetailView = Ext.extend(Ext.Panel, {
 									maxLength:18,
 									name : 'S_updateDate_D_DL'
 								},{
-									a:1
+								xtype:'hidden'
 								}]//
 					},{
 						items : [{
@@ -99,7 +97,7 @@ PssSalesOrderDetailView = Ext.extend(Ext.Panel, {
 									maxLength:18,
 									name : 'S_updateBy_S_LK'
 								},{
-									a:1
+									xtype:'hidden'
 								}]//
 					},{
 						items : [{
@@ -119,7 +117,7 @@ PssSalesOrderDetailView = Ext.extend(Ext.Panel, {
 									maxLength:18,
 									name : 'S_createBy_S_LK'
 								},{
-									a:1
+									xtype:'hidden'
 								}]//
 					}]
 				}]
@@ -199,7 +197,6 @@ PssSalesOrderDetailView = Ext.extend(Ext.Panel, {
 
 		this.gridPanel = new Ext.grid.GridPanel({
 					id : 'PssSalesOrderDetailGrid',
-					region : 'center',
 					tbar : (isGranted('_PssSalesOrderDetailEdit') ? new Ext.Toolbar({
 								id : 'PssSalesOrderDetailFootBar',
 								bodyStyle : 'text-align:left',

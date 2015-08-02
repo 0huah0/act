@@ -5,10 +5,8 @@
     <class name="PssCustomer" table="pss_customer">
 
         <id name="customerId" column="CUSTOMER_ID" type="java.lang.String">
-            <generator class="native"/>
+            <generator class="assigned"/>
         </id>
-		
-		
 		
 		<property 
 			name="companyNameCn" 

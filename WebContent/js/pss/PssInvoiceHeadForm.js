@@ -1,24 +1,19 @@
 /*
  * Powered By [shi_zenghua@qq.com]
  */
-
 Ext.ns('PssInvoiceHeadForm');
 PssInvoiceHeadForm = Ext.extend(Ext.Window, {
-	formPanel : null,
 	constructor : function(_cfg) {
 		Ext.applyIf(this, _cfg);
 		this.initUIComponents();
 		PssInvoiceHeadForm.superclass.constructor.call(this, {
-					layout : 'fit',
 					items : this.formPanel,
 					modal : true,
 					id : 'PssInvoiceHeadFormWin',
 					title : this.recId?'修改發票':'新增發票',
 					iconCls : 'menu-planmanage',
-					width : 600,
-					height : 240,
-					resizable : false,
-					buttonAlign : 'center',
+					width : 820,
+					autoHeight : true,
 					buttons : this.buttons
 				});
 	},
@@ -26,91 +21,65 @@ PssInvoiceHeadForm = Ext.extend(Ext.Window, {
 		this.formPanel = new Ext.FormPanel({
 			url : __ctxPath + '/pss/savePssInvoiceHead.do',
 			id : 'PssInvoiceHeadForm',
+			autoHeight:true,
 			frame : true,
 			items : [{
-				xtype : 'fieldset',
-				title : '發票',
-				items : [{
 					layout : 'column',
 					columnWidth : 0.5,
 					defaults : {
 						layout : 'form',
 						padding : '0 0 0 20px',
 						labelAlign : 'right',
-						labelWidth : 80,
+						labelWidth : 160,
 						defaults : {
 							xtype : 'textfield',
-							width : 140
+							allowBlank : false,
+							maxLength:100,
+							width : 200
 						}
 					},
 					items : [{
 						items : [{
-									name : 'pssInvoiceHead.id',
-									id : 'id',
+									id:'hiddenId',
 									xtype : 'hidden',
-									value : recId||''
+									value : this.recId||''
 								},{
 									fieldLabel : '發票編號',
-									maxLength:18,
-									allowBlank : false,
-									name : 'pssInvoiceHead.invoiceHeadId',
-									id : 'invoiceHeadId'
+									name : 'pssInvoiceHead.invoiceHeadId'
 								},{
 									fieldLabel : '發票金額',
-									maxLength:18,
-									allowBlank : false,
-									name : 'pssInvoiceHead.invAmount',
-									id : 'invAmount'
+									name : 'pssInvoiceHead.invAmount'
 								},{
 									fieldLabel : '創建日期',
-									maxLength:18,
-									allowBlank : false,
-									name : 'pssInvoiceHead.createDate',
-									id : 'createDate'
+									name : 'pssInvoiceHead.createDate'
 								},{
 									fieldLabel : '修改日期',
-									maxLength:18,
-									allowBlank : false,
-									name : 'pssInvoiceHead.updateDate',
-									id : 'updateDate'
-					     }]
+									name : 'pssInvoiceHead.updateDate'
+					      }]
 					},{
 						items : [{
 									xtype : 'hidden'
 								},{
-									fieldLabel : '客戶編號/供應商編號，TYPE=1時，該欄位存客戶編號，TYPE=2時，該欄位存供應商編號。',
-									maxLength:18,
-									allowBlank : false,
-									name : 'pssInvoiceHead.cusOrSupId',
-									id : 'cusOrSupId'
+									fieldLabel : '客戶編號/供應商編號（TYPE=1時，該欄位存客戶編號，TYPE=2時，該欄位存供應商編號）',
+									name : 'pssInvoiceHead.cusOrSupId'
 								},{
-									fieldLabel : '類型，1：出貨發票、2：收貨發票。',
-									maxLength:18,
-									allowBlank : false,
-									name : 'pssInvoiceHead.type',
-									id : 'type'
+									fieldLabel : '類型',
+									name : 'pssInvoiceHead.type',xtype:"combo",store:[[1,"出貨發票"],[2,"收貨發票"]]
 								},{
 									fieldLabel : '創建人員',
-									maxLength:18,
-									allowBlank : false,
-									name : 'pssInvoiceHead.createBy',
-									id : 'createBy'
+									name : 'pssInvoiceHead.createBy'
 								},{
 									fieldLabel : '修改人員',
-									maxLength:18,
-									allowBlank : false,
-									name : 'pssInvoiceHead.updateBy',
-									id : 'updateBy'
-				         }]
+									name : 'pssInvoiceHead.updateBy'
+				        }]
 					}]
 				}]
-			}]
 		});
 
 		if (this.recId) {
 			this.formPanel.getForm().load({
 				deferredRender : false,
-				url : __ctxPath + '/pss/getPssInvoiceHead.do?recId='+ this.recId,
+				url : __ctxPath + '/pss/getPssInvoiceHead.do?id='+ this.recId,
 				waitMsg : '正在載入數據...',
 				success : function(form, action) {
 

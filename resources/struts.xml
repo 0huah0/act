@@ -114,9 +114,6 @@
 		<action name="*PssWarehouse" class="pssWarehouseAction" method="{1}">
 			<result>${successResultValue}</result>
 		</action>
-		<action name="*PssSupplierMaterialRel" class="pssSupplierMaterialRelAction" method="{1}">
-			<result>${successResultValue}</result>
-		</action>
 		<action name="*PssSupplier" class="pssSupplierAction" method="{1}">
 			<result>${successResultValue}</result>
 		</action>
@@ -131,9 +128,6 @@
 			<result>${successResultValue}</result>
 		</action>
 		<action name="*PssPurchaseOrderDetail" class="pssPurchaseOrderDetailAction" method="{1}">
-			<result>${successResultValue}</result>
-		</action>
-		<action name="*PssProductMaterialRel" class="pssProductMaterialRelAction" method="{1}">
 			<result>${successResultValue}</result>
 		</action>
 		<action name="*PssProduct" class="pssProductAction" method="{1}">

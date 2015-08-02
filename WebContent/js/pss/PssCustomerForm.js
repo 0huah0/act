@@ -1,21 +1,19 @@
 /*
  * Powered By [shi_zenghua@qq.com]
  */
-
 Ext.ns('PssCustomerForm');
 PssCustomerForm = Ext.extend(Ext.Window, {
 	constructor : function(_cfg) {
 		Ext.applyIf(this, _cfg);
 		this.initUIComponents();
 		PssCustomerForm.superclass.constructor.call(this, {
-					layout : 'fit',
 					items : this.formPanel,
 					modal : true,
 					id : 'PssCustomerFormWin',
 					title : this.recId?'修改客戶':'新增客戶',
 					iconCls : 'menu-planmanage',
-					width : 800,
-					buttonAlign : 'center',
+					width : 820,
+					autoHeight : true,
 					buttons : this.buttons
 				});
 	},
@@ -35,6 +33,7 @@ PssCustomerForm = Ext.extend(Ext.Window, {
 						labelWidth : 160,
 						defaults : {
 							xtype : 'textfield',
+							allowBlank : false,
 							maxLength:100,
 							width : 200
 						}
@@ -45,60 +44,60 @@ PssCustomerForm = Ext.extend(Ext.Window, {
 									xtype : 'hidden',
 									value : this.recId||''
 								},{
-									fieldLabel : '',
-									name : 'S_customerId_S_LK'
+									fieldLabel : '客戶編號/客戶代號',
+									name : 'pssCustomer.customerId'
 								},{
-									fieldLabel : '',
-									name : 'S_companyNameEn_S_LK'
+									fieldLabel : '公司名稱(英文)',
+									name : 'pssCustomer.companyNameEn'
 								},{
-									fieldLabel : '',
-									name : 'S_personInCharge_S_LK'
+									fieldLabel : '負責人名稱',
+									name : 'pssCustomer.personInCharge'
 								},{
-									fieldLabel : '',
-									name : 'S_tel_S_LK'
+									fieldLabel : '電話',
+									name : 'pssCustomer.tel'
 								},{
-									fieldLabel : '',
-									name : 'S_email_S_LK'
+									fieldLabel : '電子郵箱',
+									name : 'pssCustomer.email'
 								},{
 									fieldLabel : '資本額（單位：TWD）',
-									name : 'S_capital_N_EQ',xtype:"combo",store:[[1,"小於100萬"],[2,"100萬~1000萬"],[3,"1000萬~5000萬"],[4,"大於5000萬"]]
+									name : 'pssCustomer.capital',xtype:"combo",store:[[1,"小於100萬"],[2,"100萬~1000萬"],[3,"1000萬~5000萬"],[4,"大於5000萬"]]
 								},{
 									fieldLabel : '有效否',
-									name : 'S_active_N_EQ',xtype:"combo",store:[[0,"無效"],[1,"有效"]]
+									name : 'pssCustomer.active',xtype:"combo",store:[[0,"無效"],[1,"有效"]]
 								},{
-									fieldLabel : '',
-									name : 'S_createBy_S_LK'
+									fieldLabel : '創建人員',
+									name : 'pssCustomer.createBy'
 								},{
-									fieldLabel : '',
-									name : 'S_updateBy_S_LK'
+									fieldLabel : '修改人員',
+									name : 'pssCustomer.updateBy'
 					      }]
 					},{
 						items : [{
 									xtype : 'hidden'
 								},{
-									fieldLabel : '',
-									name : 'S_companyNameCn_S_LK'
+									fieldLabel : '公司名稱(中文)',
+									name : 'pssCustomer.companyNameCn'
 								},{
-									fieldLabel : '',
-									name : 'S_legalPersonCode_S_LK'
+									fieldLabel : '法人代號',
+									name : 'pssCustomer.legalPersonCode'
 								},{
-									fieldLabel : '',
-									name : 'S_addr_S_LK'
+									fieldLabel : '地址',
+									name : 'pssCustomer.addr'
 								},{
-									fieldLabel : '',
-									name : 'S_fax_S_LK'
+									fieldLabel : '傳真',
+									name : 'pssCustomer.fax'
 								},{
-									fieldLabel : '',
-									name : 'S_licenseImgId_S_LK'
+									fieldLabel : '資質證明圖片/營業執照影本（保存系統框架中檔案上傳的記錄編號）',
+									name : 'pssCustomer.licenseImgId'
 								},{
 									fieldLabel : '員工數（單位：人）',
-									name : 'S_empAmount_N_EQ',xtype:"combo",store:[[1,"小於10"],[2,"11~50"],[3,"51~100"],[4,"101~500"],[5,"501~1000"],[6,"大於1000"]]
+									name : 'pssCustomer.empAmount',xtype:"combo",store:[[1,"小於10"],[2,"11~50"],[3,"51~100"],[4,"101~500"],[5,"501~1000"],[6,"大於1000"]]
 								},{
-									fieldLabel : '',
-									name : 'S_createDate_D_DL'
+									fieldLabel : '創建日期',
+									name : 'pssCustomer.createDate'
 								},{
-									fieldLabel : '',
-									name : 'S_updateDate_D_DL'
+									fieldLabel : '修改日期',
+									name : 'pssCustomer.updateDate'
 				        }]
 					}]
 				}]

@@ -8,8 +8,6 @@
             <generator class="native"/>
         </id>
 		
-		
-		
 		<property 
 			name="warehouseId" 
 			column="WAREHOUSE_ID" 
@@ -45,7 +43,7 @@
 			column="NUM" 
 			update="true"
             insert="true"
-            type="Long"
+            type="java.lang.Long"
 			not-null="true" 
 			unique="false" 
 			length="10"/>

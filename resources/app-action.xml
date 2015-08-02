@@ -82,13 +82,11 @@
 	<!-- PSS -->
 	<bean id="pssCustomerAction" class="com.pss.action.PssCustomerAction" scope="prototype" />
 	<bean id="pssWarehouseAction" class="com.pss.action.PssWarehouseAction" scope="prototype" />
-	<bean id="pssSupplierMaterialRelAction" class="com.pss.action.PssSupplierMaterialRelAction" scope="prototype" />
 	<bean id="pssSupplierAction" class="com.pss.action.PssSupplierAction" scope="prototype" />
 	<bean id="pssSalesOrderHeadAction" class="com.pss.action.PssSalesOrderHeadAction" scope="prototype" />
 	<bean id="pssSalesOrderDetailAction" class="com.pss.action.PssSalesOrderDetailAction" scope="prototype" />
 	<bean id="pssPurchaseOrderHeadAction" class="com.pss.action.PssPurchaseOrderHeadAction" scope="prototype" />
 	<bean id="pssPurchaseOrderDetailAction" class="com.pss.action.PssPurchaseOrderDetailAction" scope="prototype" />
-	<bean id="pssProductMaterialRelAction" class="com.pss.action.PssProductMaterialRelAction" scope="prototype" />
 	<bean id="pssProductAction" class="com.pss.action.PssProductAction" scope="prototype" />
 	<bean id="pssMatesReceiptHeadAction" class="com.pss.action.PssMatesReceiptHeadAction" scope="prototype" />
 	<bean id="pssMatesReceiptDetailAction" class="com.pss.action.PssMatesReceiptDetailAction" scope="prototype" />

@@ -4,11 +4,15 @@
 <hibernate-mapping package="com.pss.model">
     <class name="PssInvoiceHead" table="pss_invoice_head">
 
-        <id name="invoiceHeadId" column="INVOICE_HEAD_ID" type="java.lang.String">
-            <generator class="native"/>
+		
+		<id name="invoiceHeadId" column="INVOICE_HEAD_ID">
+            <generator class="com.pss.util.GeneratePK" >
+              <param name="classname">PssInvoiceHead</param>
+              <param name="pk">invoiceHeadId</param>
+              <param name="sign">PI</param>
+              <param name="idLength">13</param>
+            </generator>
         </id>
-		
-		
 		
 		<property 
 			name="cusOrSupId" 
@@ -25,7 +29,7 @@
 			column="INV_AMOUNT" 
 			update="true"
             insert="true"
-            type="Long"
+            type="java.lang.Long"
 			not-null="true" 
 			unique="false" 
 			length="15"/>

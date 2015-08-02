@@ -1,13 +1,8 @@
 /*
  * Powered By [shi_zenghua@qq.com]
  */
-
 Ext.ns('PssInventoryChangeView');
 PssInventoryChangeView = Ext.extend(Ext.Panel, {
-	searchPanel : null,
-	gridPanel : null,
-	store : null,
-	topbar : null,
 	constructor : function(_cfg) {
 		Ext.applyIf(this, _cfg);
 		this.initUIComponents();
@@ -16,15 +11,14 @@ PssInventoryChangeView = Ext.extend(Ext.Panel, {
 					title : '庫存變動記錄',
 					iconCls : 'menu-planmanage',
 					region : 'center',
-					layout : 'border',
 					items : [this.searchPanel, this.gridPanel]
-				});
+		});
 	},
 	initUIComponents : function() {
+		//searchPanel
 		this.searchPanel = new Ext.FormPanel({
-			//height : 115,
+			autoHeight : true,
 			frame : true,
-			region : 'north',
 			id : 'PssInventoryChangeSearchForm',
 			buttonAlign : 'center',
 			buttons : [{
@@ -53,202 +47,157 @@ PssInventoryChangeView = Ext.extend(Ext.Panel, {
 				title : '庫存變動記錄查詢',
 				layout : 'form',
 				items : [{
-					xtype : 'fieldset',
-					title : '庫存變動記錄',
-					items : [{
-						layout : 'column',
-						columnWidth : 0.33,
+					layout : 'column',
+					columnWidth : 0.33,
+					defaults : {
+						layout : 'form',
+						padding : '0 0 0 20px',
+						labelAlign : 'right',
+						labelWidth : 120,
 						defaults : {
-							layout : 'form',
-							padding : '0 0 0 20px',
-							labelAlign : 'right',
-							labelWidth : 100,
-							defaults : {
-								xtype : 'textfield',
-								width : 140
-							}
-						},
+							xtype : 'textfield',
+							width : 140
+						}
+					},
+					items : [{
 						items : [{
-							items : [{
-										fieldLabel : '倉庫編號/倉庫代號',
-										maxLength:18,
-										allowBlank : false,
-										name : 'pssInventoryChange.warehouseId',
-										id : 'warehouseId'
-									},{
-										fieldLabel : '變更數量',
-										maxLength:18,
-										allowBlank : false,
-										name : 'pssInventoryChange.num',
-										id : 'num'
-									},{
-										fieldLabel : '備註',
-										maxLength:18,
-										allowBlank : false,
-										name : 'pssInventoryChange.remark',
-										id : 'remark'
-									},{
-										fieldLabel : '修改日期',
-										maxLength:18,
-										allowBlank : false,
-										name : 'pssInventoryChange.updateDate',
-										id : 'updateDate'
-									},{
-									}]
-						},{
-							items : [{
-										fieldLabel : '原料編號/原料代號',
-										maxLength:18,
-										allowBlank : false,
-										name : 'pssInventoryChange.materialId',
-										id : 'materialId'
-									},{
-										fieldLabel : '變更原因，1：出貨、2：收貨、3：生產取出、4：生產存入、5：...。',
-										maxLength:18,
-										allowBlank : false,
-										name : 'pssInventoryChange.reason',
-										id : 'reason'
-									},{
-										fieldLabel : '創建日期',
-										maxLength:18,
-										allowBlank : false,
-										name : 'pssInventoryChange.createDate',
-										id : 'createDate'
-									},{
-										fieldLabel : '修改人員',
-										maxLength:18,
-										allowBlank : false,
-										name : 'pssInventoryChange.updateBy',
-										id : 'updateBy'
-									},{
-									}]
-						},{
-							items : [{
-										fieldLabel : '記錄編號',
-										maxLength:18,
-										allowBlank : false,
-										name : 'pssInventoryChange.changeId',
-										id : 'changeId'
-									},{
-										fieldLabel : '變更類型，1：增加、2：減少。',
-										maxLength:18,
-										allowBlank : false,
-										name : 'pssInventoryChange.type',
-										id : 'type'
-									},{
-										fieldLabel : '原因記錄編號，當REASON為1、2時，分別保存出貨單編號、收貨單編號；為4、5時不保存。',
-										maxLength:18,
-										allowBlank : false,
-										name : 'pssInventoryChange.recordId',
-										id : 'recordId'
-									},{
-										fieldLabel : '創建人員',
-										maxLength:18,
-										allowBlank : false,
-										name : 'pssInventoryChange.createBy',
-										id : 'createBy'
-									},{
-									}]
-						}]
+									fieldLabel : '倉庫編號/倉庫代號',
+									maxLength:18,
+									name : 'S_warehouseId_S_LK'
+								},{
+									fieldLabel : '變更數量',
+									maxLength:18,
+									name : 'S_num_L_EQ'
+								},{
+									fieldLabel : '備註',
+									maxLength:18,
+									name : 'S_remark_S_LK'
+								},{
+									fieldLabel : '修改日期',
+									maxLength:18,
+									name : 'S_updateDate_D_DL'
+								},{
+								xtype:'hidden'
+								}]//
+					},{
+						items : [{
+									fieldLabel : '原料編號/原料代號',
+									maxLength:18,
+									name : 'S_materialId_S_LK'
+								},{
+									fieldLabel : '變更原因',
+									maxLength:18,
+									name : 'S_reason_N_EQ',xtype:"combo",store:[[1,"出貨"],[2,"收貨"],[3,"生產取出"],[4,"生產存入"],[5,"..."]]
+								},{
+									fieldLabel : '創建日期',
+									maxLength:18,
+									name : 'S_createDate_D_DL'
+								},{
+									fieldLabel : '修改人員',
+									maxLength:18,
+									name : 'S_updateBy_S_LK'
+								},{
+									xtype:'hidden'
+								}]//
+					},{
+						items : [{
+									fieldLabel : '記錄編號',
+									maxLength:18,
+									name : 'S_changeId_L_EQ'
+								},{
+									fieldLabel : '變更類型',
+									maxLength:18,
+									name : 'S_type_N_EQ',xtype:"combo",store:[[1,"增加"],[2,"減少"]]
+								},{
+									fieldLabel : '原因記錄編號（當REASON為1、2時，分別保存出貨單編號、收貨單編號；為4、5時不保存）。',
+									maxLength:18,
+									name : 'S_recordId_S_LK'
+								},{
+									fieldLabel : '創建人員',
+									maxLength:18,
+									name : 'S_createBy_S_LK'
+								},{
+									xtype:'hidden'
+								}]//
 					}]
 				}]
 			}]
 		});
+		//end of searchPanel
+		
+		
+		//store
 		this.store = new Ext.data.JsonStore({
 					url : __ctxPath + '/pss/listPssInventoryChange.do',
 					root : 'result',
 					totalProperty : 'totalCounts',
-					fields : ['id'
-								,'changeId'
-								,'warehouseId'
-								,'materialId'
-								,'type'
-								,'num'
-								,'reason'
-								,'recordId'
-								,'remark'
-								,'createDate'
-								,'createBy'
-								,'updateDate'
-								,'updateBy'
-							]
-				});
+					fields : ['changeId','warehouseId','materialId','type','num','reason','recordId','remark','createDate','createBy','updateDate','updateBy'
+					]
+		});
+		
 		//this.store.setDefaultSort('id', 'asc');
 		this.store.load({
-					params : {
+				params : {
 						start : 0,
 						limit : 25
-					}
-				});
+				}
+		});
 		var cm = new Ext.grid.ColumnModel({
-			columns : [new Ext.grid.RowNumberer(),{
+				columns : [new Ext.grid.RowNumberer(),{
 							header : '記錄編號',
-							width : 120,
 							dataIndex : 'changeId'
 						},{
 							header : '倉庫編號/倉庫代號',
-							width : 120,
 							dataIndex : 'warehouseId'
 						},{
 							header : '原料編號/原料代號',
-							width : 120,
 							dataIndex : 'materialId'
 						},{
-							header : '變更類型，1：增加、2：減少。',
-							width : 120,
-							dataIndex : 'type'
+							header : '變更類型',
+							dataIndex : 'type',renderer:function(v){if(1 == v){return "增加";}else if(2 == v){return "減少";}}
 						},{
 							header : '變更數量',
-							width : 120,
 							dataIndex : 'num'
 						},{
-							header : '變更原因，1：出貨、2：收貨、3：生產取出、4：生產存入、5：...。',
-							width : 120,
-							dataIndex : 'reason'
+							header : '變更原因',
+							dataIndex : 'reason',renderer:function(v){if(1 == v){return "出貨";}else if(2 == v){return "收貨";}else if(3 == v){return "生產取出";}else if(4 == v){return "生產存入";}else if(5 == v){return "...";}}
 						},{
-							header : '原因記錄編號，當REASON為1、2時，分別保存出貨單編號、收貨單編號；為4、5時不保存。',
-							width : 120,
+							header : '原因記錄編號（當REASON為1、2時，分別保存出貨單編號、收貨單編號；為4、5時不保存）。',
 							dataIndex : 'recordId'
 						},{
 							header : '備註',
-							width : 120,
 							dataIndex : 'remark'
 						},{
 							header : '創建日期',
-							width : 120,
 							dataIndex : 'createDate'
 						},{
 							header : '創建人員',
-							width : 120,
 							dataIndex : 'createBy'
 						},{
 							header : '修改日期',
-							width : 120,
 							dataIndex : 'updateDate'
 						},{
 							header : '修改人員',
-							width : 120,
 							dataIndex : 'updateBy'
 						},{
 						header : '管理',
-						dataIndex : 'id',
+						dataIndex : 'changeId',//
 						renderer : function(v,m,r) {
-							return '&nbsp;<button title="修改" value=" " class="btn-edit" onclick="PssInventoryChangeView.edit('
+							return isGranted('_PssInventoryChangeEdit') ?('&nbsp;<button title="修改" value=" " class="btn-edit" onclick="PssInventoryChangeView.edit('
 							+ v + ')"></button><button title="刪除" value=" " class="btn-del" onclick="PssInventoryChangeView.remove('
-							+ v + ')"></button>';
+							+ v + ')"></button>'):'';
 						}
 					}],
 			defaults : {
 				sortable : true,
 				menuDisabled : false,
-				width : 80
+				width : 120
 			}
 		});
 
 		this.gridPanel = new Ext.grid.GridPanel({
 					id : 'PssInventoryChangeGrid',
-					region : 'center',
-					tbar : (isGranted('_PssInventoryChangeAdd') ? new Ext.Toolbar({
+					tbar : (isGranted('_PssInventoryChangeEdit') ? new Ext.Toolbar({
 								id : 'PssInventoryChangeFootBar',
 								bodyStyle : 'text-align:left',
 								items : [new Ext.Button({
@@ -272,9 +221,12 @@ PssInventoryChangeView = Ext.extend(Ext.Panel, {
 								emptyMsg : "無記錄"
 							})
 				});
+		//end of store
 	}
-});
+});// end of main view
 
+
+//view static method
 PssInventoryChangeView.remove = function(id) {
 	var grid = Ext.getCmp("PssInventoryChangeGrid");
 	Ext.Msg.confirm('刪除確認', '確定要刪除此筆數據？', function(btn) {
@@ -288,7 +240,7 @@ PssInventoryChangeView.remove = function(id) {
 				method : 'post',
 				success : function(response, options) {
 					var dbJson = eval("(" + response.responseText + ")");
-	                if(dbJson.success){
+					if(dbJson.success){
 						Ext.ux.Toast.msg("信息", "成功刪除！");
 						grid.getStore().reload({
 							params : {
@@ -297,7 +249,7 @@ PssInventoryChangeView.remove = function(id) {
 							}
 						});
 					}else{
-						Ext.Msg.alert("信息", "該項已經被使用，不能刪除！");
+						Ext.Msg.alert("信息", "該項沒能被刪除！");
 					}
 				}
 			});
@@ -310,3 +262,5 @@ PssInventoryChangeView.edit = function(id) {
 				recId : id
 			}).show();
 };
+
+//end of view static method

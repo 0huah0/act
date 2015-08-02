@@ -1,24 +1,19 @@
 /*
  * Powered By [shi_zenghua@qq.com]
  */
-
 Ext.ns('PssInventoryForm');
 PssInventoryForm = Ext.extend(Ext.Window, {
-	formPanel : null,
 	constructor : function(_cfg) {
 		Ext.applyIf(this, _cfg);
 		this.initUIComponents();
 		PssInventoryForm.superclass.constructor.call(this, {
-					layout : 'fit',
 					items : this.formPanel,
 					modal : true,
 					id : 'PssInventoryFormWin',
 					title : this.recId?'修改庫存':'新增庫存',
 					iconCls : 'menu-planmanage',
-					width : 600,
-					height : 240,
-					resizable : false,
-					buttonAlign : 'center',
+					width : 820,
+					autoHeight : true,
 					buttons : this.buttons
 				});
 	},
@@ -26,103 +21,71 @@ PssInventoryForm = Ext.extend(Ext.Window, {
 		this.formPanel = new Ext.FormPanel({
 			url : __ctxPath + '/pss/savePssInventory.do',
 			id : 'PssInventoryForm',
+			autoHeight:true,
 			frame : true,
 			items : [{
-				xtype : 'fieldset',
-				title : '庫存',
-				items : [{
 					layout : 'column',
 					columnWidth : 0.5,
 					defaults : {
 						layout : 'form',
 						padding : '0 0 0 20px',
 						labelAlign : 'right',
-						labelWidth : 80,
+						labelWidth : 160,
 						defaults : {
 							xtype : 'textfield',
-							width : 140
+							allowBlank : false,
+							maxLength:100,
+							width : 200
 						}
 					},
 					items : [{
 						items : [{
-									name : 'pssInventory.id',
-									id : 'id',
+									id:'hiddenId',
 									xtype : 'hidden',
-									value : recId||''
+									value : this.recId||''
 								},{
 									fieldLabel : '倉庫編號/倉庫代號',
-									maxLength:18,
-									allowBlank : false,
-									name : 'pssInventory.warehouseId',
-									id : 'warehouseId'
+									name : 'pssInventory.warehouseId'
 								},{
 									fieldLabel : '報警水位數量 (According to 良品)',
-									maxLength:18,
-									allowBlank : false,
-									name : 'pssInventory.alertNum',
-									id : 'alertNum'
+									name : 'pssInventory.alertNum'
 								},{
 									fieldLabel : '庫存良品數量',
-									maxLength:18,
-									allowBlank : false,
-									name : 'pssInventory.goodPdtNum',
-									id : 'goodPdtNum'
+									name : 'pssInventory.goodPdtNum'
 								},{
 									fieldLabel : '創建日期',
-									maxLength:18,
-									allowBlank : false,
-									name : 'pssInventory.createDate',
-									id : 'createDate'
+									name : 'pssInventory.createDate'
 								},{
 									fieldLabel : '修改日期',
-									maxLength:18,
-									allowBlank : false,
-									name : 'pssInventory.updateDate',
-									id : 'updateDate'
-					     }]
+									name : 'pssInventory.updateDate'
+					      }]
 					},{
 						items : [{
 									xtype : 'hidden'
 								},{
 									fieldLabel : '原料編號/原料代號',
-									maxLength:18,
-									allowBlank : false,
-									name : 'pssInventory.materialId',
-									id : 'materialId'
+									name : 'pssInventory.materialId'
 								},{
 									fieldLabel : '庫存總數量',
-									maxLength:18,
-									allowBlank : false,
-									name : 'pssInventory.allNum',
-									id : 'allNum'
+									name : 'pssInventory.allNum'
 								},{
 									fieldLabel : '庫存不良品數量',
-									maxLength:18,
-									allowBlank : false,
-									name : 'pssInventory.rejectsNum',
-									id : 'rejectsNum'
+									name : 'pssInventory.rejectsNum'
 								},{
 									fieldLabel : '創建人員',
-									maxLength:18,
-									allowBlank : false,
-									name : 'pssInventory.createBy',
-									id : 'createBy'
+									name : 'pssInventory.createBy'
 								},{
 									fieldLabel : '修改人員',
-									maxLength:18,
-									allowBlank : false,
-									name : 'pssInventory.updateBy',
-									id : 'updateBy'
-				         }]
+									name : 'pssInventory.updateBy'
+				        }]
 					}]
 				}]
-			}]
 		});
 
 		if (this.recId) {
 			this.formPanel.getForm().load({
 				deferredRender : false,
-				url : __ctxPath + '/pss/getPssInventory.do?recId='+ this.recId,
+				url : __ctxPath + '/pss/getPssInventory.do?id='+ this.recId,
 				waitMsg : '正在載入數據...',
 				success : function(form, action) {
 

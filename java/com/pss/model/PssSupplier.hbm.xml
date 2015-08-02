@@ -4,11 +4,9 @@
 <hibernate-mapping package="com.pss.model">
     <class name="PssSupplier" table="pss_supplier">
 
-        <id name="supplierId" column="SUPPLIER_ID" type="java.lang.String">
-            <generator class="native"/>
+		<id name="supplierId" column="SUPPLIER_ID" type="java.lang.String">
+            <generator class="assigned"/>
         </id>
-		
-		
 		
 		<property 
 			name="companyNameCn" 

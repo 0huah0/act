@@ -4,11 +4,14 @@
 <hibernate-mapping package="com.pss.model">
     <class name="PssDeliveryOrderHead" table="pss_delivery_order_head">
 
-        <id name="doHeadId" column="DO_HEAD_ID" type="java.lang.String">
-            <generator class="native"/>
+		<id name="doHeadId" column="DO_HEAD_ID">
+            <generator class="com.pss.util.GeneratePK" >
+              <param name="classname">PssDeliveryOrderHead</param>
+              <param name="pk">doHeadId</param>
+              <param name="sign">DO</param>
+              <param name="idLength">13</param>
+            </generator>
         </id>
-		
-		
 		
 		<property 
 			name="soHeadId" 

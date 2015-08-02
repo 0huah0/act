@@ -34,14 +34,14 @@
 	</tx:advice>
 
 	<aop:config>
-		<aop:pointcut id="servicePointCutCore"
-			expression="execution(* com.abcdef.core.service..*(..))" />
-		<aop:pointcut id="servicePointCutFramework"
-			expression="execution(* com.abcdef.frm.service..*(..))" />
+		<aop:pointcut id="servicePointCutCore" expression="execution(* com.abcdef.core.service..*(..))" />
+		<aop:pointcut id="servicePointCutFramework" expression="execution(* com.abcdef.frm.service..*(..))" />
 		<aop:pointcut id="servicePointCutAct" expression="execution(* com.act.service..*(..))" />
+		<aop:pointcut id="servicePointCutPss" expression="execution(* com.pss.service..*(..))" />
 		<aop:advisor advice-ref="txAdvice" pointcut-ref="servicePointCutFramework" />
 		<aop:advisor advice-ref="txAdvice" pointcut-ref="servicePointCutCore" />
 		<aop:advisor advice-ref="txAdvice" pointcut-ref="servicePointCutAct" />
+		<aop:advisor advice-ref="txAdvice" pointcut-ref="servicePointCutPss" />
 	</aop:config>
 
 	<!-- add the bean you define here -->
