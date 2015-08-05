@@ -437,3 +437,21 @@ function removeFile(obj, fileIdsElId, fileId) {
 	var el = Ext.get(obj.parentNode);
 	el.remove();
 };
+
+
+
+//imgDom.path是圖片文件路徑
+App.showImg = function(imgDom){
+	if(imgDom){
+		var showImgWin = Ext.getCmp('showImgWin');
+		if(!showImgWin){
+			showImgWin = new Ext.Window({
+				closeAction :'hide',
+				modal : true
+			});
+		}
+		showImgWin.title = imgDom.title;
+		showImgWin.html = imgDom.path;//'<img src="' + __ctxPath + '/images/default_image_male.jpg" height="245px" style="padding:5px;" />';
+		showImgWin.show();
+	}
+}
