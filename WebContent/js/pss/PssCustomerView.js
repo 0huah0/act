@@ -111,10 +111,6 @@ PssCustomerView = Ext.extend(Ext.Panel, {
 									maxLength:18,
 									name : "Q_tel_S_LK"
 								},{
-									fieldLabel : '資質證明圖片/營業執照影本（保存系統框架中檔案上傳的記錄編號）',
-									maxLength:18,
-									name : "Q_licenseImgId_S_LK"
-								},{
 									fieldLabel : '有效否',
 									maxLength:18,
 									hiddenName:"Q_active_N_EQ",mode:"local",triggerAction:"all",xtype:"combo",store:[[0,"無效"],[1,"有效"]]
@@ -171,8 +167,11 @@ PssCustomerView = Ext.extend(Ext.Panel, {
 							header : '電子郵箱',
 							dataIndex : 'email'
 						},{
-							header : '資質證明圖片/營業執照影本（保存系統框架中檔案上傳的記錄編號）',
-							dataIndex : 'licenseImgId'
+							header : '資質證明圖片/營業執照影本',
+							dataIndex : 'licenseImgId',
+							renderer:function(v){
+								return '<a class="huaGridHref">查看</a>'; 
+							}
 						},{
 							header : '資本額（單位：TWD）',
 							dataIndex : 'capital',renderer:function(v){if(1 == v){return "小於100萬";}else if(2 == v){return "100萬~1000萬";}else if(3 == v){return "1000萬~5000萬";}else if(4 == v){return "大於5000萬";}}

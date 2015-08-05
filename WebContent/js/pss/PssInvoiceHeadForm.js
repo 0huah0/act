@@ -42,13 +42,9 @@ PssInvoiceHeadForm = Ext.extend(Ext.Window, {
 					},
 					items : [{
 						items : [{
-									id:'hiddenId',
-									xtype : 'hidden',
-									value : recId||''
-								},{
 									fieldLabel : '發票編號',
 									id:'invoiceHeadId',
-									name : "pssInvoiceHead.invoiceHeadId"
+									name : recId?"pssInvoiceHead.invoiceHeadId":''
 								},{
 									fieldLabel : '發票金額',
 									id:'invAmount',
@@ -64,24 +60,14 @@ PssInvoiceHeadForm = Ext.extend(Ext.Window, {
 					      }]
 					},{
 						items : [{
-									xtype : 'hidden'
-								},{
-									fieldLabel : '客戶編號/供應商編號（TYPE=1時，該欄位存客戶編號，TYPE=2時，該欄位存供應商編號）',
+									fieldLabel : '客戶編號/供應商編號',
 									id:'cusOrSupId',
 									name : "pssInvoiceHead.cusOrSupId"
 								},{
 									fieldLabel : '類型',
 									id:'type',
 									hiddenName:"pssInvoiceHead.type",mode:"local",triggerAction:"all",xtype:"combo",store:[[1,"出貨發票"],[2,"收貨發票"]]
-								},{
-									fieldLabel : '創建人員',
-									id:'createBy',
-									xtype:"hidden",name : "pssInvoiceHead.createBy"
-								},{
-									fieldLabel : '修改人員',
-									id:'updateBy',
-									xtype:"hidden",name : "pssInvoiceHead.updateBy"
-				        }]
+								}]
 					}]
 				}]
 		});

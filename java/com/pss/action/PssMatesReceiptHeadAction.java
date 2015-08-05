@@ -31,12 +31,12 @@ public class PssMatesReceiptHeadAction extends BaseAction {
 	public String save() {
 		boolean sus = true;
 		try {
-			pssMatesReceiptHeadService.save(pssMatesReceiptHead);
+			pssMatesReceiptHead = pssMatesReceiptHeadService.save(pssMatesReceiptHead);
 		} catch (Exception e) {
 			sus = false;
 			e.printStackTrace();
 		}
-		setJsonString("{success:"+sus+"}");
+		setJsonString("{success:"+sus+",data:'"+pssMatesReceiptHead.getMrHeadId()+"'}");
 		return SUCCESS;
 	}
 	

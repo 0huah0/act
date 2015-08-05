@@ -42,13 +42,10 @@ PssMaterialForm = Ext.extend(Ext.Window, {
 					},
 					items : [{
 						items : [{
-									id:'hiddenId',
-									xtype : 'hidden',
-									value : recId||''
-								},{
 									fieldLabel : '原料編號/原料代號',
 									id:'materialId',
-									name : "pssMaterial.materialId"
+									xtype:'hidden',
+									name : recId?"pssMaterial.materialId":''
 								},{
 									fieldLabel : '單位',
 									id:'unit',
@@ -61,15 +58,9 @@ PssMaterialForm = Ext.extend(Ext.Window, {
 									fieldLabel : '創建人員',
 									id:'createBy',
 									xtype:"hidden",name : "pssMaterial.createBy"
-								},{
-									fieldLabel : '修改人員',
-									id:'updateBy',
-									xtype:"hidden",name : "pssMaterial.updateBy"
-					      }]
+								}]
 					},{
 						items : [{
-									xtype : 'hidden'
-								},{
 									fieldLabel : '原料名稱',
 									id:'name',
 									name : "pssMaterial.name"
@@ -81,11 +72,7 @@ PssMaterialForm = Ext.extend(Ext.Window, {
 									fieldLabel : '創建日期',
 									id:'createDate',
 									xtype:"hidden",name : "pssMaterial.createDate"
-								},{
-									fieldLabel : '修改日期',
-									id:'updateDate',
-									xtype:"hidden",name : "pssMaterial.updateDate"
-				        }]
+								}]
 					}]
 				}]
 		});

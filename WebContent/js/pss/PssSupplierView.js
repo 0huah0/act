@@ -54,7 +54,7 @@ PssSupplierView = Ext.extend(Ext.Panel, {
 						layout : 'form',
 						padding : '0 0 0 20px',
 						labelAlign : 'right',
-						labelWidth : 120,
+						labelWidth : 140,
 						defaults : {
 							xtype : 'textfield',
 							width : 140
@@ -74,19 +74,9 @@ PssSupplierView = Ext.extend(Ext.Panel, {
 									maxLength:18,
 									name : "Q_fax_S_LK"
 								},{
-									fieldLabel : '資本額（單位：TWD）',
+									fieldLabel : '資本額大於（TWD）',
 									maxLength:18,
-									hiddenName:"Q_capital_N_EQ",mode:"local",triggerAction:"all",xtype:"combo",store:[[1,"小於100萬"],[2,"100萬~1000萬"],[3,"1000萬~5000萬"],[4,"大於5000萬"]]
-								},{
-									fieldLabel : '創建日期',
-									maxLength:18,
-									xtype:"hidden",name : "pssSupplier.createDate"
-								},{
-									fieldLabel : '修改人員',
-									maxLength:18,
-									xtype:"hidden",name : "pssSupplier.updateBy"
-								},{
-								xtype:'hidden'
+									hiddenName:"Q_capital_N_GE",mode:"local",triggerAction:"all",xtype:"combo",store:[[1,"小於100萬"],[2,"100萬~1000萬"],[3,"1000萬~5000萬"],[4,"大於5000萬"]]
 								}]//
 					},{
 						items : [{
@@ -102,15 +92,9 @@ PssSupplierView = Ext.extend(Ext.Panel, {
 									maxLength:18,
 									name : "Q_email_S_LK"
 								},{
-									fieldLabel : '員工數（單位：人）',
+									fieldLabel : '員工數大於（人）',
 									maxLength:18,
-									hiddenName:"Q_empAmount_N_EQ",mode:"local",triggerAction:"all",xtype:"combo",store:[[1,"小於10"],[2,"11~50"],[3,"51~100"],[4,"101~500"],[5,"501~1000"],[6,"大於1000"]]
-								},{
-									fieldLabel : '創建人員',
-									maxLength:18,
-									xtype:"hidden",name : "pssSupplier.createBy"
-								},{
-									xtype:'hidden'
+									hiddenName:"Q_empAmount_N_GE",mode:"local",triggerAction:"all",xtype:"combo",store:[[1,"小於10"],[2,"11~50"],[3,"51~100"],[4,"101~500"],[5,"501~1000"],[6,"大於1000"]]
 								}]//
 					},{
 						items : [{
@@ -127,19 +111,9 @@ PssSupplierView = Ext.extend(Ext.Panel, {
 									maxLength:18,
 									name : "Q_tel_S_LK"
 								},{
-									fieldLabel : '資質證明圖片/營業執照影本，保存系統框架中檔案上傳的記錄編號',
-									maxLength:18,
-									name : "Q_licenseImgId_S_LK"
-								},{
 									fieldLabel : '有效否',
 									maxLength:18,
 									hiddenName:"Q_active_N_EQ",mode:"local",triggerAction:"all",xtype:"combo",store:[[0,"無效"],[1,"有效"]]
-								},{
-									fieldLabel : '修改日期',
-									maxLength:18,
-									xtype:"hidden",name : "pssSupplier.updateDate"
-								},{
-									xtype:'hidden'
 								}]//
 					}]
 				}]
@@ -193,7 +167,7 @@ PssSupplierView = Ext.extend(Ext.Panel, {
 							header : '電子郵箱',
 							dataIndex : 'email'
 						},{
-							header : '資質證明圖片/營業執照影本，保存系統框架中檔案上傳的記錄編號',
+							header : '資質證明圖片/營業執照影本',
 							dataIndex : 'licenseImgId'
 						},{
 							header : '資本額（單位：TWD）',

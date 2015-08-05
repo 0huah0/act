@@ -69,12 +69,6 @@ PssPurchaseOrderHeadView = Ext.extend(Ext.Panel, {
 									fieldLabel : '成交價總金額',
 									maxLength:18,
 									name : "Q_payAmount_L_EQ"
-								},{
-									fieldLabel : '創建人員',
-									maxLength:18,
-									xtype:"hidden",name : "pssPurchaseOrderHead.createBy"
-								},{
-								xtype:'hidden'
 								}]//
 					},{
 						items : [{
@@ -85,33 +79,17 @@ PssPurchaseOrderHeadView = Ext.extend(Ext.Panel, {
 									fieldLabel : '備註',
 									maxLength:18,
 									name : "Q_remark_S_LK"
-								},{
-									fieldLabel : '修改日期',
-									maxLength:18,
-									xtype:"hidden",name : "pssPurchaseOrderHead.updateDate"
-								},{
-									xtype:'hidden'
 								}]//
 					},{
 						items : [{
 									xtype:'hidden',
-									fieldLabel : '採購單編號（採購單代碼2位(PO)+當前日期8位(yyyyMMdd)+流水號6位）',
+									fieldLabel : '採購單編號',
 									maxLength:18,
 									name : "Q_poHeadId_S_LK"
 								},{
 									fieldLabel : '建議售價總金額',
 									maxLength:18,
 									name : "Q_salePriceAmount_L_EQ"
-								},{
-									fieldLabel : '創建日期',
-									maxLength:18,
-									xtype:"hidden",name : "pssPurchaseOrderHead.createDate"
-								},{
-									fieldLabel : '修改人員',
-									maxLength:18,
-									xtype:"hidden",name : "pssPurchaseOrderHead.updateBy"
-								},{
-									xtype:'hidden'
 								}]//
 					}]
 				}]
@@ -138,7 +116,7 @@ PssPurchaseOrderHeadView = Ext.extend(Ext.Panel, {
 		});
 		var cm = new Ext.grid.ColumnModel({
 				columns : [new Ext.grid.RowNumberer(),{
-							header : '採購單編號（採購單代碼2位(PO)+當前日期8位(yyyyMMdd)+流水號6位）',
+							header : '採購單編號',
 							dataIndex : 'poHeadId'
 						},{
 							header : '供應商編號/供應商代號',

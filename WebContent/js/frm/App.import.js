@@ -72,7 +72,9 @@ App.importJs = {
 			__ctxPath + '/js/pss/PssSalesOrderDetailForm.js' ],
 	PssPurchaseOrderHeadView : [
 			__ctxPath + '/js/pss/PssPurchaseOrderHeadView.js',
-			__ctxPath + '/js/pss/PssPurchaseOrderHeadForm.js' ],
+			__ctxPath + '/js/pss/PssPurchaseOrderHeadForm.js',
+			__ctxPath + '/js/pss/selector/PssMaterialSelector.js'
+			],
 	PssPurchaseOrderDetailView : [
 			__ctxPath + '/js/pss/PssPurchaseOrderDetailView.js',
 			__ctxPath + '/js/pss/PssPurchaseOrderDetailForm.js' ],
@@ -97,9 +99,8 @@ App.importJs = {
 			__ctxPath + '/js/pss/PssInventoryForm.js' ],
 	PssDeliveryOrderHeadView : [
 			__ctxPath + '/js/pss/PssDeliveryOrderHeadView.js',
-			__ctxPath + '/js/pss/PssDeliveryOrderHeadForm.js' ],
-	PssDeliveryOrderDetailView : [
-			__ctxPath + '/js/pss/PssDeliveryOrderDetailView.js',
-			__ctxPath + '/js/pss/PssDeliveryOrderDetailForm.js' ]
+			__ctxPath + '/js/pss/selector/PssCustomerSelector.js', 
+			__ctxPath + '/js/pss/selector/PssProductSelector.js',
+			__ctxPath + '/js/pss/PssDeliveryOrderHeadForm.js' ]
 
 };

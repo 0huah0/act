@@ -169,7 +169,7 @@ PssSalesOrderHeadForm = Ext.extend(Ext.Window, {
 			}
 		}];
 		
-		if(recId){
+		if(readOnly){
 			columns = [new Ext.grid.RowNumberer()].concat(columns);
 		}
 		
@@ -230,38 +230,39 @@ PssSalesOrderHeadForm = Ext.extend(Ext.Window, {
 		if(readOnly){//readOnly
 			gridPanel = this.gridPanel = new Ext.grid.GridPanel(gridOpt);
 		}else{
-			gridOpt.tbar = new Ext.Toolbar({
-				id : 'PssSalesOrderDetailFootBar',
-				bodyStyle : 'text-align:left',
-				items : [new Ext.Button({
-							iconCls : 'btn-add',
-							text : '新增銷貨單子項',
-							handler : function() {
-								PssProductSelector.getView(true,[],function(rows){
-									if(rows.length>0){
-										var T = gridPanel.getStore().recordType;
-										var rs = [];
-										var row;
-										for(var i=0;i<rows.length;i++){
-											row = rows[i];
-											rs.push(new T({
-							                	pdtId: row.data.productId,
-							                	pdtPrice: row.data.price,
-							                	pdtSalePrice: row.data.salePrice,
-							                	pdtRealPrice: row.data.salePrice,
-							                	pdtNum :'',
-							                	amount:0
-							                }));
+			if(isGranted('_PssSalesOrderHeadEdit') ){
+				gridOpt.tbar = new Ext.Toolbar({
+					id : 'PssSalesOrderDetailFootBar',
+					bodyStyle : 'text-align:left',
+					items : [new Ext.Button({
+								iconCls : 'btn-add',
+								text : '新增銷貨單子項',
+								handler : function() {
+									PssProductSelector.getView(true,[],function(rows){
+										if(rows.length>0){
+											var T = gridPanel.getStore().recordType;
+											var rs = [];
+											var row;
+											for(var i=0;i<rows.length;i++){
+												row = rows[i];
+												rs.push(new T({
+								                	pdtId: row.data.productId,
+								                	pdtPrice: row.data.price,
+								                	pdtSalePrice: row.data.salePrice,
+								                	pdtRealPrice: row.data.salePrice,
+								                	pdtNum :'',
+								                	amount:0
+								                }));
+											}
+											gridPanel.stopEditing();
+							                gridPanel.getStore().insert(0, rs);
+							                gridPanel.startEditing(0, 0);
 										}
-										gridPanel.stopEditing();
-						                gridPanel.getStore().insert(0, rs);
-						                gridPanel.startEditing(0, 0);
-									}
-								}).show();
-							}
-						})]
-			});
-		
+									}).show();
+								}
+							})]
+				});
+			}
 			gridPanel = this.gridPanel = new Ext.grid.EditorGridPanel(gridOpt);
 //			gridPanel.getTopToolbar().addButton();
 		}
@@ -284,7 +285,6 @@ PssSalesOrderHeadForm = Ext.extend(Ext.Window, {
 					
 				}
 			});
-			
 		}
 
 		this.buttons = [{
@@ -308,9 +308,9 @@ PssSalesOrderHeadForm = Ext.extend(Ext.Window, {
 								});
 								return false;
 							} 
-							priceAmount += records[i].data.pdtPrice;
-							salePriceAmount += records[i].data.pdtSalePrice;
-							payAmount += records[i].data.pdtRealPrice;
+							priceAmount += records[i].data.pdtPrice * records[i].data.pdtNum;
+							salePriceAmount += records[i].data.pdtSalePrice * records[i].data.pdtNum;;
+							payAmount += records[i].data.pdtRealPrice * records[i].data.pdtNum;;
 						}
 					}
 					

@@ -70,15 +70,13 @@ PssDeliveryOrderHeadView = Ext.extend(Ext.Panel, {
 									maxLength:18,
 									name : "Q_diliverName_S_LK"
 								},{
-									fieldLabel : '出貨發票號碼 (應收帳款)',
+									fieldLabel : '出貨發票號碼',// (應收帳款)
 									maxLength:18,
 									name : "Q_doInvoice_S_LK"
 								},{
 									fieldLabel : '創建人員',
 									maxLength:18,
-									xtype:"hidden",name : "pssDeliveryOrderHead.createBy"
-								},{
-								xtype:'hidden'
+									xtype:"hidden",name : "Q_createBy_S_LK"
 								}]//
 					},{
 						items : [{
@@ -93,17 +91,11 @@ PssDeliveryOrderHeadView = Ext.extend(Ext.Panel, {
 									fieldLabel : '備註',
 									maxLength:18,
 									name : "Q_remark_S_LK"
-								},{
-									fieldLabel : '修改日期',
-									maxLength:18,
-									xtype:"hidden",name : "pssDeliveryOrderHead.updateDate"
-								},{
-									xtype:'hidden'
 								}]//
 					},{
 						items : [{
 									xtype:'hidden',
-									fieldLabel : '出貨單編號（出貨單代碼2位(DO)+當前日期8位(yyyyMMdd)+流水號6位）',
+									fieldLabel : '出貨單編號',
 									maxLength:18,
 									name : "Q_doHeadId_S_LK"
 								},{
@@ -114,16 +106,6 @@ PssDeliveryOrderHeadView = Ext.extend(Ext.Panel, {
 									fieldLabel : '收貨人電話',
 									maxLength:18,
 									name : "Q_receiverTel_S_LK"
-								},{
-									fieldLabel : '創建日期',
-									maxLength:18,
-									xtype:"hidden",name : "pssDeliveryOrderHead.createDate"
-								},{
-									fieldLabel : '修改人員',
-									maxLength:18,
-									xtype:"hidden",name : "pssDeliveryOrderHead.updateBy"
-								},{
-									xtype:'hidden'
 								}]//
 					}]
 				}]
@@ -150,7 +132,7 @@ PssDeliveryOrderHeadView = Ext.extend(Ext.Panel, {
 		});
 		var cm = new Ext.grid.ColumnModel({
 				columns : [new Ext.grid.RowNumberer(),{
-							header : '出貨單編號（出貨單代碼2位(DO)+當前日期8位(yyyyMMdd)+流水號6位）',
+							header : '出貨單編號',
 							dataIndex : 'doHeadId'
 						},{
 							header : '銷貨單編號',
@@ -171,7 +153,7 @@ PssDeliveryOrderHeadView = Ext.extend(Ext.Panel, {
 							header : '收貨人電話',
 							dataIndex : 'receiverTel'
 						},{
-							header : '出貨發票號碼 (應收帳款)',
+							header : '出貨發票號碼',
 							dataIndex : 'doInvoice'
 						},{
 							header : '備註',

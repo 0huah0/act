@@ -42,10 +42,6 @@ PssSupplierForm = Ext.extend(Ext.Window, {
 					},
 					items : [{
 						items : [{
-									id:'hiddenId',
-									xtype : 'hidden',
-									value : recId||''
-								},{
 									fieldLabel : '供應商編號/供應商代號',
 									id:'supplierId',
 									name : "pssSupplier.supplierId"
@@ -78,10 +74,10 @@ PssSupplierForm = Ext.extend(Ext.Window, {
 									id:'createBy',
 									xtype:"hidden",name : "pssSupplier.createBy"
 								},{
-									fieldLabel : '修改人員',
-									id:'updateBy',
-									xtype:"hidden",name : "pssSupplier.updateBy"
-					      }]
+									fieldLabel : '創建日期',
+									id:'createDate',
+									xtype:"hidden",name : "pssSupplier.createDate"
+								}]
 					},{
 						items : [{
 									xtype : 'hidden'
@@ -102,23 +98,52 @@ PssSupplierForm = Ext.extend(Ext.Window, {
 									id:'fax',
 									name : "pssSupplier.fax"
 								},{
-									fieldLabel : '資質證明圖片/營業執照影本，保存系統框架中檔案上傳的記錄編號',
-									id:'licenseImgId',
-									name : "pssSupplier.licenseImgId"
-								},{
 									fieldLabel : '員工數（單位：人）',
 									id:'empAmount',
 									hiddenName:"pssSupplier.empAmount",mode:"local",triggerAction:"all",xtype:"combo",store:[[1,"小於10"],[2,"11~50"],[3,"51~100"],[4,"101~500"],[5,"501~1000"],[6,"大於1000"]]
-								},{
-									fieldLabel : '創建日期',
-									id:'createDate',
-									xtype:"hidden",name : "pssSupplier.createDate"
-								},{
-									fieldLabel : '修改日期',
-									id:'updateDate',
-									xtype:"hidden",name : "pssSupplier.updateDate"
-				        }]
+								}]
 					}]
+				},{
+					id:'licenseImgId',
+					xtype:'hidden',
+					name : "pssSupplier.licenseImgId",
+				},{
+					fieldLabel : '資質證明圖片/營業執照影本',
+					id:'licenseImgIdDisplay',
+					xtype : "panel",
+					rowspan : 2,
+					height : 310,
+					tbar : new Ext.Toolbar( {
+						height : 30,
+						items : [ {
+							text : '上传',
+							iconCls : 'btn-upload',
+							handler : function() {
+								App.createUploadDialog( {
+									file_cat : 'pss/supplier',
+									upload_autostart:true,
+									callback : function(data){
+										if(data){
+											Ext.getCmp('licenseImgIdDisplay').body.update('<a path="' + __ctxPath + '/attachFiles/'+ data[0].filepath 
+													+ '" title="'+data[0].filename+'" onClick="App.showImg(this);">'
+													+data[0].filename+'</a>');
+											
+											var fileCmp = Ext.getCmp('licenseImgId');
+											fileCmp.setValue(fileCmp.getValue()?fileCmp.getValue()+','+data[0].fileId:data[0].fileId);
+										}
+									},
+									permitted_extensions : [ 'jpg','png','gif' ]
+								}).show();
+							}
+						}, {
+							text : '删除',
+							iconCls : 'btn-delete',
+							handler : function() {
+								
+							}
+						} ]
+					})
+				
 				}]
 		});
 

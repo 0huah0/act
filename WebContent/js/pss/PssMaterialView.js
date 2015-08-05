@@ -69,12 +69,6 @@ PssMaterialView = Ext.extend(Ext.Panel, {
 									fieldLabel : '有效否',
 									maxLength:18,
 									hiddenName:"Q_active_N_EQ",mode:"local",triggerAction:"all",xtype:"combo",store:[[0,"無效"],[1,"有效"]]
-								},{
-									fieldLabel : '修改日期',
-									maxLength:18,
-									xtype:"hidden",name : "pssMaterial.updateDate"
-								},{
-								xtype:'hidden'
 								}]//
 					},{
 						items : [{
@@ -82,15 +76,9 @@ PssMaterialView = Ext.extend(Ext.Panel, {
 									maxLength:18,
 									hiddenName:"Q_unit_N_EQ",mode:"local",triggerAction:"all",xtype:"combo",store:[[1,"個"],[2,"塊"],[3,"條"],[4,"片"],[5,"公斤"],[6,"公噸"],[7,"..."]]
 								},{
-									fieldLabel : '創建日期',
+									fieldLabel : '創建人員',
 									maxLength:18,
-									xtype:"hidden",name : "pssMaterial.createDate"
-								},{
-									fieldLabel : '修改人員',
-									maxLength:18,
-									xtype:"hidden",name : "pssMaterial.updateBy"
-								},{
-									xtype:'hidden'
+									xtype:"hidden",name : "pssMaterial.createBy"
 								}]//
 					},{
 						items : [{
@@ -102,12 +90,6 @@ PssMaterialView = Ext.extend(Ext.Panel, {
 									fieldLabel : '描述',
 									maxLength:18,
 									name : "Q_desc_S_LK"
-								},{
-									fieldLabel : '創建人員',
-									maxLength:18,
-									xtype:"hidden",name : "pssMaterial.createBy"
-								},{
-									xtype:'hidden'
 								}]//
 					}]
 				}]

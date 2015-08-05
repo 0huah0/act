@@ -62,49 +62,23 @@ PssInvoiceHeadView = Ext.extend(Ext.Panel, {
 					},
 					items : [{
 						items : [{
-									fieldLabel : '客戶編號/供應商編號（TYPE=1時，該欄位存客戶編號，TYPE=2時，該欄位存供應商編號）',
-									maxLength:18,
-									name : "Q_cusOrSupId_S_LK"
-								},{
-									fieldLabel : '創建日期',
-									maxLength:18,
-									xtype:"hidden",name : "pssInvoiceHead.createDate"
-								},{
-									fieldLabel : '修改人員',
-									maxLength:18,
-									xtype:"hidden",name : "pssInvoiceHead.updateBy"
-								},{
-								xtype:'hidden'
-								}]//
+							fieldLabel : '發票編號',
+							maxLength:18,
+							name : "Q_invoiceHeadId_S_LK"
+						}]//
 					},{
 						items : [{
-									fieldLabel : '發票金額',
-									maxLength:18,
-									name : "Q_invAmount_L_EQ"
-								},{
-									fieldLabel : '創建人員',
-									maxLength:18,
-									xtype:"hidden",name : "pssInvoiceHead.createBy"
-								},{
-									xtype:'hidden'
-								}]//
+							//（TYPE=1時，該欄位存客戶編號，TYPE=2時，該欄位存供應商編號）
+							fieldLabel : '客戶編號/供應商編號',
+							maxLength:18,
+							name : "Q_cusOrSupId_S_LK"
+						}]//
 					},{
 						items : [{
-									xtype:'hidden',
-									fieldLabel : '發票編號',
-									maxLength:18,
-									name : "Q_invoiceHeadId_S_LK"
-								},{
-									fieldLabel : '類型',
-									maxLength:18,
-									hiddenName:"Q_type_N_EQ",mode:"local",triggerAction:"all",xtype:"combo",store:[[1,"出貨發票"],[2,"收貨發票"]]
-								},{
-									fieldLabel : '修改日期',
-									maxLength:18,
-									xtype:"hidden",name : "pssInvoiceHead.updateDate"
-								},{
-									xtype:'hidden'
-								}]//
+							fieldLabel : '類型',
+							maxLength:18,
+							hiddenName:"Q_type_N_EQ",mode:"local",triggerAction:"all",xtype:"combo",store:[[1,"出貨發票"],[2,"收貨發票"]]
+						}]//
 					}]
 				}]
 			}]
@@ -133,7 +107,7 @@ PssInvoiceHeadView = Ext.extend(Ext.Panel, {
 							header : '發票編號',
 							dataIndex : 'invoiceHeadId'
 						},{
-							header : '客戶編號/供應商編號（TYPE=1時，該欄位存客戶編號，TYPE=2時，該欄位存供應商編號）',
+							header : '客戶編號/供應商編號',
 							dataIndex : 'cusOrSupId'
 						},{
 							header : '發票金額',
