@@ -13,16 +13,16 @@ PssMatesReceiptDetailForm = Ext.extend(Ext.Window, {
 					id : 'PssMatesReceiptDetailFormWin',
 					title : this.recId?'修改收貨單子項':'新增收貨單子項',
 					iconCls : 'menu-planmanage',
-					width : 820,
-					autoHeight : true,
+					width : 960,
 					buttons : this.buttons
 				});
 	},
 	initUIComponents : function() {
 		var recId = this.recId;
+		var readOnly = this.read;
+		
 		this.formPanel = new Ext.FormPanel({
 			id : 'PssMatesReceiptDetailForm',
-			autoHeight:true,
 			frame : true,
 			items : [{
 					layout : 'column',
@@ -35,6 +35,7 @@ PssMatesReceiptDetailForm = Ext.extend(Ext.Window, {
 						defaults : {
 							xtype : 'textfield',
 							allowBlank : false,
+							disabled : readOnly,
 							maxLength:100,
 							width : 200
 						}

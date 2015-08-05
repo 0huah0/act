@@ -14,14 +14,16 @@ PssSalesOrderHeadForm = Ext.extend(Ext.Window, {
 					id : 'PssSalesOrderHeadFormWin',
 					title : this.recId?'修改銷貨單':'新增銷貨單',
 					iconCls : 'menu-planmanage',
-					width : 1000,
+					width : 960,
 //					resizable : true,
 					buttons : this.buttons
 				});
 	},
 	initUIComponents : function() {
-		this.formPanel = new Ext.FormPanel({
-			url : __ctxPath + '/pss/savePssSalesOrderHead.do',
+		var recId = this.recId;
+		var readOnly = this.read;
+		
+		var formPanel = this.formPanel = new Ext.FormPanel({
 			id : 'PssSalesOrderHeadForm',
 			frame : true,
 			items : [{
@@ -37,37 +39,45 @@ PssSalesOrderHeadForm = Ext.extend(Ext.Window, {
 						labelWidth : 100,
 						defaults : {
 							xtype : 'textfield',
+							allowBlank : false,
+							disabled : readOnly,
+							maxLength : 100,
 							width : 140
 						}
 					},
 					items : [{
 						items : [{
 									fieldLabel : '銷貨單編號',
-									maxLength:18,
+									id:'soHeadId',
+									xtype:'hidden',
 									name : 'pssSalesOrderHead.soHeadId'
 								},{
+									fieldLabel : '客戶編號',
+									id:'customerId',
+									name : 'pssSalesOrderHead.customerId'
+								},{
 									fieldLabel : '客戶採購單編號',
-									maxLength:18,
+									id:'custPoNo',
 									name : 'pssSalesOrderHead.custPoNo'
 								}]
 					},{
 						items : [{
 									fieldLabel : '優惠金額',
-									maxLength:18,
+									id:'discountAmount',
 									name : 'pssSalesOrderHead.discountAmount'
 								},{
 									fieldLabel : '建議售價總金額',
-									maxLength:18,
+									id:'salePriceAmount',
 									name : 'pssSalesOrderHead.salePriceAmount'
 								}]
 					},{
 						items : [{
 									fieldLabel : '定價總金額',
-									maxLength:18,
+									id:'priceAmount',
 									name : 'pssSalesOrderHead.priceAmount'
 								},{
 									fieldLabel : '實際售價總金額',
-									maxLength:18,
+									id:'payAmount',
 									name : 'pssSalesOrderHead.payAmount'
 								}]
 					}]
@@ -80,7 +90,9 @@ PssSalesOrderHeadForm = Ext.extend(Ext.Window, {
 								fieldLabel : '備　　註',
 								width : '662px',
 								maxLength:498,
+								disabled : readOnly,
 								xtype : 'textarea',
+								id:'remark',
 								name : 'pssSalesOrderHead.remark'
 							}]
 				}]
@@ -88,31 +100,29 @@ PssSalesOrderHeadForm = Ext.extend(Ext.Window, {
 		});
 
 		var columns = [{
-			header : '銷貨單明細編號',
-			dataIndex : 'soDetailId',
-			editor: new Ext.form.TextField()
-		},{
 			header : '產品編號',
-			dataIndex : 'pdtId',
-			editor: new Ext.form.TextField()
+			dataIndex : 'pdtId'
 		},{
 			header : '產品定價',
 			dataIndex : 'pdtPrice',
-			align: 'right',
             renderer: 'usMoney'
 		},{
 			header : '產品建議售價',
 			dataIndex : 'pdtSalePrice',
-			align: 'right',
             renderer: 'usMoney'
 		},{
 			header : '產品實際售價',
 			dataIndex : 'pdtRealPrice',
-			align: 'right',
-            renderer: 'usMoney'
+            renderer: 'usMoney',
+            css :'background-color: #afa;',
+            editor: new Ext.form.NumberField({
+                allowBlank: false,
+                allowNegative: false
+            })
 		},{
 			header : '產品數量',
 			dataIndex : 'pdtNum',
+			css :'background-color: #afa;',
             editor: new Ext.form.NumberField({
                 allowBlank: false,
                 allowNegative: false
@@ -120,68 +130,45 @@ PssSalesOrderHeadForm = Ext.extend(Ext.Window, {
 		},{
 			header : '小計',
 			dataIndex : 'amount',
-			align: 'right',
-            renderer: 'usMoney',
-            editor: new Ext.form.NumberField({
-                allowBlank: false,
-                allowNegative: false
-            })
+            renderer: 'usMoney'
 		},{
 			header : '管理',
-			dataIndex : 'id',
+			width : 80,
+			align: 'left',
+			dataIndex : 'soDetailId',
 			editor:null,	//override
-			renderer : function(v,m,r) {
-				return '&nbsp;<button title="修改" value=" " class="btn-edit" onclick="PssSalesOrderDetailView.edit('
-				+ v + ')"></button><button title="刪除" value=" " class="btn-del" onclick="PssSalesOrderDetailView.remove('
-				+ v + ')"></button>';
+			renderer : function(v,m,r,i,ci,s) {	//value， cellmeta， record， rowIndex， columnIndex， store
+				return readOnly?'':('&nbsp;<button title="刪除" value=" " class="btn-del" onclick="PssSalesOrderHeadForm.detailRemove(\''
+				+ r.pdtId + '\','+i+')"></button>');
 			}
 		}];
 		
-		if(this.recId){
+		if(recId){
 			columns = [new Ext.grid.RowNumberer()].concat(columns);
 		}
 		
-		var gridPanel = this.gridPanel = new Ext.grid.EditorGridPanel({
+		var gridOpt = {
 			id : 'PssSalesOrderDetailGrid',
 			region : 'center',
 			height:360,
             //autoExpandColumn :'remark1',
 			loadMask : true,
 			autuScroll:true,
-			tbar : new Ext.Toolbar({
-				id : 'PssSalesOrderDetailFootBar',
-				bodyStyle : 'text-align:left',
-				items : [new Ext.Button({
-							iconCls : 'btn-add',
-							text : '新增銷貨單子項',
-							handler : function() {
-								ProductSelector.getView(true,[],function(rows){
-									if(rows.length>0){
-										var T = gridPanel.getStore().recordType;
-										var rs = [];
-										var row;
-										for(var i=0;i<rows.length;i++){
-											row = rows[i];
-											rs.push(new T({
-							                	pdtId: row.data.username,
-							                	pdtPrice: '',
-							                	pdtSalePrice: '',
-							                	pdtRealPrice: '',
-							                	pdtNum :'',
-							                	amount:0
-							                }));
-										}
-										gridPanel.stopEditing();
-						                gridPanel.getStore().insert(0, rs);
-						                gridPanel.startEditing(0, 0);
-									}
-								}).show();
-							}
-						})]
-			}),
+            listeners :{
+            	afteredit:function(opt){
+            		var f = opt.field;
+            		var r = opt.record.data;
+            		if('pdtNum'==f || 'pdtRealPrice'==f){
+            			opt.record.beginEdit();
+            			r.amount = r.pdtNum * r.pdtRealPrice;
+            			opt.record.endEdit();
+            		}
+            	}
+            },
 			store : new Ext.data.JsonStore({
 				url : __ctxPath + '/pss/listPssSalesOrderDetail.do',
 				root : 'result',
+				idProperty:'pdtId',
 				totalProperty : 'totalCounts',
 				fields : ['soHeadId'
 							,'soDetailId'
@@ -200,6 +187,7 @@ PssSalesOrderHeadForm = Ext.extend(Ext.Window, {
 			cm : new Ext.grid.ColumnModel({
 				columns : columns,
 				defaults : {
+					align: 'right',
 					width : 120
 				}
 			}),
@@ -210,17 +198,67 @@ PssSalesOrderHeadForm = Ext.extend(Ext.Window, {
 						displayMsg : '當前顯示從{0}至{1}，共{2}條記錄',
 						emptyMsg : "無記錄"
 					})
-		});
+		};
 		
-		if (this.recId) {
-			this.formPanel.getForm().load({
-				deferredRender : false,
-				url : __ctxPath + '/pss/getPssSalesOrderHead.do?recId='+ this.recId,
-				waitMsg : '正在載入數據...',
-				success : function(form, action) {
-
+		var gridPanel = null;
+		if(readOnly){//readOnly
+			gridPanel = this.gridPanel = new Ext.grid.GridPanel(gridOpt);
+		}else{
+			gridOpt.tbar = new Ext.Toolbar({
+				id : 'PssSalesOrderDetailFootBar',
+				bodyStyle : 'text-align:left',
+				items : [new Ext.Button({
+							iconCls : 'btn-add',
+							text : '新增銷貨單子項',
+							handler : function() {
+								PssProductSelector.getView(true,[],function(rows){
+									if(rows.length>0){
+										var T = gridPanel.getStore().recordType;
+										var rs = [];
+										var row;
+										for(var i=0;i<rows.length;i++){
+											row = rows[i];
+											rs.push(new T({
+							                	pdtId: row.data.productId,
+							                	pdtPrice: row.data.price,
+							                	pdtSalePrice: row.data.salePrice,
+							                	pdtRealPrice: row.data.salePrice,
+							                	pdtNum :'',
+							                	amount:0
+							                }));
+										}
+										gridPanel.stopEditing();
+						                gridPanel.getStore().insert(0, rs);
+						                gridPanel.startEditing(0, 0);
+									}
+								}).show();
+							}
+						})]
+			});
+		
+			gridPanel = this.gridPanel = new Ext.grid.EditorGridPanel(gridOpt);
+//			gridPanel.getTopToolbar().addButton();
+		}
+		
+		if (recId) {
+			Ext.Ajax.request({
+				url : __ctxPath + '/pss/getPssSalesOrderHead.do?id='+ recId,
+				success : function(response , options ) {
+						var jr = Ext.util.JSON.decode(response.responseText); 
+						jr.data.createDate = new Date(jr.data.createDate).format('Y-m-d H:i');
+						if(jr.data.updateDate)jr.data.updateDate = new Date(jr.data.updateDate).format('Y-m-d H:i');
+						formPanel.getForm().loadRecord(jr);
+						gridPanel.getStore().load({
+							params :{
+								'Q_soHeadId_S_EQ':recId
+							}
+						});
+				},
+				failure : function(response , options ) {
+					
 				}
 			});
+			
 		}
 
 		this.buttons = [{
@@ -229,10 +267,50 @@ PssSalesOrderHeadForm = Ext.extend(Ext.Window, {
 			handler : function() {
 				var fp = Ext.getCmp("PssSalesOrderHeadForm");
 				if (fp.getForm().isValid()) {
-					fp.getForm().submit({
+					var formData = fp.getForm().getValues();
+					if(recId){
+						formData['pssSalesOrderHead.updateBy'] = curUserInfo.username;
+						formData['pssSalesOrderHead.updateDate'] = new Date().format('Y-m-d H:i');
+					}else{
+						formData['pssSalesOrderHead.createBy'] = curUserInfo.username;
+						formData['pssSalesOrderHead.createDate'] = new Date().format('Y-m-d H:i');
+					}
+					Ext.Ajax.request({
+						url : __ctxPath + '/pss/savePssSalesOrderHead.do',
 						method : 'post',
-						waitMsg : '正在提交數據...',
-						success : function(fp, action) {
+					    params: formData,
+					    success : function(response , options ) {
+					    	var jr = Ext.util.JSON.decode(response.responseText);
+					    	console.log(jr);
+							if(jr.success){
+								var records = gridPanel.getStore().getRange(0,gridPanel.getStore().getCount()-1);
+								var rec = {
+									'pssSalesOrderDetail.soHeadId' : jr.data
+								};
+								for(var i=0;i<records.length;i++){
+									for(var a in  records[i].data){
+										rec["pssSalesOrderDetail."+a] = records[i].data[a];
+									}
+									console.log(rec);
+									Ext.Ajax.request({
+										url : __ctxPath + '/pss/savePssSalesOrderDetail.do',
+										method : 'post',
+										params :rec,
+									    success : function(response , options ) {
+									    	console.log(response.responseText);
+									    	//var jr = Ext.util.JSON.decode(response.responseText);
+										},
+										failure : function(fp, action) {
+											Ext.MessageBox.show({
+														title : '信息',
+														msg : '數據保存失敗！',
+														buttons : Ext.MessageBox.OK,
+														icon : 'ext-mb-error'
+													});
+										}
+									});
+								}
+							}
 							Ext.ux.Toast.msg('信息', '成功保存信息！');
 							Ext.getCmp('PssSalesOrderHeadFormWin').close();
 							Ext.getCmp('PssSalesOrderHeadGrid').getStore().reload();
@@ -263,3 +341,38 @@ PssSalesOrderHeadForm = Ext.extend(Ext.Window, {
 		}];
 	}
 });
+
+PssSalesOrderHeadForm.detailRemove = function(id,i) {
+	var grid = Ext.getCmp("PssSalesOrderDetailGrid");
+	if(id && id!='undefined'){
+		Ext.Msg.confirm('刪除確認', '確定要刪除此筆數據？', function(btn) {
+			if (btn == 'yes') {
+				Ext.Ajax.request({
+					url : __ctxPath
+							+ '/pss/multiDelPssSalesOrderDetail.do',
+					params : {
+						ids : id
+					},
+					method : 'post',
+					success : function(response, options) {
+						var dbJson = eval("(" + response.responseText + ")");
+						if(dbJson.success){
+							Ext.ux.Toast.msg("信息", "成功刪除！");
+							grid.getStore().reload({
+								params : {
+									start : 0,
+									limit : 25
+								}
+							});
+						}else{
+							Ext.Msg.alert("信息", "該項沒能被刪除！");
+						}
+					}
+				});
+			}
+		});
+	}else{
+		grid.getStore().removeAt(i);
+	}
+	
+};

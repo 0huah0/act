@@ -13,16 +13,16 @@ PssDeliveryOrderDetailForm = Ext.extend(Ext.Window, {
 					id : 'PssDeliveryOrderDetailFormWin',
 					title : this.recId?'修改出貨單子項':'新增出貨單子項',
 					iconCls : 'menu-planmanage',
-					width : 820,
-					autoHeight : true,
+					width : 960,
 					buttons : this.buttons
 				});
 	},
 	initUIComponents : function() {
 		var recId = this.recId;
+		var readOnly = this.read;
+		
 		this.formPanel = new Ext.FormPanel({
 			id : 'PssDeliveryOrderDetailForm',
-			autoHeight:true,
 			frame : true,
 			items : [{
 					layout : 'column',
@@ -35,6 +35,7 @@ PssDeliveryOrderDetailForm = Ext.extend(Ext.Window, {
 						defaults : {
 							xtype : 'textfield',
 							allowBlank : false,
+							disabled : readOnly,
 							maxLength:100,
 							width : 200
 						}

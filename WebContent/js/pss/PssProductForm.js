@@ -67,8 +67,6 @@ PssProductForm = Ext.extend(Ext.Window, {
 					      }]
 					},{
 						items : [{
-									xtype : 'hidden'
-								},{
 									fieldLabel : '產品名稱',
 									id:'name',
 									name : "pssProduct.name"
@@ -123,7 +121,7 @@ PssProductForm = Ext.extend(Ext.Window, {
 						data['pssProduct.createDate'] = new Date().format('Y-m-d H:i');
 					}
 					Ext.Ajax.request({
-							url : __ctxPath + '/pss/savePssProduct.do',
+						url : __ctxPath + '/pss/savePssProduct.do',
 					    success : function(response , options ) {
 							Ext.ux.Toast.msg('信息', '成功保存信息！');
 							Ext.getCmp('PssProductFormWin').close();

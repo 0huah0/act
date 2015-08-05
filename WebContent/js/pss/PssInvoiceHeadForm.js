@@ -13,16 +13,16 @@ PssInvoiceHeadForm = Ext.extend(Ext.Window, {
 					id : 'PssInvoiceHeadFormWin',
 					title : this.recId?'修改發票':'新增發票',
 					iconCls : 'menu-planmanage',
-					width : 820,
-					autoHeight : true,
+					width : 960,
 					buttons : this.buttons
 				});
 	},
 	initUIComponents : function() {
 		var recId = this.recId;
+		var readOnly = this.read;
+		
 		this.formPanel = new Ext.FormPanel({
 			id : 'PssInvoiceHeadForm',
-			autoHeight:true,
 			frame : true,
 			items : [{
 					layout : 'column',
@@ -35,6 +35,7 @@ PssInvoiceHeadForm = Ext.extend(Ext.Window, {
 						defaults : {
 							xtype : 'textfield',
 							allowBlank : false,
+							disabled : readOnly,
 							maxLength:100,
 							width : 200
 						}

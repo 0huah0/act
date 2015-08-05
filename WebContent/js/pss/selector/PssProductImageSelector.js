@@ -54,47 +54,47 @@
 			cm : new Ext.grid.ColumnModel({
 				columns : [sm,
 						new Ext.grid.RowNumberer()
-						,{
+						 ,{
 							header : '產品編號',
 							width : 120,
 							dataIndex : 'pdtId'
 						}
-												,{
+						,{
 							header : '產品圖片編號，保存系統框架中檔案上傳的記錄編號。',
 							width : 120,
 							dataIndex : 'pdtImgId'
 						}
-												,{
+						,{
 							header : '描述',
 							width : 120,
 							dataIndex : 'desc'
 						}
-												,{
+						,{
 							header : '排序',
 							width : 120,
 							dataIndex : 'sn'
 						}
-												,{
+						,{
 							header : '是否封面（一個產品只會有一張封面）',
 							width : 120,
 							dataIndex : 'isCover',renderer:function(v){if(0 == v){return "不是";}else if(1 == v){return "是";}}
 						}
-												,{
+						,{
 							header : '創建日期',
 							width : 120,
 							dataIndex : 'createDate',renderer:function(v){if(v){return new Date(v).format("Y-m-d H:i");}else{return "";}}
 						}
-												,{
+						,{
 							header : '創建人員',
 							width : 120,
 							dataIndex : 'createBy'
 						}
-												,{
+						,{
 							header : '修改日期',
 							width : 120,
 							dataIndex : 'updateDate',renderer:function(v){if(v){return new Date(v).format("Y-m-d H:i");}else{return "";}}
 						}
-												,{
+						,{
 							header : '修改人員',
 							width : 120,
 							dataIndex : 'updateBy'
@@ -104,7 +104,7 @@
 			sm : sm,
 			store : new Ext.data.Store({
 				proxy : new Ext.data.HttpProxy({
-					url : __ctxPath + '/system/listPssProductImage.do'
+					url : __ctxPath + '/pss/listPssProductImage.do'
 				}),
 				params : {
 					start : 0,
@@ -115,7 +115,8 @@
 					totalProperty : 'totalCounts',
 					fields : ['pdtId','pdtImgId','desc','sn','isCover','createDate','createBy','updateDate','updateBy']
 				}),
-				remoteSort : true
+				remoteSort : true,
+				autoLoad : true
 			}),
 			viewConfig : {
 				forceFit : true,
@@ -136,10 +137,10 @@
 						iconCls : 'search',
 						handler : function() {
 								searchPanel.getForm().submit({
-									url:__ctxPath+'/system/listPssProductImage.do',
+									url:__ctxPath+'/pss/listPssProductImage.do',
 									method:'post',
 									success : function(formPanel, action) {
-										winGrid.getStore().proxy.conn.url=__ctxPath+'/system/listAppUser.do';
+										winGrid.getStore().proxy.conn.url=__ctxPath+'/pss/listPssProductImage.do';
 										var result = Ext.util.JSON.decode(action.response.responseText);
 										if(data && data.length>0){
 											sm.selectRecords(data);
@@ -178,7 +179,7 @@
 									xtype:'hidden',
 									fieldLabel : '產品圖片編號，保存系統框架中檔案上傳的記錄編號。',
 									maxLength:18,
-									name : "pssProductImage.pdtImgId"
+									name : "Q_pdtImgId_S_LK"
 								},{
 									fieldLabel : '是否封面（一個產品只會有一張封面）',
 									maxLength:18,
@@ -194,7 +195,7 @@
 						items : [{
 									fieldLabel : '描述',
 									maxLength:18,
-									name : "pssProductImage.desc"
+									name : "Q_desc_S_LK"
 								},{
 									fieldLabel : '創建日期',
 									maxLength:18,
@@ -210,11 +211,11 @@
 						items : [{
 									fieldLabel : '產品編號',
 									maxLength:18,
-									name : "pssProductImage.pdtId"
+									name : "Q_pdtId_S_LK"
 								},{
 									fieldLabel : '排序',
 									maxLength:18,
-									name : "pssProductImage.sn"
+									name : "Q_sn_N_EQ"
 								},{
 									fieldLabel : '創建人員',
 									maxLength:18,

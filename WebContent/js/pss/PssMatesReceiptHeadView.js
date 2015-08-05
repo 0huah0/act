@@ -64,15 +64,15 @@ PssMatesReceiptHeadView = Ext.extend(Ext.Panel, {
 						items : [{
 									fieldLabel : '採購單編號',
 									maxLength:18,
-									name : "pssMatesReceiptHead.poHeadId"
+									name : "Q_poHeadId_S_LK"
 								},{
 									fieldLabel : '收貨人電話',
 									maxLength:18,
-									name : "pssMatesReceiptHead.receiverTel"
+									name : "Q_receiverTel_S_LK"
 								},{
 									fieldLabel : '送貨人電話',
 									maxLength:18,
-									name : "pssMatesReceiptHead.diliverTel"
+									name : "Q_diliverTel_S_LK"
 								},{
 									fieldLabel : '創建人員',
 									maxLength:18,
@@ -84,15 +84,15 @@ PssMatesReceiptHeadView = Ext.extend(Ext.Panel, {
 						items : [{
 									fieldLabel : '收貨倉庫編號/倉庫代號',
 									maxLength:18,
-									name : "pssMatesReceiptHead.warehouseId"
+									name : "Q_warehouseId_S_LK"
 								},{
 									fieldLabel : '收貨發票號碼(應付帳款)',
 									maxLength:18,
-									name : "pssMatesReceiptHead.mrInvoice"
+									name : "Q_mrInvoice_S_LK"
 								},{
 									fieldLabel : '備註',
 									maxLength:18,
-									name : "pssMatesReceiptHead.remark"
+									name : "Q_remark_S_LK"
 								},{
 									fieldLabel : '修改日期',
 									maxLength:18,
@@ -105,15 +105,15 @@ PssMatesReceiptHeadView = Ext.extend(Ext.Panel, {
 									xtype:'hidden',
 									fieldLabel : '收貨單編號（收貨單代碼2位(MR)+當前日期8位(yyyyMMdd)+流水號6位）。',
 									maxLength:18,
-									name : "pssMatesReceiptHead.mrHeadId"
+									name : "Q_mrHeadId_S_LK"
 								},{
 									fieldLabel : '收貨人名稱/倉管人員名稱',
 									maxLength:18,
-									name : "pssMatesReceiptHead.receiverName"
+									name : "Q_receiverName_S_LK"
 								},{
 									fieldLabel : '送貨人名稱',
 									maxLength:18,
-									name : "pssMatesReceiptHead.diliverName"
+									name : "Q_diliverName_S_LK"
 								},{
 									fieldLabel : '創建日期',
 									maxLength:18,
@@ -238,37 +238,48 @@ PssMatesReceiptHeadView = Ext.extend(Ext.Panel, {
 //view static method
 PssMatesReceiptHeadView.remove = function(id) {
 	var grid = Ext.getCmp("PssMatesReceiptHeadGrid");
-	Ext.Msg.confirm('刪除確認', '確定要刪除此筆數據？', function(btn) {
-		if (btn == 'yes') {
-			Ext.Ajax.request({
-				url : __ctxPath
-						+ '/pss/multiDelPssMatesReceiptHead.do',
-				params : {
-					ids : id
-				},
-				method : 'post',
-				success : function(response, options) {
-					var dbJson = eval("(" + response.responseText + ")");
-					if(dbJson.success){
-						Ext.ux.Toast.msg("信息", "成功刪除！");
-						grid.getStore().reload({
-							params : {
-								start : 0,
-								limit : 25
+	if(id && id != 'undefind'){	//后台删
+			Ext.Msg.confirm('刪除確認', '確定要刪除此筆數據？', function(btn) {
+				if (btn == 'yes') {
+					Ext.Ajax.request({
+						url : __ctxPath
+								+ '/pss/multiDelPssMatesReceiptHead.do',
+						params : {
+							ids : id
+						},
+						method : 'post',
+						success : function(response, options) {
+							var dbJson = eval("(" + response.responseText + ")");
+							if(dbJson.success){
+								Ext.ux.Toast.msg("信息", "成功刪除！");
+								grid.getStore().reload({
+									params : {
+										start : 0,
+										limit : 25
+									}
+								});
+							}else{
+								Ext.Msg.alert("信息", "該項沒能被刪除！");
 							}
-						});
-					}else{
-						Ext.Msg.alert("信息", "該項沒能被刪除！");
-					}
+						}
+					});
 				}
 			});
-		}
-	});
+	}else{	//前台删
+		
+	}
 };
 
 PssMatesReceiptHeadView.edit = function(id) {
 	new PssMatesReceiptHeadForm({
 				recId : id
+			}).show();
+};
+
+PssMatesReceiptHeadView.read = function(id) {
+	new PssMatesReceiptHeadForm({
+				recId : id,
+				read : true
 			}).show();
 };
 

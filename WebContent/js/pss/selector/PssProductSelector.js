@@ -54,57 +54,57 @@
 			cm : new Ext.grid.ColumnModel({
 				columns : [sm,
 						new Ext.grid.RowNumberer()
-						,{
+						 ,{
 							header : '產品編號/產品代號',
 							width : 120,
 							dataIndex : 'productId'
 						}
-												,{
+						,{
 							header : '產品名稱',
 							width : 120,
 							dataIndex : 'name'
 						}
-												,{
+						,{
 							header : '描述',
 							width : 120,
 							dataIndex : 'desc'
 						}
-												,{
+						,{
 							header : '單位',
 							width : 120,
 							dataIndex : 'unit',renderer:function(v){if(1 == v){return "個";}else if(2 == v){return "塊";}else if(3 == v){return "條";}else if(4 == v){return "片";}else if(5 == v){return "公斤";}else if(6 == v){return "公噸";}else if(7 == v){return "...";}}
 						}
-												,{
+						,{
 							header : '產品定價(單價)',
 							width : 120,
 							dataIndex : 'price'
 						}
-												,{
+						,{
 							header : '產品建議售價(單價)',
 							width : 120,
 							dataIndex : 'salePrice'
 						}
-												,{
+						,{
 							header : '有效否',
 							width : 120,
 							dataIndex : 'active',renderer:function(v){if(0 == v){return "無效";}else if(1 == v){return "有效";}}
 						}
-												,{
+						,{
 							header : '創建日期',
 							width : 120,
 							dataIndex : 'createDate',renderer:function(v){if(v){return new Date(v).format("Y-m-d H:i");}else{return "";}}
 						}
-												,{
+						,{
 							header : '創建人員',
 							width : 120,
 							dataIndex : 'createBy'
 						}
-												,{
+						,{
 							header : '修改日期',
 							width : 120,
 							dataIndex : 'updateDate',renderer:function(v){if(v){return new Date(v).format("Y-m-d H:i");}else{return "";}}
 						}
-												,{
+						,{
 							header : '修改人員',
 							width : 120,
 							dataIndex : 'updateBy'
@@ -114,7 +114,7 @@
 			sm : sm,
 			store : new Ext.data.Store({
 				proxy : new Ext.data.HttpProxy({
-					url : __ctxPath + '/system/listPssProduct.do'
+					url : __ctxPath + '/pss/listPssProduct.do'
 				}),
 				params : {
 					start : 0,
@@ -125,7 +125,8 @@
 					totalProperty : 'totalCounts',
 					fields : ['productId','name','desc','unit','price','salePrice','active','createDate','createBy','updateDate','updateBy']
 				}),
-				remoteSort : true
+				remoteSort : true,
+				autoLoad : true
 			}),
 			viewConfig : {
 				forceFit : true,
@@ -146,10 +147,10 @@
 						iconCls : 'search',
 						handler : function() {
 								searchPanel.getForm().submit({
-									url:__ctxPath+'/system/listPssProduct.do',
+									url:__ctxPath+'/pss/listPssProduct.do',
 									method:'post',
 									success : function(formPanel, action) {
-										winGrid.getStore().proxy.conn.url=__ctxPath+'/system/listAppUser.do';
+										winGrid.getStore().proxy.conn.url=__ctxPath+'/pss/listPssProduct.do';
 										var result = Ext.util.JSON.decode(action.response.responseText);
 										if(data && data.length>0){
 											sm.selectRecords(data);
@@ -187,11 +188,11 @@
 						items : [{
 									fieldLabel : '產品名稱',
 									maxLength:18,
-									name : "pssProduct.name"
+									name : "Q_name_S_LK"
 								},{
 									fieldLabel : '產品定價(單價)',
 									maxLength:18,
-									name : "pssProduct.price"
+									name : "Q_price_L_EQ"
 								},{
 									fieldLabel : '創建日期',
 									maxLength:18,
@@ -207,11 +208,11 @@
 						items : [{
 									fieldLabel : '描述',
 									maxLength:18,
-									name : "pssProduct.desc"
+									name : "Q_desc_S_LK"
 								},{
 									fieldLabel : '產品建議售價(單價)',
 									maxLength:18,
-									name : "pssProduct.salePrice"
+									name : "Q_salePrice_L_EQ"
 								},{
 									fieldLabel : '創建人員',
 									maxLength:18,
@@ -224,7 +225,7 @@
 									xtype:'hidden',
 									fieldLabel : '產品編號/產品代號',
 									maxLength:18,
-									name : "pssProduct.productId"
+									name : "Q_productId_S_LK"
 								},{
 									fieldLabel : '單位',
 									maxLength:18,

@@ -54,42 +54,42 @@
 			cm : new Ext.grid.ColumnModel({
 				columns : [sm,
 						new Ext.grid.RowNumberer()
-						,{
+						 ,{
 							header : '發票編號',
 							width : 120,
 							dataIndex : 'invoiceHeadId'
 						}
-												,{
+						,{
 							header : '客戶編號/供應商編號（TYPE=1時，該欄位存客戶編號，TYPE=2時，該欄位存供應商編號）',
 							width : 120,
 							dataIndex : 'cusOrSupId'
 						}
-												,{
+						,{
 							header : '發票金額',
 							width : 120,
 							dataIndex : 'invAmount'
 						}
-												,{
+						,{
 							header : '類型',
 							width : 120,
 							dataIndex : 'type',renderer:function(v){if(1 == v){return "出貨發票";}else if(2 == v){return "收貨發票";}}
 						}
-												,{
+						,{
 							header : '創建日期',
 							width : 120,
 							dataIndex : 'createDate',renderer:function(v){if(v){return new Date(v).format("Y-m-d H:i");}else{return "";}}
 						}
-												,{
+						,{
 							header : '創建人員',
 							width : 120,
 							dataIndex : 'createBy'
 						}
-												,{
+						,{
 							header : '修改日期',
 							width : 120,
 							dataIndex : 'updateDate',renderer:function(v){if(v){return new Date(v).format("Y-m-d H:i");}else{return "";}}
 						}
-												,{
+						,{
 							header : '修改人員',
 							width : 120,
 							dataIndex : 'updateBy'
@@ -99,7 +99,7 @@
 			sm : sm,
 			store : new Ext.data.Store({
 				proxy : new Ext.data.HttpProxy({
-					url : __ctxPath + '/system/listPssInvoiceHead.do'
+					url : __ctxPath + '/pss/listPssInvoiceHead.do'
 				}),
 				params : {
 					start : 0,
@@ -110,7 +110,8 @@
 					totalProperty : 'totalCounts',
 					fields : ['invoiceHeadId','cusOrSupId','invAmount','type','createDate','createBy','updateDate','updateBy']
 				}),
-				remoteSort : true
+				remoteSort : true,
+				autoLoad : true
 			}),
 			viewConfig : {
 				forceFit : true,
@@ -131,10 +132,10 @@
 						iconCls : 'search',
 						handler : function() {
 								searchPanel.getForm().submit({
-									url:__ctxPath+'/system/listPssInvoiceHead.do',
+									url:__ctxPath+'/pss/listPssInvoiceHead.do',
 									method:'post',
 									success : function(formPanel, action) {
-										winGrid.getStore().proxy.conn.url=__ctxPath+'/system/listAppUser.do';
+										winGrid.getStore().proxy.conn.url=__ctxPath+'/pss/listPssInvoiceHead.do';
 										var result = Ext.util.JSON.decode(action.response.responseText);
 										if(data && data.length>0){
 											sm.selectRecords(data);
@@ -172,7 +173,7 @@
 						items : [{
 									fieldLabel : '客戶編號/供應商編號（TYPE=1時，該欄位存客戶編號，TYPE=2時，該欄位存供應商編號）',
 									maxLength:18,
-									name : "pssInvoiceHead.cusOrSupId"
+									name : "Q_cusOrSupId_S_LK"
 								},{
 									fieldLabel : '創建日期',
 									maxLength:18,
@@ -188,7 +189,7 @@
 						items : [{
 									fieldLabel : '發票金額',
 									maxLength:18,
-									name : "pssInvoiceHead.invAmount"
+									name : "Q_invAmount_L_EQ"
 								},{
 									fieldLabel : '創建人員',
 									maxLength:18,
@@ -201,7 +202,7 @@
 									xtype:'hidden',
 									fieldLabel : '發票編號',
 									maxLength:18,
-									name : "pssInvoiceHead.invoiceHeadId"
+									name : "Q_invoiceHeadId_S_LK"
 								},{
 									fieldLabel : '類型',
 									maxLength:18,

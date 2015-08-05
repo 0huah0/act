@@ -54,67 +54,67 @@
 			cm : new Ext.grid.ColumnModel({
 				columns : [sm,
 						new Ext.grid.RowNumberer()
-						,{
+						 ,{
 							header : '出貨單編號（出貨單代碼2位(DO)+當前日期8位(yyyyMMdd)+流水號6位）',
 							width : 120,
 							dataIndex : 'doHeadId'
 						}
-												,{
+						,{
 							header : '銷貨單編號',
 							width : 120,
 							dataIndex : 'soHeadId'
 						}
-												,{
+						,{
 							header : '出貨倉庫編號/倉庫代號',
 							width : 120,
 							dataIndex : 'warehouseId'
 						}
-												,{
+						,{
 							header : '送貨人電話',
 							width : 120,
 							dataIndex : 'diliverTel'
 						}
-												,{
+						,{
 							header : '送貨人名稱',
 							width : 120,
 							dataIndex : 'diliverName'
 						}
-												,{
+						,{
 							header : '收貨人名稱',
 							width : 120,
 							dataIndex : 'receiverName'
 						}
-												,{
+						,{
 							header : '收貨人電話',
 							width : 120,
 							dataIndex : 'receiverTel'
 						}
-												,{
+						,{
 							header : '出貨發票號碼 (應收帳款)',
 							width : 120,
 							dataIndex : 'doInvoice'
 						}
-												,{
+						,{
 							header : '備註',
 							width : 120,
 							dataIndex : 'remark'
 						}
-												,{
+						,{
 							header : '創建日期',
 							width : 120,
 							dataIndex : 'createDate',renderer:function(v){if(v){return new Date(v).format("Y-m-d H:i");}else{return "";}}
 						}
-												,{
+						,{
 							header : '創建人員',
 							width : 120,
 							dataIndex : 'createBy'
 						}
-												,{
+						,{
 							header : '修改日期',
 							width : 120,
 							dataIndex : 'updateDate',renderer:function(v){if(v){return new Date(v).format("Y-m-d H:i");}else{return "";}}
 						}
-												,{
+						,{
 							header : '修改人員',
 							width : 120,
 							dataIndex : 'updateBy'
@@ -124,7 +124,7 @@
 			sm : sm,
 			store : new Ext.data.Store({
 				proxy : new Ext.data.HttpProxy({
-					url : __ctxPath + '/system/listPssDeliveryOrderHead.do'
+					url : __ctxPath + '/pss/listPssDeliveryOrderHead.do'
 				}),
 				params : {
 					start : 0,
@@ -135,7 +135,8 @@
 					totalProperty : 'totalCounts',
 					fields : ['doHeadId','soHeadId','warehouseId','diliverTel','diliverName','receiverName','receiverTel','doInvoice','remark','createDate','createBy','updateDate','updateBy']
 				}),
-				remoteSort : true
+				remoteSort : true,
+				autoLoad : true
 			}),
 			viewConfig : {
 				forceFit : true,
@@ -156,10 +157,10 @@
 						iconCls : 'search',
 						handler : function() {
 								searchPanel.getForm().submit({
-									url:__ctxPath+'/system/listPssDeliveryOrderHead.do',
+									url:__ctxPath+'/pss/listPssDeliveryOrderHead.do',
 									method:'post',
 									success : function(formPanel, action) {
-										winGrid.getStore().proxy.conn.url=__ctxPath+'/system/listAppUser.do';
+										winGrid.getStore().proxy.conn.url=__ctxPath+'/pss/listPssDeliveryOrderHead.do';
 										var result = Ext.util.JSON.decode(action.response.responseText);
 										if(data && data.length>0){
 											sm.selectRecords(data);
@@ -197,15 +198,15 @@
 						items : [{
 									fieldLabel : '銷貨單編號',
 									maxLength:18,
-									name : "pssDeliveryOrderHead.soHeadId"
+									name : "Q_soHeadId_S_LK"
 								},{
 									fieldLabel : '送貨人名稱',
 									maxLength:18,
-									name : "pssDeliveryOrderHead.diliverName"
+									name : "Q_diliverName_S_LK"
 								},{
 									fieldLabel : '出貨發票號碼 (應收帳款)',
 									maxLength:18,
-									name : "pssDeliveryOrderHead.doInvoice"
+									name : "Q_doInvoice_S_LK"
 								},{
 									fieldLabel : '創建人員',
 									maxLength:18,
@@ -217,15 +218,15 @@
 						items : [{
 									fieldLabel : '出貨倉庫編號/倉庫代號',
 									maxLength:18,
-									name : "pssDeliveryOrderHead.warehouseId"
+									name : "Q_warehouseId_S_LK"
 								},{
 									fieldLabel : '收貨人名稱',
 									maxLength:18,
-									name : "pssDeliveryOrderHead.receiverName"
+									name : "Q_receiverName_S_LK"
 								},{
 									fieldLabel : '備註',
 									maxLength:18,
-									name : "pssDeliveryOrderHead.remark"
+									name : "Q_remark_S_LK"
 								},{
 									fieldLabel : '修改日期',
 									maxLength:18,
@@ -238,15 +239,15 @@
 									xtype:'hidden',
 									fieldLabel : '出貨單編號（出貨單代碼2位(DO)+當前日期8位(yyyyMMdd)+流水號6位）',
 									maxLength:18,
-									name : "pssDeliveryOrderHead.doHeadId"
+									name : "Q_doHeadId_S_LK"
 								},{
 									fieldLabel : '送貨人電話',
 									maxLength:18,
-									name : "pssDeliveryOrderHead.diliverTel"
+									name : "Q_diliverTel_S_LK"
 								},{
 									fieldLabel : '收貨人電話',
 									maxLength:18,
-									name : "pssDeliveryOrderHead.receiverTel"
+									name : "Q_receiverTel_S_LK"
 								},{
 									fieldLabel : '創建日期',
 									maxLength:18,

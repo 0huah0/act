@@ -13,16 +13,16 @@ PssMatesReceiptHeadForm = Ext.extend(Ext.Window, {
 					id : 'PssMatesReceiptHeadFormWin',
 					title : this.recId?'修改收貨單':'新增收貨單',
 					iconCls : 'menu-planmanage',
-					width : 820,
-					autoHeight : true,
+					width : 960,
 					buttons : this.buttons
 				});
 	},
 	initUIComponents : function() {
 		var recId = this.recId;
+		var readOnly = this.read;
+		
 		this.formPanel = new Ext.FormPanel({
 			id : 'PssMatesReceiptHeadForm',
-			autoHeight:true,
 			frame : true,
 			items : [{
 					layout : 'column',
@@ -35,6 +35,7 @@ PssMatesReceiptHeadForm = Ext.extend(Ext.Window, {
 						defaults : {
 							xtype : 'textfield',
 							allowBlank : false,
+							disabled : readOnly,
 							maxLength:100,
 							width : 200
 						}

@@ -64,15 +64,15 @@ PssDeliveryOrderHeadView = Ext.extend(Ext.Panel, {
 						items : [{
 									fieldLabel : '銷貨單編號',
 									maxLength:18,
-									name : "pssDeliveryOrderHead.soHeadId"
+									name : "Q_soHeadId_S_LK"
 								},{
 									fieldLabel : '送貨人名稱',
 									maxLength:18,
-									name : "pssDeliveryOrderHead.diliverName"
+									name : "Q_diliverName_S_LK"
 								},{
 									fieldLabel : '出貨發票號碼 (應收帳款)',
 									maxLength:18,
-									name : "pssDeliveryOrderHead.doInvoice"
+									name : "Q_doInvoice_S_LK"
 								},{
 									fieldLabel : '創建人員',
 									maxLength:18,
@@ -84,15 +84,15 @@ PssDeliveryOrderHeadView = Ext.extend(Ext.Panel, {
 						items : [{
 									fieldLabel : '出貨倉庫編號/倉庫代號',
 									maxLength:18,
-									name : "pssDeliveryOrderHead.warehouseId"
+									name : "Q_warehouseId_S_LK"
 								},{
 									fieldLabel : '收貨人名稱',
 									maxLength:18,
-									name : "pssDeliveryOrderHead.receiverName"
+									name : "Q_receiverName_S_LK"
 								},{
 									fieldLabel : '備註',
 									maxLength:18,
-									name : "pssDeliveryOrderHead.remark"
+									name : "Q_remark_S_LK"
 								},{
 									fieldLabel : '修改日期',
 									maxLength:18,
@@ -105,15 +105,15 @@ PssDeliveryOrderHeadView = Ext.extend(Ext.Panel, {
 									xtype:'hidden',
 									fieldLabel : '出貨單編號（出貨單代碼2位(DO)+當前日期8位(yyyyMMdd)+流水號6位）',
 									maxLength:18,
-									name : "pssDeliveryOrderHead.doHeadId"
+									name : "Q_doHeadId_S_LK"
 								},{
 									fieldLabel : '送貨人電話',
 									maxLength:18,
-									name : "pssDeliveryOrderHead.diliverTel"
+									name : "Q_diliverTel_S_LK"
 								},{
 									fieldLabel : '收貨人電話',
 									maxLength:18,
-									name : "pssDeliveryOrderHead.receiverTel"
+									name : "Q_receiverTel_S_LK"
 								},{
 									fieldLabel : '創建日期',
 									maxLength:18,
@@ -238,37 +238,48 @@ PssDeliveryOrderHeadView = Ext.extend(Ext.Panel, {
 //view static method
 PssDeliveryOrderHeadView.remove = function(id) {
 	var grid = Ext.getCmp("PssDeliveryOrderHeadGrid");
-	Ext.Msg.confirm('刪除確認', '確定要刪除此筆數據？', function(btn) {
-		if (btn == 'yes') {
-			Ext.Ajax.request({
-				url : __ctxPath
-						+ '/pss/multiDelPssDeliveryOrderHead.do',
-				params : {
-					ids : id
-				},
-				method : 'post',
-				success : function(response, options) {
-					var dbJson = eval("(" + response.responseText + ")");
-					if(dbJson.success){
-						Ext.ux.Toast.msg("信息", "成功刪除！");
-						grid.getStore().reload({
-							params : {
-								start : 0,
-								limit : 25
+	if(id && id != 'undefind'){	//后台删
+			Ext.Msg.confirm('刪除確認', '確定要刪除此筆數據？', function(btn) {
+				if (btn == 'yes') {
+					Ext.Ajax.request({
+						url : __ctxPath
+								+ '/pss/multiDelPssDeliveryOrderHead.do',
+						params : {
+							ids : id
+						},
+						method : 'post',
+						success : function(response, options) {
+							var dbJson = eval("(" + response.responseText + ")");
+							if(dbJson.success){
+								Ext.ux.Toast.msg("信息", "成功刪除！");
+								grid.getStore().reload({
+									params : {
+										start : 0,
+										limit : 25
+									}
+								});
+							}else{
+								Ext.Msg.alert("信息", "該項沒能被刪除！");
 							}
-						});
-					}else{
-						Ext.Msg.alert("信息", "該項沒能被刪除！");
-					}
+						}
+					});
 				}
 			});
-		}
-	});
+	}else{	//前台删
+		
+	}
 };
 
 PssDeliveryOrderHeadView.edit = function(id) {
 	new PssDeliveryOrderHeadForm({
 				recId : id
+			}).show();
+};
+
+PssDeliveryOrderHeadView.read = function(id) {
+	new PssDeliveryOrderHeadForm({
+				recId : id,
+				read : true
 			}).show();
 };
 

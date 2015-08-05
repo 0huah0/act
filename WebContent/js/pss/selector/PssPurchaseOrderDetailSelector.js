@@ -54,57 +54,57 @@
 			cm : new Ext.grid.ColumnModel({
 				columns : [sm,
 						new Ext.grid.RowNumberer()
-						,{
+						 ,{
 							header : '採購單編號',
 							width : 120,
 							dataIndex : 'poHeadId'
 						}
-												,{
+						,{
 							header : '採購單明細編號',
 							width : 120,
 							dataIndex : 'poDetailId'
 						}
-												,{
+						,{
 							header : '原料編號',
 							width : 120,
 							dataIndex : 'materialId'
 						}
-												,{
+						,{
 							header : '原料數量',
 							width : 120,
 							dataIndex : 'materialNum'
 						}
-												,{
+						,{
 							header : '原料定價(單價)',
 							width : 120,
 							dataIndex : 'materialPrice'
 						}
-												,{
+						,{
 							header : '原料建議售價(單價)',
 							width : 120,
 							dataIndex : 'materialSalePrice'
 						}
-												,{
+						,{
 							header : '小計',
 							width : 120,
 							dataIndex : 'amount'
 						}
-												,{
+						,{
 							header : '創建日期',
 							width : 120,
 							dataIndex : 'createDate',renderer:function(v){if(v){return new Date(v).format("Y-m-d H:i");}else{return "";}}
 						}
-												,{
+						,{
 							header : '創建人員',
 							width : 120,
 							dataIndex : 'createBy'
 						}
-												,{
+						,{
 							header : '修改日期',
 							width : 120,
 							dataIndex : 'updateDate',renderer:function(v){if(v){return new Date(v).format("Y-m-d H:i");}else{return "";}}
 						}
-												,{
+						,{
 							header : '修改人員',
 							width : 120,
 							dataIndex : 'updateBy'
@@ -114,7 +114,7 @@
 			sm : sm,
 			store : new Ext.data.Store({
 				proxy : new Ext.data.HttpProxy({
-					url : __ctxPath + '/system/listPssPurchaseOrderDetail.do'
+					url : __ctxPath + '/pss/listPssPurchaseOrderDetail.do'
 				}),
 				params : {
 					start : 0,
@@ -125,7 +125,8 @@
 					totalProperty : 'totalCounts',
 					fields : ['poHeadId','poDetailId','materialId','materialNum','materialPrice','materialSalePrice','amount','createDate','createBy','updateDate','updateBy']
 				}),
-				remoteSort : true
+				remoteSort : true,
+				autoLoad : true
 			}),
 			viewConfig : {
 				forceFit : true,
@@ -146,10 +147,10 @@
 						iconCls : 'search',
 						handler : function() {
 								searchPanel.getForm().submit({
-									url:__ctxPath+'/system/listPssPurchaseOrderDetail.do',
+									url:__ctxPath+'/pss/listPssPurchaseOrderDetail.do',
 									method:'post',
 									success : function(formPanel, action) {
-										winGrid.getStore().proxy.conn.url=__ctxPath+'/system/listAppUser.do';
+										winGrid.getStore().proxy.conn.url=__ctxPath+'/pss/listPssPurchaseOrderDetail.do';
 										var result = Ext.util.JSON.decode(action.response.responseText);
 										if(data && data.length>0){
 											sm.selectRecords(data);
@@ -187,11 +188,11 @@
 						items : [{
 									fieldLabel : '採購單明細編號',
 									maxLength:18,
-									name : "pssPurchaseOrderDetail.poDetailId"
+									name : "Q_poDetailId_L_EQ"
 								},{
 									fieldLabel : '原料定價(單價)',
 									maxLength:18,
-									name : "pssPurchaseOrderDetail.materialPrice"
+									name : "Q_materialPrice_L_EQ"
 								},{
 									fieldLabel : '創建日期',
 									maxLength:18,
@@ -207,11 +208,11 @@
 						items : [{
 									fieldLabel : '原料編號',
 									maxLength:18,
-									name : "pssPurchaseOrderDetail.materialId"
+									name : "Q_materialId_S_LK"
 								},{
 									fieldLabel : '原料建議售價(單價)',
 									maxLength:18,
-									name : "pssPurchaseOrderDetail.materialSalePrice"
+									name : "Q_materialSalePrice_L_EQ"
 								},{
 									fieldLabel : '創建人員',
 									maxLength:18,
@@ -223,15 +224,15 @@
 						items : [{
 									fieldLabel : '採購單編號',
 									maxLength:18,
-									name : "pssPurchaseOrderDetail.poHeadId"
+									name : "Q_poHeadId_S_LK"
 								},{
 									fieldLabel : '原料數量',
 									maxLength:18,
-									name : "pssPurchaseOrderDetail.materialNum"
+									name : "Q_materialNum_L_EQ"
 								},{
 									fieldLabel : '小計',
 									maxLength:18,
-									name : "pssPurchaseOrderDetail.amount"
+									name : "Q_amount_L_EQ"
 								},{
 									fieldLabel : '修改日期',
 									maxLength:18,

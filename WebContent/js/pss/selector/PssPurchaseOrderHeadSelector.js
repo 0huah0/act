@@ -54,52 +54,52 @@
 			cm : new Ext.grid.ColumnModel({
 				columns : [sm,
 						new Ext.grid.RowNumberer()
-						,{
+						 ,{
 							header : '採購單編號（採購單代碼2位(PO)+當前日期8位(yyyyMMdd)+流水號6位）',
 							width : 120,
 							dataIndex : 'poHeadId'
 						}
-												,{
+						,{
 							header : '供應商編號/供應商代號',
 							width : 120,
 							dataIndex : 'supplierId'
 						}
-												,{
+						,{
 							header : '定價總金額',
 							width : 120,
 							dataIndex : 'priceAmount'
 						}
-												,{
+						,{
 							header : '建議售價總金額',
 							width : 120,
 							dataIndex : 'salePriceAmount'
 						}
-												,{
+						,{
 							header : '成交價總金額',
 							width : 120,
 							dataIndex : 'payAmount'
 						}
-												,{
+						,{
 							header : '備註',
 							width : 120,
 							dataIndex : 'remark'
 						}
-												,{
+						,{
 							header : '創建日期',
 							width : 120,
 							dataIndex : 'createDate',renderer:function(v){if(v){return new Date(v).format("Y-m-d H:i");}else{return "";}}
 						}
-												,{
+						,{
 							header : '創建人員',
 							width : 120,
 							dataIndex : 'createBy'
 						}
-												,{
+						,{
 							header : '修改日期',
 							width : 120,
 							dataIndex : 'updateDate',renderer:function(v){if(v){return new Date(v).format("Y-m-d H:i");}else{return "";}}
 						}
-												,{
+						,{
 							header : '修改人員',
 							width : 120,
 							dataIndex : 'updateBy'
@@ -109,7 +109,7 @@
 			sm : sm,
 			store : new Ext.data.Store({
 				proxy : new Ext.data.HttpProxy({
-					url : __ctxPath + '/system/listPssPurchaseOrderHead.do'
+					url : __ctxPath + '/pss/listPssPurchaseOrderHead.do'
 				}),
 				params : {
 					start : 0,
@@ -120,7 +120,8 @@
 					totalProperty : 'totalCounts',
 					fields : ['poHeadId','supplierId','priceAmount','salePriceAmount','payAmount','remark','createDate','createBy','updateDate','updateBy']
 				}),
-				remoteSort : true
+				remoteSort : true,
+				autoLoad : true
 			}),
 			viewConfig : {
 				forceFit : true,
@@ -141,10 +142,10 @@
 						iconCls : 'search',
 						handler : function() {
 								searchPanel.getForm().submit({
-									url:__ctxPath+'/system/listPssPurchaseOrderHead.do',
+									url:__ctxPath+'/pss/listPssPurchaseOrderHead.do',
 									method:'post',
 									success : function(formPanel, action) {
-										winGrid.getStore().proxy.conn.url=__ctxPath+'/system/listAppUser.do';
+										winGrid.getStore().proxy.conn.url=__ctxPath+'/pss/listPssPurchaseOrderHead.do';
 										var result = Ext.util.JSON.decode(action.response.responseText);
 										if(data && data.length>0){
 											sm.selectRecords(data);
@@ -182,11 +183,11 @@
 						items : [{
 									fieldLabel : '供應商編號/供應商代號',
 									maxLength:18,
-									name : "pssPurchaseOrderHead.supplierId"
+									name : "Q_supplierId_S_LK"
 								},{
 									fieldLabel : '成交價總金額',
 									maxLength:18,
-									name : "pssPurchaseOrderHead.payAmount"
+									name : "Q_payAmount_L_EQ"
 								},{
 									fieldLabel : '創建人員',
 									maxLength:18,
@@ -198,11 +199,11 @@
 						items : [{
 									fieldLabel : '定價總金額',
 									maxLength:18,
-									name : "pssPurchaseOrderHead.priceAmount"
+									name : "Q_priceAmount_L_EQ"
 								},{
 									fieldLabel : '備註',
 									maxLength:18,
-									name : "pssPurchaseOrderHead.remark"
+									name : "Q_remark_S_LK"
 								},{
 									fieldLabel : '修改日期',
 									maxLength:18,
@@ -215,11 +216,11 @@
 									xtype:'hidden',
 									fieldLabel : '採購單編號（採購單代碼2位(PO)+當前日期8位(yyyyMMdd)+流水號6位）',
 									maxLength:18,
-									name : "pssPurchaseOrderHead.poHeadId"
+									name : "Q_poHeadId_S_LK"
 								},{
 									fieldLabel : '建議售價總金額',
 									maxLength:18,
-									name : "pssPurchaseOrderHead.salePriceAmount"
+									name : "Q_salePriceAmount_L_EQ"
 								},{
 									fieldLabel : '創建日期',
 									maxLength:18,

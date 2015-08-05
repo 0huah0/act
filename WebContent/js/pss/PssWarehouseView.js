@@ -64,7 +64,7 @@ PssWarehouseView = Ext.extend(Ext.Panel, {
 						items : [{
 									fieldLabel : '名稱',
 									maxLength:18,
-									name : "pssWarehouse.name"
+									name : "Q_name_S_LK"
 								},{
 									fieldLabel : '創建人員',
 									maxLength:18,
@@ -76,7 +76,7 @@ PssWarehouseView = Ext.extend(Ext.Panel, {
 						items : [{
 									fieldLabel : '描述',
 									maxLength:18,
-									name : "pssWarehouse.desc"
+									name : "Q_desc_S_LK"
 								},{
 									fieldLabel : '修改日期',
 									maxLength:18,
@@ -89,7 +89,7 @@ PssWarehouseView = Ext.extend(Ext.Panel, {
 									xtype:'hidden',
 									fieldLabel : '倉庫編號/倉庫代號',
 									maxLength:18,
-									name : "pssWarehouse.warehouseId"
+									name : "Q_warehouseId_S_LK"
 								},{
 									fieldLabel : '創建日期',
 									maxLength:18,
@@ -196,37 +196,48 @@ PssWarehouseView = Ext.extend(Ext.Panel, {
 //view static method
 PssWarehouseView.remove = function(id) {
 	var grid = Ext.getCmp("PssWarehouseGrid");
-	Ext.Msg.confirm('刪除確認', '確定要刪除此筆數據？', function(btn) {
-		if (btn == 'yes') {
-			Ext.Ajax.request({
-				url : __ctxPath
-						+ '/pss/multiDelPssWarehouse.do',
-				params : {
-					ids : id
-				},
-				method : 'post',
-				success : function(response, options) {
-					var dbJson = eval("(" + response.responseText + ")");
-					if(dbJson.success){
-						Ext.ux.Toast.msg("信息", "成功刪除！");
-						grid.getStore().reload({
-							params : {
-								start : 0,
-								limit : 25
+	if(id && id != 'undefind'){	//后台删
+			Ext.Msg.confirm('刪除確認', '確定要刪除此筆數據？', function(btn) {
+				if (btn == 'yes') {
+					Ext.Ajax.request({
+						url : __ctxPath
+								+ '/pss/multiDelPssWarehouse.do',
+						params : {
+							ids : id
+						},
+						method : 'post',
+						success : function(response, options) {
+							var dbJson = eval("(" + response.responseText + ")");
+							if(dbJson.success){
+								Ext.ux.Toast.msg("信息", "成功刪除！");
+								grid.getStore().reload({
+									params : {
+										start : 0,
+										limit : 25
+									}
+								});
+							}else{
+								Ext.Msg.alert("信息", "該項沒能被刪除！");
 							}
-						});
-					}else{
-						Ext.Msg.alert("信息", "該項沒能被刪除！");
-					}
+						}
+					});
 				}
 			});
-		}
-	});
+	}else{	//前台删
+		
+	}
 };
 
 PssWarehouseView.edit = function(id) {
 	new PssWarehouseForm({
 				recId : id
+			}).show();
+};
+
+PssWarehouseView.read = function(id) {
+	new PssWarehouseForm({
+				recId : id,
+				read : true
 			}).show();
 };
 

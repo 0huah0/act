@@ -64,15 +64,15 @@ PssSalesOrderDetailView = Ext.extend(Ext.Panel, {
 						items : [{
 									fieldLabel : '銷貨單明細編號',
 									maxLength:18,
-									name : "pssSalesOrderDetail.soDetailId"
+									name : "Q_soDetailId_L_EQ"
 								},{
 									fieldLabel : '產品定價',
 									maxLength:18,
-									name : "pssSalesOrderDetail.pdtPrice"
+									name : "Q_pdtPrice_L_EQ"
 								},{
 									fieldLabel : '小計',
 									maxLength:18,
-									name : "pssSalesOrderDetail.amount"
+									name : "Q_amount_L_EQ"
 								},{
 									fieldLabel : '修改日期',
 									maxLength:18,
@@ -84,11 +84,11 @@ PssSalesOrderDetailView = Ext.extend(Ext.Panel, {
 						items : [{
 									fieldLabel : '產品編號',
 									maxLength:18,
-									name : "pssSalesOrderDetail.pdtId"
+									name : "Q_pdtId_S_LK"
 								},{
 									fieldLabel : '產品建議售價',
 									maxLength:18,
-									name : "pssSalesOrderDetail.pdtSalePrice"
+									name : "Q_pdtSalePrice_L_EQ"
 								},{
 									fieldLabel : '創建日期',
 									maxLength:18,
@@ -104,15 +104,15 @@ PssSalesOrderDetailView = Ext.extend(Ext.Panel, {
 						items : [{
 									fieldLabel : '銷貨單編號',
 									maxLength:18,
-									name : "pssSalesOrderDetail.soHeadId"
+									name : "Q_soHeadId_S_LK"
 								},{
 									fieldLabel : '產品數量',
 									maxLength:18,
-									name : "pssSalesOrderDetail.pdtNum"
+									name : "Q_pdtNum_L_EQ"
 								},{
 									fieldLabel : '產品實際售價',
 									maxLength:18,
-									name : "pssSalesOrderDetail.pdtRealPrice"
+									name : "Q_pdtRealPrice_L_EQ"
 								},{
 									fieldLabel : '創建人員',
 									maxLength:18,
@@ -230,37 +230,48 @@ PssSalesOrderDetailView = Ext.extend(Ext.Panel, {
 //view static method
 PssSalesOrderDetailView.remove = function(id) {
 	var grid = Ext.getCmp("PssSalesOrderDetailGrid");
-	Ext.Msg.confirm('刪除確認', '確定要刪除此筆數據？', function(btn) {
-		if (btn == 'yes') {
-			Ext.Ajax.request({
-				url : __ctxPath
-						+ '/pss/multiDelPssSalesOrderDetail.do',
-				params : {
-					ids : id
-				},
-				method : 'post',
-				success : function(response, options) {
-					var dbJson = eval("(" + response.responseText + ")");
-					if(dbJson.success){
-						Ext.ux.Toast.msg("信息", "成功刪除！");
-						grid.getStore().reload({
-							params : {
-								start : 0,
-								limit : 25
+	if(id && id != 'undefind'){	//后台删
+			Ext.Msg.confirm('刪除確認', '確定要刪除此筆數據？', function(btn) {
+				if (btn == 'yes') {
+					Ext.Ajax.request({
+						url : __ctxPath
+								+ '/pss/multiDelPssSalesOrderDetail.do',
+						params : {
+							ids : id
+						},
+						method : 'post',
+						success : function(response, options) {
+							var dbJson = eval("(" + response.responseText + ")");
+							if(dbJson.success){
+								Ext.ux.Toast.msg("信息", "成功刪除！");
+								grid.getStore().reload({
+									params : {
+										start : 0,
+										limit : 25
+									}
+								});
+							}else{
+								Ext.Msg.alert("信息", "該項沒能被刪除！");
 							}
-						});
-					}else{
-						Ext.Msg.alert("信息", "該項沒能被刪除！");
-					}
+						}
+					});
 				}
 			});
-		}
-	});
+	}else{	//前台删
+		
+	}
 };
 
 PssSalesOrderDetailView.edit = function(id) {
 	new PssSalesOrderDetailForm({
 				recId : id
+			}).show();
+};
+
+PssSalesOrderDetailView.read = function(id) {
+	new PssSalesOrderDetailForm({
+				recId : id,
+				read : true
 			}).show();
 };
 

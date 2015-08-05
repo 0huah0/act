@@ -54,62 +54,62 @@
 			cm : new Ext.grid.ColumnModel({
 				columns : [sm,
 						new Ext.grid.RowNumberer()
-						,{
+						 ,{
 							header : '記錄編號',
 							width : 120,
 							dataIndex : 'changeId'
 						}
-												,{
+						,{
 							header : '倉庫編號/倉庫代號',
 							width : 120,
 							dataIndex : 'warehouseId'
 						}
-												,{
+						,{
 							header : '原料編號/原料代號',
 							width : 120,
 							dataIndex : 'materialId'
 						}
-												,{
+						,{
 							header : '變更類型',
 							width : 120,
 							dataIndex : 'type',renderer:function(v){if(1 == v){return "增加";}else if(2 == v){return "減少";}}
 						}
-												,{
+						,{
 							header : '變更數量',
 							width : 120,
 							dataIndex : 'num'
 						}
-												,{
+						,{
 							header : '變更原因',
 							width : 120,
 							dataIndex : 'reason',renderer:function(v){if(1 == v){return "出貨";}else if(2 == v){return "收貨";}else if(3 == v){return "生產取出";}else if(4 == v){return "生產存入";}else if(5 == v){return "...";}}
 						}
-												,{
+						,{
 							header : '原因記錄編號（當REASON為1、2時，分別保存出貨單編號、收貨單編號；為4、5時不保存）。',
 							width : 120,
 							dataIndex : 'recordId'
 						}
-												,{
+						,{
 							header : '備註',
 							width : 120,
 							dataIndex : 'remark'
 						}
-												,{
+						,{
 							header : '創建日期',
 							width : 120,
 							dataIndex : 'createDate',renderer:function(v){if(v){return new Date(v).format("Y-m-d H:i");}else{return "";}}
 						}
-												,{
+						,{
 							header : '創建人員',
 							width : 120,
 							dataIndex : 'createBy'
 						}
-												,{
+						,{
 							header : '修改日期',
 							width : 120,
 							dataIndex : 'updateDate',renderer:function(v){if(v){return new Date(v).format("Y-m-d H:i");}else{return "";}}
 						}
-												,{
+						,{
 							header : '修改人員',
 							width : 120,
 							dataIndex : 'updateBy'
@@ -119,7 +119,7 @@
 			sm : sm,
 			store : new Ext.data.Store({
 				proxy : new Ext.data.HttpProxy({
-					url : __ctxPath + '/system/listPssInventoryChange.do'
+					url : __ctxPath + '/pss/listPssInventoryChange.do'
 				}),
 				params : {
 					start : 0,
@@ -130,7 +130,8 @@
 					totalProperty : 'totalCounts',
 					fields : ['changeId','warehouseId','materialId','type','num','reason','recordId','remark','createDate','createBy','updateDate','updateBy']
 				}),
-				remoteSort : true
+				remoteSort : true,
+				autoLoad : true
 			}),
 			viewConfig : {
 				forceFit : true,
@@ -151,10 +152,10 @@
 						iconCls : 'search',
 						handler : function() {
 								searchPanel.getForm().submit({
-									url:__ctxPath+'/system/listPssInventoryChange.do',
+									url:__ctxPath+'/pss/listPssInventoryChange.do',
 									method:'post',
 									success : function(formPanel, action) {
-										winGrid.getStore().proxy.conn.url=__ctxPath+'/system/listAppUser.do';
+										winGrid.getStore().proxy.conn.url=__ctxPath+'/pss/listPssInventoryChange.do';
 										var result = Ext.util.JSON.decode(action.response.responseText);
 										if(data && data.length>0){
 											sm.selectRecords(data);
@@ -192,15 +193,15 @@
 						items : [{
 									fieldLabel : '倉庫編號/倉庫代號',
 									maxLength:18,
-									name : "pssInventoryChange.warehouseId"
+									name : "Q_warehouseId_S_LK"
 								},{
 									fieldLabel : '變更數量',
 									maxLength:18,
-									name : "pssInventoryChange.num"
+									name : "Q_num_L_EQ"
 								},{
 									fieldLabel : '備註',
 									maxLength:18,
-									name : "pssInventoryChange.remark"
+									name : "Q_remark_S_LK"
 								},{
 									fieldLabel : '修改日期',
 									maxLength:18,
@@ -212,7 +213,7 @@
 						items : [{
 									fieldLabel : '原料編號/原料代號',
 									maxLength:18,
-									name : "pssInventoryChange.materialId"
+									name : "Q_materialId_S_LK"
 								},{
 									fieldLabel : '變更原因',
 									maxLength:18,
@@ -232,7 +233,7 @@
 						items : [{
 									fieldLabel : '記錄編號',
 									maxLength:18,
-									name : "pssInventoryChange.changeId"
+									name : "Q_changeId_L_EQ"
 								},{
 									fieldLabel : '變更類型',
 									maxLength:18,
@@ -240,7 +241,7 @@
 								},{
 									fieldLabel : '原因記錄編號（當REASON為1、2時，分別保存出貨單編號、收貨單編號；為4、5時不保存）。',
 									maxLength:18,
-									name : "pssInventoryChange.recordId"
+									name : "Q_recordId_S_LK"
 								},{
 									fieldLabel : '創建人員',
 									maxLength:18,

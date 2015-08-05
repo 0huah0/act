@@ -54,32 +54,32 @@
 			cm : new Ext.grid.ColumnModel({
 				columns : [sm,
 						new Ext.grid.RowNumberer()
-						,{
+						 ,{
 							header : '銷貨單編號',
 							width : 120,
 							dataIndex : 'soHeadId'
 						}
-												,{
+						,{
 							header : '銷貨單附件編號，保存系統框架中上傳檔案的記錄編號。',
 							width : 120,
 							dataIndex : 'soAttachId'
 						}
-												,{
+						,{
 							header : '創建日期',
 							width : 120,
 							dataIndex : 'createDate',renderer:function(v){if(v){return new Date(v).format("Y-m-d H:i");}else{return "";}}
 						}
-												,{
+						,{
 							header : '創建人員',
 							width : 120,
 							dataIndex : 'createBy'
 						}
-												,{
+						,{
 							header : '修改日期',
 							width : 120,
 							dataIndex : 'updateDate',renderer:function(v){if(v){return new Date(v).format("Y-m-d H:i");}else{return "";}}
 						}
-												,{
+						,{
 							header : '修改人員',
 							width : 120,
 							dataIndex : 'updateBy'
@@ -89,7 +89,7 @@
 			sm : sm,
 			store : new Ext.data.Store({
 				proxy : new Ext.data.HttpProxy({
-					url : __ctxPath + '/system/listPssSoAttachment.do'
+					url : __ctxPath + '/pss/listPssSoAttachment.do'
 				}),
 				params : {
 					start : 0,
@@ -100,7 +100,8 @@
 					totalProperty : 'totalCounts',
 					fields : ['soHeadId','soAttachId','createDate','createBy','updateDate','updateBy']
 				}),
-				remoteSort : true
+				remoteSort : true,
+				autoLoad : true
 			}),
 			viewConfig : {
 				forceFit : true,
@@ -121,10 +122,10 @@
 						iconCls : 'search',
 						handler : function() {
 								searchPanel.getForm().submit({
-									url:__ctxPath+'/system/listPssSoAttachment.do',
+									url:__ctxPath+'/pss/listPssSoAttachment.do',
 									method:'post',
 									success : function(formPanel, action) {
-										winGrid.getStore().proxy.conn.url=__ctxPath+'/system/listAppUser.do';
+										winGrid.getStore().proxy.conn.url=__ctxPath+'/pss/listPssSoAttachment.do';
 										var result = Ext.util.JSON.decode(action.response.responseText);
 										if(data && data.length>0){
 											sm.selectRecords(data);
@@ -163,7 +164,7 @@
 									xtype:'hidden',
 									fieldLabel : '銷貨單附件編號，保存系統框架中上傳檔案的記錄編號。',
 									maxLength:18,
-									name : "pssSoAttachment.soAttachId"
+									name : "Q_soAttachId_S_LK"
 								},{
 									fieldLabel : '修改日期',
 									maxLength:18,
@@ -187,7 +188,7 @@
 						items : [{
 									fieldLabel : '銷貨單編號',
 									maxLength:18,
-									name : "pssSoAttachment.soHeadId"
+									name : "Q_soHeadId_S_LK"
 								},{
 									fieldLabel : '創建人員',
 									maxLength:18,

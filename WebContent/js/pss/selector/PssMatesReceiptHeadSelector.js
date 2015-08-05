@@ -54,67 +54,67 @@
 			cm : new Ext.grid.ColumnModel({
 				columns : [sm,
 						new Ext.grid.RowNumberer()
-						,{
+						 ,{
 							header : '收貨單編號（收貨單代碼2位(MR)+當前日期8位(yyyyMMdd)+流水號6位）。',
 							width : 120,
 							dataIndex : 'mrHeadId'
 						}
-												,{
+						,{
 							header : '採購單編號',
 							width : 120,
 							dataIndex : 'poHeadId'
 						}
-												,{
+						,{
 							header : '收貨倉庫編號/倉庫代號',
 							width : 120,
 							dataIndex : 'warehouseId'
 						}
-												,{
+						,{
 							header : '收貨人名稱/倉管人員名稱',
 							width : 120,
 							dataIndex : 'receiverName'
 						}
-												,{
+						,{
 							header : '收貨人電話',
 							width : 120,
 							dataIndex : 'receiverTel'
 						}
-												,{
+						,{
 							header : '收貨發票號碼(應付帳款)',
 							width : 120,
 							dataIndex : 'mrInvoice'
 						}
-												,{
+						,{
 							header : '送貨人名稱',
 							width : 120,
 							dataIndex : 'diliverName'
 						}
-												,{
+						,{
 							header : '送貨人電話',
 							width : 120,
 							dataIndex : 'diliverTel'
 						}
-												,{
+						,{
 							header : '備註',
 							width : 120,
 							dataIndex : 'remark'
 						}
-												,{
+						,{
 							header : '創建日期',
 							width : 120,
 							dataIndex : 'createDate',renderer:function(v){if(v){return new Date(v).format("Y-m-d H:i");}else{return "";}}
 						}
-												,{
+						,{
 							header : '創建人員',
 							width : 120,
 							dataIndex : 'createBy'
 						}
-												,{
+						,{
 							header : '修改日期',
 							width : 120,
 							dataIndex : 'updateDate',renderer:function(v){if(v){return new Date(v).format("Y-m-d H:i");}else{return "";}}
 						}
-												,{
+						,{
 							header : '修改人員',
 							width : 120,
 							dataIndex : 'updateBy'
@@ -124,7 +124,7 @@
 			sm : sm,
 			store : new Ext.data.Store({
 				proxy : new Ext.data.HttpProxy({
-					url : __ctxPath + '/system/listPssMatesReceiptHead.do'
+					url : __ctxPath + '/pss/listPssMatesReceiptHead.do'
 				}),
 				params : {
 					start : 0,
@@ -135,7 +135,8 @@
 					totalProperty : 'totalCounts',
 					fields : ['mrHeadId','poHeadId','warehouseId','receiverName','receiverTel','mrInvoice','diliverName','diliverTel','remark','createDate','createBy','updateDate','updateBy']
 				}),
-				remoteSort : true
+				remoteSort : true,
+				autoLoad : true
 			}),
 			viewConfig : {
 				forceFit : true,
@@ -156,10 +157,10 @@
 						iconCls : 'search',
 						handler : function() {
 								searchPanel.getForm().submit({
-									url:__ctxPath+'/system/listPssMatesReceiptHead.do',
+									url:__ctxPath+'/pss/listPssMatesReceiptHead.do',
 									method:'post',
 									success : function(formPanel, action) {
-										winGrid.getStore().proxy.conn.url=__ctxPath+'/system/listAppUser.do';
+										winGrid.getStore().proxy.conn.url=__ctxPath+'/pss/listPssMatesReceiptHead.do';
 										var result = Ext.util.JSON.decode(action.response.responseText);
 										if(data && data.length>0){
 											sm.selectRecords(data);
@@ -197,15 +198,15 @@
 						items : [{
 									fieldLabel : '採購單編號',
 									maxLength:18,
-									name : "pssMatesReceiptHead.poHeadId"
+									name : "Q_poHeadId_S_LK"
 								},{
 									fieldLabel : '收貨人電話',
 									maxLength:18,
-									name : "pssMatesReceiptHead.receiverTel"
+									name : "Q_receiverTel_S_LK"
 								},{
 									fieldLabel : '送貨人電話',
 									maxLength:18,
-									name : "pssMatesReceiptHead.diliverTel"
+									name : "Q_diliverTel_S_LK"
 								},{
 									fieldLabel : '創建人員',
 									maxLength:18,
@@ -217,15 +218,15 @@
 						items : [{
 									fieldLabel : '收貨倉庫編號/倉庫代號',
 									maxLength:18,
-									name : "pssMatesReceiptHead.warehouseId"
+									name : "Q_warehouseId_S_LK"
 								},{
 									fieldLabel : '收貨發票號碼(應付帳款)',
 									maxLength:18,
-									name : "pssMatesReceiptHead.mrInvoice"
+									name : "Q_mrInvoice_S_LK"
 								},{
 									fieldLabel : '備註',
 									maxLength:18,
-									name : "pssMatesReceiptHead.remark"
+									name : "Q_remark_S_LK"
 								},{
 									fieldLabel : '修改日期',
 									maxLength:18,
@@ -238,15 +239,15 @@
 									xtype:'hidden',
 									fieldLabel : '收貨單編號（收貨單代碼2位(MR)+當前日期8位(yyyyMMdd)+流水號6位）。',
 									maxLength:18,
-									name : "pssMatesReceiptHead.mrHeadId"
+									name : "Q_mrHeadId_S_LK"
 								},{
 									fieldLabel : '收貨人名稱/倉管人員名稱',
 									maxLength:18,
-									name : "pssMatesReceiptHead.receiverName"
+									name : "Q_receiverName_S_LK"
 								},{
 									fieldLabel : '送貨人名稱',
 									maxLength:18,
-									name : "pssMatesReceiptHead.diliverName"
+									name : "Q_diliverName_S_LK"
 								},{
 									fieldLabel : '創建日期',
 									maxLength:18,

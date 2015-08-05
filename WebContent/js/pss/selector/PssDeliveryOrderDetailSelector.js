@@ -54,52 +54,52 @@
 			cm : new Ext.grid.ColumnModel({
 				columns : [sm,
 						new Ext.grid.RowNumberer()
-						,{
+						 ,{
 							header : '出貨單編號',
 							width : 120,
 							dataIndex : 'doHeadId'
 						}
-												,{
+						,{
 							header : '出貨單明細編號',
 							width : 120,
 							dataIndex : 'doDetailId'
 						}
-												,{
+						,{
 							header : '產品編號',
 							width : 120,
 							dataIndex : 'pdtId'
 						}
-												,{
+						,{
 							header : '出貨數量',
 							width : 120,
 							dataIndex : 'allNum'
 						}
-												,{
+						,{
 							header : '接收數量',
 							width : 120,
 							dataIndex : 'receiptNum'
 						}
-												,{
+						,{
 							header : '退回數量',
 							width : 120,
 							dataIndex : 'rejectNum'
 						}
-												,{
+						,{
 							header : '創建日期',
 							width : 120,
 							dataIndex : 'createDate',renderer:function(v){if(v){return new Date(v).format("Y-m-d H:i");}else{return "";}}
 						}
-												,{
+						,{
 							header : '創建人員',
 							width : 120,
 							dataIndex : 'createBy'
 						}
-												,{
+						,{
 							header : '修改日期',
 							width : 120,
 							dataIndex : 'updateDate',renderer:function(v){if(v){return new Date(v).format("Y-m-d H:i");}else{return "";}}
 						}
-												,{
+						,{
 							header : '修改人員',
 							width : 120,
 							dataIndex : 'updateBy'
@@ -109,7 +109,7 @@
 			sm : sm,
 			store : new Ext.data.Store({
 				proxy : new Ext.data.HttpProxy({
-					url : __ctxPath + '/system/listPssDeliveryOrderDetail.do'
+					url : __ctxPath + '/pss/listPssDeliveryOrderDetail.do'
 				}),
 				params : {
 					start : 0,
@@ -120,7 +120,8 @@
 					totalProperty : 'totalCounts',
 					fields : ['doHeadId','doDetailId','pdtId','allNum','receiptNum','rejectNum','createDate','createBy','updateDate','updateBy']
 				}),
-				remoteSort : true
+				remoteSort : true,
+				autoLoad : true
 			}),
 			viewConfig : {
 				forceFit : true,
@@ -141,10 +142,10 @@
 						iconCls : 'search',
 						handler : function() {
 								searchPanel.getForm().submit({
-									url:__ctxPath+'/system/listPssDeliveryOrderDetail.do',
+									url:__ctxPath+'/pss/listPssDeliveryOrderDetail.do',
 									method:'post',
 									success : function(formPanel, action) {
-										winGrid.getStore().proxy.conn.url=__ctxPath+'/system/listAppUser.do';
+										winGrid.getStore().proxy.conn.url=__ctxPath+'/pss/listPssDeliveryOrderDetail.do';
 										var result = Ext.util.JSON.decode(action.response.responseText);
 										if(data && data.length>0){
 											sm.selectRecords(data);
@@ -182,11 +183,11 @@
 						items : [{
 									fieldLabel : '出貨單明細編號',
 									maxLength:18,
-									name : "pssDeliveryOrderDetail.doDetailId"
+									name : "Q_doDetailId_L_EQ"
 								},{
 									fieldLabel : '接收數量',
 									maxLength:18,
-									name : "pssDeliveryOrderDetail.receiptNum"
+									name : "Q_receiptNum_L_EQ"
 								},{
 									fieldLabel : '創建人員',
 									maxLength:18,
@@ -198,11 +199,11 @@
 						items : [{
 									fieldLabel : '產品編號',
 									maxLength:18,
-									name : "pssDeliveryOrderDetail.pdtId"
+									name : "Q_pdtId_S_LK"
 								},{
 									fieldLabel : '退回數量',
 									maxLength:18,
-									name : "pssDeliveryOrderDetail.rejectNum"
+									name : "Q_rejectNum_L_EQ"
 								},{
 									fieldLabel : '修改日期',
 									maxLength:18,
@@ -214,11 +215,11 @@
 						items : [{
 									fieldLabel : '出貨單編號',
 									maxLength:18,
-									name : "pssDeliveryOrderDetail.doHeadId"
+									name : "Q_doHeadId_S_LK"
 								},{
 									fieldLabel : '出貨數量',
 									maxLength:18,
-									name : "pssDeliveryOrderDetail.allNum"
+									name : "Q_allNum_L_EQ"
 								},{
 									fieldLabel : '創建日期',
 									maxLength:18,

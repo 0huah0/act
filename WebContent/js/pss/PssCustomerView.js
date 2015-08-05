@@ -64,15 +64,15 @@ PssCustomerView = Ext.extend(Ext.Panel, {
 						items : [{
 									fieldLabel : '公司名稱(中文)',
 									maxLength:18,
-									name : "pssCustomer.companyNameCn"
+									name : "Q_companyNameCn_S_LK"
 								},{
 									fieldLabel : '負責人名稱',
 									maxLength:18,
-									name : "pssCustomer.personInCharge"
+									name : "Q_personInCharge_S_LK"
 								},{
 									fieldLabel : '傳真',
 									maxLength:18,
-									name : "pssCustomer.fax"
+									name : "Q_fax_S_LK"
 								},{
 									fieldLabel : '資本額（單位：TWD）',
 									maxLength:18,
@@ -92,15 +92,15 @@ PssCustomerView = Ext.extend(Ext.Panel, {
 						items : [{
 									fieldLabel : '公司名稱(英文)',
 									maxLength:18,
-									name : "pssCustomer.companyNameEn"
+									name : "Q_companyNameEn_S_LK"
 								},{
 									fieldLabel : '地址',
 									maxLength:18,
-									name : "pssCustomer.addr"
+									name : "Q_addr_S_LK"
 								},{
 									fieldLabel : '電子郵箱',
 									maxLength:18,
-									name : "pssCustomer.email"
+									name : "Q_email_S_LK"
 								},{
 									fieldLabel : '員工數（單位：人）',
 									maxLength:18,
@@ -117,19 +117,19 @@ PssCustomerView = Ext.extend(Ext.Panel, {
 									xtype:'hidden',
 									fieldLabel : '客戶編號/客戶代號',
 									maxLength:18,
-									name : "pssCustomer.customerId"
+									name : "Q_customerId_S_LK"
 								},{
 									fieldLabel : '法人代號',
 									maxLength:18,
-									name : "pssCustomer.legalPersonCode"
+									name : "Q_legalPersonCode_S_LK"
 								},{
 									fieldLabel : '電話',
 									maxLength:18,
-									name : "pssCustomer.tel"
+									name : "Q_tel_S_LK"
 								},{
 									fieldLabel : '資質證明圖片/營業執照影本（保存系統框架中檔案上傳的記錄編號）',
 									maxLength:18,
-									name : "pssCustomer.licenseImgId"
+									name : "Q_licenseImgId_S_LK"
 								},{
 									fieldLabel : '有效否',
 									maxLength:18,
@@ -266,37 +266,48 @@ PssCustomerView = Ext.extend(Ext.Panel, {
 //view static method
 PssCustomerView.remove = function(id) {
 	var grid = Ext.getCmp("PssCustomerGrid");
-	Ext.Msg.confirm('刪除確認', '確定要刪除此筆數據？', function(btn) {
-		if (btn == 'yes') {
-			Ext.Ajax.request({
-				url : __ctxPath
-						+ '/pss/multiDelPssCustomer.do',
-				params : {
-					ids : id
-				},
-				method : 'post',
-				success : function(response, options) {
-					var dbJson = eval("(" + response.responseText + ")");
-					if(dbJson.success){
-						Ext.ux.Toast.msg("信息", "成功刪除！");
-						grid.getStore().reload({
-							params : {
-								start : 0,
-								limit : 25
+	if(id && id != 'undefind'){	//后台删
+			Ext.Msg.confirm('刪除確認', '確定要刪除此筆數據？', function(btn) {
+				if (btn == 'yes') {
+					Ext.Ajax.request({
+						url : __ctxPath
+								+ '/pss/multiDelPssCustomer.do',
+						params : {
+							ids : id
+						},
+						method : 'post',
+						success : function(response, options) {
+							var dbJson = eval("(" + response.responseText + ")");
+							if(dbJson.success){
+								Ext.ux.Toast.msg("信息", "成功刪除！");
+								grid.getStore().reload({
+									params : {
+										start : 0,
+										limit : 25
+									}
+								});
+							}else{
+								Ext.Msg.alert("信息", "該項沒能被刪除！");
 							}
-						});
-					}else{
-						Ext.Msg.alert("信息", "該項沒能被刪除！");
-					}
+						}
+					});
 				}
 			});
-		}
-	});
+	}else{	//前台删
+		
+	}
 };
 
 PssCustomerView.edit = function(id) {
 	new PssCustomerForm({
 				recId : id
+			}).show();
+};
+
+PssCustomerView.read = function(id) {
+	new PssCustomerForm({
+				recId : id,
+				read : true
 			}).show();
 };
 

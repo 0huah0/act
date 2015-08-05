@@ -54,62 +54,62 @@
 			cm : new Ext.grid.ColumnModel({
 				columns : [sm,
 						new Ext.grid.RowNumberer()
-						,{
+						 ,{
 							header : '銷貨單編號（銷貨單代碼2位(SO)+當前日期8位(yyyyMMdd)+流水號6位）',
 							width : 120,
 							dataIndex : 'soHeadId'
 						}
-												,{
+						,{
 							header : '客戶編號',
 							width : 120,
 							dataIndex : 'customerId'
 						}
-												,{
+						,{
 							header : '客戶採購單編號',
 							width : 120,
 							dataIndex : 'custPoNo'
 						}
-												,{
+						,{
 							header : '定價總金額',
 							width : 120,
 							dataIndex : 'priceAmount'
 						}
-												,{
+						,{
 							header : '建議售價總金額',
 							width : 120,
 							dataIndex : 'salePriceAmount'
 						}
-												,{
+						,{
 							header : '實際售價總金額',
 							width : 120,
 							dataIndex : 'payAmount'
 						}
-												,{
+						,{
 							header : '優惠金額',
 							width : 120,
 							dataIndex : 'discountAmount'
 						}
-												,{
+						,{
 							header : '備註',
 							width : 120,
 							dataIndex : 'remark'
 						}
-												,{
+						,{
 							header : '創建日期',
 							width : 120,
 							dataIndex : 'createDate',renderer:function(v){if(v){return new Date(v).format("Y-m-d H:i");}else{return "";}}
 						}
-												,{
+						,{
 							header : '創建人員',
 							width : 120,
 							dataIndex : 'createBy'
 						}
-												,{
+						,{
 							header : '修改日期',
 							width : 120,
 							dataIndex : 'updateDate',renderer:function(v){if(v){return new Date(v).format("Y-m-d H:i");}else{return "";}}
 						}
-												,{
+						,{
 							header : '修改人員',
 							width : 120,
 							dataIndex : 'updateBy'
@@ -119,7 +119,7 @@
 			sm : sm,
 			store : new Ext.data.Store({
 				proxy : new Ext.data.HttpProxy({
-					url : __ctxPath + '/system/listPssSalesOrderHead.do'
+					url : __ctxPath + '/pss/listPssSalesOrderHead.do'
 				}),
 				params : {
 					start : 0,
@@ -130,7 +130,8 @@
 					totalProperty : 'totalCounts',
 					fields : ['soHeadId','customerId','custPoNo','priceAmount','salePriceAmount','payAmount','discountAmount','remark','createDate','createBy','updateDate','updateBy']
 				}),
-				remoteSort : true
+				remoteSort : true,
+				autoLoad : true
 			}),
 			viewConfig : {
 				forceFit : true,
@@ -151,10 +152,10 @@
 						iconCls : 'search',
 						handler : function() {
 								searchPanel.getForm().submit({
-									url:__ctxPath+'/system/listPssSalesOrderHead.do',
+									url:__ctxPath+'/pss/listPssSalesOrderHead.do',
 									method:'post',
 									success : function(formPanel, action) {
-										winGrid.getStore().proxy.conn.url=__ctxPath+'/system/listAppUser.do';
+										winGrid.getStore().proxy.conn.url=__ctxPath+'/pss/listPssSalesOrderHead.do';
 										var result = Ext.util.JSON.decode(action.response.responseText);
 										if(data && data.length>0){
 											sm.selectRecords(data);
@@ -192,15 +193,15 @@
 						items : [{
 									fieldLabel : '客戶編號',
 									maxLength:18,
-									name : "pssSalesOrderHead.customerId"
+									name : "Q_customerId_S_LK"
 								},{
 									fieldLabel : '建議售價總金額',
 									maxLength:18,
-									name : "pssSalesOrderHead.salePriceAmount"
+									name : "Q_salePriceAmount_L_EQ"
 								},{
 									fieldLabel : '備註',
 									maxLength:18,
-									name : "pssSalesOrderHead.remark"
+									name : "Q_remark_S_LK"
 								},{
 									fieldLabel : '修改日期',
 									maxLength:18,
@@ -212,11 +213,11 @@
 						items : [{
 									fieldLabel : '客戶採購單編號',
 									maxLength:18,
-									name : "pssSalesOrderHead.custPoNo"
+									name : "Q_custPoNo_S_LK"
 								},{
 									fieldLabel : '實際售價總金額',
 									maxLength:18,
-									name : "pssSalesOrderHead.payAmount"
+									name : "Q_payAmount_L_EQ"
 								},{
 									fieldLabel : '創建日期',
 									maxLength:18,
@@ -233,15 +234,15 @@
 									xtype:'hidden',
 									fieldLabel : '銷貨單編號（銷貨單代碼2位(SO)+當前日期8位(yyyyMMdd)+流水號6位）',
 									maxLength:18,
-									name : "pssSalesOrderHead.soHeadId"
+									name : "Q_soHeadId_S_LK"
 								},{
 									fieldLabel : '定價總金額',
 									maxLength:18,
-									name : "pssSalesOrderHead.priceAmount"
+									name : "Q_priceAmount_L_EQ"
 								},{
 									fieldLabel : '優惠金額',
 									maxLength:18,
-									name : "pssSalesOrderHead.discountAmount"
+									name : "Q_discountAmount_L_EQ"
 								},{
 									fieldLabel : '創建人員',
 									maxLength:18,

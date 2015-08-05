@@ -13,16 +13,16 @@ PssDeliveryOrderHeadForm = Ext.extend(Ext.Window, {
 					id : 'PssDeliveryOrderHeadFormWin',
 					title : this.recId?'修改出貨單':'新增出貨單',
 					iconCls : 'menu-planmanage',
-					width : 820,
-					autoHeight : true,
+					width : 960,
 					buttons : this.buttons
 				});
 	},
 	initUIComponents : function() {
 		var recId = this.recId;
+		var readOnly = this.read;
+		
 		this.formPanel = new Ext.FormPanel({
 			id : 'PssDeliveryOrderHeadForm',
-			autoHeight:true,
 			frame : true,
 			items : [{
 					layout : 'column',
@@ -35,6 +35,7 @@ PssDeliveryOrderHeadForm = Ext.extend(Ext.Window, {
 						defaults : {
 							xtype : 'textfield',
 							allowBlank : false,
+							disabled : readOnly,
 							maxLength:100,
 							width : 200
 						}

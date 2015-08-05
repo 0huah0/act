@@ -72,3 +72,5 @@ table.examine_inf tr:hover { background:#f7f8f9;}
 .wrap table td.t_th_2 { font-weight:bold; font-size:14px;}
 .wrap table td.t_th_3 { font-weight:bold; font-size:12px;}
 .wrap table td.t_th_4 { font-weight:bold; font-size:12px; text-align:right;}
+
+.huaCellHref{color: blue;text-decoration: underline;cursor: pointer;}

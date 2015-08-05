@@ -54,52 +54,52 @@
 			cm : new Ext.grid.ColumnModel({
 				columns : [sm,
 						new Ext.grid.RowNumberer()
-						,{
+						 ,{
 							header : '收貨單編號',
 							width : 120,
 							dataIndex : 'mrHeadId'
 						}
-												,{
+						,{
 							header : '收貨單明細編號',
 							width : 120,
 							dataIndex : 'mrDetailId'
 						}
-												,{
+						,{
 							header : '原料編號',
 							width : 120,
 							dataIndex : 'materialId'
 						}
-												,{
+						,{
 							header : '來貨數量',
 							width : 120,
 							dataIndex : 'allNum'
 						}
-												,{
+						,{
 							header : '接收數量',
 							width : 120,
 							dataIndex : 'receiptNum'
 						}
-												,{
+						,{
 							header : '退回數量',
 							width : 120,
 							dataIndex : 'rejectNum'
 						}
-												,{
+						,{
 							header : '創建日期',
 							width : 120,
 							dataIndex : 'createDate',renderer:function(v){if(v){return new Date(v).format("Y-m-d H:i");}else{return "";}}
 						}
-												,{
+						,{
 							header : '創建人員',
 							width : 120,
 							dataIndex : 'createBy'
 						}
-												,{
+						,{
 							header : '修改日期',
 							width : 120,
 							dataIndex : 'updateDate',renderer:function(v){if(v){return new Date(v).format("Y-m-d H:i");}else{return "";}}
 						}
-												,{
+						,{
 							header : '修改人員',
 							width : 120,
 							dataIndex : 'updateBy'
@@ -109,7 +109,7 @@
 			sm : sm,
 			store : new Ext.data.Store({
 				proxy : new Ext.data.HttpProxy({
-					url : __ctxPath + '/system/listPssMatesReceiptDetail.do'
+					url : __ctxPath + '/pss/listPssMatesReceiptDetail.do'
 				}),
 				params : {
 					start : 0,
@@ -120,7 +120,8 @@
 					totalProperty : 'totalCounts',
 					fields : ['mrHeadId','mrDetailId','materialId','allNum','receiptNum','rejectNum','createDate','createBy','updateDate','updateBy']
 				}),
-				remoteSort : true
+				remoteSort : true,
+				autoLoad : true
 			}),
 			viewConfig : {
 				forceFit : true,
@@ -141,10 +142,10 @@
 						iconCls : 'search',
 						handler : function() {
 								searchPanel.getForm().submit({
-									url:__ctxPath+'/system/listPssMatesReceiptDetail.do',
+									url:__ctxPath+'/pss/listPssMatesReceiptDetail.do',
 									method:'post',
 									success : function(formPanel, action) {
-										winGrid.getStore().proxy.conn.url=__ctxPath+'/system/listAppUser.do';
+										winGrid.getStore().proxy.conn.url=__ctxPath+'/pss/listPssMatesReceiptDetail.do';
 										var result = Ext.util.JSON.decode(action.response.responseText);
 										if(data && data.length>0){
 											sm.selectRecords(data);
@@ -182,11 +183,11 @@
 						items : [{
 									fieldLabel : '收貨單明細編號',
 									maxLength:18,
-									name : "pssMatesReceiptDetail.mrDetailId"
+									name : "Q_mrDetailId_L_EQ"
 								},{
 									fieldLabel : '接收數量',
 									maxLength:18,
-									name : "pssMatesReceiptDetail.receiptNum"
+									name : "Q_receiptNum_L_EQ"
 								},{
 									fieldLabel : '創建人員',
 									maxLength:18,
@@ -198,11 +199,11 @@
 						items : [{
 									fieldLabel : '原料編號',
 									maxLength:18,
-									name : "pssMatesReceiptDetail.materialId"
+									name : "Q_materialId_S_LK"
 								},{
 									fieldLabel : '退回數量',
 									maxLength:18,
-									name : "pssMatesReceiptDetail.rejectNum"
+									name : "Q_rejectNum_L_EQ"
 								},{
 									fieldLabel : '修改日期',
 									maxLength:18,
@@ -214,11 +215,11 @@
 						items : [{
 									fieldLabel : '收貨單編號',
 									maxLength:18,
-									name : "pssMatesReceiptDetail.mrHeadId"
+									name : "Q_mrHeadId_S_LK"
 								},{
 									fieldLabel : '來貨數量',
 									maxLength:18,
-									name : "pssMatesReceiptDetail.allNum"
+									name : "Q_allNum_L_EQ"
 								},{
 									fieldLabel : '創建日期',
 									maxLength:18,

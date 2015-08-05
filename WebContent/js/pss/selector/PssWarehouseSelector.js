@@ -54,37 +54,37 @@
 			cm : new Ext.grid.ColumnModel({
 				columns : [sm,
 						new Ext.grid.RowNumberer()
-						,{
+						 ,{
 							header : '倉庫編號/倉庫代號',
 							width : 120,
 							dataIndex : 'warehouseId'
 						}
-												,{
+						,{
 							header : '名稱',
 							width : 120,
 							dataIndex : 'name'
 						}
-												,{
+						,{
 							header : '描述',
 							width : 120,
 							dataIndex : 'desc'
 						}
-												,{
+						,{
 							header : '創建日期',
 							width : 120,
 							dataIndex : 'createDate',renderer:function(v){if(v){return new Date(v).format("Y-m-d H:i");}else{return "";}}
 						}
-												,{
+						,{
 							header : '創建人員',
 							width : 120,
 							dataIndex : 'createBy'
 						}
-												,{
+						,{
 							header : '修改日期',
 							width : 120,
 							dataIndex : 'updateDate',renderer:function(v){if(v){return new Date(v).format("Y-m-d H:i");}else{return "";}}
 						}
-												,{
+						,{
 							header : '修改人員',
 							width : 120,
 							dataIndex : 'updateBy'
@@ -94,7 +94,7 @@
 			sm : sm,
 			store : new Ext.data.Store({
 				proxy : new Ext.data.HttpProxy({
-					url : __ctxPath + '/system/listPssWarehouse.do'
+					url : __ctxPath + '/pss/listPssWarehouse.do'
 				}),
 				params : {
 					start : 0,
@@ -105,7 +105,8 @@
 					totalProperty : 'totalCounts',
 					fields : ['warehouseId','name','desc','createDate','createBy','updateDate','updateBy']
 				}),
-				remoteSort : true
+				remoteSort : true,
+				autoLoad : true
 			}),
 			viewConfig : {
 				forceFit : true,
@@ -126,10 +127,10 @@
 						iconCls : 'search',
 						handler : function() {
 								searchPanel.getForm().submit({
-									url:__ctxPath+'/system/listPssWarehouse.do',
+									url:__ctxPath+'/pss/listPssWarehouse.do',
 									method:'post',
 									success : function(formPanel, action) {
-										winGrid.getStore().proxy.conn.url=__ctxPath+'/system/listAppUser.do';
+										winGrid.getStore().proxy.conn.url=__ctxPath+'/pss/listPssWarehouse.do';
 										var result = Ext.util.JSON.decode(action.response.responseText);
 										if(data && data.length>0){
 											sm.selectRecords(data);
@@ -167,7 +168,7 @@
 						items : [{
 									fieldLabel : '名稱',
 									maxLength:18,
-									name : "pssWarehouse.name"
+									name : "Q_name_S_LK"
 								},{
 									fieldLabel : '創建人員',
 									maxLength:18,
@@ -179,7 +180,7 @@
 						items : [{
 									fieldLabel : '描述',
 									maxLength:18,
-									name : "pssWarehouse.desc"
+									name : "Q_desc_S_LK"
 								},{
 									fieldLabel : '修改日期',
 									maxLength:18,
@@ -192,7 +193,7 @@
 									xtype:'hidden',
 									fieldLabel : '倉庫編號/倉庫代號',
 									maxLength:18,
-									name : "pssWarehouse.warehouseId"
+									name : "Q_warehouseId_S_LK"
 								},{
 									fieldLabel : '創建日期',
 									maxLength:18,

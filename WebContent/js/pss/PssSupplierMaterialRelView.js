@@ -65,7 +65,7 @@ PssSupplierMaterialRelView = Ext.extend(Ext.Panel, {
 									xtype:'hidden',
 									fieldLabel : '原料編號/原料代號',
 									maxLength:18,
-									name : "pssSupplierMaterialRel.materialId"
+									name : "Q_materialId_S_LK"
 								},{
 									fieldLabel : '創建日期',
 									maxLength:18,
@@ -81,7 +81,7 @@ PssSupplierMaterialRelView = Ext.extend(Ext.Panel, {
 						items : [{
 									fieldLabel : '產品定價(單價)',
 									maxLength:18,
-									name : "pssSupplierMaterialRel.price"
+									name : "Q_price_L_EQ"
 								},{
 									fieldLabel : '創建人員',
 									maxLength:18,
@@ -94,11 +94,11 @@ PssSupplierMaterialRelView = Ext.extend(Ext.Panel, {
 									xtype:'hidden',
 									fieldLabel : '供應商編號/供應商代號',
 									maxLength:18,
-									name : "pssSupplierMaterialRel.supplierId"
+									name : "Q_supplierId_S_LK"
 								},{
 									fieldLabel : '產品建議售價(單價)',
 									maxLength:18,
-									name : "pssSupplierMaterialRel.salePrice"
+									name : "Q_salePrice_L_EQ"
 								},{
 									fieldLabel : '修改日期',
 									maxLength:18,
@@ -204,37 +204,48 @@ PssSupplierMaterialRelView = Ext.extend(Ext.Panel, {
 //view static method
 PssSupplierMaterialRelView.remove = function(id) {
 	var grid = Ext.getCmp("PssSupplierMaterialRelGrid");
-	Ext.Msg.confirm('刪除確認', '確定要刪除此筆數據？', function(btn) {
-		if (btn == 'yes') {
-			Ext.Ajax.request({
-				url : __ctxPath
-						+ '/pss/multiDelPssSupplierMaterialRel.do',
-				params : {
-					ids : id
-				},
-				method : 'post',
-				success : function(response, options) {
-					var dbJson = eval("(" + response.responseText + ")");
-					if(dbJson.success){
-						Ext.ux.Toast.msg("信息", "成功刪除！");
-						grid.getStore().reload({
-							params : {
-								start : 0,
-								limit : 25
+	if(id && id != 'undefind'){	//后台删
+			Ext.Msg.confirm('刪除確認', '確定要刪除此筆數據？', function(btn) {
+				if (btn == 'yes') {
+					Ext.Ajax.request({
+						url : __ctxPath
+								+ '/pss/multiDelPssSupplierMaterialRel.do',
+						params : {
+							ids : id
+						},
+						method : 'post',
+						success : function(response, options) {
+							var dbJson = eval("(" + response.responseText + ")");
+							if(dbJson.success){
+								Ext.ux.Toast.msg("信息", "成功刪除！");
+								grid.getStore().reload({
+									params : {
+										start : 0,
+										limit : 25
+									}
+								});
+							}else{
+								Ext.Msg.alert("信息", "該項沒能被刪除！");
 							}
-						});
-					}else{
-						Ext.Msg.alert("信息", "該項沒能被刪除！");
-					}
+						}
+					});
 				}
 			});
-		}
-	});
+	}else{	//前台删
+		
+	}
 };
 
 PssSupplierMaterialRelView.edit = function(id) {
 	new PssSupplierMaterialRelForm({
 				recId : id
+			}).show();
+};
+
+PssSupplierMaterialRelView.read = function(id) {
+	new PssSupplierMaterialRelForm({
+				recId : id,
+				read : true
 			}).show();
 };
 

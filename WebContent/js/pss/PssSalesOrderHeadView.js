@@ -62,64 +62,29 @@ PssSalesOrderHeadView = Ext.extend(Ext.Panel, {
 					},
 					items : [{
 						items : [{
-									fieldLabel : '客戶編號',
+									fieldLabel : '銷貨單編號',
 									maxLength:18,
-									name : 'S_customerId_S_LK'
+									name : 'Q_soHeadId_S_LK'
 								},{
-									fieldLabel : '建議售價總金額',
+									fieldLabel : '創建人員',
 									maxLength:18,
-									name : 'S_salePriceAmount_L_EQ'
-								},{
-									fieldLabel : '備註',
-									maxLength:18,
-									name : 'S_remark_S_LK'
-								},{
-									fieldLabel : '修改日期',
-									maxLength:18,
-									name : 'S_updateDate_D_DL'
-								},{
-								xtype:'hidden'
+									name : 'Q_createBy_S_LK'
 								}]//
 					},{
 						items : [{
 									fieldLabel : '客戶採購單編號',
 									maxLength:18,
-									name : 'S_custPoNo_S_LK'
+									name : 'Q_custPoNo_S_LK'
 								},{
-									fieldLabel : '實際售價總金額',
+									fieldLabel : '備註',
 									maxLength:18,
-									name : 'S_payAmount_L_EQ'
-								},{
-									fieldLabel : '創建日期',
-									maxLength:18,
-									name : 'S_createDate_D_DL'
-								},{
-									fieldLabel : '修改人員',
-									maxLength:18,
-									name : 'S_updateBy_S_LK'
-								},{
-									xtype:'hidden'
+									name : 'Q_remark_S_LK'
 								}]//
 					},{
 						items : [{
-									xtype:'hidden',
-									fieldLabel : '銷貨單編號（銷貨單代碼2位(SO)+當前日期8位(yyyyMMdd)+流水號6位）',
+									fieldLabel : '客戶編號',
 									maxLength:18,
-									name : 'S_soHeadId_S_LK'
-								},{
-									fieldLabel : '定價總金額',
-									maxLength:18,
-									name : 'S_priceAmount_L_EQ'
-								},{
-									fieldLabel : '優惠金額',
-									maxLength:18,
-									name : 'S_discountAmount_L_EQ'
-								},{
-									fieldLabel : '創建人員',
-									maxLength:18,
-									name : 'S_createBy_S_LK'
-								},{
-									xtype:'hidden'
+									name : 'Q_customerId_S_LK'
 								}]//
 					}]
 				}]
@@ -146,8 +111,11 @@ PssSalesOrderHeadView = Ext.extend(Ext.Panel, {
 		});
 		var cm = new Ext.grid.ColumnModel({
 				columns : [new Ext.grid.RowNumberer(),{
-							header : '銷貨單編號（銷貨單代碼2位(SO)+當前日期8位(yyyyMMdd)+流水號6位）',
-							dataIndex : 'soHeadId'
+							header : '銷貨單編號',
+							dataIndex : 'soHeadId',
+							renderer:function(v){
+								return '<a class="huaCellHref" onclick="PssSalesOrderHeadView.read(\''+ v + '\')">'+v+'</a>';
+							}
 						},{
 							header : '客戶編號',
 							dataIndex : 'customerId'
@@ -168,30 +136,36 @@ PssSalesOrderHeadView = Ext.extend(Ext.Panel, {
 							dataIndex : 'discountAmount'
 						},{
 							header : '備註',
+							align: 'left',
 							dataIndex : 'remark'
 						},{
 							header : '創建日期',
-							dataIndex : 'createDate'
+							dataIndex : 'createDate',
+							renderer:function(v){if(v){return new Date(v).format("Y-m-d H:i");}else{return "";}}
 						},{
 							header : '創建人員',
 							dataIndex : 'createBy'
 						},{
 							header : '修改日期',
-							dataIndex : 'updateDate'
+							dataIndex : 'updateDate',
+							renderer:function(v){if(v){return new Date(v).format("Y-m-d H:i");}else{return "";}}
 						},{
 							header : '修改人員',
 							dataIndex : 'updateBy'
 						},{
-						header : '管理',
-						dataIndex : 'soHeadId',//
-						renderer : function(v,m,r) {
-							return isGranted('_PssSalesOrderHeadEdit') ?('&nbsp;<button title="修改" value=" " class="btn-edit" onclick="PssSalesOrderHeadView.edit('
-							+ v + ')"></button><button title="刪除" value=" " class="btn-del" onclick="PssSalesOrderHeadView.remove('
-							+ v + ')"></button>'):'';
-						}
-					}],
+							header : '管理',
+							width : 80,
+							align: 'left',
+							dataIndex : 'soHeadId',//
+							renderer : function(v,m,r) {
+								return isGranted('_PssSalesOrderHeadEdit') ?('&nbsp;<button title="修改" value=" " class="btn-edit" onclick="PssSalesOrderHeadView.edit(\''
+										+ v + '\')"></button><button title="刪除" value=" " class="btn-del" onclick="PssSalesOrderHeadView.remove(\''
+										+ v + '\')"></button>'):'';
+							}
+						}],
 			defaults : {
 				sortable : true,
+				align: 'right',
 				menuDisabled : false,
 				width : 120
 			}
@@ -199,6 +173,7 @@ PssSalesOrderHeadView = Ext.extend(Ext.Panel, {
 
 		this.gridPanel = new Ext.grid.GridPanel({
 					id : 'PssSalesOrderHeadGrid',
+					height : 380,
 					tbar : (isGranted('_PssSalesOrderHeadEdit') ? new Ext.Toolbar({
 								id : 'PssSalesOrderHeadFootBar',
 								bodyStyle : 'text-align:left',
@@ -213,7 +188,6 @@ PssSalesOrderHeadView = Ext.extend(Ext.Panel, {
 					store : this.store,
 					//autoExpandColumn :'remark1',
 					loadMask : true,
-					autoHeight : true,
 					cm : cm,
 					bbar : new Ext.PagingToolbar({
 								pageSize : 25,
@@ -231,37 +205,43 @@ PssSalesOrderHeadView = Ext.extend(Ext.Panel, {
 //view static method
 PssSalesOrderHeadView.remove = function(id) {
 	var grid = Ext.getCmp("PssSalesOrderHeadGrid");
-	Ext.Msg.confirm('刪除確認', '確定要刪除此筆數據？', function(btn) {
-		if (btn == 'yes') {
-			Ext.Ajax.request({
-				url : __ctxPath
-						+ '/pss/multiDelPssSalesOrderHead.do',
-				params : {
-					ids : id
-				},
-				method : 'post',
-				success : function(response, options) {
-					var dbJson = eval("(" + response.responseText + ")");
-					if(dbJson.success){
-						Ext.ux.Toast.msg("信息", "成功刪除！");
-						grid.getStore().reload({
-							params : {
-								start : 0,
-								limit : 25
-							}
-						});
-					}else{
-						Ext.Msg.alert("信息", "該項沒能被刪除！");
+	if(id && id != 'undefind'){	//后台删
+		Ext.Msg.confirm('刪除確認', '確定要刪除此筆數據？', function(btn) {
+			if (btn == 'yes') {
+				Ext.Ajax.request({
+					url : __ctxPath
+							+ '/pss/multiDelPssSalesOrderHead.do',
+					params : {
+						ids : id
+					},
+					method : 'post',
+					success : function(response, options) {
+						var dbJson = eval("(" + response.responseText + ")");
+						if(dbJson.success){
+							Ext.ux.Toast.msg("信息", "成功刪除！");
+							grid.getStore().reload();
+						}else{
+							Ext.Msg.alert("信息", "該項沒能被刪除！");
+						}
 					}
-				}
-			});
-		}
-	});
+				});
+			}
+		});
+	}else{	//前台删
+		
+	}
 };
 
 PssSalesOrderHeadView.edit = function(id) {
 	new PssSalesOrderHeadForm({
 				recId : id
+			}).show();
+};
+
+PssSalesOrderHeadView.read = function(id) {
+	new PssSalesOrderHeadForm({
+				recId : id,
+				read : true
 			}).show();
 };
 

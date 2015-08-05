@@ -54,42 +54,42 @@
 			cm : new Ext.grid.ColumnModel({
 				columns : [sm,
 						new Ext.grid.RowNumberer()
-						,{
+						 ,{
 							header : '供應商編號/供應商代號',
 							width : 120,
 							dataIndex : 'supplierId'
 						}
-												,{
+						,{
 							header : '原料編號/原料代號',
 							width : 120,
 							dataIndex : 'materialId'
 						}
-												,{
+						,{
 							header : '產品定價(單價)',
 							width : 120,
 							dataIndex : 'price'
 						}
-												,{
+						,{
 							header : '產品建議售價(單價)',
 							width : 120,
 							dataIndex : 'salePrice'
 						}
-												,{
+						,{
 							header : '創建日期',
 							width : 120,
 							dataIndex : 'createDate',renderer:function(v){if(v){return new Date(v).format("Y-m-d H:i");}else{return "";}}
 						}
-												,{
+						,{
 							header : '創建人員',
 							width : 120,
 							dataIndex : 'createBy'
 						}
-												,{
+						,{
 							header : '修改日期',
 							width : 120,
 							dataIndex : 'updateDate',renderer:function(v){if(v){return new Date(v).format("Y-m-d H:i");}else{return "";}}
 						}
-												,{
+						,{
 							header : '修改人員',
 							width : 120,
 							dataIndex : 'updateBy'
@@ -99,7 +99,7 @@
 			sm : sm,
 			store : new Ext.data.Store({
 				proxy : new Ext.data.HttpProxy({
-					url : __ctxPath + '/system/listPssSupplierMaterialRel.do'
+					url : __ctxPath + '/pss/listPssSupplierMaterialRel.do'
 				}),
 				params : {
 					start : 0,
@@ -110,7 +110,8 @@
 					totalProperty : 'totalCounts',
 					fields : ['supplierId','materialId','price','salePrice','createDate','createBy','updateDate','updateBy']
 				}),
-				remoteSort : true
+				remoteSort : true,
+				autoLoad : true
 			}),
 			viewConfig : {
 				forceFit : true,
@@ -131,10 +132,10 @@
 						iconCls : 'search',
 						handler : function() {
 								searchPanel.getForm().submit({
-									url:__ctxPath+'/system/listPssSupplierMaterialRel.do',
+									url:__ctxPath+'/pss/listPssSupplierMaterialRel.do',
 									method:'post',
 									success : function(formPanel, action) {
-										winGrid.getStore().proxy.conn.url=__ctxPath+'/system/listAppUser.do';
+										winGrid.getStore().proxy.conn.url=__ctxPath+'/pss/listPssSupplierMaterialRel.do';
 										var result = Ext.util.JSON.decode(action.response.responseText);
 										if(data && data.length>0){
 											sm.selectRecords(data);
@@ -173,7 +174,7 @@
 									xtype:'hidden',
 									fieldLabel : '原料編號/原料代號',
 									maxLength:18,
-									name : "pssSupplierMaterialRel.materialId"
+									name : "Q_materialId_S_LK"
 								},{
 									fieldLabel : '創建日期',
 									maxLength:18,
@@ -189,7 +190,7 @@
 						items : [{
 									fieldLabel : '產品定價(單價)',
 									maxLength:18,
-									name : "pssSupplierMaterialRel.price"
+									name : "Q_price_L_EQ"
 								},{
 									fieldLabel : '創建人員',
 									maxLength:18,
@@ -202,11 +203,11 @@
 									xtype:'hidden',
 									fieldLabel : '供應商編號/供應商代號',
 									maxLength:18,
-									name : "pssSupplierMaterialRel.supplierId"
+									name : "Q_supplierId_S_LK"
 								},{
 									fieldLabel : '產品建議售價(單價)',
 									maxLength:18,
-									name : "pssSupplierMaterialRel.salePrice"
+									name : "Q_salePrice_L_EQ"
 								},{
 									fieldLabel : '修改日期',
 									maxLength:18,

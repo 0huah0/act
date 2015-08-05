@@ -77,8 +77,6 @@ PssProductView = Ext.extend(Ext.Panel, {
 									fieldLabel : '修改人員',
 									maxLength:18,
 									xtype:"hidden",name : "pssProduct.updateBy"
-								},{
-								xtype:'hidden'
 								}]//
 					},{
 						items : [{
@@ -93,8 +91,6 @@ PssProductView = Ext.extend(Ext.Panel, {
 									fieldLabel : '創建人員',
 									maxLength:18,
 									xtype:"hidden",name : "pssProduct.createBy"
-								},{
-									xtype:'hidden'
 								}]//
 					},{
 						items : [{
@@ -114,8 +110,6 @@ PssProductView = Ext.extend(Ext.Panel, {
 									fieldLabel : '修改日期',
 									maxLength:18,
 									xtype:"hidden",name : "pssProduct.updateDate"
-								},{
-									xtype:'hidden'
 								}]//
 					}]
 				}]
@@ -148,10 +142,8 @@ PssProductView = Ext.extend(Ext.Panel, {
 							header : '產品名稱',
 							dataIndex : 'name'
 						},{
-							header : '描述',
-							dataIndex : 'desc'
-						},{
 							header : '單位',
+							width : 50,
 							dataIndex : 'unit',renderer:function(v){if(1 == v){return "個";}else if(2 == v){return "塊";}else if(3 == v){return "條";}else if(4 == v){return "片";}else if(5 == v){return "公斤";}else if(6 == v){return "公噸";}else if(7 == v){return "...";}}
 						},{
 							header : '產品定價(單價)',
@@ -160,8 +152,11 @@ PssProductView = Ext.extend(Ext.Panel, {
 							header : '產品建議售價(單價)',
 							dataIndex : 'salePrice'
 						},{
-							header : '有效否',
+							header : '有效否',width : 50,
 							dataIndex : 'active',renderer:function(v){if(0 == v){return "無效";}else if(1 == v){return "有效";}}
+						},{
+							header : '描述',
+							dataIndex : 'desc'
 						},{
 							header : '創建日期',
 							dataIndex : 'createDate',renderer:function(v){if(v){return new Date(v).format("Y-m-d H:i");}else{return "";}}
@@ -175,14 +170,16 @@ PssProductView = Ext.extend(Ext.Panel, {
 							header : '修改人員',
 							dataIndex : 'updateBy'
 						},{
-						header : '管理',
-						dataIndex : 'productId',//
-						renderer : function(v,m,r) {
-							return isGranted('_PssProductEdit') ?('&nbsp;<button title="修改" value=" " class="btn-edit" onclick="PssProductView.edit(\''
-							+ v + '\')"></button><button title="刪除" value=" " class="btn-del" onclick="PssProductView.remove(\''
-							+ v + '\')"></button>'):'';
-						}
-					}],
+							header : '管理',
+							width : 80,
+							dataIndex : 'productId',//
+							renderer : function(v,m,r,i) {
+								var read = '&nbsp;<button title="查看" value=" " class="btn-edit" onclick="PssProductView.edit(\''+ v + '\')"></button>';
+								return read + isGranted('_PssProductEdit') ?('&nbsp;<button title="修改" value=" " class="btn-edit" onclick="PssProductView.edit(\''
+								+ v + '\')"></button>&nbsp;<button title="刪除" value=" " class="btn-del" onclick="PssProductView.remove(\''
+								+ v + '\','+i+')"></button>'):'';
+							}
+						}],
 			defaults : {
 				sortable : true,
 				menuDisabled : false,
@@ -222,34 +219,39 @@ PssProductView = Ext.extend(Ext.Panel, {
 
 
 //view static method
-PssProductView.remove = function(id) {
+PssProductView.remove = function(id,i) {
 	var grid = Ext.getCmp("PssProductGrid");
-	Ext.Msg.confirm('刪除確認', '確定要刪除此筆數據？', function(btn) {
-		if (btn == 'yes') {
-			Ext.Ajax.request({
-				url : __ctxPath
-						+ '/pss/multiDelPssProduct.do',
-				params : {
-					ids : id
-				},
-				method : 'post',
-				success : function(response, options) {
-					var dbJson = eval("(" + response.responseText + ")");
-					if(dbJson.success){
-						Ext.ux.Toast.msg("信息", "成功刪除！");
-						grid.getStore().reload({
-							params : {
-								start : 0,
-								limit : 25
-							}
-						});
-					}else{
-						Ext.Msg.alert("信息", "該項沒能被刪除！");
+	if(id && id!='undefined'){
+		Ext.Msg.confirm('刪除確認', '確定要刪除此筆數據？', function(btn) {
+			if (btn == 'yes') {
+				Ext.Ajax.request({
+					url : __ctxPath
+							+ '/pss/multiDelPssProduct.do',
+					params : {
+						ids : id
+					},
+					method : 'post',
+					success : function(response, options) {
+						var dbJson = eval("(" + response.responseText + ")");
+						if(dbJson.success){
+							Ext.ux.Toast.msg("信息", "成功刪除！");
+							grid.getStore().reload({
+								params : {
+									start : 0,
+									limit : 25
+								}
+							});
+						}else{
+							Ext.Msg.alert("信息", "該項沒能被刪除！");
+						}
 					}
-				}
-			});
-		}
-	});
+				});
+			}
+		});
+	}else{
+		grid.getStore().removeAt(i);
+	}
+	
 };
 
 PssProductView.edit = function(id) {

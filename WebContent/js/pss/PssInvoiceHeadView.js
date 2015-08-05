@@ -64,7 +64,7 @@ PssInvoiceHeadView = Ext.extend(Ext.Panel, {
 						items : [{
 									fieldLabel : '客戶編號/供應商編號（TYPE=1時，該欄位存客戶編號，TYPE=2時，該欄位存供應商編號）',
 									maxLength:18,
-									name : "pssInvoiceHead.cusOrSupId"
+									name : "Q_cusOrSupId_S_LK"
 								},{
 									fieldLabel : '創建日期',
 									maxLength:18,
@@ -80,7 +80,7 @@ PssInvoiceHeadView = Ext.extend(Ext.Panel, {
 						items : [{
 									fieldLabel : '發票金額',
 									maxLength:18,
-									name : "pssInvoiceHead.invAmount"
+									name : "Q_invAmount_L_EQ"
 								},{
 									fieldLabel : '創建人員',
 									maxLength:18,
@@ -93,7 +93,7 @@ PssInvoiceHeadView = Ext.extend(Ext.Panel, {
 									xtype:'hidden',
 									fieldLabel : '發票編號',
 									maxLength:18,
-									name : "pssInvoiceHead.invoiceHeadId"
+									name : "Q_invoiceHeadId_S_LK"
 								},{
 									fieldLabel : '類型',
 									maxLength:18,
@@ -203,37 +203,48 @@ PssInvoiceHeadView = Ext.extend(Ext.Panel, {
 //view static method
 PssInvoiceHeadView.remove = function(id) {
 	var grid = Ext.getCmp("PssInvoiceHeadGrid");
-	Ext.Msg.confirm('刪除確認', '確定要刪除此筆數據？', function(btn) {
-		if (btn == 'yes') {
-			Ext.Ajax.request({
-				url : __ctxPath
-						+ '/pss/multiDelPssInvoiceHead.do',
-				params : {
-					ids : id
-				},
-				method : 'post',
-				success : function(response, options) {
-					var dbJson = eval("(" + response.responseText + ")");
-					if(dbJson.success){
-						Ext.ux.Toast.msg("信息", "成功刪除！");
-						grid.getStore().reload({
-							params : {
-								start : 0,
-								limit : 25
+	if(id && id != 'undefind'){	//后台删
+			Ext.Msg.confirm('刪除確認', '確定要刪除此筆數據？', function(btn) {
+				if (btn == 'yes') {
+					Ext.Ajax.request({
+						url : __ctxPath
+								+ '/pss/multiDelPssInvoiceHead.do',
+						params : {
+							ids : id
+						},
+						method : 'post',
+						success : function(response, options) {
+							var dbJson = eval("(" + response.responseText + ")");
+							if(dbJson.success){
+								Ext.ux.Toast.msg("信息", "成功刪除！");
+								grid.getStore().reload({
+									params : {
+										start : 0,
+										limit : 25
+									}
+								});
+							}else{
+								Ext.Msg.alert("信息", "該項沒能被刪除！");
 							}
-						});
-					}else{
-						Ext.Msg.alert("信息", "該項沒能被刪除！");
-					}
+						}
+					});
 				}
 			});
-		}
-	});
+	}else{	//前台删
+		
+	}
 };
 
 PssInvoiceHeadView.edit = function(id) {
 	new PssInvoiceHeadForm({
 				recId : id
+			}).show();
+};
+
+PssInvoiceHeadView.read = function(id) {
+	new PssInvoiceHeadForm({
+				recId : id,
+				read : true
 			}).show();
 };
 

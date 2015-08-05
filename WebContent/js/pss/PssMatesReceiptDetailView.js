@@ -64,11 +64,11 @@ PssMatesReceiptDetailView = Ext.extend(Ext.Panel, {
 						items : [{
 									fieldLabel : '收貨單明細編號',
 									maxLength:18,
-									name : "pssMatesReceiptDetail.mrDetailId"
+									name : "Q_mrDetailId_L_EQ"
 								},{
 									fieldLabel : '接收數量',
 									maxLength:18,
-									name : "pssMatesReceiptDetail.receiptNum"
+									name : "Q_receiptNum_L_EQ"
 								},{
 									fieldLabel : '創建人員',
 									maxLength:18,
@@ -80,11 +80,11 @@ PssMatesReceiptDetailView = Ext.extend(Ext.Panel, {
 						items : [{
 									fieldLabel : '原料編號',
 									maxLength:18,
-									name : "pssMatesReceiptDetail.materialId"
+									name : "Q_materialId_S_LK"
 								},{
 									fieldLabel : '退回數量',
 									maxLength:18,
-									name : "pssMatesReceiptDetail.rejectNum"
+									name : "Q_rejectNum_L_EQ"
 								},{
 									fieldLabel : '修改日期',
 									maxLength:18,
@@ -96,11 +96,11 @@ PssMatesReceiptDetailView = Ext.extend(Ext.Panel, {
 						items : [{
 									fieldLabel : '收貨單編號',
 									maxLength:18,
-									name : "pssMatesReceiptDetail.mrHeadId"
+									name : "Q_mrHeadId_S_LK"
 								},{
 									fieldLabel : '來貨數量',
 									maxLength:18,
-									name : "pssMatesReceiptDetail.allNum"
+									name : "Q_allNum_L_EQ"
 								},{
 									fieldLabel : '創建日期',
 									maxLength:18,
@@ -216,37 +216,48 @@ PssMatesReceiptDetailView = Ext.extend(Ext.Panel, {
 //view static method
 PssMatesReceiptDetailView.remove = function(id) {
 	var grid = Ext.getCmp("PssMatesReceiptDetailGrid");
-	Ext.Msg.confirm('刪除確認', '確定要刪除此筆數據？', function(btn) {
-		if (btn == 'yes') {
-			Ext.Ajax.request({
-				url : __ctxPath
-						+ '/pss/multiDelPssMatesReceiptDetail.do',
-				params : {
-					ids : id
-				},
-				method : 'post',
-				success : function(response, options) {
-					var dbJson = eval("(" + response.responseText + ")");
-					if(dbJson.success){
-						Ext.ux.Toast.msg("信息", "成功刪除！");
-						grid.getStore().reload({
-							params : {
-								start : 0,
-								limit : 25
+	if(id && id != 'undefind'){	//后台删
+			Ext.Msg.confirm('刪除確認', '確定要刪除此筆數據？', function(btn) {
+				if (btn == 'yes') {
+					Ext.Ajax.request({
+						url : __ctxPath
+								+ '/pss/multiDelPssMatesReceiptDetail.do',
+						params : {
+							ids : id
+						},
+						method : 'post',
+						success : function(response, options) {
+							var dbJson = eval("(" + response.responseText + ")");
+							if(dbJson.success){
+								Ext.ux.Toast.msg("信息", "成功刪除！");
+								grid.getStore().reload({
+									params : {
+										start : 0,
+										limit : 25
+									}
+								});
+							}else{
+								Ext.Msg.alert("信息", "該項沒能被刪除！");
 							}
-						});
-					}else{
-						Ext.Msg.alert("信息", "該項沒能被刪除！");
-					}
+						}
+					});
 				}
 			});
-		}
-	});
+	}else{	//前台删
+		
+	}
 };
 
 PssMatesReceiptDetailView.edit = function(id) {
 	new PssMatesReceiptDetailForm({
 				recId : id
+			}).show();
+};
+
+PssMatesReceiptDetailView.read = function(id) {
+	new PssMatesReceiptDetailForm({
+				recId : id,
+				read : true
 			}).show();
 };
 

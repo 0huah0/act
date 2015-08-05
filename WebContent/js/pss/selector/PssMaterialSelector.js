@@ -54,47 +54,47 @@
 			cm : new Ext.grid.ColumnModel({
 				columns : [sm,
 						new Ext.grid.RowNumberer()
-						,{
+						 ,{
 							header : '原料編號/原料代號',
 							width : 120,
 							dataIndex : 'materialId'
 						}
-												,{
+						,{
 							header : '原料名稱',
 							width : 120,
 							dataIndex : 'name'
 						}
-												,{
+						,{
 							header : '單位',
 							width : 120,
 							dataIndex : 'unit',renderer:function(v){if(1 == v){return "個";}else if(2 == v){return "塊";}else if(3 == v){return "條";}else if(4 == v){return "片";}else if(5 == v){return "公斤";}else if(6 == v){return "公噸";}else if(7 == v){return "...";}}
 						}
-												,{
+						,{
 							header : '描述',
 							width : 120,
 							dataIndex : 'desc'
 						}
-												,{
+						,{
 							header : '有效否',
 							width : 120,
 							dataIndex : 'active',renderer:function(v){if(0 == v){return "無效";}else if(1 == v){return "有效";}}
 						}
-												,{
+						,{
 							header : '創建日期',
 							width : 120,
 							dataIndex : 'createDate',renderer:function(v){if(v){return new Date(v).format("Y-m-d H:i");}else{return "";}}
 						}
-												,{
+						,{
 							header : '創建人員',
 							width : 120,
 							dataIndex : 'createBy'
 						}
-												,{
+						,{
 							header : '修改日期',
 							width : 120,
 							dataIndex : 'updateDate',renderer:function(v){if(v){return new Date(v).format("Y-m-d H:i");}else{return "";}}
 						}
-												,{
+						,{
 							header : '修改人員',
 							width : 120,
 							dataIndex : 'updateBy'
@@ -104,7 +104,7 @@
 			sm : sm,
 			store : new Ext.data.Store({
 				proxy : new Ext.data.HttpProxy({
-					url : __ctxPath + '/system/listPssMaterial.do'
+					url : __ctxPath + '/pss/listPssMaterial.do'
 				}),
 				params : {
 					start : 0,
@@ -115,7 +115,8 @@
 					totalProperty : 'totalCounts',
 					fields : ['materialId','name','unit','desc','active','createDate','createBy','updateDate','updateBy']
 				}),
-				remoteSort : true
+				remoteSort : true,
+				autoLoad : true
 			}),
 			viewConfig : {
 				forceFit : true,
@@ -136,10 +137,10 @@
 						iconCls : 'search',
 						handler : function() {
 								searchPanel.getForm().submit({
-									url:__ctxPath+'/system/listPssMaterial.do',
+									url:__ctxPath+'/pss/listPssMaterial.do',
 									method:'post',
 									success : function(formPanel, action) {
-										winGrid.getStore().proxy.conn.url=__ctxPath+'/system/listAppUser.do';
+										winGrid.getStore().proxy.conn.url=__ctxPath+'/pss/listPssMaterial.do';
 										var result = Ext.util.JSON.decode(action.response.responseText);
 										if(data && data.length>0){
 											sm.selectRecords(data);
@@ -177,7 +178,7 @@
 						items : [{
 									fieldLabel : '原料名稱',
 									maxLength:18,
-									name : "pssMaterial.name"
+									name : "Q_name_S_LK"
 								},{
 									fieldLabel : '有效否',
 									maxLength:18,
@@ -210,11 +211,11 @@
 									xtype:'hidden',
 									fieldLabel : '原料編號/原料代號',
 									maxLength:18,
-									name : "pssMaterial.materialId"
+									name : "Q_materialId_S_LK"
 								},{
 									fieldLabel : '描述',
 									maxLength:18,
-									name : "pssMaterial.desc"
+									name : "Q_desc_S_LK"
 								},{
 									fieldLabel : '創建人員',
 									maxLength:18,

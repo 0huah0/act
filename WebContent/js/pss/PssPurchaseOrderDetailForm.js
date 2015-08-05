@@ -13,16 +13,16 @@ PssPurchaseOrderDetailForm = Ext.extend(Ext.Window, {
 					id : 'PssPurchaseOrderDetailFormWin',
 					title : this.recId?'修改採購單子項':'新增採購單子項',
 					iconCls : 'menu-planmanage',
-					width : 820,
-					autoHeight : true,
+					width : 960,
 					buttons : this.buttons
 				});
 	},
 	initUIComponents : function() {
 		var recId = this.recId;
+		var readOnly = this.read;
+		
 		this.formPanel = new Ext.FormPanel({
 			id : 'PssPurchaseOrderDetailForm',
-			autoHeight:true,
 			frame : true,
 			items : [{
 					layout : 'column',
@@ -35,6 +35,7 @@ PssPurchaseOrderDetailForm = Ext.extend(Ext.Window, {
 						defaults : {
 							xtype : 'textfield',
 							allowBlank : false,
+							disabled : readOnly,
 							maxLength:100,
 							width : 200
 						}

@@ -54,52 +54,52 @@
 			cm : new Ext.grid.ColumnModel({
 				columns : [sm,
 						new Ext.grid.RowNumberer()
-						,{
+						 ,{
 							header : '倉庫編號/倉庫代號',
 							width : 120,
 							dataIndex : 'warehouseId'
 						}
-												,{
+						,{
 							header : '原料編號/原料代號',
 							width : 120,
 							dataIndex : 'materialId'
 						}
-												,{
+						,{
 							header : '報警水位數量 (According to 良品)',
 							width : 120,
 							dataIndex : 'alertNum'
 						}
-												,{
+						,{
 							header : '庫存總數量',
 							width : 120,
 							dataIndex : 'allNum'
 						}
-												,{
+						,{
 							header : '庫存良品數量',
 							width : 120,
 							dataIndex : 'goodPdtNum'
 						}
-												,{
+						,{
 							header : '庫存不良品數量',
 							width : 120,
 							dataIndex : 'rejectsNum'
 						}
-												,{
+						,{
 							header : '創建日期',
 							width : 120,
 							dataIndex : 'createDate',renderer:function(v){if(v){return new Date(v).format("Y-m-d H:i");}else{return "";}}
 						}
-												,{
+						,{
 							header : '創建人員',
 							width : 120,
 							dataIndex : 'createBy'
 						}
-												,{
+						,{
 							header : '修改日期',
 							width : 120,
 							dataIndex : 'updateDate',renderer:function(v){if(v){return new Date(v).format("Y-m-d H:i");}else{return "";}}
 						}
-												,{
+						,{
 							header : '修改人員',
 							width : 120,
 							dataIndex : 'updateBy'
@@ -109,7 +109,7 @@
 			sm : sm,
 			store : new Ext.data.Store({
 				proxy : new Ext.data.HttpProxy({
-					url : __ctxPath + '/system/listPssInventory.do'
+					url : __ctxPath + '/pss/listPssInventory.do'
 				}),
 				params : {
 					start : 0,
@@ -120,7 +120,8 @@
 					totalProperty : 'totalCounts',
 					fields : ['warehouseId','materialId','alertNum','allNum','goodPdtNum','rejectsNum','createDate','createBy','updateDate','updateBy']
 				}),
-				remoteSort : true
+				remoteSort : true,
+				autoLoad : true
 			}),
 			viewConfig : {
 				forceFit : true,
@@ -141,10 +142,10 @@
 						iconCls : 'search',
 						handler : function() {
 								searchPanel.getForm().submit({
-									url:__ctxPath+'/system/listPssInventory.do',
+									url:__ctxPath+'/pss/listPssInventory.do',
 									method:'post',
 									success : function(formPanel, action) {
-										winGrid.getStore().proxy.conn.url=__ctxPath+'/system/listAppUser.do';
+										winGrid.getStore().proxy.conn.url=__ctxPath+'/pss/listPssInventory.do';
 										var result = Ext.util.JSON.decode(action.response.responseText);
 										if(data && data.length>0){
 											sm.selectRecords(data);
@@ -183,11 +184,11 @@
 									xtype:'hidden',
 									fieldLabel : '原料編號/原料代號',
 									maxLength:18,
-									name : "pssInventory.materialId"
+									name : "Q_materialId_S_LK"
 								},{
 									fieldLabel : '庫存良品數量',
 									maxLength:18,
-									name : "pssInventory.goodPdtNum"
+									name : "Q_goodPdtNum_L_EQ"
 								},{
 									fieldLabel : '創建人員',
 									maxLength:18,
@@ -199,11 +200,11 @@
 						items : [{
 									fieldLabel : '報警水位數量 (According to 良品)',
 									maxLength:18,
-									name : "pssInventory.alertNum"
+									name : "Q_alertNum_L_EQ"
 								},{
 									fieldLabel : '庫存不良品數量',
 									maxLength:18,
-									name : "pssInventory.rejectsNum"
+									name : "Q_rejectsNum_L_EQ"
 								},{
 									fieldLabel : '修改日期',
 									maxLength:18,
@@ -216,11 +217,11 @@
 									xtype:'hidden',
 									fieldLabel : '倉庫編號/倉庫代號',
 									maxLength:18,
-									name : "pssInventory.warehouseId"
+									name : "Q_warehouseId_S_LK"
 								},{
 									fieldLabel : '庫存總數量',
 									maxLength:18,
-									name : "pssInventory.allNum"
+									name : "Q_allNum_L_EQ"
 								},{
 									fieldLabel : '創建日期',
 									maxLength:18,

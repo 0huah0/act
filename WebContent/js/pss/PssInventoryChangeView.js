@@ -64,15 +64,15 @@ PssInventoryChangeView = Ext.extend(Ext.Panel, {
 						items : [{
 									fieldLabel : '倉庫編號/倉庫代號',
 									maxLength:18,
-									name : "pssInventoryChange.warehouseId"
+									name : "Q_warehouseId_S_LK"
 								},{
 									fieldLabel : '變更數量',
 									maxLength:18,
-									name : "pssInventoryChange.num"
+									name : "Q_num_L_EQ"
 								},{
 									fieldLabel : '備註',
 									maxLength:18,
-									name : "pssInventoryChange.remark"
+									name : "Q_remark_S_LK"
 								},{
 									fieldLabel : '修改日期',
 									maxLength:18,
@@ -84,7 +84,7 @@ PssInventoryChangeView = Ext.extend(Ext.Panel, {
 						items : [{
 									fieldLabel : '原料編號/原料代號',
 									maxLength:18,
-									name : "pssInventoryChange.materialId"
+									name : "Q_materialId_S_LK"
 								},{
 									fieldLabel : '變更原因',
 									maxLength:18,
@@ -104,7 +104,7 @@ PssInventoryChangeView = Ext.extend(Ext.Panel, {
 						items : [{
 									fieldLabel : '記錄編號',
 									maxLength:18,
-									name : "pssInventoryChange.changeId"
+									name : "Q_changeId_L_EQ"
 								},{
 									fieldLabel : '變更類型',
 									maxLength:18,
@@ -112,7 +112,7 @@ PssInventoryChangeView = Ext.extend(Ext.Panel, {
 								},{
 									fieldLabel : '原因記錄編號（當REASON為1、2時，分別保存出貨單編號、收貨單編號；為4、5時不保存）。',
 									maxLength:18,
-									name : "pssInventoryChange.recordId"
+									name : "Q_recordId_S_LK"
 								},{
 									fieldLabel : '創建人員',
 									maxLength:18,
@@ -230,37 +230,48 @@ PssInventoryChangeView = Ext.extend(Ext.Panel, {
 //view static method
 PssInventoryChangeView.remove = function(id) {
 	var grid = Ext.getCmp("PssInventoryChangeGrid");
-	Ext.Msg.confirm('刪除確認', '確定要刪除此筆數據？', function(btn) {
-		if (btn == 'yes') {
-			Ext.Ajax.request({
-				url : __ctxPath
-						+ '/pss/multiDelPssInventoryChange.do',
-				params : {
-					ids : id
-				},
-				method : 'post',
-				success : function(response, options) {
-					var dbJson = eval("(" + response.responseText + ")");
-					if(dbJson.success){
-						Ext.ux.Toast.msg("信息", "成功刪除！");
-						grid.getStore().reload({
-							params : {
-								start : 0,
-								limit : 25
+	if(id && id != 'undefind'){	//后台删
+			Ext.Msg.confirm('刪除確認', '確定要刪除此筆數據？', function(btn) {
+				if (btn == 'yes') {
+					Ext.Ajax.request({
+						url : __ctxPath
+								+ '/pss/multiDelPssInventoryChange.do',
+						params : {
+							ids : id
+						},
+						method : 'post',
+						success : function(response, options) {
+							var dbJson = eval("(" + response.responseText + ")");
+							if(dbJson.success){
+								Ext.ux.Toast.msg("信息", "成功刪除！");
+								grid.getStore().reload({
+									params : {
+										start : 0,
+										limit : 25
+									}
+								});
+							}else{
+								Ext.Msg.alert("信息", "該項沒能被刪除！");
 							}
-						});
-					}else{
-						Ext.Msg.alert("信息", "該項沒能被刪除！");
-					}
+						}
+					});
 				}
 			});
-		}
-	});
+	}else{	//前台删
+		
+	}
 };
 
 PssInventoryChangeView.edit = function(id) {
 	new PssInventoryChangeForm({
 				recId : id
+			}).show();
+};
+
+PssInventoryChangeView.read = function(id) {
+	new PssInventoryChangeForm({
+				recId : id,
+				read : true
 			}).show();
 };
 
