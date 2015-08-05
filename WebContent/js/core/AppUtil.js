@@ -451,7 +451,7 @@ App.showImg = function(imgDom){
 			});
 		}
 		showImgWin.title = imgDom.title;
-		showImgWin.html = imgDom.path;//'<img src="' + __ctxPath + '/images/default_image_male.jpg" height="245px" style="padding:5px;" />';
+		showImgWin.body.html('<img src="'+imgDom.path+'" style="padding:5px;" />');
 		showImgWin.show();
 	}
 }

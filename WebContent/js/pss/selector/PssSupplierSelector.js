@@ -16,9 +16,7 @@
 		var window = new Ext.Window({
 			title : '请选择供應商',
 			iconCls:'menu-appuser',
-			width : 640,
-			autoHeight : true,
-			autuScroll:true,
+			width : 960,
 			modal : true,
 			closeAction: 'hide',
 			items : [this.initPanel(isSingle,data)],
@@ -50,96 +48,63 @@
 		}
 		var winGrid = new Ext.grid.EditorGridPanel({
 			id : 'PssSupplierSelectGrid',
-			autoHeight : true,//height:360,
+			height:300,
 			cm : new Ext.grid.ColumnModel({
 				columns : [sm,
-						new Ext.grid.RowNumberer()
-						 ,{
+						new Ext.grid.RowNumberer(),{
 							header : '供應商編號/供應商代號',
-							width : 120,
 							dataIndex : 'supplierId'
-						}
-						,{
+						},{
 							header : '公司名稱(中文)',
-							width : 120,
 							dataIndex : 'companyNameCn'
-						}
-						,{
+						},{
 							header : '公司名稱(英文)',
-							width : 120,
 							dataIndex : 'companyNameEn'
-						}
-						,{
+						},{
 							header : '法人代號',
-							width : 120,
 							dataIndex : 'legalPersonCode'
-						}
-						,{
+						},{
 							header : '負責人名稱',
-							width : 120,
 							dataIndex : 'personInCharge'
-						}
-						,{
+						},{
 							header : '地址',
-							width : 120,
 							dataIndex : 'addr'
-						}
-						,{
+						},{
 							header : '電話',
-							width : 120,
 							dataIndex : 'tel'
-						}
-						,{
+						},{
 							header : '傳真',
-							width : 120,
 							dataIndex : 'fax'
-						}
-						,{
+						},{
 							header : '電子郵箱',
-							width : 120,
 							dataIndex : 'email'
-						}
-						,{
+						},{
 							header : '資質證明圖片/營業執照影本，保存系統框架中檔案上傳的記錄編號',
-							width : 120,
 							dataIndex : 'licenseImgId'
-						}
-						,{
+						},{
 							header : '資本額（單位：TWD）',
-							width : 120,
 							dataIndex : 'capital',renderer:function(v){if(1 == v){return "小於100萬";}else if(2 == v){return "100萬~1000萬";}else if(3 == v){return "1000萬~5000萬";}else if(4 == v){return "大於5000萬";}}
-						}
-						,{
+						},{
 							header : '員工數（單位：人）',
-							width : 120,
 							dataIndex : 'empAmount',renderer:function(v){if(1 == v){return "小於10";}else if(2 == v){return "11~50";}else if(3 == v){return "51~100";}else if(4 == v){return "101~500";}else if(5 == v){return "501~1000";}else if(6 == v){return "大於1000";}}
-						}
-						,{
+						},{
 							header : '有效否',
-							width : 120,
 							dataIndex : 'active',renderer:function(v){if(0 == v){return "無效";}else if(1 == v){return "有效";}}
-						}
-						,{
+						},{
 							header : '創建日期',
-							width : 120,
 							dataIndex : 'createDate',renderer:function(v){if(v){return new Date(v).format("Y-m-d H:i");}else{return "";}}
-						}
-						,{
+						},{
 							header : '創建人員',
-							width : 120,
 							dataIndex : 'createBy'
-						}
-						,{
+						},{
 							header : '修改日期',
-							width : 120,
 							dataIndex : 'updateDate',renderer:function(v){if(v){return new Date(v).format("Y-m-d H:i");}else{return "";}}
-						}
-						,{
+						},{
 							header : '修改人員',
-							width : 120,
 							dataIndex : 'updateBy'
-						}
-						]
+						},{
+							hidden:true,
+						}]
 			}),
 			sm : sm,
 			store : new Ext.data.Store({
@@ -159,7 +124,7 @@
 				autoLoad : true
 			}),
 			viewConfig : {
-				forceFit : true,
+				width : 120,
 				enableRowBody : false,
 				showPreview : false
 			}
@@ -302,9 +267,7 @@
 		//end of searchPanel
 		
 		
-		return new Ext.Panel({
-			items : [searchPanel, winGrid]
-		});
+		return [searchPanel, winGrid];
 	}
 	
 };

@@ -50,36 +50,60 @@ PssSalesOrderHeadForm = Ext.extend(Ext.Window, {
 									fieldLabel : '銷貨單編號',
 									id:'soHeadId',
 									xtype:'hidden',
-									name : 'pssSalesOrderHead.soHeadId'
+									name : recId?'pssSalesOrderHead.soHeadId':''
 								},{
-									fieldLabel : '客戶編號',
+									fieldLabel : '創建人員',
+									id:'createBy',
+									xtype:"hidden",name : "pssSalesOrderHead.createBy"
+								},{
+									fieldLabel : '創建日期',
+									id:'createDate',
+									xtype:"hidden",name : "pssSalesOrderHead.createDate"
+								}]
+					},{
+						items : [{
+							xtype:'compositefield',
+							fieldLabel:'客戶編號',
+							items:[ {
+									xtype:'textfield',
+									name:'pssSalesOrderHead.customerId',
 									id:'customerId',
-									name : 'pssSalesOrderHead.customerId'
+									readOnly:true,
+									allowBlank:false,
+									width:110
 								},{
-									fieldLabel : '客戶採購單編號',
+									xtype:'button',
+									iconCls:'btn-add',
+									handler:function(){
+										PssCustomerSelector.getView(true,null,function(rows){
+											Ext.getCmp('customerId').setValue(rows[0].data.customerId);
+										}).show();
+									}
+								}
+							]
+						}]
+					},{
+						items : [{
+							xtype:'compositefield',
+							fieldLabel:'客戶採購單編號',
+							items:[ {
+									xtype:'textfield',
+									name:'pssSalesOrderHead.custPoNo',
 									id:'custPoNo',
-									name : 'pssSalesOrderHead.custPoNo'
-								}]
-					},{
-						items : [{
-									fieldLabel : '優惠金額',
-									id:'discountAmount',
-									name : 'pssSalesOrderHead.discountAmount'
+									readOnly:true,
+									allowBlank:false,
+									width:110
 								},{
-									fieldLabel : '建議售價總金額',
-									id:'salePriceAmount',
-									name : 'pssSalesOrderHead.salePriceAmount'
-								}]
-					},{
-						items : [{
-									fieldLabel : '定價總金額',
-									id:'priceAmount',
-									name : 'pssSalesOrderHead.priceAmount'
-								},{
-									fieldLabel : '實際售價總金額',
-									id:'payAmount',
-									name : 'pssSalesOrderHead.payAmount'
-								}]
+									xtype:'button',
+									iconCls:'btn-add',
+									handler:function(){
+										PssCustomerSelector.getView(true,null,function(rows){
+											Ext.getCmp('custPoNo').setValue(rows[0].data.customerId);
+										}).show();
+									}
+								}
+							]
+						}]
 					}]
 				}, {
 					layout : 'form',
@@ -99,6 +123,8 @@ PssSalesOrderHeadForm = Ext.extend(Ext.Window, {
 			}]
 		});
 
+		
+		
 		var columns = [{
 			header : '產品編號',
 			dataIndex : 'pdtId'
@@ -267,7 +293,34 @@ PssSalesOrderHeadForm = Ext.extend(Ext.Window, {
 			handler : function() {
 				var fp = Ext.getCmp("PssSalesOrderHeadForm");
 				if (fp.getForm().isValid()) {
+					var records = gridPanel.getStore().getRange(0,gridPanel.getStore().getCount()-1);
+					var priceAmount = 0;
+					var salePriceAmount = 0;
+					var payAmount = 0;
+					if(records && records.length>0){	//檢測是否有未填數量的行
+						for(var i=0; i<records.length;i++){
+							if(!records[i].data.pdtNum || records[i].data.pdtNum == 0){
+								Ext.MessageBox.show({
+									title : '信息',
+									msg : '請填寫產品數量！',
+									buttons : Ext.MessageBox.OK,
+									icon : 'ext-mb-warn'
+								});
+								return false;
+							} 
+							priceAmount += records[i].data.pdtPrice;
+							salePriceAmount += records[i].data.pdtSalePrice;
+							payAmount += records[i].data.pdtRealPrice;
+						}
+					}
+					
+					
 					var formData = fp.getForm().getValues();
+					formData['pssSalesOrderHead.priceAmount'] = priceAmount;
+					formData['pssSalesOrderHead.salePriceAmount'] = salePriceAmount;
+					formData['pssSalesOrderHead.payAmount'] = payAmount;
+					formData['pssSalesOrderHead.discountAmount'] = salePriceAmount - payAmount;
+					
 					if(recId){
 						formData['pssSalesOrderHead.updateBy'] = curUserInfo.username;
 						formData['pssSalesOrderHead.updateDate'] = new Date().format('Y-m-d H:i');
@@ -281,9 +334,7 @@ PssSalesOrderHeadForm = Ext.extend(Ext.Window, {
 					    params: formData,
 					    success : function(response , options ) {
 					    	var jr = Ext.util.JSON.decode(response.responseText);
-					    	console.log(jr);
 							if(jr.success){
-								var records = gridPanel.getStore().getRange(0,gridPanel.getStore().getCount()-1);
 								var rec = {
 									'pssSalesOrderDetail.soHeadId' : jr.data
 								};
@@ -291,13 +342,11 @@ PssSalesOrderHeadForm = Ext.extend(Ext.Window, {
 									for(var a in  records[i].data){
 										rec["pssSalesOrderDetail."+a] = records[i].data[a];
 									}
-									console.log(rec);
 									Ext.Ajax.request({
 										url : __ctxPath + '/pss/savePssSalesOrderDetail.do',
 										method : 'post',
 										params :rec,
 									    success : function(response , options ) {
-									    	console.log(response.responseText);
 									    	//var jr = Ext.util.JSON.decode(response.responseText);
 										},
 										failure : function(fp, action) {

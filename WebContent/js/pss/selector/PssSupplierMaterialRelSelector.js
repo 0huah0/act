@@ -16,9 +16,7 @@
 		var window = new Ext.Window({
 			title : '请选择供應商原料關係表',
 			iconCls:'menu-appuser',
-			width : 640,
-			autoHeight : true,
-			autuScroll:true,
+			width : 960,
 			modal : true,
 			closeAction: 'hide',
 			items : [this.initPanel(isSingle,data)],
@@ -50,51 +48,36 @@
 		}
 		var winGrid = new Ext.grid.EditorGridPanel({
 			id : 'PssSupplierMaterialRelSelectGrid',
-			autoHeight : true,//height:360,
+			height:300,
 			cm : new Ext.grid.ColumnModel({
 				columns : [sm,
-						new Ext.grid.RowNumberer()
-						 ,{
+						new Ext.grid.RowNumberer(),{
 							header : '供應商編號/供應商代號',
-							width : 120,
 							dataIndex : 'supplierId'
-						}
-						,{
+						},{
 							header : '原料編號/原料代號',
-							width : 120,
 							dataIndex : 'materialId'
-						}
-						,{
+						},{
 							header : '產品定價(單價)',
-							width : 120,
 							dataIndex : 'price'
-						}
-						,{
+						},{
 							header : '產品建議售價(單價)',
-							width : 120,
 							dataIndex : 'salePrice'
-						}
-						,{
+						},{
 							header : '創建日期',
-							width : 120,
 							dataIndex : 'createDate',renderer:function(v){if(v){return new Date(v).format("Y-m-d H:i");}else{return "";}}
-						}
-						,{
+						},{
 							header : '創建人員',
-							width : 120,
 							dataIndex : 'createBy'
-						}
-						,{
+						},{
 							header : '修改日期',
-							width : 120,
 							dataIndex : 'updateDate',renderer:function(v){if(v){return new Date(v).format("Y-m-d H:i");}else{return "";}}
-						}
-						,{
+						},{
 							header : '修改人員',
-							width : 120,
 							dataIndex : 'updateBy'
-						}
-						]
+						},{
+							hidden:true,
+						}]
 			}),
 			sm : sm,
 			store : new Ext.data.Store({
@@ -114,7 +97,7 @@
 				autoLoad : true
 			}),
 			viewConfig : {
-				forceFit : true,
+				width : 120,
 				enableRowBody : false,
 				showPreview : false
 			}
@@ -222,9 +205,7 @@
 		//end of searchPanel
 		
 		
-		return new Ext.Panel({
-			items : [searchPanel, winGrid]
-		});
+		return [searchPanel, winGrid];
 	}
 	
 };

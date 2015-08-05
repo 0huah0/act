@@ -41,11 +41,7 @@ PssCustomerForm = Ext.extend(Ext.Window, {
 						}
 					},
 					items : [{
-						items : [{
-									id:'hiddenId',
-									xtype : 'hidden',
-									value : recId||''
-								},{
+						items : [ {
 									fieldLabel : '客戶編號/客戶代號',
 									id:'customerId',
 									name : "pssCustomer.customerId"
@@ -81,11 +77,9 @@ PssCustomerForm = Ext.extend(Ext.Window, {
 									fieldLabel : '修改人員',
 									id:'updateBy',
 									xtype:"hidden",name : "pssCustomer.updateBy"
-					      }]
+								}]
 					},{
-						items : [{
-									xtype : 'hidden'
-								},{
+						items : [ {
 									fieldLabel : '公司名稱(中文)',
 									id:'companyNameCn',
 									name : "pssCustomer.companyNameCn"
@@ -102,10 +96,6 @@ PssCustomerForm = Ext.extend(Ext.Window, {
 									id:'fax',
 									name : "pssCustomer.fax"
 								},{
-									fieldLabel : '資質證明圖片/營業執照影本（保存系統框架中檔案上傳的記錄編號）',
-									id:'licenseImgId',
-									name : "pssCustomer.licenseImgId"
-								},{
 									fieldLabel : '員工數（單位：人）',
 									id:'empAmount',
 									hiddenName:"pssCustomer.empAmount",mode:"local",triggerAction:"all",xtype:"combo",store:[[1,"小於10"],[2,"11~50"],[3,"51~100"],[4,"101~500"],[5,"501~1000"],[6,"大於1000"]]
@@ -117,8 +107,49 @@ PssCustomerForm = Ext.extend(Ext.Window, {
 									fieldLabel : '修改日期',
 									id:'updateDate',
 									xtype:"hidden",name : "pssCustomer.updateDate"
-				        }]
+								}]
 					}]
+				},{
+					id:'licenseImgId',
+					xtype:'hidden',
+					name : "pssCustomer.licenseImgId",
+				},{
+					fieldLabel : '資質證明圖片/營業執照影本',
+					id:'licenseImgIdDisplay',
+					xtype : "panel",
+					rowspan : 2,
+					height : 310,
+					tbar : new Ext.Toolbar( {
+						height : 30,
+						items : [ {
+							text : '上传',
+							iconCls : 'btn-upload',
+							handler : function() {
+								App.createUploadDialog( {
+									file_cat : 'pss/customer',
+									upload_autostart:true,
+									callback : function(data){
+										if(data){
+											Ext.getCmp('licenseImgIdDisplay').body.update('<a path="' + __ctxPath + '/attachFiles/'+ data[0].filepath 
+													+ '" title="'+data[0].filename+'" onClick="App.showImg(this);">'
+													+data[0].filename+'</a>');
+											
+											var fileCmp = Ext.getCmp('licenseImgId');
+											fileCmp.setValue(fileCmp.getValue()?fileCmp.getValue()+','+data[0].fileId:data[0].fileId);
+										}
+									},
+									permitted_extensions : [ 'jpg','png','gif' ]
+								}).show();
+							}
+						}, {
+							text : '删除',
+							iconCls : 'btn-delete',
+							handler : function() {
+								
+							}
+						} ]
+					})
+				
 				}]
 		});
 
@@ -130,6 +161,9 @@ PssCustomerForm = Ext.extend(Ext.Window, {
 							jr.data.createDate = new Date(jr.data.createDate).format('Y-m-d H:i');
 							if(jr.data.updateDate)jr.data.updateDate = new Date(jr.data.updateDate).format('Y-m-d H:i');
 							Ext.getCmp("PssCustomerForm").getForm().loadRecord(jr);
+							
+							//TODO 加載圖片
+							
 					},
 					failure : function(response , options ) {
 						
@@ -169,7 +203,6 @@ PssCustomerForm = Ext.extend(Ext.Window, {
 					    params: data
 					});
 				}
-			
 			}
 		}, {
 			text : '清空',

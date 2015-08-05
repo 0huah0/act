@@ -16,9 +16,7 @@
 		var window = new Ext.Window({
 			title : '请选择收貨單',
 			iconCls:'menu-appuser',
-			width : 640,
-			autoHeight : true,
-			autuScroll:true,
+			width : 960,
 			modal : true,
 			closeAction: 'hide',
 			items : [this.initPanel(isSingle,data)],
@@ -50,76 +48,51 @@
 		}
 		var winGrid = new Ext.grid.EditorGridPanel({
 			id : 'PssMatesReceiptHeadSelectGrid',
-			autoHeight : true,//height:360,
+			height:300,
 			cm : new Ext.grid.ColumnModel({
 				columns : [sm,
-						new Ext.grid.RowNumberer()
-						 ,{
+						new Ext.grid.RowNumberer(),{
 							header : '收貨單編號（收貨單代碼2位(MR)+當前日期8位(yyyyMMdd)+流水號6位）。',
-							width : 120,
 							dataIndex : 'mrHeadId'
-						}
-						,{
+						},{
 							header : '採購單編號',
-							width : 120,
 							dataIndex : 'poHeadId'
-						}
-						,{
+						},{
 							header : '收貨倉庫編號/倉庫代號',
-							width : 120,
 							dataIndex : 'warehouseId'
-						}
-						,{
+						},{
 							header : '收貨人名稱/倉管人員名稱',
-							width : 120,
 							dataIndex : 'receiverName'
-						}
-						,{
+						},{
 							header : '收貨人電話',
-							width : 120,
 							dataIndex : 'receiverTel'
-						}
-						,{
+						},{
 							header : '收貨發票號碼(應付帳款)',
-							width : 120,
 							dataIndex : 'mrInvoice'
-						}
-						,{
+						},{
 							header : '送貨人名稱',
-							width : 120,
 							dataIndex : 'diliverName'
-						}
-						,{
+						},{
 							header : '送貨人電話',
-							width : 120,
 							dataIndex : 'diliverTel'
-						}
-						,{
+						},{
 							header : '備註',
-							width : 120,
 							dataIndex : 'remark'
-						}
-						,{
+						},{
 							header : '創建日期',
-							width : 120,
 							dataIndex : 'createDate',renderer:function(v){if(v){return new Date(v).format("Y-m-d H:i");}else{return "";}}
-						}
-						,{
+						},{
 							header : '創建人員',
-							width : 120,
 							dataIndex : 'createBy'
-						}
-						,{
+						},{
 							header : '修改日期',
-							width : 120,
 							dataIndex : 'updateDate',renderer:function(v){if(v){return new Date(v).format("Y-m-d H:i");}else{return "";}}
-						}
-						,{
+						},{
 							header : '修改人員',
-							width : 120,
 							dataIndex : 'updateBy'
-						}
-						]
+						},{
+							hidden:true,
+						}]
 			}),
 			sm : sm,
 			store : new Ext.data.Store({
@@ -139,7 +112,7 @@
 				autoLoad : true
 			}),
 			viewConfig : {
-				forceFit : true,
+				width : 120,
 				enableRowBody : false,
 				showPreview : false
 			}
@@ -266,9 +239,7 @@
 		//end of searchPanel
 		
 		
-		return new Ext.Panel({
-			items : [searchPanel, winGrid]
-		});
+		return [searchPanel, winGrid];
 	}
 	
 };

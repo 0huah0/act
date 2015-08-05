@@ -16,9 +16,7 @@
 		var window = new Ext.Window({
 			title : '请选择出貨單子項',
 			iconCls:'menu-appuser',
-			width : 640,
-			autoHeight : true,
-			autuScroll:true,
+			width : 960,
 			modal : true,
 			closeAction: 'hide',
 			items : [this.initPanel(isSingle,data)],
@@ -50,61 +48,42 @@
 		}
 		var winGrid = new Ext.grid.EditorGridPanel({
 			id : 'PssDeliveryOrderDetailSelectGrid',
-			autoHeight : true,//height:360,
+			height:300,
 			cm : new Ext.grid.ColumnModel({
 				columns : [sm,
-						new Ext.grid.RowNumberer()
-						 ,{
+						new Ext.grid.RowNumberer(),{
 							header : '出貨單編號',
-							width : 120,
 							dataIndex : 'doHeadId'
-						}
-						,{
+						},{
 							header : '出貨單明細編號',
-							width : 120,
 							dataIndex : 'doDetailId'
-						}
-						,{
+						},{
 							header : '產品編號',
-							width : 120,
 							dataIndex : 'pdtId'
-						}
-						,{
+						},{
 							header : '出貨數量',
-							width : 120,
 							dataIndex : 'allNum'
-						}
-						,{
+						},{
 							header : '接收數量',
-							width : 120,
 							dataIndex : 'receiptNum'
-						}
-						,{
+						},{
 							header : '退回數量',
-							width : 120,
 							dataIndex : 'rejectNum'
-						}
-						,{
+						},{
 							header : '創建日期',
-							width : 120,
 							dataIndex : 'createDate',renderer:function(v){if(v){return new Date(v).format("Y-m-d H:i");}else{return "";}}
-						}
-						,{
+						},{
 							header : '創建人員',
-							width : 120,
 							dataIndex : 'createBy'
-						}
-						,{
+						},{
 							header : '修改日期',
-							width : 120,
 							dataIndex : 'updateDate',renderer:function(v){if(v){return new Date(v).format("Y-m-d H:i");}else{return "";}}
-						}
-						,{
+						},{
 							header : '修改人員',
-							width : 120,
 							dataIndex : 'updateBy'
-						}
-						]
+						},{
+							hidden:true,
+						}]
 			}),
 			sm : sm,
 			store : new Ext.data.Store({
@@ -124,7 +103,7 @@
 				autoLoad : true
 			}),
 			viewConfig : {
-				forceFit : true,
+				width : 120,
 				enableRowBody : false,
 				showPreview : false
 			}
@@ -238,9 +217,7 @@
 		//end of searchPanel
 		
 		
-		return new Ext.Panel({
-			items : [searchPanel, winGrid]
-		});
+		return [searchPanel, winGrid];
 	}
 	
 };

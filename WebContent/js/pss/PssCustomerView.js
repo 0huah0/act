@@ -77,16 +77,6 @@ PssCustomerView = Ext.extend(Ext.Panel, {
 									fieldLabel : '資本額（單位：TWD）',
 									maxLength:18,
 									hiddenName:"Q_capital_N_EQ",mode:"local",triggerAction:"all",xtype:"combo",store:[[1,"小於100萬"],[2,"100萬~1000萬"],[3,"1000萬~5000萬"],[4,"大於5000萬"]]
-								},{
-									fieldLabel : '創建日期',
-									maxLength:18,
-									xtype:"hidden",name : "pssCustomer.createDate"
-								},{
-									fieldLabel : '修改人員',
-									maxLength:18,
-									xtype:"hidden",name : "pssCustomer.updateBy"
-								},{
-								xtype:'hidden'
 								}]//
 					},{
 						items : [{
@@ -105,12 +95,6 @@ PssCustomerView = Ext.extend(Ext.Panel, {
 									fieldLabel : '員工數（單位：人）',
 									maxLength:18,
 									hiddenName:"Q_empAmount_N_EQ",mode:"local",triggerAction:"all",xtype:"combo",store:[[1,"小於10"],[2,"11~50"],[3,"51~100"],[4,"101~500"],[5,"501~1000"],[6,"大於1000"]]
-								},{
-									fieldLabel : '創建人員',
-									maxLength:18,
-									xtype:"hidden",name : "pssCustomer.createBy"
-								},{
-									xtype:'hidden'
 								}]//
 					},{
 						items : [{
@@ -134,12 +118,6 @@ PssCustomerView = Ext.extend(Ext.Panel, {
 									fieldLabel : '有效否',
 									maxLength:18,
 									hiddenName:"Q_active_N_EQ",mode:"local",triggerAction:"all",xtype:"combo",store:[[0,"無效"],[1,"有效"]]
-								},{
-									fieldLabel : '修改日期',
-									maxLength:18,
-									xtype:"hidden",name : "pssCustomer.updateDate"
-								},{
-									xtype:'hidden'
 								}]//
 					}]
 				}]

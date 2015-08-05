@@ -16,9 +16,7 @@
 		var window = new Ext.Window({
 			title : '请选择產品',
 			iconCls:'menu-appuser',
-			width : 640,
-			autoHeight : true,
-			autuScroll:true,
+			width : 960,
 			modal : true,
 			closeAction: 'hide',
 			items : [this.initPanel(isSingle,data)],
@@ -50,33 +48,28 @@
 		}
 		var winGrid = new Ext.grid.EditorGridPanel({
 			id : 'PssProductSelectGrid',
-			autoHeight : true,//height:360,
+			height:300,
 			cm : new Ext.grid.ColumnModel({
 				columns : [sm,
 						new Ext.grid.RowNumberer()
 						 ,{
 							header : '產品編號/產品代號',
-							width : 120,
 							dataIndex : 'productId'
 						}
 						,{
 							header : '產品名稱',
-							width : 120,
 							dataIndex : 'name'
 						}
 						,{
 							header : '描述',
-							width : 120,
 							dataIndex : 'desc'
 						}
 						,{
 							header : '單位',
-							width : 120,
 							dataIndex : 'unit',renderer:function(v){if(1 == v){return "個";}else if(2 == v){return "塊";}else if(3 == v){return "條";}else if(4 == v){return "片";}else if(5 == v){return "公斤";}else if(6 == v){return "公噸";}else if(7 == v){return "...";}}
 						}
 						,{
 							header : '產品定價(單價)',
-							width : 120,
 							dataIndex : 'price'
 						}
 						,{
@@ -86,27 +79,22 @@
 						}
 						,{
 							header : '有效否',
-							width : 120,
 							dataIndex : 'active',renderer:function(v){if(0 == v){return "無效";}else if(1 == v){return "有效";}}
 						}
 						,{
 							header : '創建日期',
-							width : 120,
 							dataIndex : 'createDate',renderer:function(v){if(v){return new Date(v).format("Y-m-d H:i");}else{return "";}}
 						}
 						,{
 							header : '創建人員',
-							width : 120,
 							dataIndex : 'createBy'
 						}
 						,{
 							header : '修改日期',
-							width : 120,
 							dataIndex : 'updateDate',renderer:function(v){if(v){return new Date(v).format("Y-m-d H:i");}else{return "";}}
 						}
 						,{
 							header : '修改人員',
-							width : 120,
 							dataIndex : 'updateBy'
 						}
 						]
@@ -129,7 +117,7 @@
 				autoLoad : true
 			}),
 			viewConfig : {
-				forceFit : true,
+				width : 120,
 				enableRowBody : false,
 				showPreview : false
 			}
@@ -248,9 +236,7 @@
 		//end of searchPanel
 		
 		
-		return new Ext.Panel({
-			items : [searchPanel, winGrid]
-		});
+		return [searchPanel, winGrid];
 	}
 	
 };
