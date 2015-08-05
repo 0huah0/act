@@ -140,19 +140,11 @@ PssSalesOrderHeadForm = Ext.extend(Ext.Window, {
 			header : '產品實際售價',
 			dataIndex : 'pdtRealPrice',
             renderer: 'usMoney',
-            css :'background-color: #afa;',
-            editor: new Ext.form.NumberField({
-                allowBlank: false,
-                allowNegative: false
-            })
+            css :'background-color: #afa;'
 		},{
 			header : '產品數量',
 			dataIndex : 'pdtNum',
-			css :'background-color: #afa;',
-            editor: new Ext.form.NumberField({
-                allowBlank: false,
-                allowNegative: false
-            })
+			css :'background-color: #afa;'
 		},{
 			header : '小計',
 			dataIndex : 'amount',
@@ -165,12 +157,14 @@ PssSalesOrderHeadForm = Ext.extend(Ext.Window, {
 			editor:null,	//override
 			renderer : function(v,m,r,i,ci,s) {	//value， cellmeta， record， rowIndex， columnIndex， store
 				return readOnly?'':('&nbsp;<button title="刪除" value=" " class="btn-del" onclick="PssSalesOrderHeadForm.detailRemove(\''
-				+ r.pdtId + '\','+i+')"></button>');
+				+ v + '\','+i+')"></button>');
 			}
 		}];
 		
 		if(readOnly){
-			columns = [new Ext.grid.RowNumberer()].concat(columns);
+			columns = [new Ext.grid.RowNumberer({
+				editor:null
+			})].concat(columns);
 		}
 		
 		var gridOpt = {
@@ -214,7 +208,11 @@ PssSalesOrderHeadForm = Ext.extend(Ext.Window, {
 				columns : columns,
 				defaults : {
 					align: 'right',
-					width : 120
+					width : 120,
+		            editor: new Ext.form.NumberField({
+		                allowBlank: false,
+		                allowNegative: false
+		            })
 				}
 			}),
 			bbar : new Ext.PagingToolbar({

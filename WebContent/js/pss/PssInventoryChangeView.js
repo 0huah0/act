@@ -63,62 +63,32 @@ PssInventoryChangeView = Ext.extend(Ext.Panel, {
 					items : [{
 						items : [{
 									fieldLabel : '倉庫編號/倉庫代號',
-									maxLength:18,
 									name : "Q_warehouseId_S_LK"
 								},{
-									fieldLabel : '變更數量',
-									maxLength:18,
-									name : "Q_num_L_EQ"
+									fieldLabel : '變更數量大於',
+									name : "Q_num_L_GE"	//＞
 								},{
 									fieldLabel : '備註',
-									maxLength:18,
 									name : "Q_remark_S_LK"
-								},{
-									fieldLabel : '修改日期',
-									maxLength:18,
-									xtype:"hidden",name : "pssInventoryChange.updateDate"
-								},{
-								xtype:'hidden'
 								}]//
 					},{
 						items : [{
 									fieldLabel : '原料編號/原料代號',
-									maxLength:18,
 									name : "Q_materialId_S_LK"
 								},{
 									fieldLabel : '變更原因',
-									maxLength:18,
 									hiddenName:"Q_reason_N_EQ",mode:"local",triggerAction:"all",xtype:"combo",store:[[1,"出貨"],[2,"收貨"],[3,"生產取出"],[4,"生產存入"],[5,"..."]]
 								},{
-									fieldLabel : '創建日期',
-									maxLength:18,
-									xtype:"hidden",name : "pssInventoryChange.createDate"
-								},{
-									fieldLabel : '修改人員',
-									maxLength:18,
-									xtype:"hidden",name : "pssInventoryChange.updateBy"
-								},{
-									xtype:'hidden'
+									fieldLabel : '原因記錄編號',
+									name : "Q_recordId_S_LK"
 								}]//
 					},{
 						items : [{
 									fieldLabel : '記錄編號',
-									maxLength:18,
 									name : "Q_changeId_L_EQ"
 								},{
 									fieldLabel : '變更類型',
-									maxLength:18,
 									hiddenName:"Q_type_N_EQ",mode:"local",triggerAction:"all",xtype:"combo",store:[[1,"增加"],[2,"減少"]]
-								},{
-									fieldLabel : '原因記錄編號（當REASON為1、2時，分別保存出貨單編號、收貨單編號；為4、5時不保存）。',
-									maxLength:18,
-									name : "Q_recordId_S_LK"
-								},{
-									fieldLabel : '創建人員',
-									maxLength:18,
-									xtype:"hidden",name : "pssInventoryChange.createBy"
-								},{
-									xtype:'hidden'
 								}]//
 					}]
 				}]
@@ -163,7 +133,7 @@ PssInventoryChangeView = Ext.extend(Ext.Panel, {
 							header : '變更原因',
 							dataIndex : 'reason',renderer:function(v){if(1 == v){return "出貨";}else if(2 == v){return "收貨";}else if(3 == v){return "生產取出";}else if(4 == v){return "生產存入";}else if(5 == v){return "...";}}
 						},{
-							header : '原因記錄編號（當REASON為1、2時，分別保存出貨單編號、收貨單編號；為4、5時不保存）。',
+							header : '原因記錄編號',
 							dataIndex : 'recordId'
 						},{
 							header : '備註',

@@ -41,43 +41,30 @@ PssWarehouseForm = Ext.extend(Ext.Window, {
 						}
 					},
 					items : [{
-						items : [{
-									id:'hiddenId',
-									xtype : 'hidden',
-									value : recId||''
-								},{
+						items : [ {
 									fieldLabel : '倉庫編號/倉庫代號',
 									id:'warehouseId',
-									name : "pssWarehouse.warehouseId"
-								},{
-									fieldLabel : '描述',
-									id:'desc',
-									name : "pssWarehouse.desc"
-								},{
-									fieldLabel : '創建人員',
-									id:'createBy',
-									xtype:"hidden",name : "pssWarehouse.createBy"
-								},{
-									fieldLabel : '修改人員',
-									id:'updateBy',
-									xtype:"hidden",name : "pssWarehouse.updateBy"
-					      }]
-					},{
-						items : [{
-									xtype : 'hidden'
+									xtype:'hidden',
+									name : recId?"pssWarehouse.warehouseId":''
 								},{
 									fieldLabel : '名稱',
 									id:'name',
 									name : "pssWarehouse.name"
 								},{
+									fieldLabel : '創建人員',
+									id:'createBy',
+									xtype:"hidden",name : "pssWarehouse.createBy"
+								} ]
+					},{
+						items : [ {
+									fieldLabel : '描述',
+									id:'desc',
+									name : "pssWarehouse.desc"
+								},{
 									fieldLabel : '創建日期',
 									id:'createDate',
 									xtype:"hidden",name : "pssWarehouse.createDate"
-								},{
-									fieldLabel : '修改日期',
-									id:'updateDate',
-									xtype:"hidden",name : "pssWarehouse.updateDate"
-				        }]
+								} ]
 					}]
 				}]
 		});

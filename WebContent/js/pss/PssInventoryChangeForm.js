@@ -42,41 +42,63 @@ PssInventoryChangeForm = Ext.extend(Ext.Window, {
 					},
 					items : [{
 						items : [{
-									id:'hiddenId',
-									xtype : 'hidden',
-									value : recId||''
-								},{
 									fieldLabel : '記錄編號',
 									id:'changeId',
+									xtype : 'hidden',
+									value : recId||'',
 									name : "pssInventoryChange.changeId"
 								},{
-									fieldLabel : '原料編號/原料代號',
-									id:'materialId',
-									name : "pssInventoryChange.materialId"
+									xtype:'compositefield',
+									fieldLabel:'原料編號/原料代號',
+									items:[ {
+											xtype:'textfield',
+											name:'pssInventoryChange.materialId',
+											id:'materialId',
+											readOnly:true,
+											allowBlank:false,
+											width:170
+										},{
+											xtype:'button',
+											text:'...',
+											handler:function(){
+												PssMaterialSelector.getView(true,null,function(rows){
+													Ext.getCmp('materialId').setValue(rows[0].data.materialId);
+												}).show();
+											}
+										} ]
 								},{
 									fieldLabel : '變更數量',
 									id:'num',
 									name : "pssInventoryChange.num"
 								},{
-									fieldLabel : '原因記錄編號（當REASON為1、2時，分別保存出貨單編號、收貨單編號；為4、5時不保存）。',
+									fieldLabel : '原因記錄編號（當REASON為1、2時，分別保存出貨單編號、收貨單編號；為4、5時不保存）',
 									id:'recordId',
 									name : "pssInventoryChange.recordId"
 								},{
 									fieldLabel : '創建日期',
 									id:'createDate',
 									xtype:"hidden",name : "pssInventoryChange.createDate"
-								},{
-									fieldLabel : '修改日期',
-									id:'updateDate',
-									xtype:"hidden",name : "pssInventoryChange.updateDate"
-					      }]
+								}]
 					},{
 						items : [{
-									xtype : 'hidden'
-								},{
-									fieldLabel : '倉庫編號/倉庫代號',
-									id:'warehouseId',
-									name : "pssInventoryChange.warehouseId"
+								xtype:'compositefield',
+								fieldLabel:'倉庫編號/倉庫代號',
+								items:[ {
+										xtype:'textfield',
+										name:'pssInventoryChange.warehouseId',
+										id:'warehouseId',
+										readOnly:true,
+										allowBlank:false,
+										width:170
+									},{
+										xtype:'button',
+										text:'...',
+										handler:function(){
+											PssWarehouseSelector.getView(true,null,function(rows){
+												Ext.getCmp('warehouseId').setValue(rows[0].data.warehouseId);
+											}).show();
+										}
+									} ]
 								},{
 									fieldLabel : '變更類型',
 									id:'type',
@@ -93,11 +115,7 @@ PssInventoryChangeForm = Ext.extend(Ext.Window, {
 									fieldLabel : '創建人員',
 									id:'createBy',
 									xtype:"hidden",name : "pssInventoryChange.createBy"
-								},{
-									fieldLabel : '修改人員',
-									id:'updateBy',
-									xtype:"hidden",name : "pssInventoryChange.updateBy"
-				        }]
+								}]
 					}]
 				}]
 		});

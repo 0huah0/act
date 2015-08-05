@@ -118,79 +118,79 @@
 	</Items>
 
 	<!-- PSS -->
-	<Items id="PssCustomer" text="客戶" iconCls="menu-plantype" isPublic="false">
-		<Item id="PssCustomerView" text="客戶管理" iconCls="menu-holidayRecord">
+	<Items id="PssCustomer" text="客戶" iconCls="menu-customer" isPublic="false">
+		<Item id="PssCustomerView" text="客戶管理" iconCls="menu-customer">
 			<Function id="_PssCustomerEdit" text="可編輯" iconCls="btn-edit">
 				<url>/pss/savePssCustomer.do</url>
 				<url>/pss/multiDelPssCustomer.do</url>
 			</Function>
 		</Item>
-		<Item id="PssSalesOrderHeadView" text="銷貨單管理" iconCls="menu-holidayRecord">
+		<Item id="PssSalesOrderHeadView" text="銷貨單管理" iconCls="menu-dutyStats">
 			<Function id="_PssSalesOrderHeadEdit" text="可編輯" iconCls="btn-edit">
 				<url>/pss/savePssSalesOrderHead.do</url>
 				<url>/pss/multiDelPssSalesOrderHead.do</url>
 			</Function>
 		</Item>
-		<Item id="PssInvoiceHeadView" text="發票管理" iconCls="menu-holidayRecord">
+		<Item id="PssInvoiceHeadView" text="發票管理" iconCls="menu-flow">
 			<Function id="_PssInvoiceHeadEdit" text="可編輯" iconCls="btn-edit">
 				<url>/pss/savePssInvoiceHead.do</url>
 				<url>/pss/multiDelPssInvoiceHead.do</url>
 			</Function>
 		</Item>
-		<Item id="PssDeliveryOrderHeadView" text="出貨單管理" iconCls="menu-holidayRecord">
+		<Item id="PssDeliveryOrderHeadView" text="出貨單管理" iconCls="menu-car-manage">
 			<Function id="_PssDeliveryOrderHeadEdit" text="可編輯" iconCls="btn-edit">
 				<url>/pss/savePssDeliveryOrderHead.do</url>
 				<url>/pss/multiDelPssDeliveryOrderHead.do</url>
 			</Function>
 		</Item>
 	</Items>
-	<Items id="PssSupplier" text="供應商" iconCls="menu-plantype" isPublic="false">
-		<Item id="PssSupplierView" text="供應商管理" iconCls="menu-holidayRecord">
+	<Items id="PssSupplier" text="供應商" iconCls="menu-person" isPublic="false">
+		<Item id="PssSupplierView" text="供應商管理" iconCls="menu-person">
 			<Function id="_PssSupplierEdit" text="可編輯" iconCls="btn-edit">
 				<url>/pss/savePssSupplier.do</url>
 				<url>/pss/multiDelPssSupplier.do</url>
 			</Function>
 		</Item>
-		<Item id="PssPurchaseOrderHeadView" text="採購單管理" iconCls="menu-holidayRecord">
+		<Item id="PssPurchaseOrderHeadView" text="採購單管理" iconCls="menu-dutyRegister">
 			<Function id="_PssPurchaseOrderHeadEdit" text="可編輯" iconCls="btn-edit">
 				<url>/pss/savePssPurchaseOrderHead.do</url>
 				<url>/pss/multiDelPssPurchaseOrderHead.do</url>
 			</Function>
 		</Item>
 	</Items>
-	<Items id="PssWarehouse" text="倉庫" iconCls="menu-plantype"
+	<Items id="PssWarehouse" text="倉庫" iconCls="menu-company"
 		isPublic="false">
-		<Item id="PssWarehouseView" text="倉庫管理" iconCls="menu-holidayRecord">
+		<Item id="PssWarehouseView" text="倉庫管理" iconCls="menu-company">
 			<Function id="_PssWarehouseEdit" text="可編輯" iconCls="btn-edit">
 				<url>/pss/savePssWarehouse.do</url>
 				<url>/pss/multiDelPssWarehouse.do</url>
 			</Function>
 		</Item>
-		<Item id="PssInventoryView" text="庫存管理" iconCls="menu-holidayRecord">
+		<Item id="PssInventoryView" text="庫存管理" iconCls="mod-report">
 			<Function id="_PssInventoryEdit" text="可編輯" iconCls="btn-edit">
 				<url>/pss/savePssInventory.do</url>
 				<url>/pss/multiDelPssInventory.do</url>
 			</Function>
 		</Item>
-		<Item id="PssProductView" text="產品管理" iconCls="menu-holidayRecord">
+		<Item id="PssProductView" text="產品管理" iconCls="btn-brick">
 			<Function id="_PssProductEdit" text="可編輯" iconCls="btn-edit">
 				<url>/pss/savePssProduct.do</url>
 				<url>/pss/multiDelPssProduct.do</url>
 			</Function>
 		</Item>
-		<Item id="PssMatesReceiptHeadView" text="收貨單管理" iconCls="menu-holidayRecord">
+		<Item id="PssMatesReceiptHeadView" text="收貨單管理" iconCls="menu-confSummary">
 			<Function id="_PssMatesReceiptHeadEdit" text="可編輯" iconCls="btn-edit">
 				<url>/pss/savePssMatesReceiptHead.do</url>
 				<url>/pss/multiDelPssMatesReceiptHead.do</url>
 			</Function>
 		</Item>
-		<Item id="PssMaterialView" text="原料管理" iconCls="menu-holidayRecord">
+		<Item id="PssMaterialView" text="原料管理" iconCls="menu-instock ">
 			<Function id="_PssMaterialEdit" text="可編輯" iconCls="btn-edit">
 				<url>/pss/savePssMaterial.do</url>
 				<url>/pss/multiDelPssMaterial.do</url>
 			</Function>
 		</Item>
-		<Item id="PssInventoryChangeView" text="庫存變動記錄管理" iconCls="menu-holidayRecord">
+		<Item id="PssInventoryChangeView" text="庫存變動記錄管理" iconCls="menu-arch-reg">
 			<Function id="_PssInventoryChangeEdit" text="可編輯" iconCls="btn-edit">
 				<url>/pss/savePssInventoryChange.do</url>
 				<url>/pss/multiDelPssInventoryChange.do</url>

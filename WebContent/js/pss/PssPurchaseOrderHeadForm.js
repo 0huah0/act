@@ -106,7 +106,7 @@ PssPurchaseOrderHeadForm = Ext.extend(Ext.Window, {
 			editor:null,	//override
 			renderer : function(v,m,r,i,ci,s) {	//value， cellmeta， record， rowIndex， columnIndex， store
 				return readOnly?'':('&nbsp;<button title="刪除" value=" " class="btn-del" onclick="PssSalesOrderHeadForm.detailRemove(\''
-				+ r.pdtId + '\','+i+')"></button>');
+				+ v + '\','+i+')"></button>');
 			}
 		}];
 		
@@ -222,9 +222,9 @@ PssPurchaseOrderHeadForm = Ext.extend(Ext.Window, {
 							if(!records[i].data.materialSalePrice || !records[i].data.materialNum || !records[i].data.materialPrice){
 								Ext.MessageBox.show({
 									title : '信息',
-									msg : '請填寫原料數量\原料定價\原料建議售價！',
+									msg : '請填寫原料數量、原料定價、原料建議售價！',
 									buttons : Ext.MessageBox.OK,
-									icon : 'ext-mb-warn'
+									icon : Ext.MessageBox.WARNING
 								});
 								return false;
 							}

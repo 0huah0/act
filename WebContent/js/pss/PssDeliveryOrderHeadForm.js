@@ -117,7 +117,7 @@ PssDeliveryOrderHeadForm = Ext.extend(Ext.Window, {
 		}];
 		
 		if(readOnly){
-			columns = [new Ext.grid.RowNumberer()].concat(columns);
+			columns = [new Ext.grid.RowNumberer({editor: null})].concat(columns);
 		}
 		
 		var gridOpt = {
@@ -168,7 +168,7 @@ PssDeliveryOrderHeadForm = Ext.extend(Ext.Window, {
 							iconCls : 'btn-add',
 							text : '新增出貨單子項',
 							handler : function() {
-								PssProductSelector.getView(true,[],function(rows){
+								PssProductSelector.getView(false,[],function(rows){
 									if(rows.length>0){
 										var T = gridPanel.getStore().recordType;
 										var rs = [];
@@ -229,7 +229,7 @@ PssDeliveryOrderHeadForm = Ext.extend(Ext.Window, {
 									title : '信息',
 									msg : '請填寫出貨數量！',
 									buttons : Ext.MessageBox.OK,
-									icon : 'ext-mb-warn'
+									icon : Ext.MessageBox.WARNING
 								});
 								return false;
 							} 

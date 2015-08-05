@@ -73,37 +73,25 @@ PssMatesReceiptHeadView = Ext.extend(Ext.Panel, {
 									fieldLabel : '送貨人電話',
 									maxLength:18,
 									name : "Q_diliverTel_S_LK"
-								},{
-									fieldLabel : '創建人員',
-									maxLength:18,
-									xtype:"hidden",name : "pssMatesReceiptHead.createBy"
-								},{
-								xtype:'hidden'
 								}]//
 					},{
 						items : [{
-									fieldLabel : '收貨倉庫編號/倉庫代號',
+									fieldLabel : '收貨倉庫編號/代號',
 									maxLength:18,
 									name : "Q_warehouseId_S_LK"
 								},{
-									fieldLabel : '收貨發票號碼(應付帳款)',
+									fieldLabel : '收貨發票號碼',
 									maxLength:18,
 									name : "Q_mrInvoice_S_LK"
 								},{
 									fieldLabel : '備註',
 									maxLength:18,
 									name : "Q_remark_S_LK"
-								},{
-									fieldLabel : '修改日期',
-									maxLength:18,
-									xtype:"hidden",name : "pssMatesReceiptHead.updateDate"
-								},{
-									xtype:'hidden'
 								}]//
 					},{
 						items : [{
 									xtype:'hidden',
-									fieldLabel : '收貨單編號（收貨單代碼2位(MR)+當前日期8位(yyyyMMdd)+流水號6位）。',
+									fieldLabel : '收貨單編號',
 									maxLength:18,
 									name : "Q_mrHeadId_S_LK"
 								},{
@@ -114,16 +102,6 @@ PssMatesReceiptHeadView = Ext.extend(Ext.Panel, {
 									fieldLabel : '送貨人名稱',
 									maxLength:18,
 									name : "Q_diliverName_S_LK"
-								},{
-									fieldLabel : '創建日期',
-									maxLength:18,
-									xtype:"hidden",name : "pssMatesReceiptHead.createDate"
-								},{
-									fieldLabel : '修改人員',
-									maxLength:18,
-									xtype:"hidden",name : "pssMatesReceiptHead.updateBy"
-								},{
-									xtype:'hidden'
 								}]//
 					}]
 				}]
@@ -150,7 +128,7 @@ PssMatesReceiptHeadView = Ext.extend(Ext.Panel, {
 		});
 		var cm = new Ext.grid.ColumnModel({
 				columns : [new Ext.grid.RowNumberer(),{
-							header : '收貨單編號（收貨單代碼2位(MR)+當前日期8位(yyyyMMdd)+流水號6位）。',
+							header : '收貨單編號',
 							dataIndex : 'mrHeadId'
 						},{
 							header : '採購單編號',
@@ -165,7 +143,7 @@ PssMatesReceiptHeadView = Ext.extend(Ext.Panel, {
 							header : '收貨人電話',
 							dataIndex : 'receiverTel'
 						},{
-							header : '收貨發票號碼(應付帳款)',
+							header : '收貨發票號碼',//(應付帳款)
 							dataIndex : 'mrInvoice'
 						},{
 							header : '送貨人名稱',

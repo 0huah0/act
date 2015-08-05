@@ -55,52 +55,66 @@ App.importJs = {
 	
 	/* PSS */
 	PssCustomerView : [ __ctxPath + '/js/pss/PssCustomerView.js',
-			__ctxPath + '/js/pss/PssCustomerForm.js' ],
+	                    __ctxPath + '/js/pss/PssCustomerForm.js' ],
+	                    
 	PssWarehouseView : [ __ctxPath + '/js/pss/PssWarehouseView.js',
-			__ctxPath + '/js/pss/PssWarehouseForm.js' ],
-	PssSupplierMaterialRelView : [
-			__ctxPath + '/js/pss/PssSupplierMaterialRelView.js',
-			__ctxPath + '/js/pss/PssSupplierMaterialRelForm.js' ],
+	                     __ctxPath + '/js/pss/PssWarehouseForm.js' ],
+	                     
+	PssSupplierMaterialRelView : [__ctxPath + '/js/pss/PssSupplierMaterialRelView.js',
+	                              __ctxPath + '/js/pss/PssSupplierMaterialRelForm.js' ],
+	                              
 	PssSupplierView : [ __ctxPath + '/js/pss/PssSupplierView.js',
-			__ctxPath + '/js/pss/PssSupplierForm.js' ],
-	PssSalesOrderHeadView : [ __ctxPath + '/js/pss/PssSalesOrderHeadView.js',
-			__ctxPath + '/js/pss/PssSalesOrderHeadForm.js',
-			__ctxPath + '/js/pss/selector/PssCustomerSelector.js', 
-			__ctxPath + '/js/pss/selector/PssProductSelector.js' ],
-	PssSalesOrderDetailView : [
-			__ctxPath + '/js/pss/PssSalesOrderDetailView.js',
-			__ctxPath + '/js/pss/PssSalesOrderDetailForm.js' ],
-	PssPurchaseOrderHeadView : [
-			__ctxPath + '/js/pss/PssPurchaseOrderHeadView.js',
-			__ctxPath + '/js/pss/PssPurchaseOrderHeadForm.js',
-			__ctxPath + '/js/pss/selector/PssMaterialSelector.js'
-			],
-	PssPurchaseOrderDetailView : [
-			__ctxPath + '/js/pss/PssPurchaseOrderDetailView.js',
-			__ctxPath + '/js/pss/PssPurchaseOrderDetailForm.js' ],
-	PssProductMaterialRelView : [
-			__ctxPath + '/js/pss/PssProductMaterialRelView.js',
-			__ctxPath + '/js/pss/PssProductMaterialRelForm.js' ],
-	PssProductView : [ __ctxPath + '/js/pss/PssProductView.js',
-			__ctxPath + '/js/pss/PssProductForm.js' ],
-	PssMatesReceiptHeadView : [
-			__ctxPath + '/js/pss/PssMatesReceiptHeadView.js',
-			__ctxPath + '/js/pss/PssMatesReceiptHeadForm.js' ],
-	PssMatesReceiptDetailView : [
-			__ctxPath + '/js/pss/PssMatesReceiptDetailView.js',
-			__ctxPath + '/js/pss/PssMatesReceiptDetailForm.js' ],
+	                    __ctxPath + '/js/pss/PssSupplierForm.js' ],
+	                    
+	PssSalesOrderHeadView : [__ctxPath + '/js/pss/PssSalesOrderHeadView.js',
+							__ctxPath + '/js/pss/PssSalesOrderHeadForm.js',
+							__ctxPath + '/js/pss/selector/PssCustomerSelector.js', 
+							__ctxPath + '/js/pss/selector/PssProductSelector.js' ],
+							
+	PssSalesOrderDetailView : [__ctxPath + '/js/pss/PssSalesOrderDetailView.js',
+	                           __ctxPath + '/js/pss/PssSalesOrderDetailForm.js' ],
+	                           
+	PssPurchaseOrderHeadView : [__ctxPath + '/js/pss/PssPurchaseOrderHeadView.js',
+	                            __ctxPath + '/js/pss/PssPurchaseOrderHeadForm.js',
+	                            __ctxPath + '/js/pss/selector/PssMaterialSelector.js'],
+	                            
+	PssPurchaseOrderDetailView : [__ctxPath + '/js/pss/PssPurchaseOrderDetailView.js',
+	                              __ctxPath + '/js/pss/PssPurchaseOrderDetailForm.js' ],
+			
+	PssProductMaterialRelView : [__ctxPath + '/js/pss/PssProductMaterialRelView.js',
+	                             __ctxPath + '/js/pss/PssProductMaterialRelForm.js' ],
+	                             
+	PssProductView : [__ctxPath + '/js/pss/PssProductView.js',
+	                  __ctxPath + '/js/pss/PssProductForm.js' ],
+	                  
+	PssMatesReceiptHeadView : [__ctxPath + '/js/pss/PssMatesReceiptHeadView.js',
+				            __ctxPath + '/js/pss/selector/PssPurchaseOrderHeadSelector.js', 
+				            __ctxPath + '/js/pss/selector/PssWarehouseSelector.js', 
+				            __ctxPath + '/js/pss/selector/PssMaterialSelector.js', 
+							__ctxPath + '/js/pss/PssMatesReceiptHeadForm.js' ],
+							
+	PssMatesReceiptDetailView : [__ctxPath + '/js/pss/PssMatesReceiptDetailView.js',
+	                             __ctxPath + '/js/pss/PssMatesReceiptDetailForm.js' ],
+	                             
 	PssMaterialView : [ __ctxPath + '/js/pss/PssMaterialView.js',
-			__ctxPath + '/js/pss/PssMaterialForm.js' ],
+	                    __ctxPath + '/js/pss/PssMaterialForm.js' ],
+	                    
 	PssInvoiceHeadView : [ __ctxPath + '/js/pss/PssInvoiceHeadView.js',
-			__ctxPath + '/js/pss/PssInvoiceHeadForm.js' ],
+	                       __ctxPath + '/js/pss/PssInvoiceHeadForm.js' ],
+	                       
 	PssInventoryChangeView : [ __ctxPath + '/js/pss/PssInventoryChangeView.js',
-			__ctxPath + '/js/pss/PssInventoryChangeForm.js' ],
+	                           __ctxPath + '/js/pss/selector/PssWarehouseSelector.js', 
+					            __ctxPath + '/js/pss/selector/PssMaterialSelector.js', 
+	                           __ctxPath + '/js/pss/PssInventoryChangeForm.js' ],
+	                           
 	PssInventoryView : [ __ctxPath + '/js/pss/PssInventoryView.js',
-			__ctxPath + '/js/pss/PssInventoryForm.js' ],
-	PssDeliveryOrderHeadView : [
-			__ctxPath + '/js/pss/PssDeliveryOrderHeadView.js',
-			__ctxPath + '/js/pss/selector/PssCustomerSelector.js', 
-			__ctxPath + '/js/pss/selector/PssProductSelector.js',
-			__ctxPath + '/js/pss/PssDeliveryOrderHeadForm.js' ]
+			             __ctxPath + '/js/pss/selector/PssWarehouseSelector.js', 
+			 			__ctxPath + '/js/pss/selector/PssMaterialSelector.js',
+						__ctxPath + '/js/pss/PssInventoryForm.js' ],
+						
+	PssDeliveryOrderHeadView : [__ctxPath + '/js/pss/PssDeliveryOrderHeadView.js',
+								__ctxPath + '/js/pss/selector/PssCustomerSelector.js', 
+								__ctxPath + '/js/pss/selector/PssProductSelector.js',
+								__ctxPath + '/js/pss/PssDeliveryOrderHeadForm.js' ]
 
 };

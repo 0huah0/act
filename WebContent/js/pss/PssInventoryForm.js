@@ -42,15 +42,26 @@ PssInventoryForm = Ext.extend(Ext.Window, {
 					},
 					items : [{
 						items : [{
-									id:'hiddenId',
-									xtype : 'hidden',
-									value : recId||''
-								},{
-									fieldLabel : '倉庫編號/倉庫代號',
-									id:'warehouseId',
-									name : "pssInventory.warehouseId"
-								},{
-									fieldLabel : '報警水位數量 (According to 良品)',
+								xtype:'compositefield',
+								fieldLabel:'倉庫編號/倉庫代號',
+								items:[ {
+										xtype:'textfield',
+										name:'pssInventory.warehouseId',
+										id:'warehouseId',
+										readOnly:true,
+										allowBlank:false,
+										width:170
+									},{
+										xtype:'button',
+										text:'...',
+										handler:function(){
+											PssWarehouseSelector.getView(true,null,function(rows){
+												Ext.getCmp('warehouseId').setValue(rows[0].data.warehouseId);
+											}).show();
+										}
+									} ]
+								} ,{
+									fieldLabel : '報警水位數量',// (According to 良品)
 									id:'alertNum',
 									name : "pssInventory.alertNum"
 								},{
@@ -61,18 +72,27 @@ PssInventoryForm = Ext.extend(Ext.Window, {
 									fieldLabel : '創建日期',
 									id:'createDate',
 									xtype:"hidden",name : "pssInventory.createDate"
-								},{
-									fieldLabel : '修改日期',
-									id:'updateDate',
-									xtype:"hidden",name : "pssInventory.updateDate"
-					      }]
+								}]
 					},{
-						items : [{
-									xtype : 'hidden'
-								},{
-									fieldLabel : '原料編號/原料代號',
-									id:'materialId',
-									name : "pssInventory.materialId"
+						items : [ {
+								xtype:'compositefield',
+								fieldLabel:'原料編號/原料代號',
+								items:[ {
+										xtype:'textfield',
+										name:'pssInventory.materialId',
+										id:'materialId',
+										readOnly:true,
+										allowBlank:false,
+										width:170
+									},{
+										xtype:'button',
+										text:'...',
+										handler:function(){
+											PssMaterialSelector.getView(true,null,function(rows){
+												Ext.getCmp('materialId').setValue(rows[0].data.materialId);
+											}).show();
+										}
+									} ]
 								},{
 									fieldLabel : '庫存總數量',
 									id:'allNum',
@@ -85,11 +105,7 @@ PssInventoryForm = Ext.extend(Ext.Window, {
 									fieldLabel : '創建人員',
 									id:'createBy',
 									xtype:"hidden",name : "pssInventory.createBy"
-								},{
-									fieldLabel : '修改人員',
-									id:'updateBy',
-									xtype:"hidden",name : "pssInventory.updateBy"
-				        }]
+								} ]
 					}]
 				}]
 		});

@@ -62,7 +62,6 @@ PssInventoryView = Ext.extend(Ext.Panel, {
 					},
 					items : [{
 						items : [{
-									xtype:'hidden',
 									fieldLabel : '原料編號/原料代號',
 									maxLength:18,
 									name : "Q_materialId_S_LK"
@@ -70,50 +69,27 @@ PssInventoryView = Ext.extend(Ext.Panel, {
 									fieldLabel : '庫存良品數量',
 									maxLength:18,
 									name : "Q_goodPdtNum_L_EQ"
-								},{
-									fieldLabel : '創建人員',
-									maxLength:18,
-									xtype:"hidden",name : "pssInventory.createBy"
-								},{
-								xtype:'hidden'
-								}]//
+								} ]//
 					},{
 						items : [{
-									fieldLabel : '報警水位數量 (According to 良品)',
+									fieldLabel : '報警水位數量',
 									maxLength:18,
 									name : "Q_alertNum_L_EQ"
 								},{
 									fieldLabel : '庫存不良品數量',
 									maxLength:18,
 									name : "Q_rejectsNum_L_EQ"
-								},{
-									fieldLabel : '修改日期',
-									maxLength:18,
-									xtype:"hidden",name : "pssInventory.updateDate"
-								},{
-									xtype:'hidden'
-								}]//
+								} ]//
 					},{
 						items : [{
-									xtype:'hidden',
 									fieldLabel : '倉庫編號/倉庫代號',
 									maxLength:18,
 									name : "Q_warehouseId_S_LK"
 								},{
-									fieldLabel : '庫存總數量',
+									fieldLabel : '庫存總數量大於',
 									maxLength:18,
-									name : "Q_allNum_L_EQ"
-								},{
-									fieldLabel : '創建日期',
-									maxLength:18,
-									xtype:"hidden",name : "pssInventory.createDate"
-								},{
-									fieldLabel : '修改人員',
-									maxLength:18,
-									xtype:"hidden",name : "pssInventory.updateBy"
-								},{
-									xtype:'hidden'
-								}]//
+									name : "Q_allNum_L_GE"	// >
+								} ]//
 					}]
 				}]
 			}]
@@ -145,7 +121,7 @@ PssInventoryView = Ext.extend(Ext.Panel, {
 							header : '原料編號/原料代號',
 							dataIndex : 'materialId'
 						},{
-							header : '報警水位數量 (According to 良品)',
+							header : '報警水位數量',
 							dataIndex : 'alertNum'
 						},{
 							header : '庫存總數量',

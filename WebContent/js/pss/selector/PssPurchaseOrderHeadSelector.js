@@ -52,7 +52,7 @@
 			cm : new Ext.grid.ColumnModel({
 				columns : [sm,
 						new Ext.grid.RowNumberer(),{
-							header : '採購單編號（採購單代碼2位(PO)+當前日期8位(yyyyMMdd)+流水號6位）',
+							header : '採購單編號',
 							dataIndex : 'poHeadId'
 						},{
 							header : '供應商編號/供應商代號',
