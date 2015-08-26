@@ -41,6 +41,20 @@ PssMaterialForm = Ext.extend(Ext.Window, {
 						}
 					},
 					items : [{
+								items : [{
+									fieldLabel : '原料名稱',
+									id:'name',
+									name : "pssMaterial.name"
+								},{
+									fieldLabel : '描述',
+									id:'desc',
+									name : "pssMaterial.desc"
+								},{
+									fieldLabel : '創建人員',
+									id:'createBy',
+									xtype:"hidden",name : "pssMaterial.createBy"
+								}]
+					},{
 						items : [{
 									fieldLabel : '原料編號/原料代號',
 									id:'materialId',
@@ -54,20 +68,6 @@ PssMaterialForm = Ext.extend(Ext.Window, {
 									fieldLabel : '有效否',
 									id:'active',
 									hiddenName:"pssMaterial.active",mode:"local",triggerAction:"all",xtype:"combo",store:[[0,"無效"],[1,"有效"]]
-								},{
-									fieldLabel : '創建人員',
-									id:'createBy',
-									xtype:"hidden",name : "pssMaterial.createBy"
-								}]
-					},{
-						items : [{
-									fieldLabel : '原料名稱',
-									id:'name',
-									name : "pssMaterial.name"
-								},{
-									fieldLabel : '描述',
-									id:'desc',
-									name : "pssMaterial.desc"
 								},{
 									fieldLabel : '創建日期',
 									id:'createDate',

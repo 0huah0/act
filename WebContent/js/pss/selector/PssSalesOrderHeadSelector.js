@@ -52,7 +52,7 @@
 			cm : new Ext.grid.ColumnModel({
 				columns : [sm,
 						new Ext.grid.RowNumberer(),{
-							header : '銷貨單編號（銷貨單代碼2位(SO)+當前日期8位(yyyyMMdd)+流水號6位）',
+							header : '銷貨單編號',
 							dataIndex : 'soHeadId'
 						},{
 							header : '客戶編號',
@@ -109,7 +109,7 @@
 				autoLoad : true
 			}),
 			viewConfig : {
-				width : 120,
+				width : 140,
 				enableRowBody : false,
 				showPreview : false
 			}

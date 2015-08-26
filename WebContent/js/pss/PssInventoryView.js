@@ -66,25 +66,25 @@ PssInventoryView = Ext.extend(Ext.Panel, {
 									maxLength:18,
 									name : "Q_materialId_S_LK"
 								},{
-									fieldLabel : '庫存良品數量',
+									fieldLabel : '庫存良品數量大於',
 									maxLength:18,
-									name : "Q_goodPdtNum_L_EQ"
-								} ]//
-					},{
-						items : [{
-									fieldLabel : '報警水位數量',
-									maxLength:18,
-									name : "Q_alertNum_L_EQ"
-								},{
-									fieldLabel : '庫存不良品數量',
-									maxLength:18,
-									name : "Q_rejectsNum_L_EQ"
+									name : "Q_goodPdtNum_L_GE"
 								} ]//
 					},{
 						items : [{
 									fieldLabel : '倉庫編號/倉庫代號',
 									maxLength:18,
 									name : "Q_warehouseId_S_LK"
+								},{
+									fieldLabel : '庫存不良品數量大於',
+									maxLength:18,
+									name : "Q_rejectsNum_L_GE"
+								} ]//
+					},{
+						items : [{
+									fieldLabel : '報警水位數量大於',
+									maxLength:18,
+									name : "Q_alertNum_L_GE"
 								},{
 									fieldLabel : '庫存總數量大於',
 									maxLength:18,

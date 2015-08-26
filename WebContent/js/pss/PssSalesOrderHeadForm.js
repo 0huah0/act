@@ -73,7 +73,7 @@ PssSalesOrderHeadForm = Ext.extend(Ext.Window, {
 									width:110
 								},{
 									xtype:'button',
-									iconCls:'btn-add',
+									text:'...',disabled : readOnly,
 									handler:function(){
 										PssCustomerSelector.getView(true,null,function(rows){
 											Ext.getCmp('customerId').setValue(rows[0].data.customerId);
@@ -95,7 +95,7 @@ PssSalesOrderHeadForm = Ext.extend(Ext.Window, {
 									width:110
 								},{
 									xtype:'button',
-									iconCls:'btn-add',
+									text:'...',disabled : readOnly,
 									handler:function(){
 										PssCustomerSelector.getView(true,null,function(rows){
 											Ext.getCmp('custPoNo').setValue(rows[0].data.customerId);
@@ -287,7 +287,7 @@ PssSalesOrderHeadForm = Ext.extend(Ext.Window, {
 
 		this.buttons = [{
 			text : '保存',
-			iconCls : 'btn-save',
+			iconCls : 'btn-save',disabled : readOnly,
 			handler : function() {
 				var fp = Ext.getCmp("PssSalesOrderHeadForm");
 				if (fp.getForm().isValid()) {

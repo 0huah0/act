@@ -54,7 +54,7 @@ PssPurchaseOrderHeadView = Ext.extend(Ext.Panel, {
 						layout : 'form',
 						padding : '0 0 0 20px',
 						labelAlign : 'right',
-						labelWidth : 120,
+						labelWidth : 140,
 						defaults : {
 							xtype : 'textfield',
 							width : 140
@@ -66,15 +66,15 @@ PssPurchaseOrderHeadView = Ext.extend(Ext.Panel, {
 									maxLength:18,
 									name : "Q_supplierId_S_LK"
 								},{
-									fieldLabel : '成交價總金額',
+									fieldLabel : '成交價總金額大於',
 									maxLength:18,
-									name : "Q_payAmount_L_EQ"
+									name : "Q_payAmount_L_GE"
 								}]//
 					},{
 						items : [{
-									fieldLabel : '定價總金額',
+									fieldLabel : '定價總金額大於',
 									maxLength:18,
-									name : "Q_priceAmount_L_EQ"
+									name : "Q_priceAmount_L_GE"
 								},{
 									fieldLabel : '備註',
 									maxLength:18,
@@ -87,9 +87,9 @@ PssPurchaseOrderHeadView = Ext.extend(Ext.Panel, {
 									maxLength:18,
 									name : "Q_poHeadId_S_LK"
 								},{
-									fieldLabel : '建議售價總金額',
+									fieldLabel : '建議售價總金額大於',
 									maxLength:18,
-									name : "Q_salePriceAmount_L_EQ"
+									name : "Q_salePriceAmount_L_GE"
 								}]//
 					}]
 				}]

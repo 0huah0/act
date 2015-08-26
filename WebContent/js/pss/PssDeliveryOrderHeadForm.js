@@ -47,9 +47,25 @@ PssDeliveryOrderHeadForm = Ext.extend(Ext.Window, {
 									xtype:'hidden',
 									name : recId?"pssDeliveryOrderHead.doHeadId":''
 								},{
-									fieldLabel : '出貨倉庫編號/倉庫代號',
-									id:'warehouseId',
-									name : "pssDeliveryOrderHead.warehouseId"
+									xtype:'compositefield',
+									fieldLabel:'出貨倉庫編號/倉庫代號',
+									items:[ {
+											xtype:'textfield',
+											name:'pssDeliveryOrderHead.warehouseId',
+											id:'warehouseId',
+											readOnly:true,
+											allowBlank:false,
+											width:170
+										},{
+											xtype:'button',
+											text:'...',
+											disabled : readOnly,
+											handler:function(){
+												PssWarehouseSelector.getView(true,null,function(rows){
+													Ext.getCmp('warehouseId').setValue(rows[0].data.warehouseId);
+												}).show();
+											}
+										} ]
 								},{
 									fieldLabel : '送貨人名稱',
 									id:'diliverName',
@@ -73,9 +89,25 @@ PssDeliveryOrderHeadForm = Ext.extend(Ext.Window, {
 					      }]
 					},{
 						items : [{
-									fieldLabel : '銷貨單編號',
-									id:'soHeadId',
-									name : "pssDeliveryOrderHead.soHeadId"
+									xtype:'compositefield',
+									fieldLabel:'銷貨單編號',
+									items:[ {
+											xtype:'textfield',
+											name:'pssDeliveryOrderHead.soHeadId',
+											id:'soHeadId',
+											readOnly:true,
+											allowBlank:false,
+											width:170
+										},{
+											xtype:'button',
+											text:'...',
+											disabled : readOnly,
+											handler:function(){
+												PssSalesOrderHeadSelector.getView(true,null,function(rows){
+													Ext.getCmp('soHeadId').setValue(rows[0].data.soHeadId);
+												}).show();
+											}
+										} ]
 								},{
 									fieldLabel : '送貨人電話',
 									id:'diliverTel',
@@ -119,19 +151,14 @@ PssDeliveryOrderHeadForm = Ext.extend(Ext.Window, {
 		if(readOnly){
 			columns = [new Ext.grid.RowNumberer({editor: null})].concat(columns);
 		}
-		
+
 		var gridOpt = {
 				id : 'PssDeliveryOrderDetailGrid',
 				height : 300,
 				store : new Ext.data.JsonStore({
-					url : __ctxPath + '/pss/listPssDeliveryOrderDetail.do',
+					url : __ctxPath + '/pss/listPssDeliveryOrderDetail.do?id='+ recId,
 					root : 'result',
 					totalProperty : 'totalCounts',
-					params : {
-						start : 0,
-						limit : 25
-					},
-					autoLoad:true,
 					fields : ['doHeadId','doDetailId','pdtId','allNum','receiptNum','rejectNum','createDate','createBy','updateDate','updateBy']
 				}),
 				//autoExpandColumn :'remark1',
@@ -157,40 +184,42 @@ PssDeliveryOrderHeadForm = Ext.extend(Ext.Window, {
 						})
 			};
 		
+		
 		var gridPanel = null;
 		if(readOnly){//readOnly
 			gridPanel = this.gridPanel = new Ext.grid.GridPanel(gridOpt);
 		}else{
-			gridOpt.tbar = isGranted('_PssDeliveryOrderDetailEdit') ? new Ext.Toolbar({
-				id : 'PssDeliveryOrderDetailFootBar',
-				bodyStyle : 'text-align:left',
-				items : [new Ext.Button({
-							iconCls : 'btn-add',
-							text : '新增出貨單子項',
-							handler : function() {
-								PssProductSelector.getView(false,[],function(rows){
-									if(rows.length>0){
-										var T = gridPanel.getStore().recordType;
-										var rs = [];
-										var row;
-										for(var i=0;i<rows.length;i++){
-											row = rows[i];
-											rs.push(new T({
-												pdtId: row.data.productId,
-												allNum: '',
-												receiptNum: 0,
-												rejectNum: 0
-							                }));
+			if(isGranted('_PssDeliveryOrderHeadEdit') || !recId){
+				gridOpt.tbar = new Ext.Toolbar({
+					id : 'PssDeliveryOrderDetailFootBar',
+					bodyStyle : 'text-align:left',
+					items : [new Ext.Button({
+								iconCls : 'btn-add',
+								text : '新增出貨單子項',
+								handler : function() {
+									PssProductSelector.getView(false,[],function(rows){
+										if(rows.length>0){
+											var T = gridPanel.getStore().recordType;
+											var rs = [];
+											var row;
+											for(var i=0;i<rows.length;i++){
+												row = rows[i];
+												rs.push(new T({
+													pdtId: row.data.productId,
+													allNum: '',
+													receiptNum: 0,
+													rejectNum: 0
+								                }));
+											}
+											gridPanel.stopEditing();
+							                gridPanel.getStore().insert(0, rs);
+							                gridPanel.startEditing(0, 0);
 										}
-										gridPanel.stopEditing();
-						                gridPanel.getStore().insert(0, rs);
-						                gridPanel.startEditing(0, 0);
-									}
-								}).show();
-							}
-						})]
-			}) : null;
-			
+									}).show();
+								}
+							})]
+				});
+			}
 			gridPanel = this.gridPanel = new Ext.grid.EditorGridPanel(gridOpt);
 		}
 		//end of store
@@ -217,7 +246,7 @@ PssDeliveryOrderHeadForm = Ext.extend(Ext.Window, {
 
 		this.buttons = [{
 			text : '保存',
-			iconCls : 'btn-save',
+			iconCls : 'btn-save',disabled : readOnly,
 			handler : function() {
 				var fp = Ext.getCmp("PssDeliveryOrderHeadForm");
 				if (fp.getForm().isValid()) {

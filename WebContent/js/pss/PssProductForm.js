@@ -43,15 +43,16 @@ PssProductForm = Ext.extend(Ext.Window, {
 						items : [{
 									fieldLabel : '產品編號/產品代號',
 									id:'productId',
+									xtype:'hidden',
 									name : recId?"pssProduct.productId":''
 								},{
-									fieldLabel : '描述',
-									id:'desc',
-									name : "pssProduct.desc"
+									fieldLabel : '產品名稱',
+									id:'name',
+									name : "pssProduct.name"
 								},{
-									fieldLabel : '產品定價(單價)',
-									id:'price',
-									name : "pssProduct.price"
+									fieldLabel : '單位',
+									id:'unit',
+									hiddenName:"pssProduct.unit",mode:"local",triggerAction:"all",xtype:"combo",store:[[1,"個"],[2,"塊"],[3,"條"],[4,"片"],[5,"公斤"],[6,"公噸"],[7,"..."]]
 								},{
 									fieldLabel : '有效否',
 									id:'active',
@@ -67,17 +68,17 @@ PssProductForm = Ext.extend(Ext.Window, {
 					      }]
 					},{
 						items : [{
-									fieldLabel : '產品名稱',
-									id:'name',
-									name : "pssProduct.name"
-								},{
-									fieldLabel : '單位',
-									id:'unit',
-									hiddenName:"pssProduct.unit",mode:"local",triggerAction:"all",xtype:"combo",store:[[1,"個"],[2,"塊"],[3,"條"],[4,"片"],[5,"公斤"],[6,"公噸"],[7,"..."]]
+									fieldLabel : '產品定價(單價)',
+									id:'price',
+									name : "pssProduct.price"
 								},{
 									fieldLabel : '產品建議售價(單價)',
 									id:'salePrice',
 									name : "pssProduct.salePrice"
+								},{
+									fieldLabel : '描述',
+									id:'desc',
+									name : "pssProduct.desc"
 								},{
 									fieldLabel : '創建日期',
 									id:'createDate',

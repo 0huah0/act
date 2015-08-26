@@ -129,7 +129,10 @@ PssMatesReceiptHeadView = Ext.extend(Ext.Panel, {
 		var cm = new Ext.grid.ColumnModel({
 				columns : [new Ext.grid.RowNumberer(),{
 							header : '收貨單編號',
-							dataIndex : 'mrHeadId'
+							dataIndex : 'mrHeadId',
+							renderer:function(v){
+								return '<a class="huaCellHref" onclick="PssMatesReceiptHeadView.read(\''+ v + '\')">'+v+'</a>';
+							}
 						},{
 							header : '採購單編號',
 							dataIndex : 'poHeadId'

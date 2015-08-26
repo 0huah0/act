@@ -60,13 +60,40 @@ PssInvoiceHeadForm = Ext.extend(Ext.Window, {
 					      }]
 					},{
 						items : [{
-									fieldLabel : '客戶編號/供應商編號',
-									id:'cusOrSupId',
-									name : "pssInvoiceHead.cusOrSupId"
-								},{
 									fieldLabel : '類型',
 									id:'type',
-									hiddenName:"pssInvoiceHead.type",mode:"local",triggerAction:"all",xtype:"combo",store:[[1,"出貨發票"],[2,"收貨發票"]]
+									hiddenName:"pssInvoiceHead.type",mode:"local",triggerAction:"all",xtype:"combo",store:[[1,"出貨發票"],[2,"收貨發票"]],
+									listeners:{
+										change:function(){
+											Ext.getCmp('cusOrSupId').setValue('');
+										}
+									}
+								},{
+									xtype:'compositefield',
+									fieldLabel:'客戶編號/供應商編號',
+									items:[ {
+											xtype:'textfield',
+											name:'pssInvoiceHead.cusOrSupId',
+											id:'cusOrSupId',
+											readOnly:true,
+											allowBlank:false,
+											width:175
+										},{
+											xtype:'button',
+											text:'...',disabled : readOnly,
+											handler:function(){
+												if(1==Ext.getCmp('type').getValue()){
+													PssCustomerSelector.getView(true,null,function(rows){
+														Ext.getCmp('cusOrSupId').setValue(rows[0].data.customerId);
+													}).show();
+												}else{
+													PssSupplierSelector.getView(true,null,function(rows){
+														Ext.getCmp('cusOrSupId').setValue(rows[0].data.supplierId);
+													}).show();
+												}
+											}
+										}
+									]
 								}]
 					}]
 				}]

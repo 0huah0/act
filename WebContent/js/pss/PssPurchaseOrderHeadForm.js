@@ -47,13 +47,9 @@ PssPurchaseOrderHeadForm = Ext.extend(Ext.Window, {
 									xtype:'hidden',
 									name : recId?"pssPurchaseOrderHead.poHeadId":''
 								},{
-									fieldLabel : '定價總金額',
-									id:'priceAmount',
-									name : "pssPurchaseOrderHead.priceAmount"
-								},{
-									fieldLabel : '成交價總金額',
-									id:'payAmount',
-									name : "pssPurchaseOrderHead.payAmount"
+									fieldLabel : '供應商編號/供應商代號',
+									id:'supplierId',
+									name : "pssPurchaseOrderHead.supplierId"
 								},{
 									fieldLabel : '創建日期',
 									id:'createDate',
@@ -61,14 +57,6 @@ PssPurchaseOrderHeadForm = Ext.extend(Ext.Window, {
 								}]
 					},{
 						items : [{
-									fieldLabel : '供應商編號/供應商代號',
-									id:'supplierId',
-									name : "pssPurchaseOrderHead.supplierId"
-								},{
-									fieldLabel : '建議售價總金額',
-									id:'salePriceAmount',
-									name : "pssPurchaseOrderHead.salePriceAmount"
-								},{
 									fieldLabel : '備註',
 									id:'remark',
 									name : "pssPurchaseOrderHead.remark"
@@ -150,7 +138,7 @@ PssPurchaseOrderHeadForm = Ext.extend(Ext.Window, {
 		if(readOnly){//readOnly
 			gridPanel = this.gridPanel = new Ext.grid.GridPanel(gridOpt);
 		}else{
-			if(isGranted('_PssPurchaseOrderDetailEdit') ){
+			if(isGranted('_PssPurchaseOrderHeadEdit') ){
 				gridOpt.tbar = new Ext.Toolbar({
 					bodyStyle : 'text-align:left',
 					items : [new Ext.Button({

@@ -133,7 +133,10 @@ PssDeliveryOrderHeadView = Ext.extend(Ext.Panel, {
 		var cm = new Ext.grid.ColumnModel({
 				columns : [new Ext.grid.RowNumberer(),{
 							header : '出貨單編號',
-							dataIndex : 'doHeadId'
+							dataIndex : 'doHeadId',
+							renderer:function(v){
+								return '<a class="huaCellHref" onclick="PssDeliveryOrderHeadView.read(\''+ v + '\')">'+v+'</a>';
+							}
 						},{
 							header : '銷貨單編號',
 							dataIndex : 'soHeadId'

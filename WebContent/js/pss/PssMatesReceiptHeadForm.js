@@ -59,6 +59,7 @@ PssMatesReceiptHeadForm = Ext.extend(Ext.Window, {
 										},{
 											xtype:'button',
 											text:'...',
+											disabled : readOnly,
 											handler:function(){
 												PssWarehouseSelector.getView(true,null,function(rows){
 													Ext.getCmp('warehouseId').setValue(rows[0].data.warehouseId);
@@ -96,6 +97,7 @@ PssMatesReceiptHeadForm = Ext.extend(Ext.Window, {
 									},{
 										xtype:'button',
 										text:'...',
+										disabled : readOnly,
 										handler:function(){
 											PssPurchaseOrderHeadSelector.getView(true,null,function(rows){
 												Ext.getCmp('poHeadId').setValue(rows[0].data.poHeadId);
@@ -194,12 +196,11 @@ PssMatesReceiptHeadForm = Ext.extend(Ext.Window, {
 						emptyMsg : "無記錄"
 					})
 		};
-		
 		var gridPanel = null;
 		if(readOnly){//readOnly
 			gridPanel = this.gridPanel = new Ext.grid.GridPanel(gridOpt);
 		}else{
-			if(isGranted('_PssMatesReceiptDetailEdit') ){
+			if(isGranted('_PssMatesReceiptHeadEdit') ){
 				gridOpt.tbar = new Ext.Toolbar({
 					bodyStyle : 'text-align:left',
 					items : [new Ext.Button({
@@ -257,6 +258,7 @@ PssMatesReceiptHeadForm = Ext.extend(Ext.Window, {
 
 		this.buttons = [{
 			text : '保存',
+			disabled : readOnly,
 			iconCls : 'btn-save',
 			handler : function() {
 				var fp = Ext.getCmp("PssMatesReceiptHeadForm");

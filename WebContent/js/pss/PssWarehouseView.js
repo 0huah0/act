@@ -62,22 +62,22 @@ PssWarehouseView = Ext.extend(Ext.Panel, {
 					},
 					items : [{
 						items : [{
-									fieldLabel : '名稱',
-									maxLength:18,
-									name : "Q_name_S_LK"
-								}]//
+							fieldLabel : '倉庫編號/倉庫代號',
+							maxLength:18,
+							name : "Q_warehouseId_S_LK"
+						}]//
 					},{
 						items : [{
-									fieldLabel : '描述',
-									maxLength:18,
-									name : "Q_desc_S_LK"
-								}]//
+							fieldLabel : '名稱',
+							maxLength:18,
+							name : "Q_name_S_LK"
+						}]//
 					},{
 						items : [{
-									fieldLabel : '倉庫編號/倉庫代號',
-									maxLength:18,
-									name : "Q_warehouseId_S_LK"
-								}]//
+							fieldLabel : '描述',
+							maxLength:18,
+							name : "Q_desc_S_LK"
+						}]//
 					}]
 				}]
 			}]

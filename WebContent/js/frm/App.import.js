@@ -100,6 +100,8 @@ App.importJs = {
 	                    __ctxPath + '/js/pss/PssMaterialForm.js' ],
 	                    
 	PssInvoiceHeadView : [ __ctxPath + '/js/pss/PssInvoiceHeadView.js',
+	                       __ctxPath + '/js/pss/selector/PssCustomerSelector.js', 
+	                       __ctxPath + '/js/pss/selector/PssSupplierSelector.js', 
 	                       __ctxPath + '/js/pss/PssInvoiceHeadForm.js' ],
 	                       
 	PssInventoryChangeView : [ __ctxPath + '/js/pss/PssInventoryChangeView.js',
@@ -113,6 +115,8 @@ App.importJs = {
 						__ctxPath + '/js/pss/PssInventoryForm.js' ],
 						
 	PssDeliveryOrderHeadView : [__ctxPath + '/js/pss/PssDeliveryOrderHeadView.js',
+	                            __ctxPath + '/js/pss/selector/PssWarehouseSelector.js', 
+	                            __ctxPath + '/js/pss/selector/PssSalesOrderHeadSelector.js', 
 								__ctxPath + '/js/pss/selector/PssCustomerSelector.js', 
 								__ctxPath + '/js/pss/selector/PssProductSelector.js',
 								__ctxPath + '/js/pss/PssDeliveryOrderHeadForm.js' ]
