@@ -116,7 +116,7 @@ PssInvoiceHeadForm = Ext.extend(Ext.Window, {
 
 		this.buttons = [{
 			text : '保存',
-			iconCls : 'btn-save',
+			iconCls : 'btn-save',disabled : readOnly,
 			handler : function() {
 				var fp = Ext.getCmp("PssInvoiceHeadForm");
 				if (fp.getForm().isValid()) {
@@ -150,7 +150,7 @@ PssInvoiceHeadForm = Ext.extend(Ext.Window, {
 			}
 		}, {
 			text : '清空',
-			iconCls : 'btn-reset',
+			iconCls : 'btn-reset',disabled : readOnly,
 			handler : function() {
 				Ext.getCmp('PssInvoiceHeadForm').getForm().reset();
 			}

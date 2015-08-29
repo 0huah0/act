@@ -375,7 +375,7 @@ PssSalesOrderHeadForm = Ext.extend(Ext.Window, {
 			}
 		}, {
 			text : '清空',
-			iconCls : 'btn-reset',
+			iconCls : 'btn-reset',disabled : readOnly,
 			handler : function() {
 				Ext.getCmp('PssSalesOrderHeadForm').getForm().reset();
 			}

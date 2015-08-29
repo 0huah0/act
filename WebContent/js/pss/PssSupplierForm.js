@@ -164,7 +164,7 @@ PssSupplierForm = Ext.extend(Ext.Window, {
 
 		this.buttons = [{
 			text : '保存',
-			iconCls : 'btn-save',
+			iconCls : 'btn-save',disabled : readOnly,
 			handler : function() {
 				var fp = Ext.getCmp("PssSupplierForm");
 				if (fp.getForm().isValid()) {
@@ -198,7 +198,7 @@ PssSupplierForm = Ext.extend(Ext.Window, {
 			}
 		}, {
 			text : '清空',
-			iconCls : 'btn-reset',
+			iconCls : 'btn-reset',disabled : readOnly,
 			handler : function() {
 				Ext.getCmp('PssSupplierForm').getForm().reset();
 			}

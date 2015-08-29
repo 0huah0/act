@@ -117,7 +117,10 @@ PssPurchaseOrderHeadView = Ext.extend(Ext.Panel, {
 		var cm = new Ext.grid.ColumnModel({
 				columns : [new Ext.grid.RowNumberer(),{
 							header : '採購單編號',
-							dataIndex : 'poHeadId'
+							dataIndex : 'poHeadId',
+							renderer:function(v){
+								return '<a class="huaCellHref" onclick="PssPurchaseOrderHeadView.read(\''+ v + '\')">'+v+'</a>';
+							}
 						},{
 							header : '供應商編號/供應商代號',
 							dataIndex : 'supplierId'
