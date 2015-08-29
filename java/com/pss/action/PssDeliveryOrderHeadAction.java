@@ -3,16 +3,23 @@
  */package com.pss.action;
 
 import java.util.List;
+
 import javax.annotation.Resource;
+
 import com.abcdef.core.command.QueryFilter;
 import com.abcdef.core.web.action.BaseAction;
-import flexjson.JSONSerializer;
+import com.pss.model.PssDeliveryOrderDetail;
 import com.pss.model.PssDeliveryOrderHead;
+import com.pss.service.PssDeliveryOrderDetailService;
 import com.pss.service.PssDeliveryOrderHeadService;
+
+import flexjson.JSONSerializer;
 
 public class PssDeliveryOrderHeadAction extends BaseAction {
 	@Resource
 	private PssDeliveryOrderHeadService pssDeliveryOrderHeadService;
+	@Resource
+	private PssDeliveryOrderDetailService pssDeliveryOrderDetailService;
 	
 	private PssDeliveryOrderHead pssDeliveryOrderHead;
 	
@@ -40,7 +47,20 @@ public class PssDeliveryOrderHeadAction extends BaseAction {
 
 		return SUCCESS;
 	}
-	
+	/**
+	 * 收貨記賬
+	 */
+	public String saveJournal() {
+		boolean sus = true;
+		try {
+			pssDeliveryOrderHeadService.saveJournal(pssDeliveryOrderHead);
+		} catch (Exception e) {
+			sus = false;
+			e.printStackTrace();
+		}
+		setJsonString("{success:"+sus+"'}");
+		return SUCCESS;
+	}
 	/**
 	 * 批量删除
 	 * 
@@ -51,10 +71,17 @@ public class PssDeliveryOrderHeadAction extends BaseAction {
 		try {
 				String ids = getRequest().getParameter("ids");
 				if (ids != null  && ids.length() > 0) {
-					QueryFilter filter = new QueryFilter(getRequest());
+					QueryFilter filter1 = new QueryFilter();
+					filter1.addFilter("Q_doHeadId_S_SIN", ids);
+					List<PssDeliveryOrderDetail> list = pssDeliveryOrderDetailService.getAll(filter1);
+					for (PssDeliveryOrderDetail pssDeliveryOrderDetail : list) {
+						pssDeliveryOrderDetailService.remove(pssDeliveryOrderDetail);
+					}
+					
+					QueryFilter filter = new QueryFilter();
 					filter.addFilter("Q_doHeadId_S_SIN", ids);
-					List<PssDeliveryOrderHead> list = pssDeliveryOrderHeadService.getAll(filter);
-					for (PssDeliveryOrderHead pssDeliveryOrderHead : list) {
+					List<PssDeliveryOrderHead> list1 = pssDeliveryOrderHeadService.getAll(filter);
+					for (PssDeliveryOrderHead pssDeliveryOrderHead : list1) {
 							pssDeliveryOrderHeadService.remove(pssDeliveryOrderHead);
 					}
 				}

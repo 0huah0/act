@@ -41,6 +41,21 @@ public class PssMatesReceiptHeadAction extends BaseAction {
 	}
 	
 	/**
+	 * 收貨記賬
+	 */
+	public String saveJournal() {
+		boolean sus = true;
+		try {
+			pssMatesReceiptHeadService.saveJournal(pssMatesReceiptHead);
+		} catch (Exception e) {
+			sus = false;
+			e.printStackTrace();
+		}
+		setJsonString("{success:"+sus+"'}");
+		return SUCCESS;
+	}
+	
+	/**
 	 * 批量删除
 	 * 
 	 * @return

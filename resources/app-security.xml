@@ -98,12 +98,14 @@
 				<beans:value>/pss/savePssProduct.do</beans:value>
 				<beans:value>/pss/savePssMatesReceiptHead.do</beans:value>
 				<beans:value>/pss/savePssMatesReceiptDetail.do</beans:value>
+				<beans:value>/pss/saveJournalPssMatesReceiptHead.do</beans:value>
 				<beans:value>/pss/savePssMaterial.do</beans:value>
 				<beans:value>/pss/savePssInvoiceHead.do</beans:value>
 				<beans:value>/pss/savePssInventoryChange.do</beans:value>
 				<beans:value>/pss/savePssInventory.do</beans:value>
 				<beans:value>/pss/savePssDeliveryOrderHead.do</beans:value>
 				<beans:value>/pss/savePssDeliveryOrderDetail.do</beans:value>
+				<beans:value>/pss/saveJournalPssDeliveryOrderHead.do</beans:value>
 				
 				<beans:value>/pss/multiDelPssCustomer.do</beans:value>
 				<beans:value>/pss/multiDelPssWarehouse.do</beans:value>

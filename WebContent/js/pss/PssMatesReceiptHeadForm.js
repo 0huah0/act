@@ -287,7 +287,7 @@ PssMatesReceiptHeadForm = Ext.extend(Ext.Window, {
 						data['pssMatesReceiptHead.createDate'] = new Date().format('Y-m-d H:i');
 					}
 					Ext.Ajax.request({
-							url : __ctxPath + '/pss/savePssMatesReceiptHead.do',
+						url : __ctxPath + '/pss/savePssMatesReceiptHead.do',
 					    success : function(response , options ) {
 					    	var jr = Ext.util.JSON.decode(response.responseText);
 							if(jr.success){
@@ -304,6 +304,25 @@ PssMatesReceiptHeadForm = Ext.extend(Ext.Window, {
 										params :rec,
 									    success : function(response , options ) {
 									    	//var jr = Ext.util.JSON.decode(response.responseText);
+									    	
+									    	Ext.Ajax.request({
+									    		url : __ctxPath + '/pss/saveJournalPssMatesReceiptHead.do',
+												method : 'post',
+												waitMsg : '正在提交數據...',
+												params:{
+													'pssMatesReceiptHead.mrHeadId' : jr.data
+												},
+												success : function(fp, action) {
+													
+												},
+												failure : function(fp, action) {
+													if(!action.result.msg){
+														Ext.Msg.alert('信息','數據保存失敗!');
+													}else{
+														Ext.Msg.alert('提示','傳票編號重複，請仔細核對！');
+													}	
+												}
+											});
 										},
 										failure : function(fp, action) {
 											Ext.MessageBox.show({
