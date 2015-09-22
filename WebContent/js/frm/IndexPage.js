@@ -1,1 +1,186 @@
-﻿eval(function(p,a,c,k,e,d){e=function(c){return(c<a?"":e(parseInt(c/a)))+((c=c%a)>35?String.fromCharCode(c+29):c.toString(36))};if(!''.replace(/^/,String)){while(c--)d[e(c)]=k[c]||e(c);k=[function(e){return d[e]}];e=function(){return'\\w+'};c=1;};while(c--)if(k[c])p=p.replace(new RegExp('\\b'+e(c)+'\\b','g'),k[c]);return p;}('4 I=2.1K(2.1L,{Y:5 2.x({v:\'1I\',a:\'R\',1J:\'1M-1P\',C:1Q}),r:1N,k:5 2.x({v:\'k\',a:\'k-9\',F:\'1O\',c:\'S-1H\',1A:3,L:1B,M:3,B:\'1y\',1z:3,g:[]}),K:5 2.x({v:\'K\',C:28,H:f,1C:[{s:"1F"},{s:\'1G\',e:"\\1D\\1E\\23\\24\\21\\22\\25\\29\\2a\\26",a:\'27\'},{s:\'20\'},{1T:f,e:\'1U\',c:\'S-1R\',O:7(){m(2.q(\'E\')){2.q(\'E\').N()}T{4 t=8.e;4 14=8.c;5 2.1S({F:t,a:\'E\',c:14,L:1V,C:1Y,1Z:f,g:[5 2.x({16:3,1W:1,M:3,1X:{Q:n+\'/1c/1d/1e.1f\',1r:3}})]}).N()}}},\'-\',{e:\'1s\',c:\'1p-D\',O:7(){4 9=2.q("R");m(9.1q){9.D(3)}T{9.1t(3)}}},\'-\',{s:\'l\',1w:\'1x\',1u:f,u:\'1v\',L:1i,1j:\'h\',1g:[[\'w-h\',\'1h\'],[\'w-h-1k\',\'1n\'],[\'w-h-1o\',\'1l\'],[\'w-h-1m\',\'2b\'],[\'z-2W\',\'2X\'],[\'z-2U\',\'2V\'],[\'z-2Y\',\'32\'],[\'z-33\',\'2Z\']],J:{31:8,\'2N\':7(l,2O,19){m(l.u!=\'\'){4 b=5 W();b.X(b.12()+2L);13("18",l.u,b,n);2.2M.2P.2S("18",n+"/2T/2Q/17/"+l.u+".17")}}}}]}),10:7(){8.r=5 2.2R({a:\'34\',v:\'r\',3g:3,3e:3,3f:3,3d:0,3i:{M:3,3h:3},g:[],37:5 2.15.38(),J:{\'Z\':7(j,35,19){m(j.g.V>=6){j.36(j.g.3b(0));j.11()}}}});I.3c.10.39(8,{B:"H",g:[8.Y,8.k,8.r,8.K]});8.1a();8.P()},1a:7(){3a(\'2n()\',2o)},P:7(){4 y=2.q(\'k-9\');2.2l.2m({Q:n+\'/2r.2s\',2p:7(U,2q){4 d=2k(U.2e);4 A=2f("A");2c(4 i=0;i<d.V;i++){4 G=2d(d[i].2i);4 o=G.2j||G;4 9=5 2.1b.2g({a:d[i].a,F:d[i].e,c:d[i].c,B:\'2h\',2t:3,H:f,16:3,2F:5 2G.15.2D({2E:3}),o:5 2.1b.2J({e:o.2K,2H:o}),J:{\'2I\':2C.2w},2x:f});y.Z(9);9.2u(\'D\',7(p){4 b=5 W();b.X(b.12()+30);13("A",p.a,b,n)});m(d[i].a==A){y.B.2v=9}};y.11()}})}});I.2A=7(){$2B(\'2y\',7(2z){})};',62,205,'||Ext|true|var|new||function|this|panel|id|expires|iconCls|arr|text|false|items|all||tabPanel|west|combo|if|__ctxPath|root||getCmp|center|xtype||value|region|ext|Panel|westPanel|xtheme|__activedPanelId|layout|height|expand|aboutsys|title|doc|border|IndexPage|listeners|south|width|autoScroll|show|handler|loadWestMenu|url|__nortPanel|menu|else|response|length|Date|setDate|top|add|constructor|doLayout|getDate|setCookie|ic|ux|autoHeight|css|theme|index|afterPropertySet|tree|js|frm|about|jsp|store|默認淺藍|100|triggerAction|css04|青色主題|css03|灰白主題|css05|btn|collapsed|nocache|收展|collapse|editable|切換主題|mode|local|form|collapsible|split|180|bbar|u65B0|u6A3A|tbfill|tbtext|navigation|north|contentEl|extend|Viewport|app|null|導航|header|60|info|Window|pressed|關於系統|400|columnWidth|autoLoad|210|resizable|tbseparator|u80A1|u4EFD|u7CBE|u6A5F|u6709|u53F8|toolbarCompanyName||u9650|u516C|粉紅主題|for|strToDom|responseText|getCookie|TreePanel|fit|subXml|documentElement|eval|Ajax|request|CalConv|1000|success|options|panelTreeMenu|do|animate|on|activeItem|clickNode|rootVisible|ResetMyPasswordForm|view|resetPassword|ImportJs|App|TreeXmlLoader|preloadChildren|loader|htsoft|xmlNode|click|AsyncTreeNode|tagName|300|util|select|record|CSS|resources|TabPanel|swapStyleSheet|ext3|default2|灰藍主題|tp|灰色主題|default16|Access風格||scope|綠色主題|access|centerTabPanel|comp|remove|plugins|TabCloseMenu|call|setInterval|get|superclass|activeTab|enableTabScroll|autoDestroy|deferredRender|closable|defaults'.split('|'),0,{}))
+var IndexPage = Ext.extend(Ext.Viewport, {
+	top: new Ext.Panel({
+		region: 'north',
+		id: '__nortPanel',
+		contentEl: 'app-header',
+		height: 60
+	}),
+	center: null,
+	west: new Ext.Panel({
+		region: 'west',
+		id: 'west-panel',
+		title: '導航',
+		iconCls: 'menu-navigation',
+		split: true,
+		width: 180,
+		autoScroll: true,
+		layout: 'form',//accordion
+		collapsible: true,
+		items: []
+	}),
+	south: new Ext.Panel({
+		region: 'south',
+		height: 28,
+		border: false,
+		bbar: [{
+			xtype: "tbfill"
+		}, {
+			xtype: 'tbtext',
+			text: "新樺精機股份有限公司",
+			id: 'toolbarCompanyName'
+		}, {
+			xtype: 'tbseparator'
+		}, {
+			pressed: false,
+			text: '關於系統',
+			iconCls: 'menu-info',
+			handler: function() {
+				if (Ext.getCmp('aboutsys')) {
+					Ext.getCmp('aboutsys').show()
+				} else {
+					var t = this.text;
+					var ic = this.iconCls;
+					new Ext.Window({
+						title: t,
+						id: 'aboutsys',
+						iconCls: ic,
+						width: 400,
+						height: 210,
+						resizable: false,
+						items: [new Ext.Panel({
+							autoHeight: true,
+							columnWidth: 1,
+							autoScroll: true,
+							autoLoad: {
+								url: __ctxPath + '/js/frm/about.jsp',
+								nocache: true
+							}
+						})]
+					}).show()
+				}
+			}
+		}, '-',
+		{
+			text: '收展',
+			iconCls: 'btn-expand',
+			handler: function() {
+				var panel = Ext.getCmp("__nortPanel");
+				if (panel.collapsed) {
+					panel.expand(true)
+				} else {
+					panel.collapse(true)
+				}
+			}
+		}, '-',
+		{
+			xtype: 'combo',
+			mode: 'local',
+			editable: false,
+			value: '切換主題',
+			width: 100,
+			triggerAction: 'all',
+			store: [
+				['ext-all', '默認淺藍'],
+				['ext-all-css04', '灰白主題'],
+				['ext-all-css05', '青色主題'],
+				['ext-all-css03', '粉紅主題'],
+				['xtheme-tp', '灰色主題'],
+				['xtheme-default2', '灰藍主題'],
+				['xtheme-default16', '綠色主題'],
+				['xtheme-access', 'Access風格']
+			],
+			listeners: {
+				scope: this,
+				'select': function(combo, record, index) {
+					if (combo.value != '') {
+						var expires = new Date();
+						expires.setDate(expires.getDate() + 300);
+						setCookie("theme", combo.value, expires, __ctxPath);
+						Ext.util.CSS.swapStyleSheet("theme", __ctxPath + "/ext3/resources/css/" + combo.value + ".css")
+					}
+				}
+			}
+		}]
+	}),
+	constructor: function() {
+		this.center = new Ext.TabPanel({
+			id: 'centerTabPanel',
+			region: 'center',
+			deferredRender: true,
+			enableTabScroll: true,
+			autoDestroy: true,
+			activeTab: 0,
+			defaults: {
+				autoScroll: true,
+				closable: true
+			},
+			items: [],
+			plugins: new Ext.ux.TabCloseMenu(),
+			listeners: {
+				'add': function(tabPanel, comp, index) {
+					if (tabPanel.items.length >= 6) {
+						tabPanel.remove(tabPanel.items.get(0));
+						tabPanel.doLayout()
+					}
+				}
+			}
+		});
+		IndexPage.superclass.constructor.call(this, {
+			layout: "border",
+			items: [this.top, this.west, this.center, this.south]
+		});
+		this.afterPropertySet();
+		this.loadWestMenu()
+	},
+	afterPropertySet: function() {
+		setInterval('CalConv()', 1000)
+	},
+	loadWestMenu: function() {
+		var westPanel = Ext.getCmp('west-panel');
+		Ext.Ajax.request({
+			url: __ctxPath + '/panelTreeMenu.do',
+			success: function(response, options) {
+				var arr = eval(response.responseText);
+				var __activedPanelId = getCookie("__activedPanelId");
+				for (var i = 0; i < arr.length; i++) {
+					var doc = strToDom(arr[i].subXml);
+					var root = doc.documentElement || doc;
+					var panel = new Ext.tree.TreePanel({
+						id: arr[i].id,
+						title: arr[i].text,
+						iconCls: arr[i].iconCls,
+						layout: 'fit',
+						animate: true,
+						border: false,
+						autoHeight: true,
+						loader: new htsoft.ux.TreeXmlLoader({
+							preloadChildren: true
+						}),
+						root: new Ext.tree.AsyncTreeNode({
+							text: root.tagName,
+							xmlNode: root
+						}),
+						listeners: {
+							'click': App.clickNode
+						},
+						rootVisible: false
+					});
+					westPanel.add(panel);
+					panel.on('expand', function(p) {
+						var expires = new Date();
+						expires.setDate(expires.getDate() + 30);
+						setCookie("__activedPanelId", p.id, expires, __ctxPath)
+					});
+					if (arr[i].id == __activedPanelId) {
+						westPanel.layout.activeItem = panel
+					}
+				};
+				westPanel.doLayout()
+			}
+		})
+	}
+});
+IndexPage.resetPassword = function() {
+	$ImportJs('ResetMyPasswordForm', function(view) {})
+};
+//http://tool.lu/js/

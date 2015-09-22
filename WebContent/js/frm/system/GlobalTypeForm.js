@@ -1,11 +1,3 @@
-/**
- * @author
- * @createtime
- * @class GlobalTypeForm
- * @extends Ext.Window
- * @description GlobalType表单
- * @company 宏天软件
- */
 GlobalTypeForm = Ext.extend(Ext.Window, {
 			// 内嵌FormPanel
 			formPanel : null,

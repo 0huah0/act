@@ -244,8 +244,7 @@ PssSupplierView.remove = function(id) {
 			Ext.Msg.confirm('刪除確認', '確定要刪除此筆數據？', function(btn) {
 				if (btn == 'yes') {
 					Ext.Ajax.request({
-						url : __ctxPath
-								+ '/pss/multiDelPssSupplier.do',
+						url : __ctxPath+ '/pss/multiDelPssSupplier.do',
 						params : {
 							ids : id
 						},

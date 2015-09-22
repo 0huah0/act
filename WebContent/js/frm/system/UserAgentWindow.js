@@ -1,8 +1,3 @@
-/**
- * 
- * @class UserAgentWindow
- * @extends Ext.Windows
- */
 UserAgentWindow=Ext.extend(Ext.Window,{
 	constructor:function(conf){
 		Ext.apply(this,conf);

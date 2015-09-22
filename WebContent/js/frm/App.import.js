@@ -64,6 +64,7 @@ App.importJs = {
 	                              __ctxPath + '/js/pss/PssSupplierMaterialRelForm.js' ],
 	                              
 	PssSupplierView : [ __ctxPath + '/js/pss/PssSupplierView.js',
+	                    __ctxPath + '/js/frm/util/FileUtil.js',
 	                    __ctxPath + '/js/pss/PssSupplierForm.js' ],
 	                    
 	PssSalesOrderHeadView : [__ctxPath + '/js/pss/PssSalesOrderHeadView.js',

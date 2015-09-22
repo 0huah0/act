@@ -1,9 +1,3 @@
-/**
- * @description 文件分类上传管理
- * @author YHZ
- * @company www.jee-soft.cn
- * @datetime 2010-11-15 AM
- */
 FileUploadManager = Ext.extend(Ext.Window, {
 	//显示图片的panel
 	imagePanel : null,
@@ -519,7 +513,7 @@ FileUploadManager = Ext.extend(Ext.Window, {
 	imageDbClick : function(self){
 		var nodes = self.dataView.getSelectedNodes();
 		if(nodes != '' && nodes != null && nodes != 'undefined'){
-			FileUploadImageDetailForm.show(nodes[0].id);
+			FileUtil.imgShow(nodes[0].id);
 		}
 	}
 });

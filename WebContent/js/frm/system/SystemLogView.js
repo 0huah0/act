@@ -1,11 +1,3 @@
-/**
- * @author:
- * @class SystemLogView
- * @extends Ext.Panel
- * @description 系统日志管理
- * @company 广州宏天软件有限公司
- * @createtime:2010-01-16
- */
 SystemLogView = Ext.extend(Ext.Panel, {
 	//条件搜索Panel
 	searchPanel : null,

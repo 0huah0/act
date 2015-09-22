@@ -1,11 +1,3 @@
-/**
- * @author
- * @createtime
- * @class MonitorDealHistoryForm
- * @extends Ext.Window
- * @description MonitorDealHistory表单
- * @company 捷达世软件
- */
 TeamMemberForm = Ext.extend(Ext.Window, {
 	// 构造函数
 	constructor : function(_cfg) {

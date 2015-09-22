@@ -66,10 +66,6 @@ PssSupplierForm = Ext.extend(Ext.Window, {
 									id:'capital',
 									hiddenName:"pssSupplier.capital",mode:"local",triggerAction:"all",xtype:"combo",store:[[1,"小於100萬"],[2,"100萬~1000萬"],[3,"1000萬~5000萬"],[4,"大於5000萬"]]
 								},{
-									fieldLabel : '有效否',
-									id:'active',
-									hiddenName:"pssSupplier.active",mode:"local",triggerAction:"all",xtype:"combo",store:[[0,"無效"],[1,"有效"]]
-								},{
 									fieldLabel : '創建人員',
 									id:'createBy',
 									xtype:"hidden",name : "pssSupplier.createBy"
@@ -101,6 +97,10 @@ PssSupplierForm = Ext.extend(Ext.Window, {
 									fieldLabel : '員工數（單位：人）',
 									id:'empAmount',
 									hiddenName:"pssSupplier.empAmount",mode:"local",triggerAction:"all",xtype:"combo",store:[[1,"小於10"],[2,"11~50"],[3,"51~100"],[4,"101~500"],[5,"501~1000"],[6,"大於1000"]]
+								},{
+									fieldLabel : '有效否',
+									id:'active',
+									hiddenName:"pssSupplier.active",mode:"local",triggerAction:"all",xtype:"combo",store:[[0,"無效"],[1,"有效"]]
 								}]
 					}]
 				},{
@@ -108,7 +108,7 @@ PssSupplierForm = Ext.extend(Ext.Window, {
 					xtype:'hidden',
 					name : "pssSupplier.licenseImgId",
 				},{
-					fieldLabel : '資質證明圖片/營業執照影本',
+					fieldLabel : '資質證明圖片<br />營業執照影本',
 					id:'licenseImgIdDisplay',
 					xtype : "panel",
 					rowspan : 2,
@@ -122,17 +122,18 @@ PssSupplierForm = Ext.extend(Ext.Window, {
 								App.createUploadDialog( {
 									file_cat : 'pss/supplier',
 									upload_autostart:true,
+									permitted_extensions : [ 'jpg','png','gif' ],
 									callback : function(data){
 										if(data){
-											Ext.getCmp('licenseImgIdDisplay').body.update('<a path="' + __ctxPath + '/attachFiles/'+ data[0].filepath 
-													+ '" title="'+data[0].filename+'" onClick="App.showImg(this);">'
-													+data[0].filename+'</a>');
-											
 											var fileCmp = Ext.getCmp('licenseImgId');
 											fileCmp.setValue(fileCmp.getValue()?fileCmp.getValue()+','+data[0].fileId:data[0].fileId);
+
+											Ext.getCmp('licenseImgIdDisplay').body.insertHtml('afterBegin','<span style="width: 215px;"><img style="height: 120px; padding: 10px;" src="' 
+													+ __ctxPath + '/attachFiles/'+ data[0].filepath + '" title="'
+													+ data[0].filename+'" onClick="FileUtil.imgShow(null,this);"/>'
+													+'<img src="images/btn/remove.png" onclick="FileUtil.del('+data[0].fileId+');this.parentElement.remove();" style="position:relative;left:-25px;top:-115px;cursor:pointer;"></span>');
 										}
-									},
-									permitted_extensions : [ 'jpg','png','gif' ]
+									}
 								}).show();
 							}
 						}, {
@@ -155,6 +156,12 @@ PssSupplierForm = Ext.extend(Ext.Window, {
 							jr.data.createDate = new Date(jr.data.createDate).format('Y-m-d H:i');
 							if(jr.data.updateDate)jr.data.updateDate = new Date(jr.data.updateDate).format('Y-m-d H:i');
 							Ext.getCmp("PssSupplierForm").getForm().loadRecord(jr);
+							if(jr.data.licenseImgId){
+								var ids = jr.data.licenseImgId.split(',');
+								for(var i=0; i<ids.length; i++){
+									FileUtil.rendererImg('licenseImgIdDisplay',ids[i],'PssSupplierForm.fnAfterImgDel()');
+								}
+							}
 					},
 					failure : function(response , options ) {
 						

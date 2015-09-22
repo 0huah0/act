@@ -486,14 +486,10 @@ EmployeeForm.uploadPhotoBtn = function(userId) {
 EmployeeForm.deletePhotoBtn = function(userId) {
 	var photo = Ext.getCmp('newEmployee.imagePath');
 	if (photo.value != null && photo.value != '' && photo.value != 'undefined') {
-		Ext.Msg
-				.confirm(
-						'确认信息',
-						'照片一旦删除将不可恢复, 是否删除?',
+		Ext.Msg.confirm('确认信息','照片一旦删除将不可恢复, 是否删除?',
 						function(btn) {
 							if (btn == 'yes') {
-								Ext.Ajax
-										.request( {
+								Ext.Ajax.request( {
 											url : __ctxPath + '/system/deleteFileAttach.do',
 											method : 'post',
 											params : {

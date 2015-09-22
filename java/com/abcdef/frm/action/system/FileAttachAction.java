@@ -1,22 +1,26 @@
 package com.abcdef.frm.action.system;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Properties;
-import javax.annotation.Resource;
 import java.io.FileInputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Properties;
+
+import javax.annotation.Resource;
+
 import com.abcdef.core.command.QueryFilter;
 import com.abcdef.core.web.action.BaseAction;
 import com.abcdef.core.web.paging.PagingBean;
 import com.abcdef.frm.model.system.FileAttach;
 import com.abcdef.frm.service.system.FileAttachService;
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
+
+import flexjson.JSONSerializer;
+import flexjson.transformer.DateTransformer;
 
 public class FileAttachAction extends BaseAction {
 	@Resource
@@ -152,10 +156,8 @@ public class FileAttachAction extends BaseAction {
 				try {
 					fileAttachService.remove(new Long(id));
 				} catch (NumberFormatException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				} catch (Exception e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			}
@@ -169,14 +171,13 @@ public class FileAttachAction extends BaseAction {
 	 */
 	public String get() {
 		FileAttach fileAttach = fileAttachService.get(fileId);
-		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss")
-				.create();
-		// 将数据转成JSON格式
-		StringBuffer sb = new StringBuffer("{success:true,data:");
-		sb.append(gson.toJson(fileAttach));
-		sb.append("}");
-		setJsonString(sb.toString());
-
+		
+		StringBuffer buff = new StringBuffer("{success:true,'data':");
+		JSONSerializer serializer = new JSONSerializer()
+			.transform(new DateTransformer("yyyy-MM-dd HH:mm:ss"),new String[] {"createDate","updateDate"})
+			.exclude(new String[] { "class","parent" });
+		buff.append(serializer.serialize(fileAttach)).append("}");
+		jsonString = buff.toString();
 		return SUCCESS;
 	}
 
