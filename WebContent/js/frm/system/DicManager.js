@@ -20,8 +20,7 @@ DicManager=Ext.extend(Ext.Panel,{
 		});       
 	},
 	initUIComponents:function(){
-		 this.leftPanel=new htsoft.ux.TreePanelEditor(
-			{
+		 this.leftPanel = new Ext.tree.TreePanel( {
 			 			 region:'west', 
 			             id:'dicType',
 			             title:'数据字典分类', 
@@ -49,8 +48,7 @@ DicManager=Ext.extend(Ext.Panel,{
 			             	}
 			             	
 			             },
-			             contextMenuItems:[  
-			                         {  
+			             contextMenuItems:[{  
 			                             text : '新建分类',  
 			                             scope : this,  
 			                             iconCls:'btn-add',  

@@ -11,7 +11,7 @@ PssPurchaseOrderHeadForm = Ext.extend(Ext.Window, {
 					items : [this.formPanel,this.gridPanel],
 					modal : true,
 					id : 'PssPurchaseOrderHeadFormWin',
-					title : this.recId?'修改採購單':'新增採購單',
+					title : (this.read?'查看':this.recId?'修改':'新增')+'採購單',
 					iconCls : 'menu-planmanage',
 					width : 960,
 					buttons : this.buttons
@@ -85,6 +85,9 @@ PssPurchaseOrderHeadForm = Ext.extend(Ext.Window, {
 			dataIndex : 'materialSalePrice'
 		},{
 			header : '小計',
+			dataIndex : 'amount'
+		},{
+			header : '樣圖',
 			dataIndex : 'amount'
 		},{
 			header : '管理',

@@ -1,6 +1,7 @@
 Ext.ns("App");
 App.importJs = {
 
+	/*SYSTEM*/
 	Building : [ __ctxPath + '/js/frm/Building.js' ],
 
 	AppRoleView : [ __ctxPath + '/js/frm/system/AppRoleView.js',
@@ -18,9 +19,15 @@ App.importJs = {
 	ProfileForm : [ __ctxPath + '/js/frm/system/ProfileForm.js',
 			__ctxPath + '/js/frm/system/ResetPasswordForm.js' ],
 
+			
 	DepartmentView : [ __ctxPath + '/js/frm/system/DepartmentView.js',
-			__ctxPath + '/js/frm/system/DepartmentForm.js' ],
-
+	       			__ctxPath + '/js/frm/system/DepartmentForm.js' ],
+	       				
+	/*DicManager : [ __ctxPath + '/js/frm/system/DicManager.js',
+	               __ctxPath + '/js/frm/system/DictionaryView.js',
+	               __ctxPath + '/js/frm/system/DictionaryForm.js' ],*/
+			
+	/*ACT*/
 	AccountingTitleView : [ __ctxPath + '/js/act/AccountingTitleView.js',
 			__ctxPath + '/js/act/AccountingTitleForm.js' ],
 
@@ -55,6 +62,7 @@ App.importJs = {
 	
 	/* PSS */
 	PssCustomerView : [ __ctxPath + '/js/pss/PssCustomerView.js',
+	                    __ctxPath + '/js/frm/util/FileUtil.js',
 	                    __ctxPath + '/js/pss/PssCustomerForm.js' ],
 	                    
 	PssWarehouseView : [ __ctxPath + '/js/pss/PssWarehouseView.js',

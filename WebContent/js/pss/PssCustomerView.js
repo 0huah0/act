@@ -170,7 +170,7 @@ PssCustomerView = Ext.extend(Ext.Panel, {
 							header : '資質證明圖片/營業執照影本',
 							dataIndex : 'licenseImgId',
 							renderer:function(v){
-								return '<a class="huaGridHref">查看</a>'; 
+								return v?'<a class="huaGridHref" href="#" onclick="FileUtil.imgsShow(\''+v+'\');">查看</a>':''; 
 							}
 						},{
 							header : '資本額（單位：TWD）',

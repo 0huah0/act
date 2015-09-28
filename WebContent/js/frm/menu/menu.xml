@@ -61,6 +61,7 @@
 				<url>/system/saveDepartment.do</url>
 			</Function>
 		</Item>
+		<!-- <Item id="DicManager" text="數據字典管理" iconCls="menu-department"/> -->
 	</Items>
 	<Items id="PersonInfomation" text="個人資料管理" iconCls="menu-person"
 		isPublic="false">

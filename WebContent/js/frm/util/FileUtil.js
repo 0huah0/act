@@ -63,3 +63,43 @@ FileUtil.rendererImg = function(domId,fileId) {
 	
 	
 }
+
+
+FileUtil.imgsShow = function(fileIds) {
+	var win = new Ext.Window( {
+		height : 500,
+		width:600,
+		modal : true,
+		autoScroll : true,
+		maximizable : true,
+		title : '圖片預覽',
+		iconCls : 'menu-file',
+		layout : 'form',
+		region : 'center',
+		buttonAlign : 'center',
+		items:[{
+			id:'imgsShowDisplayDiv',
+			modal : true,
+			xtype : "panel"/*,
+			rowspan : 2,
+			height : 310*/
+		}],
+		buttons : [ {
+			text : '关闭',
+			iconCls : 'btn-close',
+			handler : function() {
+				win.close();
+			}
+		} ]
+	});
+	win.show();
+	
+	
+	var fIds = fileIds.split(',');
+	for(var i=0;i<fIds.length;i++){
+		FileUtil.rendererImg('imgsShowDisplayDiv',fIds[i]);
+	}
+	
+}
+
+
