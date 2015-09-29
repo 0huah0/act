@@ -155,6 +155,12 @@ PssProductView = Ext.extend(Ext.Panel, {
 							header : '有效否',width : 50,
 							dataIndex : 'active',renderer:function(v){if(0 == v){return "無效";}else if(1 == v){return "有效";}}
 						},{
+							header : '產品圖片',
+							dataIndex : 'productId',
+							renderer:function(v){
+								return v?'<a class="huaGridHref" href="#" onclick="PssProductView.imgsShow(\''+v+'\');">查看</a>':''; 
+							}
+						},{
 							header : '描述',
 							dataIndex : 'desc'
 						},{
@@ -260,4 +266,18 @@ PssProductView.edit = function(id) {
 			}).show();
 };
 
+PssProductView.imgsShow = function(pid){
+	Ext.Ajax.request({
+		url : __ctxPath + '/pss/listPssProductImage.do',
+	    success : function(response , options ) {
+	    	var jr = Ext.util.JSON.decode(response.responseText);
+	    	var fids = [];
+	    	for(var i=0;i<jr.data;i++){
+	    		fids.push(jr.data[i].pdtImgId);
+	    	}
+	    	alert(fids);
+	    	FileUtil.imgsShow(fids.join(''));
+		}
+	});
+};
 //end of view static method

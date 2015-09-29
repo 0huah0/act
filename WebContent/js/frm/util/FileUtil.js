@@ -43,7 +43,7 @@ FileUtil.imgShow = function(fileId,obj) {
 	win.show();
 }
 
-FileUtil.rendererImg = function(domId,fileId) {
+FileUtil.rendererImg = function(domId,fileId,canNotDelete) {
 	Ext.Ajax.request( {
 		url : __ctxPath + '/system/getFileAttach.do',
 		method : 'post',
@@ -53,10 +53,14 @@ FileUtil.rendererImg = function(domId,fileId) {
 		success : function(response , options) {
 			var data = Ext.util.JSON.decode(response.responseText).data; 
 			if(data){
-				Ext.getCmp(domId).body.insertHtml('afterBegin','<span style="width: 215px;"><img style="height: 120px; padding: 10px;" src="' 
-						+ __ctxPath + '/attachFiles/'+ data.filePath + '" title="'
-						+ data.fileName+'" onClick="FileUtil.imgShow(null,this);"/>'
-						+'<img src="images/btn/remove.png" onclick="FileUtil.del('+data.fileId+');this.parentElement.remove();" style="position:relative;left:-25px;top:-115px;cursor:pointer;"></span>');
+				var html = ['<span style="width: 215px;"><img style="height: 120px; padding: 10px;" src="' 
+					+ __ctxPath + '/attachFiles/'+ data.filePath + '" title="'
+					+ data.fileName+'" onClick="FileUtil.imgShow(null,this);"/>'];
+				if(!canNotDelete){
+					html.push('<img src="images/btn/remove.png" onclick="FileUtil.del('+data.fileId+');this.parentElement.remove();" style="position:relative;left:-25px;top:-115px;cursor:pointer;"></span>');
+				}
+				
+				Ext.getCmp(domId).body.insertHtml('afterBegin',html.join(''));
 			}
 		}
 	});
@@ -94,10 +98,10 @@ FileUtil.imgsShow = function(fileIds) {
 	});
 	win.show();
 	
-	
 	var fIds = fileIds.split(',');
+	var canNotDelete = true;
 	for(var i=0;i<fIds.length;i++){
-		FileUtil.rendererImg('imgsShowDisplayDiv',fIds[i]);
+		FileUtil.rendererImg('imgsShowDisplayDiv',fIds[i],canNotDelete);
 	}
 	
 }

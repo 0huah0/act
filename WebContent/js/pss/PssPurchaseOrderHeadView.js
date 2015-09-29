@@ -134,6 +134,12 @@ PssPurchaseOrderHeadView = Ext.extend(Ext.Panel, {
 							header : '成交價總金額',
 							dataIndex : 'payAmount'
 						},{
+							header : '影本',
+							dataIndex : 'poHeadId',
+							renderer:function(v){
+								return v?'<a class="huaGridHref" href="#" onclick="PssPurchaseOrderHeadView.imgsShow(\''+v+'\');">查看</a>':''; 
+							}
+						},{
 							header : '備註',
 							dataIndex : 'remark'
 						},{
@@ -244,3 +250,31 @@ PssPurchaseOrderHeadView.read = function(id) {
 };
 
 //end of view static method
+
+PssPurchaseOrderHeadView.imgsShow = function(pid){
+	Ext.Ajax.request({
+		url : __ctxPath
+				+ '/pss/multiDelPssPurchaseOrderHead.do',
+		params : {
+			ids : id
+		},
+		method : 'post',
+		success : function(response, options) {
+			var dbJson = eval("(" + response.responseText + ")");
+			if(dbJson.success){
+				Ext.ux.Toast.msg("信息", "成功刪除！");
+				grid.getStore().reload({
+					params : {
+						start : 0,
+						limit : 25
+					}
+				});
+			}else{
+				Ext.Msg.alert("信息", "該項沒能被刪除！");
+			}
+		}
+	});
+}
+
+
+

@@ -20,6 +20,8 @@ PssProductForm = Ext.extend(Ext.Window, {
 	},
 	initUIComponents : function() {
 		var recId = this.recId;
+		var readOnly = false;
+		
 		this.formPanel = new Ext.FormPanel({
 			id : 'PssProductForm',
 			autoHeight:true,
@@ -89,6 +91,44 @@ PssProductForm = Ext.extend(Ext.Window, {
 									xtype:"hidden",name : "pssProduct.updateDate"
 				        }]
 					}]
+				},{
+					id:'pssProductImgId',
+					xtype:'hidden'
+				},{
+					fieldLabel : '資質證明圖片/營業執照影本',
+					id:'pssCustomer_licenseImgIdDisplay',
+					xtype : "panel",
+					rowspan : 2,
+					height : 310,
+					tbar : new Ext.Toolbar( {
+						height : 30,
+						items : [ {
+							text : '上传',
+							iconCls : 'btn-upload',
+							handler : function() {
+								App.createUploadDialog( {
+									file_cat : 'pss/customer',
+									upload_autostart:true,
+									callback : function(data){
+										if(data){
+											var fileCmp = Ext.getCmp('licenseImgId');
+											fileCmp.setValue(fileCmp.getValue()?fileCmp.getValue()+','+data[0].fileId:data[0].fileId);
+											
+											FileUtil.rendererImg('pssCustomer_licenseImgIdDisplay',data[0].fileId);
+										}
+									},
+									permitted_extensions : [ 'jpg','png','gif' ]
+								}).show();
+							}
+						}, {
+							text : '删除',
+							iconCls : 'btn-delete',
+							handler : function() {
+								
+							}
+						} ]
+					})
+				
 				}]
 		});
 
@@ -139,7 +179,6 @@ PssProductForm = Ext.extend(Ext.Window, {
 					    params: data
 					});
 				}
-			
 			}
 		}, {
 			text : '清空',

@@ -112,10 +112,10 @@ PssCustomerForm = Ext.extend(Ext.Window, {
 				},{
 					id:'licenseImgId',
 					xtype:'hidden',
-					name : "pssCustomer.licenseImgId",
+					name : "pssCustomer.licenseImgId"
 				},{
 					fieldLabel : '資質證明圖片/營業執照影本',
-					id:'licenseImgIdDisplay',
+					id:'pssCustomer_licenseImgIdDisplay',
 					xtype : "panel",
 					rowspan : 2,
 					height : 310,
@@ -130,12 +130,10 @@ PssCustomerForm = Ext.extend(Ext.Window, {
 									upload_autostart:true,
 									callback : function(data){
 										if(data){
-											Ext.getCmp('licenseImgIdDisplay').body.update('<a path="' + __ctxPath + '/attachFiles/'+ data[0].filepath 
-													+ '" title="'+data[0].filename+'" onClick="App.showImg(this);">'
-													+data[0].filename+'</a>');
-											
 											var fileCmp = Ext.getCmp('licenseImgId');
 											fileCmp.setValue(fileCmp.getValue()?fileCmp.getValue()+','+data[0].fileId:data[0].fileId);
+											
+											FileUtil.rendererImg('pssCustomer_licenseImgIdDisplay',data[0].fileId);
 										}
 									},
 									permitted_extensions : [ 'jpg','png','gif' ]
@@ -162,8 +160,13 @@ PssCustomerForm = Ext.extend(Ext.Window, {
 							if(jr.data.updateDate)jr.data.updateDate = new Date(jr.data.updateDate).format('Y-m-d H:i');
 							Ext.getCmp("PssCustomerForm").getForm().loadRecord(jr);
 							
-							//TODO 加載圖片
-							
+							//加載圖片
+							if(jr.data.licenseImgId){
+								var ids = jr.data.licenseImgId.split(',');
+								for(var i=0; i<ids.length; i++){
+									FileUtil.rendererImg('pssCustomer_licenseImgIdDisplay',ids[i]);
+								}
+							}
 					},
 					failure : function(response , options ) {
 						

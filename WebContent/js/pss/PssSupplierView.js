@@ -168,7 +168,10 @@ PssSupplierView = Ext.extend(Ext.Panel, {
 							dataIndex : 'email'
 						},{
 							header : '資質證明圖片/營業執照影本',
-							dataIndex : 'licenseImgId'
+							dataIndex : 'licenseImgId',
+							renderer:function(v){
+								return v?'<a class="huaGridHref" href="#" onclick="FileUtil.imgsShow(\''+v+'\');">查看</a>':''; 
+							}
 						},{
 							header : '資本額（單位：TWD）',
 							dataIndex : 'capital',renderer:function(v){if(1 == v){return "小於100萬";}else if(2 == v){return "100萬~1000萬";}else if(3 == v){return "1000萬~5000萬";}else if(4 == v){return "大於5000萬";}}

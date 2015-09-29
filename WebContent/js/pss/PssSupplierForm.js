@@ -106,10 +106,10 @@ PssSupplierForm = Ext.extend(Ext.Window, {
 				},{
 					id:'licenseImgId',
 					xtype:'hidden',
-					name : "pssSupplier.licenseImgId",
+					name : "pssSupplier.licenseImgId"
 				},{
 					fieldLabel : '資質證明圖片<br />營業執照影本',
-					id:'licenseImgIdDisplay',
+					id:'pssSupplier_licenseImgIdDisplay',
 					xtype : "panel",
 					rowspan : 2,
 					height : 310,
@@ -128,10 +128,7 @@ PssSupplierForm = Ext.extend(Ext.Window, {
 											var fileCmp = Ext.getCmp('licenseImgId');
 											fileCmp.setValue(fileCmp.getValue()?fileCmp.getValue()+','+data[0].fileId:data[0].fileId);
 
-											Ext.getCmp('licenseImgIdDisplay').body.insertHtml('afterBegin','<span style="width: 215px;"><img style="height: 120px; padding: 10px;" src="' 
-													+ __ctxPath + '/attachFiles/'+ data[0].filepath + '" title="'
-													+ data[0].filename+'" onClick="FileUtil.imgShow(null,this);"/>'
-													+'<img src="images/btn/remove.png" onclick="FileUtil.del('+data[0].fileId+');this.parentElement.remove();" style="position:relative;left:-25px;top:-115px;cursor:pointer;"></span>');
+											FileUtil.rendererImg('pssSupplier_licenseImgIdDisplay',data[0].fileId);
 										}
 									}
 								}).show();
@@ -159,7 +156,7 @@ PssSupplierForm = Ext.extend(Ext.Window, {
 							if(jr.data.licenseImgId){
 								var ids = jr.data.licenseImgId.split(',');
 								for(var i=0; i<ids.length; i++){
-									FileUtil.rendererImg('licenseImgIdDisplay',ids[i],'PssSupplierForm.fnAfterImgDel()');
+									FileUtil.rendererImg('pssSupplier_licenseImgIdDisplay',ids[i]);
 								}
 							}
 					},
