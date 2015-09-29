@@ -139,12 +139,6 @@ PssCustomerForm = Ext.extend(Ext.Window, {
 									permitted_extensions : [ 'jpg','png','gif' ]
 								}).show();
 							}
-						}, {
-							text : '删除',
-							iconCls : 'btn-delete',
-							handler : function() {
-								
-							}
 						} ]
 					})
 				

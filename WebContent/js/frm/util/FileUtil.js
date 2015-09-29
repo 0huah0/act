@@ -18,8 +18,8 @@ FileUtil.del = function(fileId,callback){
  */
 FileUtil.imgShow = function(fileId,obj) {
 	var win = new Ext.Window( {
-		height : 500,
-		width:600,
+		height : 600,
+		width:700,
 		modal : true,
 		autoScroll : true,
 		maximizable : true,
@@ -64,8 +64,6 @@ FileUtil.rendererImg = function(domId,fileId,canNotDelete) {
 			}
 		}
 	});
-	
-	
 }
 
 
@@ -100,8 +98,10 @@ FileUtil.imgsShow = function(fileIds) {
 	
 	var fIds = fileIds.split(',');
 	var canNotDelete = true;
-	for(var i=0;i<fIds.length;i++){
-		FileUtil.rendererImg('imgsShowDisplayDiv',fIds[i],canNotDelete);
+	if(fIds.length>0){
+		for(var i=0;i<fIds.length;i++){
+			FileUtil.rendererImg('imgsShowDisplayDiv',fIds[i],canNotDelete);
+		}
 	}
 	
 }

@@ -92,10 +92,10 @@ PssProductForm = Ext.extend(Ext.Window, {
 				        }]
 					}]
 				},{
-					id:'pssProductImgId',
+					id:'pssProductImgIds',
 					xtype:'hidden'
 				},{
-					fieldLabel : '資質證明圖片/營業執照影本',
+					fieldLabel : '產品圖片',
 					id:'pssCustomer_licenseImgIdDisplay',
 					xtype : "panel",
 					rowspan : 2,
@@ -111,7 +111,7 @@ PssProductForm = Ext.extend(Ext.Window, {
 									upload_autostart:true,
 									callback : function(data){
 										if(data){
-											var fileCmp = Ext.getCmp('licenseImgId');
+											var fileCmp = Ext.getCmp('pssProductImgIds');
 											fileCmp.setValue(fileCmp.getValue()?fileCmp.getValue()+','+data[0].fileId:data[0].fileId);
 											
 											FileUtil.rendererImg('pssCustomer_licenseImgIdDisplay',data[0].fileId);
@@ -120,13 +120,7 @@ PssProductForm = Ext.extend(Ext.Window, {
 									permitted_extensions : [ 'jpg','png','gif' ]
 								}).show();
 							}
-						}, {
-							text : '删除',
-							iconCls : 'btn-delete',
-							handler : function() {
-								
-							}
-						} ]
+						}]
 					})
 				
 				}]
@@ -136,7 +130,20 @@ PssProductForm = Ext.extend(Ext.Window, {
 				Ext.Ajax.request({
 					url : __ctxPath + '/pss/getPssProduct.do?id='+ recId,
 						success : function(response , options ) {
-							var jr = Ext.util.JSON.decode(response.responseText); 
+							var jr = Ext.util.JSON.decode(response.responseText);
+							//renderer imgs
+							Ext.Ajax.request({
+								url : __ctxPath + '/pss/listPssProductImage.do?Q_pdtId_S_EQ='+recId,
+							    success : function(response , options ) {
+							    	var jr = Ext.util.JSON.decode(response.responseText);
+						    		if(jr.result){
+						    			for(var i=0;i<jr.result.length;i++){
+						    				FileUtil.rendererImg('pssCustomer_licenseImgIdDisplay',jr.result[i].pdtImgId);
+						    			}
+						    		}
+								}
+							});
+							
 							jr.data.createDate = new Date(jr.data.createDate).format('Y-m-d H:i');
 							if(jr.data.updateDate)jr.data.updateDate = new Date(jr.data.updateDate).format('Y-m-d H:i');
 							Ext.getCmp("PssProductForm").getForm().loadRecord(jr);
@@ -164,6 +171,23 @@ PssProductForm = Ext.extend(Ext.Window, {
 					Ext.Ajax.request({
 						url : __ctxPath + '/pss/savePssProduct.do',
 					    success : function(response , options ) {
+					    	var jr = Ext.util.JSON.decode(response.responseText);
+							if(jr.success){
+								// save img
+								var pdtImgIds = Ext.getCmp('pssProductImgIds').getValue().split(',');
+								for(var i=0;i<pdtImgIds.length;i++){
+									var rec = {
+											'pssProductImage.pdtId' : recId||jr.data,
+											'pssProductImage.pdtImgId' : pdtImgIds[i]
+									};
+									Ext.Ajax.request({
+										url : __ctxPath + '/pss/savePssProductImage.do',
+										method : 'post',
+										params : rec
+									});
+								}
+							}
+					    	
 							Ext.ux.Toast.msg('信息', '成功保存信息！');
 							Ext.getCmp('PssProductFormWin').close();
 							Ext.getCmp('PssProductGrid').getStore().reload();

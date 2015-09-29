@@ -158,7 +158,7 @@ PssProductView = Ext.extend(Ext.Panel, {
 							header : '產品圖片',
 							dataIndex : 'productId',
 							renderer:function(v){
-								return v?'<a class="huaGridHref" href="#" onclick="PssProductView.imgsShow(\''+v+'\');">查看</a>':''; 
+								return '<a class="huaGridHref" href="#" onclick="PssProductView.imgsShow(\''+v+'\');">查看</a>'; 
 							}
 						},{
 							header : '描述',
@@ -268,15 +268,16 @@ PssProductView.edit = function(id) {
 
 PssProductView.imgsShow = function(pid){
 	Ext.Ajax.request({
-		url : __ctxPath + '/pss/listPssProductImage.do',
+		url : __ctxPath + '/pss/listPssProductImage.do?Q_pdtId_S_EQ='+pid,
 	    success : function(response , options ) {
 	    	var jr = Ext.util.JSON.decode(response.responseText);
-	    	var fids = [];
-	    	for(var i=0;i<jr.data;i++){
-	    		fids.push(jr.data[i].pdtImgId);
-	    	}
-	    	alert(fids);
-	    	FileUtil.imgsShow(fids.join(''));
+    		var fids = [];
+    		if(jr.result){
+    			for(var i=0;i<jr.result.length;i++){
+    				fids.push(jr.result[i].pdtImgId);
+    			}
+    		}
+    		FileUtil.imgsShow(fids.join(','));
 		}
 	});
 };

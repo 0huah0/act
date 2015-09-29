@@ -31,12 +31,12 @@ public class PssProductAction extends BaseAction {
 	public String save() {
 		boolean sus = true;
 		try {
-			pssProductService.save(pssProduct);
+			pssProduct = pssProductService.save(pssProduct);
 		} catch (Exception e) {
 			sus = false;
 			e.printStackTrace();
 		}
-		setJsonString("{success:"+sus+"}");
+		setJsonString("{success:"+sus+",data:'"+pssProduct.getProductId()+"'}");
 		return SUCCESS;
 	}
 	

@@ -157,6 +157,15 @@
 		<action name="*PssDeliveryOrderDetail" class="pssDeliveryOrderDetailAction" method="{1}">
 			<result>${successResultValue}</result>
 		</action>
+		<action name="*PssProductImage" class="pssProductImageAction" method="{1}">
+			<result>${successResultValue}</result>
+		</action>
+		<action name="*PssPoAttachment" class="pssPoAttachmentAction" method="{1}">
+			<result>${successResultValue}</result>
+		</action>
+		<action name="*PssSoAttachment" class="pssSoAttachmentAction" method="{1}">
+			<result>${successResultValue}</result>
+		</action>
 	</package>
 </struts>
 

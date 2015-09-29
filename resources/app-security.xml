@@ -70,6 +70,9 @@
 				<beans:value>/pss/listPssInventory.do</beans:value>
 				<beans:value>/pss/listPssDeliveryOrderHead.do</beans:value>
 				<beans:value>/pss/listPssDeliveryOrderDetail.do</beans:value>
+				<beans:value>/pss/listPssSoAttachment.do</beans:value>
+				<beans:value>/pss/listPssPoAttachment.do</beans:value>
+				<beans:value>/pss/listPssProductImage.do</beans:value>
 				
 				<beans:value>/pss/getPssCustomer.do</beans:value>
 				<beans:value>/pss/getPssWarehouse.do</beans:value>
@@ -106,6 +109,9 @@
 				<beans:value>/pss/savePssDeliveryOrderHead.do</beans:value>
 				<beans:value>/pss/savePssDeliveryOrderDetail.do</beans:value>
 				<beans:value>/pss/saveJournalPssDeliveryOrderHead.do</beans:value>
+				<beans:value>/pss/savePssSoAttachment.do</beans:value>
+				<beans:value>/pss/savePssPoAttachment.do</beans:value>
+				<beans:value>/pss/savePssProductImage.do</beans:value>
 				
 				<beans:value>/pss/multiDelPssCustomer.do</beans:value>
 				<beans:value>/pss/multiDelPssWarehouse.do</beans:value>
@@ -123,7 +129,9 @@
 				<beans:value>/pss/multiDelPssInventory.do</beans:value>
 				<beans:value>/pss/multiDelPssDeliveryOrderHead.do</beans:value>
 				<beans:value>/pss/multiDelPssDeliveryOrderDetail.do</beans:value>
-				
+				<beans:value>/pss/multiDelPssSoAttachment.do</beans:value>
+				<beans:value>/pss/multiDelPssPoAttachment.do</beans:value>
+				<beans:value>/pss/multiDelPssProductImage.do</beans:value>
 				
 				<beans:value>/act/atExport.do</beans:value>
 				<beans:value>/act/listAccountingTitle.do</beans:value>

@@ -96,6 +96,9 @@
 	<bean id="pssInventoryAction" class="com.pss.action.PssInventoryAction" scope="prototype" />
 	<bean id="pssDeliveryOrderHeadAction" class="com.pss.action.PssDeliveryOrderHeadAction" scope="prototype" />
 	<bean id="pssDeliveryOrderDetailAction" class="com.pss.action.PssDeliveryOrderDetailAction" scope="prototype" />
+	<bean id="pssProductImageAction" class="com.pss.action.PssProductImageAction" scope="prototype" />
+	<bean id="pssSoAttachmentAction" class="com.pss.action.PssSoAttachmentAction" scope="prototype" />
+	<bean id="pssPoAttachmentAction" class="com.pss.action.PssPoAttachmentAction" scope="prototype" />
 
 
 </beans>

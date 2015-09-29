@@ -197,6 +197,14 @@
 		<constructor-arg index="0" ref="pssDeliveryOrderDetailDao" />
 	</bean>
 
-
+	<bean id="pssProductImageService" class="com.pss.service.impl.PssProductImageServiceImpl">
+		<constructor-arg index="0" ref="pssProductImageDao" />
+	</bean>
+	<bean id="pssSoAttachmentService" class="com.pss.service.impl.PssSoAttachmentServiceImpl">
+		<constructor-arg index="0" ref="pssSoAttachmentDao" />
+	</bean>
+	<bean id="pssPoAttachmentService" class="com.pss.service.impl.PssPoAttachmentServiceImpl">
+		<constructor-arg index="0" ref="pssPoAttachmentDao" />
+	</bean>
 
 </beans>

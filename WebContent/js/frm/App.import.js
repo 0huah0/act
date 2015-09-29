@@ -77,6 +77,7 @@ App.importJs = {
 	                    
 	PssSalesOrderHeadView : [__ctxPath + '/js/pss/PssSalesOrderHeadView.js',
 							__ctxPath + '/js/pss/PssSalesOrderHeadForm.js',
+							 __ctxPath + '/js/frm/util/FileUtil.js',
 							__ctxPath + '/js/pss/selector/PssCustomerSelector.js', 
 							__ctxPath + '/js/pss/selector/PssProductSelector.js' ],
 							
@@ -85,6 +86,7 @@ App.importJs = {
 	                           
 	PssPurchaseOrderHeadView : [__ctxPath + '/js/pss/PssPurchaseOrderHeadView.js',
 	                            __ctxPath + '/js/pss/PssPurchaseOrderHeadForm.js',
+	                            __ctxPath + '/js/frm/util/FileUtil.js',
 	                            __ctxPath + '/js/pss/selector/PssMaterialSelector.js'],
 	                            
 	PssPurchaseOrderDetailView : [__ctxPath + '/js/pss/PssPurchaseOrderDetailView.js',
@@ -94,7 +96,8 @@ App.importJs = {
 	                             __ctxPath + '/js/pss/PssProductMaterialRelForm.js' ],
 	                             
 	PssProductView : [__ctxPath + '/js/pss/PssProductView.js',
-	                  __ctxPath + '/js/pss/PssProductForm.js' ],
+	                  __ctxPath + '/js/pss/PssProductForm.js',
+	                  __ctxPath + '/js/frm/util/FileUtil.js'],
 	                  
 	PssMatesReceiptHeadView : [__ctxPath + '/js/pss/PssMatesReceiptHeadView.js',
 				            __ctxPath + '/js/pss/selector/PssPurchaseOrderHeadSelector.js', 
