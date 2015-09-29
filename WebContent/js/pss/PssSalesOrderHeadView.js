@@ -135,6 +135,12 @@ PssSalesOrderHeadView = Ext.extend(Ext.Panel, {
 							header : '優惠金額',
 							dataIndex : 'discountAmount'
 						},{
+							header : '產品圖片',
+							dataIndex : 'soHeadId',
+							renderer:function(v){
+								return '<a class="huaGridHref" href="#" onclick="PssSalesOrderHeadView.imgsShow(\''+v+'\');">查看</a>'; 
+							}
+						},{
 							header : '備註',
 							align: 'left',
 							dataIndex : 'remark'
@@ -245,4 +251,19 @@ PssSalesOrderHeadView.read = function(id) {
 			}).show();
 };
 
+PssSalesOrderHeadView.imgsShow = function(pid){
+	Ext.Ajax.request({
+		url : __ctxPath + '/pss/listPssSoAttachment.do?Q_soHeadId_S_EQ='+pid,
+	    success : function(response , options ) {
+	    	var jr = Ext.util.JSON.decode(response.responseText);
+    		var fids = [];
+    		if(jr.result.length>0){
+    			for(var i=0;i<jr.result.length;i++){
+    				fids.push(jr.result[i].soAttachId);
+    			}
+    		}
+    		FileUtil.imgsShow(fids.join(','));
+		}
+	});
+}
 //end of view static method

@@ -59,7 +59,8 @@ FileUtil.rendererImg = function(domId,fileId,canNotDelete) {
 				if(!canNotDelete){
 					html.push('<img src="images/btn/remove.png" onclick="FileUtil.del('+data.fileId+');this.parentElement.remove();" style="position:relative;left:-25px;top:-115px;cursor:pointer;"></span>');
 				}
-				
+				var a = Ext.getCmp(domId);
+				debugger;
 				Ext.getCmp(domId).body.insertHtml('afterBegin',html.join(''));
 			}
 		}

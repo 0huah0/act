@@ -8,7 +8,39 @@ PssPurchaseOrderHeadForm = Ext.extend(Ext.Window, {
 		Ext.applyIf(this, _cfg);
 		this.initUIComponents();
 		PssPurchaseOrderHeadForm.superclass.constructor.call(this, {
-					items : [this.formPanel,this.gridPanel],
+					items : [this.formPanel,this.gridPanel,{
+						id:'pssPurchaseOrderImgIds',
+						xtype:'hidden'
+					},{
+						fieldLabel : '產品圖片',
+						id:'pssPurchaseOrder_licenseImgIdDisplay',
+						xtype : "panel",
+						rowspan : 2,
+						height : 140,
+						tbar : this.read?null:new Ext.Toolbar( {
+							height : 30,
+							items : [ {
+								text : '上传產品圖片',
+								iconCls : 'btn-upload',
+								handler : function() {
+									App.createUploadDialog( {
+										file_cat : 'pss/customer',
+										upload_autostart:true,
+										callback : function(data){
+											if(data){
+												var fileCmp = Ext.getCmp('pssPurchaseOrderImgIds');
+												fileCmp.setValue(fileCmp.getValue()?fileCmp.getValue()+','+data[0].fileId:data[0].fileId);
+												
+												FileUtil.rendererImg('pssPurchaseOrder_licenseImgIdDisplay',data[0].fileId);
+											}
+										},
+										permitted_extensions : [ 'jpg','png','gif' ]
+									}).show();
+								}
+							}]
+						})
+					
+					}],
 					modal : true,
 					id : 'PssPurchaseOrderHeadFormWin',
 					title : (this.read?'查看':this.recId?'修改':'新增')+'採購單',
@@ -107,7 +139,7 @@ PssPurchaseOrderHeadForm = Ext.extend(Ext.Window, {
 		
 		var gridOpt = {
 				id : 'PssPurchaseOrderDetailGrid',
-				height : 380,
+				height:280,
 				store : new Ext.data.JsonStore({
 					url : __ctxPath + '/pss/listPssPurchaseOrderDetail.do',
 					root : 'result',
@@ -191,9 +223,19 @@ PssPurchaseOrderHeadForm = Ext.extend(Ext.Window, {
 									'Q_poHeadId_S_EQ':recId
 								}
 							});
-					},
-					failure : function(response , options ) {
-						
+					}
+				});
+				
+				//renderer imgs
+				Ext.Ajax.request({
+					url : __ctxPath + '/pss/listPssPoAttachment.do?Q_poHeadId_S_EQ='+recId,
+				    success : function(response , options ) {
+				    	var jr = Ext.util.JSON.decode(response.responseText);
+			    		if(jr.result){
+			    			for(var i=0;i<jr.result.length;i++){
+			    				FileUtil.rendererImg('pssPurchaseOrder_licenseImgIdDisplay',jr.result[i].poAttachId,readOnly);
+			    			}
+			    		}
 					}
 				});
 		}
@@ -267,6 +309,22 @@ PssPurchaseOrderHeadForm = Ext.extend(Ext.Window, {
 										}
 									});
 								}
+								
+								
+								//save imgs
+								var imgIds = Ext.getCmp('pssPurchaseOrderImgIds').getValue().split(',');
+								for(var i=0;i<imgIds.length;i++){
+									var rec = {
+											'pssPoAttachment.poHeadId' : recId||jr.data,
+											'pssPoAttachment.poAttachId' : imgIds[i]
+									};
+									Ext.Ajax.request({
+										url : __ctxPath + '/pss/savePssPoAttachment.do',
+										method : 'post',
+										params : rec
+									});
+								}
+								
 							}
 					    	
 							Ext.ux.Toast.msg('信息', '成功保存信息！');

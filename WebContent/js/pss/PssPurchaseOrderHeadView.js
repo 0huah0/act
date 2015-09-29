@@ -249,32 +249,20 @@ PssPurchaseOrderHeadView.read = function(id) {
 			}).show();
 };
 
-//end of view static method
-
 PssPurchaseOrderHeadView.imgsShow = function(pid){
 	Ext.Ajax.request({
-		url : __ctxPath
-				+ '/pss/multiDelPssPurchaseOrderHead.do',
-		params : {
-			ids : id
-		},
-		method : 'post',
-		success : function(response, options) {
-			var dbJson = eval("(" + response.responseText + ")");
-			if(dbJson.success){
-				Ext.ux.Toast.msg("信息", "成功刪除！");
-				grid.getStore().reload({
-					params : {
-						start : 0,
-						limit : 25
-					}
-				});
-			}else{
-				Ext.Msg.alert("信息", "該項沒能被刪除！");
-			}
+		url : __ctxPath + '/pss/listPssPoAttachment.do?Q_poHeadId_S_EQ='+pid,
+	    success : function(response , options ) {
+	    	var jr = Ext.util.JSON.decode(response.responseText);
+    		var fids = [];
+    		if(jr.result.length>0){
+    			for(var i=0;i<jr.result.length;i++){
+    				fids.push(jr.result[i].poAttachId);
+    			}
+    		}
+    		FileUtil.imgsShow(fids.join(','));
 		}
 	});
 }
-
-
+//end of view static method
 

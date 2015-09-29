@@ -8,7 +8,38 @@ PssSalesOrderHeadForm = Ext.extend(Ext.Window, {
 		Ext.applyIf(this, _cfg);
 		this.initUIComponents();
 		PssSalesOrderHeadForm.superclass.constructor.call(this, {
-					items : [this.formPanel,this.gridPanel],
+					items : [this.formPanel,this.gridPanel,{
+						id:'pssSalesOrderImgIds',
+						xtype:'hidden'
+					},{
+						fieldLabel : '產品圖片',
+						id : 'pssSalesOrder_licenseImgIdDisplay',
+						xtype : "panel",
+						rowspan : 2,
+						height : 140,
+						tbar : this.read?null:new Ext.Toolbar( {
+							height : 30,
+							items : [ {
+								text : '上传產品圖片',
+								iconCls : 'btn-upload',
+								handler : function() {
+									App.createUploadDialog( {
+										file_cat : 'pss/customer',
+										upload_autostart:true,
+										callback : function(data){
+											if(data){
+												var fileCmp = Ext.getCmp('pssSalesOrderImgIds');
+												fileCmp.setValue(fileCmp.getValue()?fileCmp.getValue()+','+data[0].fileId:data[0].fileId);
+												
+												FileUtil.rendererImg('pssSalesOrder_licenseImgIdDisplay',data[0].fileId);
+											}
+										},
+										permitted_extensions : [ 'jpg','png','gif' ]
+									}).show();
+								}
+							}]
+						})
+					}],
 					modal : true,
 					autoScroll :true,
 					id : 'PssSalesOrderHeadFormWin',
@@ -170,7 +201,7 @@ PssSalesOrderHeadForm = Ext.extend(Ext.Window, {
 		var gridOpt = {
 			id : 'PssSalesOrderDetailGrid',
 			region : 'center',
-			height:360,
+			height:280,
             //autoExpandColumn :'remark1',
 			loadMask : true,
 			autuScroll:true,
@@ -278,9 +309,19 @@ PssSalesOrderHeadForm = Ext.extend(Ext.Window, {
 								'Q_soHeadId_S_EQ':recId
 							}
 						});
-				},
-				failure : function(response , options ) {
-					
+				}
+			});
+			
+			//renderer imgs
+			Ext.Ajax.request({
+				url : __ctxPath + '/pss/listPssSoAttachment.do?Q_soHeadId_S_EQ='+recId,
+			    success : function(response , options ) {
+			    	var jr = Ext.util.JSON.decode(response.responseText);
+		    		if(jr.result.length>0){
+		    			for(var i=0;i<jr.result.length;i++){
+		    				FileUtil.rendererImg('pssSalesOrder_licenseImgIdDisplay',jr.result[i].soAttachId,readOnly);
+		    			}
+		    		}
 				}
 			});
 		}
@@ -355,6 +396,20 @@ PssSalesOrderHeadForm = Ext.extend(Ext.Window, {
 														icon : 'ext-mb-error'
 													});
 										}
+									});
+								}
+								
+								//save imgs
+								var imgIds = Ext.getCmp('pssSalesOrderImgIds').getValue().split(',');
+								for(var i=0;i<imgIds.length;i++){
+									var rec = {
+											'pssSoAttachment.soHeadId' : recId||jr.data,
+											'pssSoAttachment.soAttachId' : imgIds[i]
+									};
+									Ext.Ajax.request({
+										url : __ctxPath + '/pss/savePssSoAttachment.do',
+										method : 'post',
+										params : rec
 									});
 								}
 							}

@@ -272,7 +272,7 @@ PssProductView.imgsShow = function(pid){
 	    success : function(response , options ) {
 	    	var jr = Ext.util.JSON.decode(response.responseText);
     		var fids = [];
-    		if(jr.result){
+    		if(jr.result.length>0){
     			for(var i=0;i<jr.result.length;i++){
     				fids.push(jr.result[i].pdtImgId);
     			}
